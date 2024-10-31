@@ -140,3 +140,12 @@ a{
   background: #29d;
   height: 3px;
 }
+
+.blogPostCard:hover {
+  transform: scale(1.01);
+  opacity:.9;
+}
+
+.blogPostCard {
+  transition: all 0.3s ease-in-out; /* Smoothly transition the transform property */
+}

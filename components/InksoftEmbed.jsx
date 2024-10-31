@@ -1,42 +1,65 @@
-import React, { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 
-function DesignerEmbed({ productId, designId }) {
+const InksoftEmbed = ({ productId, designId }) => {
+  const router = useRouter();
+  const launchCount = useRef(0); // Ref to track the number of launches
+
   useEffect(() => {
-    // Check if script is already loaded
-    if (!document.querySelector('script[src="https://cdn.inksoft.com/FrontendApps/storefront/assets/scripts/designer-embed.js"]')) {
-      const scriptElement = document.createElement('script');
-      scriptElement.type = 'text/javascript';
-      scriptElement.async = true;
-      scriptElement.src = 'https://cdn.inksoft.com/FrontendApps/storefront/assets/scripts/designer-embed.js';
-      scriptElement.onload = function () { launchDesignStudio(); };
-      document.body.appendChild(scriptElement);
-    } else {
-      // Script already exists, directly launch design studio
-      launchDesignStudio();
-    }
+    let scriptElement;
 
-    function launchDesignStudio() {
-      if (window.inksoftApi) {
+    // Function to launch the design studio with specified parameters
+    const launchDesignStudio = () => {
+      launchCount.current += 1; // Increment launch count
+      console.log(`Launching InkSoft Design Studio - Run count: ${launchCount.current}`);
+      
+      if (!document.getElementById('designStudioIframe') && launchCount.current === 1) {
         window.inksoftApi.launchEmbeddedDesignStudio({
           targetElementId: 'inksoftEmbed',
           domain: 'https://stores.inksoft.com',
           cdnDomain: 'https://cdn.inksoft.com',
-          storeUri: 'philadelphiascreenprinting',
-          productId: productId || 0,
-          designId: designId || 0,
+          storeUri: 'DS369379180',
+          productId: productId,
+          designId: designId,
         });
       }
-    }
-  }, [productId, designId]); // Only re-run if productId or designId changes
+    };
+
+    // Function to initialize the InkSoft embed script if not already loaded
+    const initScript = () => {
+      if (!document.getElementById('inksoftScript')) {
+        scriptElement = document.createElement('script');
+        scriptElement.id = 'inksoftScript';
+        scriptElement.type = 'text/javascript';
+        scriptElement.async = true;
+        scriptElement.src = 'https://cdn.inksoft.com/FrontendApps/storefront/assets/scripts/designer-embed.js';
+        scriptElement.onload = launchDesignStudio;
+        document.body.appendChild(scriptElement);
+      } else {
+        launchDesignStudio();
+      }
+    };
+
+    // Initialize the script or run `launchDesignStudio` if script is already loaded
+    initScript();
+
+    // Cleanup on route change or component unmount
+    return () => {
+      if (scriptElement) {
+        scriptElement.remove();
+      }
+      const targetDiv = document.getElementById('inksoftEmbed');
+      if (targetDiv) {
+        targetDiv.innerHTML = ''; // Clear any initialized content
+      }
+    };
+  }, [router.asPath, productId, designId]);
 
   return (
     <div className="embed-container">
-      <div
-        id="inksoftEmbed"
-        style={{ width: "100%", height: "720px", padding: 0, margin: 0, border: 0, maxHeight: "100%" }}
-      ></div>
+      <div id="inksoftEmbed" style={{ width: '100%', height: '720px', padding: '0', margin: '0', border: '0', maxHeight: '100%' }}></div>
     </div>
   );
-}
+};
 
-export default DesignerEmbed;
+export default InksoftEmbed;
