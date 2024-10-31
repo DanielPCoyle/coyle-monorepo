@@ -14,7 +14,8 @@
     "next-nprogress-bar": "^2.3.14",
     "nprogress": "^0.2.0",
     "react": "19.0.0-rc-02c0e824-20241028",
-    "react-dom": "19.0.0-rc-02c0e824-20241028"
+    "react-dom": "19.0.0-rc-02c0e824-20241028",
+    "styled-jsx": "^5.1.6"
   },
   "devDependencies": {
     "@types/node": "22.8.6",
