@@ -17,7 +17,7 @@ The application integrates **Builder.io** for dynamic content management, allowi
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/philadelphia-screen-printing.git
+   git clone https://github.com/DanielPCoyle/philaprints.git
    ```
 
 2. Install dependencies:
