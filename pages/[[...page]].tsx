@@ -1,10 +1,9 @@
 // pages/[...page].tsx
 import React, { useEffect } from "react";
-import { GetStaticProps, GetStaticPaths } from "next";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
 import DefaultErrorPage from "next/error";
-// import { split } from "postcss/lib/list";
 import Navigation from "../components/Navigation";
 import navData from '../data/navData.json';
 import SEOHeader from "../components/SEOHeader";
@@ -39,8 +38,8 @@ interface PageProps {
   };
 }
 
-// Main getStaticProps function
-export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
+// Main getServerSideProps function
+export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params }) => {
   const urlPath = `/${params?.page ? (params.page as string[]).join("/") : ""}`;
   const slug = urlPath.split("/").pop()!;
   const offset = 0;
@@ -70,29 +69,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async ({ params }) => {
         url: `https://philadelphiascreenprinting.com${urlPath}`,
       },
     },
-    revalidate: 5,
   };
 };
-
-// Define the static paths
-export const getStaticPaths: GetStaticPaths = async () => {
-  const pages = await builder.getAll("page", {
-    fields: "data.url",
-    options: { noTargeting: true },
-  });
-
-  return {
-    paths: pages
-      .map((page) => {
-        const url = page.data?.url || '/';
-        const parts = url.split('/').filter(Boolean); // Split and filter out empty parts
-        return { params: { page: parts } }; // Ensure each item has params with page as an array
-      })
-      .filter((path) => path.params.page.length > 0), // Filter out root path if necessary
-    fallback: false,
-  };
-};
-
 
 // Main Page component
 const Page: React.FC<PageProps> = ({
