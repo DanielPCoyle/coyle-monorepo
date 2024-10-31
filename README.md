@@ -124,17 +124,8 @@ This allows products to be dynamically generated based on URL slugs, with data d
 - **TypeScript**: The project is fully typed with TypeScript, ensuring type safety and better development experience.
 - **Error Handling**: API fetches use try-catch blocks to log errors without disrupting the user experience.
 
-## Contributing
-
-To contribute, fork the repository and create a pull request. Please ensure all changes pass TypeScript type checks and follow consistent code formatting.
-
-## License
-
-This project is licensed under the MIT License.
-
 ## Todo
 - Login on parent frame
 - Additional SEO / syntax
 - Analytics on parent frame
 - Alogila Search
-
