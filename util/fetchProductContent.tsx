@@ -1,4 +1,4 @@
-import friendlyUrl from '../data/friendly_urls';
+import friendlyUrl from '../data/friendly_urls.json';
 import builder from "@builder.io/react";
 
 interface ProductData {
