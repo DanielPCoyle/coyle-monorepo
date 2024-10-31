@@ -80,11 +80,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fields: "data.url",
     options: { noTargeting: true },
   });
+
   return {
-    paths: pages.map((page) => page.data?.url).filter(url => url !== '/'),
+    paths: pages
+      .map((page) => {
+        const url = page.data?.url || '/';
+        const parts = url.split('/').filter(Boolean); // Split and filter out empty parts
+        return { params: { page: parts } }; // Ensure each item has params with page as an array
+      })
+      .filter((path) => path.params.page.length > 0), // Filter out root path if necessary
     fallback: 'blocking',
   };
 };
+
 
 // Main Page component
 const Page: React.FC<PageProps> = ({
