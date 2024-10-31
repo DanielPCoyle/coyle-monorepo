@@ -1,0 +1,76 @@
+[
+    {
+      "title": "Products",
+      "url": "/products",
+      "megaMenu": true,
+      "subLinks": [
+        {
+          "title": "T-Shirts",
+          "url": "/products/t-shirts",
+          "subLinks": []
+        },
+        {
+          "title": "Hoodies & Sweatshirts",
+          "url": "/products/hoodies-sweatshirts",
+          "subLinks": []
+        },
+        {
+          "title": "Hats & Caps",
+          "url": "/products/hats-caps",
+          "subLinks": []
+        },
+        {
+          "title": "Bags & Totes",
+          "url": "/products/bags-totes",
+          "subLinks": []
+        },
+        {
+          "title": "Custom Accessories",
+          "url": "/products/custom-accessories",
+          "subLinks": []
+        }
+      ]
+    },
+    {
+      "title": "Services",
+      "url": "#",
+      "subLinks": [
+        {
+          "title": "Screen Printing",
+          "url": "/services/screen-printing",
+          "subLinks": []
+        },
+        {
+          "title": "Embroidery",
+          "url": "/services/embroidery",
+          "subLinks": []
+        },
+        {
+            "title": "Graphic Design",
+            "url": "/services/graphic-design",
+            "subLinks": []
+        },
+        {
+            "title": "Get A Store",
+            "url": "/services/get-a-store",
+            "subLinks": []
+        }
+      ]
+    },
+    {
+      "title": "About Us",
+      "url": "/about-us",
+      "subLinks": []
+    },
+    {
+      "title": "Blog",
+      "url": "/blog",
+      "subLinks": []
+    },
+    {
+      "title": "Contact",
+      "url": "/contact-us",
+      "subLinks": []
+    }
+  ]
+  
