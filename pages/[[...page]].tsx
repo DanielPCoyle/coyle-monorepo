@@ -89,7 +89,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         return { params: { page: parts } }; // Ensure each item has params with page as an array
       })
       .filter((path) => path.params.page.length > 0), // Filter out root path if necessary
-    fallback: 'blocking',
+    fallback: false,
   };
 };
 
