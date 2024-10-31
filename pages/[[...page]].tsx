@@ -17,7 +17,7 @@ import { fetchProductContent } from "../util/fetchProductContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import '../components/builder-registry'; // Register custom components
 
-export const apiKey = process.env.BUILDERIO_API_KEY!;
+export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);
 
 // Type definitions for props

@@ -18,7 +18,7 @@ interface FetchPostContentReturn {
 
 // Fetch content for `/post/` URLs
 export async function fetchPostContent(urlPath: string): Promise<FetchPostContentReturn> {
-  const apiKey = process.env.BUILDERIO_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY;
   const path = "/" + urlPath.split("/post/")[1];
 
   // Fetch blog data from Builder API

@@ -28,7 +28,7 @@ The application integrates **Builder.io** for dynamic content management, allowi
 
 3. Create a `.env.local` file at the root and add your **Builder.io** API key:
    ```env
-   BUILDERIO_API_KEY=your_builder_io_api_key
+   NEXT_PUBLIC_BUILDER_API_KEY=your_builder_io_api_key
    ```
 
 4. Run the development server:
