@@ -1,12 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
-const InksoftEmbed = ({ productId, designId }) => {
+interface InksoftEmbedProps {
+  productId: number;
+  designId?: number;
+}
+
+const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
   const router = useRouter();
   const launchCount = useRef(0); // Ref to track the number of launches
 
   useEffect(() => {
-    let scriptElement;
+    let scriptElement: HTMLScriptElement | undefined;
 
     // Function to launch the design studio with specified parameters
     const launchDesignStudio = () => {
@@ -14,7 +19,7 @@ const InksoftEmbed = ({ productId, designId }) => {
       console.log(`Launching InkSoft Design Studio - Run count: ${launchCount.current}`);
       
       if (!document.getElementById('designStudioIframe') && launchCount.current === 1) {
-        window.inksoftApi.launchEmbeddedDesignStudio({
+        (window as any).inksoftApi.launchEmbeddedDesignStudio({
           targetElementId: 'inksoftEmbed',
           domain: 'https://stores.inksoft.com',
           cdnDomain: 'https://cdn.inksoft.com',
