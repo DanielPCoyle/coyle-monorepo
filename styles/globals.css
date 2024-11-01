@@ -7,11 +7,7 @@ html, body {
   margin: 0;
 }
 
-nav{
-  *{
-    font-family: "New Amsterdam", sans-serif !important;
-  }
-}
+
 
 h1, h2, h3, h4, h5, h6, .mdc-button__label, .btn {
   font-family: "New Amsterdam", sans-serif !important;
@@ -26,6 +22,7 @@ h1, h2, h3, h4, h5, h6, .mdc-button__label, .btn {
   width: 100%;
 }
 
+
 /* Set navigation container to span full width and center within max width */
 nav {
   display: flex;
@@ -36,17 +33,23 @@ nav {
   margin: auto;
 }
 
-/* Style logo placeholder */
-nav .logo {
-  font-weight: bold;
-  font-size: 1.7rem;
+nav * {
+  font-family: "New Amsterdam", sans-serif !important;
 }
-nav .logo img{
+
+nav .logo img {
   width: 100%;
   max-width: 200px;
 }
 
-/* Horizontal styling for main navigation items */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 nav ul {
   display: flex;
   list-style-type: none;
@@ -54,7 +57,6 @@ nav ul {
   padding: 0;
 }
 
-/* Style main navigation links */
 nav ul li {
   position: relative;
   margin: 0 1rem;
@@ -62,22 +64,20 @@ nav ul li {
 
 nav ul li a {
   color: #333;
-  font-size: x-large;
+  font-size: 1.7vw;
   text-decoration: none;
   padding: 0.5rem 1rem;
   transition: color 0.3s ease;
 }
 
-/* Hover effect for main navigation items */
 nav ul li a:hover {
-  color: rgba(126,211,33,1);
+  color: rgba(126, 211, 33, 1);
 }
 
-/* Submenu styling with animation */
 nav ul ul {
   display: none;
   position: absolute;
-  top: 100%; /* Place submenu directly below main item */
+  top: 100%;
   left: 0;
   background-color: #555;
   padding: 0.5rem 0;
@@ -86,20 +86,13 @@ nav ul ul {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  z-index: 9;
 }
 
-/* Show submenu on hover of li or ul */
 nav ul li:hover > ul,
 nav ul li ul:hover {
   display: block;
   opacity: 1;
   visibility: visible;
-}
-
-/* Style submenu links */
-nav ul ul li {
-  margin: 0;
 }
 
 nav ul ul li a {
@@ -110,24 +103,69 @@ nav ul ul li a {
   transition: background-color 0.3s ease;
 }
 
-/* Submenu link hover effect */
 nav ul ul li a:hover {
   background-color: #666;
 }
 
-/* Responsive design: adjust layout for smaller screens */
+.navUser {
+  position: relative;
+  div{
+    margin-left: 5px;
+    margin-top:2px;
+  }
+}
+
+.dropDown {
+  display: none;
+  position: absolute;
+  top: 100%; /* Adjust to position it under the navUser */
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  list-style: none;
+  margin: 0;
+  border-radius: 4px;
+  z-index: 10;
+  li{
+    margin-bottom:10px;
+  }
+}
+
+/* Show dropdown on hover */
+.navUser:hover .dropDown {
+  display: block;
+}
+
+
+/* Responsive styling */
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
   nav ul {
+    display: none;
     flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
   }
 
-  nav ul ul {
-    position: static;
+  nav ul.open {
+    display: flex;
   }
 
-  nav ul li:hover > ul {
-    opacity: 1;
-    visibility: visible;
+  nav ul li {
+    margin: 0.5rem 0;
+  }
+
+  .navUser {
+    display: none;
   }
 }
 
@@ -149,3 +187,4 @@ a{
 .blogPostCard {
   transition: all 0.3s ease-in-out; /* Smoothly transition the transform property */
 }
+

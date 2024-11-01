@@ -14,6 +14,11 @@ import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
 import { fetchProductContent } from "../util/fetchProductContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
+import { fetchLoginLogic } from "../util/fetchLoginLogic";
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import '../components/builder-registry'; // Register custom components
 
 export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
@@ -46,7 +51,9 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params
   const limit = 10;
 
   let result;
-  if (urlPath.includes("/post/")) {
+  if (urlPath === "/login") {
+    result = await fetchLoginLogic(urlPath);
+  } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
   } else if (urlPath.includes("/products/")) {
     result = await fetchProductContent(slug);
@@ -110,8 +117,52 @@ const Page: React.FC<PageProps> = ({
     return <BuilderComponent model="symbol" />
   }
 
+  
+  
+  async function login({ email, password }) {
+    try {
+      const response = await fetch('https://cdn.inksoft.com/philadelphiascreenprinting/Api2/SignIn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+          Email: email,
+          Password: password,
+          Format: 'JSON'
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const resText = await response.text();
+      const resJson = JSON.parse(resText);
+      const sessionToken = resJson.Data?.Token;
+  
+      if (sessionToken) {
+        document.cookie = `SessionToken=${sessionToken}; path=/`;
+      } else {
+        console.error('Session token not found in response');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  }
+  
+
+  const register = ({email,password}) => {
+    console.log({
+        thing: "Register",email,password
+    });
+  }
+
+  const functions = {login,register};
+
   return (
     <>
+      <ToastContainer/>
       <SEOHeader seo={seo} productData={productData} />
       <div className='navContainer'>
         <Navigation navData={navData} />
@@ -119,7 +170,7 @@ const Page: React.FC<PageProps> = ({
       <ProgressBar />
       <BuilderComponent
         renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
-        data={{ productData, blogData, pagination, categoryData }}
+        data={{ productData, blogData, pagination, categoryData, functions }}
         model={model}
         content={page || undefined}
       />
