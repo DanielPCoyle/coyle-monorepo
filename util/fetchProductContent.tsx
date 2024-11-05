@@ -24,14 +24,16 @@ interface FetchProductContentReturn {
 
 // Fetch content for `/products/` URLs
 export async function fetchProductContent(slug: string): Promise<FetchProductContentReturn> {
+  console.log({slug})
   const productId = friendlyUrl[slug];
-  
   // Fetch product data from external API
   let productData: ProductData = await fetch(
-    `https://cdn.inksoft.com/philadelphiascreenprinting/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`
+    `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`
   )
     .then((res) => res.json())
     .then((data) => data.Data);
+
+    console.log("!!!!!!>>>>>",productData)
 
   return {
     contentType: "product",

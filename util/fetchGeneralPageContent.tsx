@@ -28,6 +28,7 @@ interface FetchGeneralPageContentReturn {
   pagination: {
     offset: number;
     limit: number;
+    search: string | null;
   };
 }
 
@@ -38,6 +39,9 @@ export async function fetchGeneralPageContent(
   offset: number,
   limit: number
 ): Promise<FetchGeneralPageContentReturn> {
+  
+ 
+
   const page = (await builder.get("page", {
     userAttributes: { urlPath: urlPath.includes("/blog") ? "/blog" : urlPath },
   }).toPromise()) as PageData;
@@ -47,11 +51,24 @@ export async function fetchGeneralPageContent(
   const seoImage = page?.data?.featuredImage || null;
 
   let blogData: any[] | null = null; // Set as `any[]` or a specific type if available
+    let search: string | null = null;
   if (urlPath.includes("/blog")) {
-    if (slug !== "blog") offset = parseInt(slug);
+    const urlParts = urlPath.split("/");
+    const lastPart = urlParts[urlParts.length - 1];
+    // is lastPart a number
+    const isNumber = /^\d+$/.test(lastPart);
+    if(isNumber){
+      offset = parseInt(lastPart);
+      search = urlParts[urlParts.length - 2];
+    }
+    if(slug !== 'blog'){
+      search = slug;
+    }
+
     try {
+      const url = `https://cdn.builder.io/api/v3/content/blog?apiKey=${apiKey}&offset=${offset * limit}&limit=${limit}`+(Boolean(search) && `&query.data.title.$regex=${search}&query.data.title.$options=i`);
       const response = await fetch(
-        `https://cdn.builder.io/api/v3/content/blog?apiKey=${apiKey}&offset=${offset * limit}&limit=${limit}`
+        url
       );
       const blogDataResponse: BlogData = await response.json();
       blogData = blogDataResponse.results;
@@ -66,6 +83,6 @@ export async function fetchGeneralPageContent(
     page: page || null,
     seo: { title: seoTitle, description: seoDescription, image: seoImage },
     blogData,
-    pagination: { offset, limit },
+    pagination: { offset, limit, search },
   };
 }

@@ -17,7 +17,9 @@ import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import { fetchLoginLogic } from "../util/fetchLoginLogic";
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
-
+import login from '../util/login';
+import Footer from "../components/Footer";
+import 'animate.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '../components/builder-registry'; // Register custom components
 
@@ -109,54 +111,28 @@ const Page: React.FC<PageProps> = ({
     };
   }, [router.events]);
 
+  if (urlPath === "/cart") {
+    return <CartPage />
+  }
+
   if (!page && !isPreviewing) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
   if (urlPath === "/edit-symbol") {
-    return <BuilderComponent model="symbol" />
-  }
-
-  
-  
-  async function login({ email, password }) {
-    try {
-      const response = await fetch('https://cdn.inksoft.com/philadelphiascreenprinting/Api2/SignIn', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          Email: email,
-          Password: password,
-          Format: 'JSON'
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+    return <BuilderComponent model="symbol"  options={
+      {
+        enrich: true,
       }
-  
-      const resText = await response.text();
-      const resJson = JSON.parse(resText);
-      const sessionToken = resJson.Data?.Token;
-  
-      if (sessionToken) {
-        document.cookie = `SessionToken=${sessionToken}; path=/`;
-      } else {
-        console.error('Session token not found in response');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-    }
+    } />
   }
-  
 
   const register = ({email,password}) => {
     console.log({
         thing: "Register",email,password
     });
   }
+
 
   const functions = {login,register};
 
@@ -168,14 +144,51 @@ const Page: React.FC<PageProps> = ({
         <Navigation navData={navData} />
       </div>
       <ProgressBar />
+      {/* {JSON.stringify(productData)} */}
       <BuilderComponent
         renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
         data={{ productData, blogData, pagination, categoryData, functions }}
         model={model}
         content={page || undefined}
       />
+      <Footer />
     </>
   );
 };
 
 export default Page;
+
+
+
+const CartPage = () => {
+  const router = useRouter();
+  const [sessionToken, setSessionToken] = React.useState(null);
+  // get SessionToken from cookie
+  React.useEffect(() => {
+    const parseCookies = (cookieString) => {
+      return cookieString.split(';').reduce((cookies, cookie) => {
+        const [name, value] = cookie.split('=').map(c => c.trim());
+        cookies[name] = value;
+        return cookies;
+      }, {});
+    };
+
+    const cookies = parseCookies(document.cookie);
+    setSessionToken(cookies.SessionToken);
+  }, []);
+
+
+
+  return <div className="container">
+  <Link href={"#"} className="cartBackButton" onClick={()=>{
+    router.back();
+  }}>
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" className="bi bi-arrow-up-left-circle" viewBox="0 0 16 16">
+      <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707z"/>
+    </svg>
+    <div>Continue Shopping</div>
+  </Link>
+  SESSION TOKEN:{sessionToken}
+  {sessionToken && <iframe src={"https://getastore.philadelphiascreenprinting.com/get_a_store/shop/cart?SessionToken="+sessionToken} style={{width: "100%", height: "95vh", border:'none'}}></iframe> }
+  </div>
+}
