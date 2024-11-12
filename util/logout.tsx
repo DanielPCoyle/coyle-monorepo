@@ -23,7 +23,7 @@ async function logout() {
           document.cookie = "GuestSessionToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
           if(window.location.pathname.includes('/account/')) {
-            window.location = "/"; // Redirect to the home page after logout
+            window.location.href = "/"; // Redirect to the home page after logout
           }
       } catch (error) {
         error(error.message); // call error callback function with the error message

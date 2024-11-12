@@ -25,7 +25,7 @@ async function login({ email, password }) {
     console.log({sessionToken})
     if (sessionToken) {
       document.cookie = `SessionToken=${sessionToken}; path=/`;
-      window.location = "/account/designs"
+      window.location.href = "/account/designs"
     } else {
       console.error('Session token not found in response');
     }

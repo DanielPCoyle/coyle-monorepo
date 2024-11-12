@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
-
+import Link from 'next/link';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -13,20 +13,20 @@ const Footer = () => {
         </div>
 
         <div style={styles.linksContainer}>
-          <a href="/terms" style={styles.link}>Terms & Conditions</a>
-          <a href="/privacy" style={styles.link}>Privacy Policy</a>
+          <Link href="/terms" style={styles.link}>Terms & Conditions</Link>
+          <Link href="/privacy" style={styles.link}>Privacy Policy</Link>
         </div>
 
         <div style={styles.socialContainer}>
-          <a href="https://twitter.com/yourtwitter" target="_blank" rel="noopener noreferrer" style={styles.icon}>
+          <Link href="https://twitter.com/yourtwitter" target="_blank" rel="noopener noreferrer" style={styles.icon}>
             <FontAwesomeIcon icon={faTwitter} />
-          </a>
-          <a href="https://facebook.com/yourfacebook" target="_blank" rel="noopener noreferrer" style={styles.icon}>
+          </Link>
+          <Link href="https://facebook.com/yourfacebook" target="_blank" rel="noopener noreferrer" style={styles.icon}>
             <FontAwesomeIcon icon={faFacebook} />
-          </a>
-          <a href="https://instagram.com/yourinstagram" target="_blank" rel="noopener noreferrer" style={styles.icon}>
+          </Link>
+          <Link href="https://instagram.com/yourinstagram" target="_blank" rel="noopener noreferrer" style={styles.icon}>
             <FontAwesomeIcon icon={faInstagram} />
-          </a>
+          </Link>
         </div>
 
         <div style={styles.copyright}>
@@ -37,7 +37,9 @@ const Footer = () => {
   );
 };
 
-const styles = {
+import { CSSProperties } from 'react';
+
+const styles: { [key: string]: CSSProperties } = {
   footer: {
     backgroundColor: '#333',
     color: '#fff',
