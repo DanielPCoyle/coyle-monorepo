@@ -10,6 +10,7 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
   const router = useRouter();
   const launchCount = useRef(0); // Ref to track the number of launches
   const [sessionToken, setSessionToken] = useState('');
+  const [guestToken, setGuestToken] = useState('');
   useEffect(() => {
     let scriptElement: HTMLScriptElement | undefined;
 
@@ -34,7 +35,6 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
             ()=>router.push('/cart');
           },
           onCartTriggered: (embedData) => {
-            console.log('Cart triggered:', embedData);
             router.push('/cart');
           }
         });
@@ -75,12 +75,10 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
     window.addEventListener('message', (event) => {
       // Ensure the message is from the expected origin
           if(event.data.forParent){
-            if(!document.cookie.includes('GuestSessionToken')){
+            if(!document.cookie.includes('SessionToken')){
                 const sessionToken = event.data.data.SessionToken;
-                console.log("FART")
-                console.log({sessionToken})
                 document.cookie = `SessionToken=${sessionToken}; path=/`;
-                setSessionToken(sessionToken);
+                setGuestToken(sessionToken);
             } else{
               const parseCookies = (cookieString) => {
                 return cookieString.split(';').reduce((cookies, cookie) => {
@@ -91,7 +89,8 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
               };
           
               const cookies = parseCookies(document.cookie);
-              setSessionToken(cookies.GuestSessionToken);
+              console.log({cookies})
+              setSessionToken(cookies.SessionToken);
             }
           }
     });
@@ -105,14 +104,17 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
       if (targetDiv) {
         targetDiv.innerHTML = ''; // Clear any initialized content
       }
-      console.log('Session token:', sessionToken);
     }
   }, [sessionToken]);
 
   return (
+    <>
+    <div>SESSION TOKEN:{sessionToken}</div>
+    <div>GUEST TOKEN:{guestToken}</div>
     <div className="embed-container">
       <div id="inksoftEmbed" style={{ width: '100%', height: '720px', padding: '0', margin: '0', border: '0', maxHeight: '100%' }}></div>
     </div>
+    </>
   );
 };
 

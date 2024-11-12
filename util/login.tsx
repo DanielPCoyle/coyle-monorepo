@@ -21,7 +21,8 @@ async function login({ email, password }) {
     const resText = await response.text();
     const resJson = JSON.parse(resText);
     const sessionToken = resJson.Data?.Token;
-
+ 
+    console.log({sessionToken})
     if (sessionToken) {
       document.cookie = `SessionToken=${sessionToken}; path=/`;
       window.location = "/account/designs"
