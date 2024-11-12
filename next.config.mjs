@@ -8,6 +8,14 @@ const nextConfig = {
     NEXT_PUBLIC_ALGOLIA_CLIENT_ID: process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
 
   },
+  async rewrites() {
+    return [
+      {
+        source: '/store/:path*', // Define your endpoint path
+        destination: 'https://cdn.inksoft.com/get_a_store/:path*', // Proxy to external URL
+      },
+    ];
+  },
 };
 
 export default nextConfig;

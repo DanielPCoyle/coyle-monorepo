@@ -19,6 +19,8 @@ import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import login from '../util/login';
 import Footer from "../components/Footer";
+import {createUserWithEmailAndPassword, getAuth, updateProfile, onAuthStateChanged} from '../util/firebase';
+import Cookies from 'js-cookie'; 
 import 'animate.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '../components/builder-registry'; // Register custom components
@@ -97,6 +99,7 @@ const Page: React.FC<PageProps> = ({
   const isPreviewing = useIsPreviewing();
 
   useEffect(() => {
+ 
     const handleRouteChangeStart = () => NProgress.start();
     const handleRouteChangeComplete = () => NProgress.done();
     const handleRouteChangeError = () => NProgress.done();
@@ -127,11 +130,37 @@ const Page: React.FC<PageProps> = ({
     } />
   }
 
-  const register = ({email,password}) => {
+  const register = (props) => {
+    const { email, password, first_name, last_name, confirm_password } = props;
+
     console.log({
-        thing: "Register",email,password
+      thing: "Register",
+      props,
     });
-  }
+
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((response) => {
+            const user = response.user;
+            // Update the user's display name
+            updateProfile(user, {
+                displayName: `${first_name} ${last_name}`,
+            }).then(() => {
+                console.log("User display name updated successfully");
+            }).catch((error) => {
+                console.error("Error updating user profile", error);
+            });
+
+            // Save user info in first-party cookies (e.g., user ID and display name)
+            Cookies.set('user_id', user.uid, { expires: 7 }); // expires in 7 days
+            Cookies.set('user_name', `${first_name} ${last_name}`, { expires: 7 });
+            Cookies.set('user_email', email, { expires: 7 });
+            console.log("User registered and cookies set successfully");
+        })
+        .catch((error) => {
+            console.error({ error });
+        });
+  };
 
 
   const functions = {login,register};
@@ -141,7 +170,7 @@ const Page: React.FC<PageProps> = ({
       <ToastContainer/>
       <SEOHeader seo={seo} productData={productData} />
       <div className='navContainer'>
-        <Navigation navData={navData} />
+        <Navigation navData={navData}  />
       </div>
       <ProgressBar />
       {/* {JSON.stringify(productData)} */}

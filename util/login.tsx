@@ -1,37 +1,23 @@
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import Cookies from 'js-cookie';
 
+const login = ({ email, password }) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+        .then((response) => {
+            const user = response.user;
 
-async function login({ email, password }) {
-  try {
-    const response = await fetch(`https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/SignIn`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        Email: email,
-        Password: password,
-        Format: 'JSON'
-      }),
-    });
+            // Set user info in cookies (like UID and displayName)
+            Cookies.set('user_id', user.uid, { expires: 7 }); // Expires in 7 days
+            Cookies.set('user_name', user.displayName || 'User', { expires: 7 });
+            Cookies.set('user_email', user.email, { expires: 7 });
+            console.log("User logged in successfully");
+            window.location.href = "/account/designs";
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const resText = await response.text();
-    const resJson = JSON.parse(resText);
-    const sessionToken = resJson.Data?.Token;
- 
-    console.log({sessionToken})
-    if (sessionToken) {
-      document.cookie = `SessionToken=${sessionToken}; path=/`;
-      window.location.href = "/account/designs"
-    } else {
-      console.error('Session token not found in response');
-    }
-  } catch (error) {
-    console.error('Error during login:', error);
-  }
-}
+        })
+        .catch((error) => {
+            console.error("Error logging in:", error.message);
+        });
+};
 
 export default login;
