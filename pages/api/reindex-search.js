@@ -48,11 +48,15 @@ const processRecords = async () => {
     Sku: product.Sku,
     Supplier: product.Supplier,
     ManufacturerSku: product.ManufacturerSku,
-    Manufacturer: product.Manufacturer
+    Manufacturer: product.Manufacturer,
+    
   }));
 
   let tooBig = 0;
   extractedProducts = extractedProducts.filter((product, index) => {
+    if(index === 0){
+      console.log('Product:', JSON.stringify(product,null,2))
+    }
      if(JSON.stringify(product).length < 10000){
       return true
      } else{
@@ -66,19 +70,27 @@ const processRecords = async () => {
 
   try{
     const index = aClient.initIndex('products_index');
+    const facets = [
+      'Name', // Primary searchable attribute
+      'Keywords', // Secondary attribute for keyword matching
+      'LongDescription', // Additional attribute for deeper search
+      'Manufacturer',
+      'Sku',
+      'ManufacturerSku',
+      'ID',
+      'CurrentPrice',
+      'CanEmbroider',
+      'CanScreenPrint',
+      'CanDigitalPrint'
+    ]
     await index.clearObjects()
     await client.saveObjects({ indexName: 'products_index', objects: extractedProducts });
+
     await index.setSettings({
-      searchableAttributes: [
-        'Name', // Primary searchable attribute
-        'Keywords', // Secondary attribute for keyword matching
-        'LongDescription', // Additional attribute for deeper search
-        'Manufacturer',
-        'Sku',
-        'ManufacturerSku',
-        'ID',
-        'CurrentPrice',
-      ]
+      customRanking: [
+        'asc(Name)'
+      ],
+      searchableAttributes: facets,
     });
 
     const slugIds = extractedProducts.map(product => ({

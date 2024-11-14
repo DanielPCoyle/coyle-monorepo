@@ -1,4 +1,4 @@
-import friendlyUrl from '../data/slugIds.json';
+import friendlyUrl from '../../data/slugIds.json';
 import builder from "@builder.io/react";
 
 interface ProductData {
@@ -34,7 +34,9 @@ export async function fetchProductContent(slug: string, query:any): Promise<Fetc
     .then((res) => res.json())
     .then((data) => data.Data);
 
-  productData.SelectedStyle = query.style;
+    if(query.style){
+      productData.SelectedStyle = query.style;
+    }
   return {
     contentType: "product",
     model: "symbol",

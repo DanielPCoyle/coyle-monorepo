@@ -11,7 +11,6 @@ const NavUser = () => {
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if(user){
-        console.log("USER LOGGED IN",user);
         setAuthUser(user);
       } else {
         setAuthUser(null);
@@ -23,7 +22,6 @@ const NavUser = () => {
     const signUserOut = ()=>{
     signOut(auth)
         .then(() => {
-            console.log("User signed out successfully");
             setAuthUser(null);
             // Optionally, clear any cookies or state related to user data here
         })

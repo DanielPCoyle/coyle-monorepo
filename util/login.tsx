@@ -11,7 +11,6 @@ const login = ({ email, password }) => {
             Cookies.set('user_id', user.uid, { expires: 7 }); // Expires in 7 days
             Cookies.set('user_name', user.displayName || 'User', { expires: 7 });
             Cookies.set('user_email', user.email, { expires: 7 });
-            console.log("User logged in successfully");
             window.location.href = "/account/designs";
 
         })

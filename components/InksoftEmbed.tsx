@@ -18,7 +18,6 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId, styleI
     // Function to launch the design studio with specified parameters
     const launchDesignStudio = () => {
       
-      console.log({productId,designId,sessionToken})
       if (!document.getElementById('designStudioIframe') && launchCount.current === 0) {
         console.log(`Launching InkSoft Design Studio - Run count: ${launchCount.current}`);
         launchCount.current += 1; // Increment launch count
@@ -91,7 +90,6 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId, styleI
               };
           
               const cookies = parseCookies(document.cookie);
-              console.log({cookies})
               setSessionToken(cookies.SessionToken);
             }
           }

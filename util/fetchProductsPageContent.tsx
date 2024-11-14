@@ -1,5 +1,6 @@
 import friendlyUrl from '../data/slugIds.json';
 import builder from "@builder.io/react";
+import { fetchFacets } from './fetchFacets';
 
 interface ProductData {
   Name?: string;
@@ -25,24 +26,10 @@ interface FetchProductsPageContentReturn {
 // Fetch content for `/products/` URLs
 export async function fetchProductsPageContent(slug: string): Promise<FetchProductsPageContentReturn> {
   
-   const fetchFacets = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/search-facets");
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      const facets = data;
-      return facets;
-    } catch (error) {
-      console.error('Error fetching facets:', error);
-      return null;
-    }
-  };
+   
   
   const facets = await fetchFacets();
 
-  console.log({facets});
   return {
     contentType: "product",
     model: "symbol",
@@ -58,3 +45,4 @@ export async function fetchProductsPageContent(slug: string): Promise<FetchProdu
     facets,
   };
 }
+

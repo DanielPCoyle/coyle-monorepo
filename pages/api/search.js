@@ -11,7 +11,6 @@ const index = client.initIndex('products_index'); // Replace with your actual in
 export default async function handler(req, res) {
   let { color = [], category = [], keyword = '', manufacturer = [], page = 0 } = req.query;
 
-  console.log(">?>>>>>>>",page)
   // Convert page to an integer for Algolia pagination
   page = parseInt(page, 10) || 0;
 

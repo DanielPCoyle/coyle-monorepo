@@ -12,7 +12,7 @@ import NProgress from "nprogress";
 import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
-import { fetchProductContent } from "../util/fetchProductContent";
+import { fetchProductContent } from "../util/Search/fetchProductContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import {fetchProductsPageContent} from "../util/fetchProductsPageContent";
 import { fetchLoginLogic } from "../util/fetchLoginLogic";
@@ -21,11 +21,14 @@ import { toast } from 'react-toastify';
 import login from '../util/login';
 import Footer from "../components/Footer";
 import CartPage from "../components/Cart";
-import {createUserWithEmailAndPassword, getAuth, updateProfile, onAuthStateChanged} from '../util/firebase';
-import Cookies from 'js-cookie'; 
+import {onAuthStateChanged} from '../util/firebase';
 import 'animate.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '../components/builder-registry'; // Register custom components
+import { fetchProducts } from "../util/fetchProducts";
+import { register } from "../util/register";
+import { fetchFacets } from "../util/fetchFacets";
+
 
 export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);
@@ -141,37 +144,6 @@ const Page: React.FC<PageProps> = ({
     } />
   }
 
-  const register = (props) => {
-    const { email, password, first_name, last_name, confirm_password } = props;
-
-    console.log({
-      thing: "Register",
-      props,
-    });
-
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((response) => {
-            const user = response.user;
-            // Update the user's display name
-            updateProfile(user, {
-                displayName: `${first_name} ${last_name}`,
-            }).then(() => {
-                console.log("User display name updated successfully");
-            }).catch((error) => {
-                console.error("Error updating user profile", error);
-            });
-
-            // Save user info in first-party cookies (e.g., user ID and display name)
-            Cookies.set('user_id', user.uid, { expires: 7 }); // expires in 7 days
-            Cookies.set('user_name', `${first_name} ${last_name}`, { expires: 7 });
-            Cookies.set('user_email', email, { expires: 7 });
-            console.log("User registered and cookies set successfully");
-        })
-        .catch((error) => {
-            console.error({ error });
-        });
-  };
 
 
   const toggleManyFilter = (facet, filter) => {
@@ -202,8 +174,6 @@ const Page: React.FC<PageProps> = ({
     }
   
     setFilters(newFilters);
-    
-
   }, 500);    
   };
 
@@ -214,46 +184,15 @@ const Page: React.FC<PageProps> = ({
       const nFilters = { ...filters };
             nFilters[facet] = filter;
           setFilters(nFilters);
-    
     }, 500);
   }
   
-   // Function to call the backend API with current filters
-   const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      NProgress.start()
-      const queryParams = new URLSearchParams(filters);
-
-      for (const [key, value] of queryParams.entries()) {
-        if (!value) {
-          queryParams.delete(key);
-        }
-      }
-
-      queryParams.append('page', pageNumber.toString());
-
-      const queryString = queryParams.toString();
-      
-      const response = await fetch(`/api/search?${queryString}`);
-      const data = await response.json();
-      setResults(data);
-      setPageNumber(data.page);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(() => {
-      setLoading(false);
-      },1000);
-      NProgress.done()
-
-
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-  };
-
-  // Fetch products when filters change
   useEffect(() => {
-    fetchProducts();
+    fetchFacets(filters).then((data) => {
+      console.log({facets:data})
+      setFilterFacets(data);
+    })  
+    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber });
   }, [filters,pageNumber]);
 
 
@@ -261,9 +200,7 @@ const Page: React.FC<PageProps> = ({
     const maxPages = results.nbPages;
     if (pageNumber < maxPages) {
       setPageNumber(pageNumber + 1);
-    } else {
-      console.log('You have reached the last page.');
-    }
+    } 
   };
 
   
@@ -271,9 +208,7 @@ const Page: React.FC<PageProps> = ({
    const minPages = 0; // Define the minimum number of pages
     if (pageNumber > minPages) {
       setPageNumber(pageNumber - 1);
-    } else {
-      console.log('You are already on the first page.');
-    }
+    } 
   };
 
 
@@ -300,6 +235,7 @@ const Page: React.FC<PageProps> = ({
 };
 
 export default Page;
+
 
 
 

@@ -14,7 +14,6 @@ async function logout() {
         }
     
         const result = await response.text(); // process response as text
-        console.log("RESULT",result); // call success callback function with the result
         // if (!response.ok) {
         //     throw new Error(`HTTP error! Status: ${response.status}`);
         //   }

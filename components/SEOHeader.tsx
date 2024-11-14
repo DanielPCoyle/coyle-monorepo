@@ -88,6 +88,15 @@ const SEOHeader: React.FC<SEOProps> = ({ seo, productData }) => {
           })}
         </script>
       )}
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=New+Amsterdam"
+          as="style"
+          onLoad="this.rel='stylesheet'"
+        />
+        <noscript>
+          <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet" />
+        </noscript>
     </Head>
   );
 };
