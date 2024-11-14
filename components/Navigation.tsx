@@ -31,10 +31,9 @@ const NavItem: React.FC<NavItemProps> = ({ item }) => (
 
 interface NavigationProps {
   navData: NavItemType[];
-  user: any;
 }
 
-const Navigation: React.FC<NavigationProps> = ({ navData, user }) => {
+const Navigation: React.FC<NavigationProps> = ({ navData }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [search, setSearch] = useState('');
@@ -83,7 +82,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData, user }) => {
             <NavItem key={index} item={item} />
           ))}
         </ul>
-        <NavUser user={user} />
+        <NavUser />
         <NavCart />
         <button className="searchButton" onClick={() => setShowSearch(!showSearch)}>
           {showSearch ? 

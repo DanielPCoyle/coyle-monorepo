@@ -1,7 +1,8 @@
 // builder-register.js
 import { Builder } from '@builder.io/react';
 import DesignerEmbed from './InksoftEmbed';
-
+import {Search} from './Search/Search';
+import PriceRange from './PriceRange';
 // Register the component with Builder.io
 Builder.registerComponent(DesignerEmbed, {
   name: 'DesignerEmbed',
@@ -22,3 +23,14 @@ Builder.registerComponent(DesignerEmbed, {
     },
   ],
 });
+
+Builder.registerComponent(Search, {
+  name: 'Search',
+  inputs: [],
+});
+
+Builder.registerComponent(PriceRange, {
+  name: 'PriceRange',
+  inputs: [],
+});
+

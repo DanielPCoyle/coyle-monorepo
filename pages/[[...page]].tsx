@@ -1,5 +1,5 @@
 // pages/[...page].tsx
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
@@ -14,11 +14,13 @@ import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
 import { fetchProductContent } from "../util/fetchProductContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
+import {fetchProductsPageContent} from "../util/fetchProductsPageContent";
 import { fetchLoginLogic } from "../util/fetchLoginLogic";
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import login from '../util/login';
 import Footer from "../components/Footer";
+import CartPage from "../components/Cart";
 import {createUserWithEmailAndPassword, getAuth, updateProfile, onAuthStateChanged} from '../util/firebase';
 import Cookies from 'js-cookie'; 
 import 'animate.css';
@@ -36,6 +38,7 @@ interface PageProps {
   pagination?: any;
   urlPath: string;
   productData?: any;
+  facets?: any;
   categoryData?: any;
   contentType?: string;
   seo: {
@@ -57,6 +60,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params
   let result;
   if (urlPath === "/login") {
     result = await fetchLoginLogic(urlPath);
+  } else if(urlPath === "/products") {
+    result = await fetchProductsPageContent(urlPath); 
   } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
   } else if (urlPath.includes("/products/")) {
@@ -92,18 +97,21 @@ const Page: React.FC<PageProps> = ({
   urlPath,
   productData,
   categoryData,
+  facets,
   contentType,
   seo
 }) => {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
+  const [filters, setFilters] = React.useState([]);
+  const [results, setResults] = React.useState([]);
+  const [loading,setLoading] = React.useState(false);
+  const [recordTotal, setRecordTotal] = React.useState(0);
 
   useEffect(() => {
- 
     const handleRouteChangeStart = () => NProgress.start();
     const handleRouteChangeComplete = () => NProgress.done();
     const handleRouteChangeError = () => NProgress.done();
-
     router.events.on("routeChangeStart", handleRouteChangeStart);
     router.events.on("routeChangeComplete", handleRouteChangeComplete);
     router.events.on("routeChangeError", handleRouteChangeError);
@@ -163,8 +171,85 @@ const Page: React.FC<PageProps> = ({
   };
 
 
-  const functions = {login,register};
+  const toggleManyFilter = (facet, filter) => {
+    // Clone the current filters object to avoid direct state mutation
+    setTimeout(() => {
+    let newFilters = { ...filters };
+  
+    // Check if the facet already exists in the filters object
+    if (!newFilters[facet]) {
+      // If it doesn't exist, initialize it as an empty array
+      newFilters[facet] = [];
+    }
+  
+    // Check if the filter already exists in the specific facet's filter array
+    if (newFilters[facet].includes(filter)) {
+      // If it exists, remove it from the array
+      newFilters[facet] = newFilters[facet].filter(item => item !== filter);
+  
+      // If the facet array is empty after removal, delete the facet key
+      if (newFilters[facet].length === 0) {
+        delete newFilters[facet];
+      }
+    } else {
+      // If it doesn't exist, add it to the facet array
+      newFilters[facet].push(filter);
+    }
+  
+    setFilters(newFilters);
+    
 
+  }, 500);    
+  };
+
+
+  const setSingleFilter = (facet, filter) => {
+    setTimeout(() => {
+      const nFilters = { ...filters };
+            nFilters[facet] = filter;
+          setFilters(nFilters);
+    
+    }, 500);
+  }
+  
+   // Function to call the backend API with current filters
+   const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      NProgress.start()
+      const queryParams = new URLSearchParams(filters);
+
+      for (const [key, value] of queryParams.entries()) {
+        if (!value) {
+          queryParams.delete(key);
+        }
+      }
+
+      const queryString = queryParams.toString();
+      
+      const response = await fetch(`/api/search?${queryString}`);
+      const data = await response.json();
+      setResults(data.hits);
+      setRecordTotal(data.nbHits);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+      setLoading(false);
+      },1000);
+      NProgress.done()
+
+
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  // Fetch products when filters change
+  useEffect(() => {
+    fetchProducts();
+  }, [filters]);
+
+  const functions = {login,register,toggleManyFilter,setSingleFilter};
+  
   return (
     <>
       <ToastContainer/>
@@ -173,10 +258,10 @@ const Page: React.FC<PageProps> = ({
         <Navigation navData={navData}  />
       </div>
       <ProgressBar />
-      {/* {JSON.stringify(productData)} */}
+      {/* {JSON.stringify(results)} */}
       <BuilderComponent
         renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
-        data={{ productData, blogData, pagination, categoryData, functions }}
+        data={{ productData, filters, facets, blogData, pagination, categoryData, functions, results, recordTotal, loading }}
         model={model}
         content={page || undefined}
       />
@@ -189,35 +274,3 @@ export default Page;
 
 
 
-const CartPage = () => {
-  const router = useRouter();
-  const [sessionToken, setSessionToken] = React.useState(null);
-  // get SessionToken from cookie
-  React.useEffect(() => {
-    const parseCookies = (cookieString) => {
-      return cookieString.split(';').reduce((cookies, cookie) => {
-        const [name, value] = cookie.split('=').map(c => c.trim());
-        cookies[name] = value;
-        return cookies;
-      }, {});
-    };
-
-    const cookies = parseCookies(document.cookie);
-    setSessionToken(cookies.SessionToken);
-  }, []);
-
-
-
-  return <div className="container">
-  <Link href={"#"} className="cartBackButton" onClick={()=>{
-    router.back();
-  }}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" className="bi bi-arrow-up-left-circle" viewBox="0 0 16 16">
-      <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-5.904 2.803a.5.5 0 1 0 .707-.707L6.707 6h2.768a.5.5 0 1 0 0-1H5.5a.5.5 0 0 0-.5.5v3.975a.5.5 0 0 0 1 0V6.707z"/>
-    </svg>
-    <div>Continue Shopping</div>
-  </Link>
-  SESSION TOKEN:{sessionToken}
-  {sessionToken && <iframe src={"https://getastore.philadelphiascreenprinting.com/get_a_store/shop/cart?SessionToken="+sessionToken} style={{width: "100%", height: "95vh", border:'none'}}></iframe> }
-  </div>
-}
