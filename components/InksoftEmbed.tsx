@@ -4,9 +4,10 @@ import { useRouter } from 'next/router';
 interface InksoftEmbedProps {
   productId: number;
   designId?: number;
+  styleId?: number;
 }
 
-const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
+const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId, styleId }) => {
   const router = useRouter();
   const launchCount = useRef(0); // Ref to track the number of launches
   const [sessionToken, setSessionToken] = useState('');
@@ -28,6 +29,7 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
           cdnDomain: 'https://cdn.inksoft.com',
           storeUri: process.env.NEXT_PUBLIC_INKSOFT_STORE,
           productId: productId,
+          productStyleId:styleId,
           designId: designId,
           // sessionToken: sessionToken,
           sessionToken: sessionToken,

@@ -23,9 +23,10 @@ interface FetchProductContentReturn {
 }
 
 // Fetch content for `/products/` URLs
-export async function fetchProductContent(slug: string): Promise<FetchProductContentReturn> {
+export async function fetchProductContent(slug: string, query:any): Promise<FetchProductContentReturn> {
   
   const productId = friendlyUrl.find((item) => item.slug === slug)?.id;
+  // get styleId from query params
   // Fetch product data from external API
   let productData: ProductData = await fetch(
     `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`
@@ -33,7 +34,7 @@ export async function fetchProductContent(slug: string): Promise<FetchProductCon
     .then((res) => res.json())
     .then((data) => data.Data);
 
-
+  productData.SelectedStyle = query.style;
   return {
     contentType: "product",
     model: "symbol",

@@ -51,7 +51,8 @@ interface PageProps {
 }
 
 // Main getServerSideProps function
-export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+  const { params,query } = context;
   const urlPath = `/${params?.page ? (params.page as string[]).join("/") : ""}`;
   const slug = urlPath.split("/").pop()!;
   const offset = 0;
@@ -65,7 +66,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params
   } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
   } else if (urlPath.includes("/products/")) {
-    result = await fetchProductContent(slug);
+    result = await fetchProductContent(slug,query);
   } else if (urlPath.includes("/category/")) {
     result = await fetchCategoryPageContent(urlPath);
   } else {
@@ -104,9 +105,11 @@ const Page: React.FC<PageProps> = ({
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
   const [filters, setFilters] = React.useState([]);
+  const [pageNumber,setPageNumber] = React.useState(0);
   const [results, setResults] = React.useState([]);
   const [loading,setLoading] = React.useState(false);
   const [recordTotal, setRecordTotal] = React.useState(0);
+  const [filterFacets,setFilterFacets] = React.useState(facets);
 
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start();
@@ -174,6 +177,8 @@ const Page: React.FC<PageProps> = ({
   const toggleManyFilter = (facet, filter) => {
     // Clone the current filters object to avoid direct state mutation
     setTimeout(() => {
+    setPageNumber(0);
+
     let newFilters = { ...filters };
   
     // Check if the facet already exists in the filters object
@@ -205,6 +210,7 @@ const Page: React.FC<PageProps> = ({
 
   const setSingleFilter = (facet, filter) => {
     setTimeout(() => {
+      setPageNumber(0);
       const nFilters = { ...filters };
             nFilters[facet] = filter;
           setFilters(nFilters);
@@ -225,12 +231,14 @@ const Page: React.FC<PageProps> = ({
         }
       }
 
+      queryParams.append('page', pageNumber.toString());
+
       const queryString = queryParams.toString();
       
       const response = await fetch(`/api/search?${queryString}`);
       const data = await response.json();
-      setResults(data.hits);
-      setRecordTotal(data.nbHits);
+      setResults(data);
+      setPageNumber(data.page);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setTimeout(() => {
       setLoading(false);
@@ -246,9 +254,30 @@ const Page: React.FC<PageProps> = ({
   // Fetch products when filters change
   useEffect(() => {
     fetchProducts();
-  }, [filters]);
+  }, [filters,pageNumber]);
 
-  const functions = {login,register,toggleManyFilter,setSingleFilter};
+
+  const nextSearchPage = () => {
+    const maxPages = results.nbPages;
+    if (pageNumber < maxPages) {
+      setPageNumber(pageNumber + 1);
+    } else {
+      console.log('You have reached the last page.');
+    }
+  };
+
+  
+  const previousSearchPage = () => {
+   const minPages = 0; // Define the minimum number of pages
+    if (pageNumber > minPages) {
+      setPageNumber(pageNumber - 1);
+    } else {
+      console.log('You are already on the first page.');
+    }
+  };
+
+
+  const functions = {login,register,toggleManyFilter,setSingleFilter,nextSearchPage,previousSearchPage};
   
   return (
     <>
@@ -261,7 +290,7 @@ const Page: React.FC<PageProps> = ({
       {/* {JSON.stringify(results)} */}
       <BuilderComponent
         renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
-        data={{ productData, filters, facets, blogData, pagination, categoryData, functions, results, recordTotal, loading }}
+        data={{ productData, filters, facets:filterFacets, blogData, pagination, categoryData, functions, results, pageNumber, loading }}
         model={model}
         content={page || undefined}
       />

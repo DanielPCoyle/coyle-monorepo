@@ -82,8 +82,11 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
             <NavItem key={index} item={item} />
           ))}
         </ul>
+        <div>
+        <a className="phoneNumber" href="tel:215-771-9404">215-771-9404</a>
+        </div>
         <NavUser />
-        <NavCart />
+
         <button className="searchButton" onClick={() => setShowSearch(!showSearch)}>
           {showSearch ? 
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
@@ -96,6 +99,10 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
             </svg>
           }
         </button>
+        <div style={{marginTop:-8}}>
+        <NavCart />
+        </div>
+        
       </nav>
       {showSearch && (<Search />)}
 

@@ -21,6 +21,13 @@ Builder.registerComponent(DesignerEmbed, {
       required: false,
       helperText: 'The design ID for the Inksoft embed',
     },
+    {
+      name: 'styleId',
+      type: 'number',
+      defaultValue: 0,
+      required: false,
+      helperText: 'The style ID for the Inksoft embed',
+    },
   ],
 });
 

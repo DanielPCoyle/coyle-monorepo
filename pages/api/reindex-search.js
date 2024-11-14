@@ -34,10 +34,12 @@ const processRecords = async () => {
       "Name": style.Name,
       Sides:null,
       Color: style.HtmlColor1,
+      ID: style.ID,
     })),
     ProductType: product.ProductType,
     SalePrice: product.SalePrice,
     UnitPrice: product.UnitPrice,
+    CurrentPrice: product.SalePrice ?? product.UnitPrice,
     UnitCost: product.UnitCost,
     ManufacturerBrandImageUrl: product.ManufacturerBrandImageUrl,
     LongDescription: product.LongDescription,
@@ -75,6 +77,7 @@ const processRecords = async () => {
         'Sku',
         'ManufacturerSku',
         'ID',
+        'CurrentPrice',
       ]
     });
 
