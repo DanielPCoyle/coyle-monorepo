@@ -148,7 +148,6 @@ const Page: React.FC<PageProps> = ({
 
   const toggleManyFilter = (facet, filter) => {
     // Clone the current filters object to avoid direct state mutation
-    setTimeout(() => {
     setPageNumber(0);
 
     let newFilters = { ...filters };
@@ -174,17 +173,14 @@ const Page: React.FC<PageProps> = ({
     }
   
     setFilters(newFilters);
-  }, 500);    
   };
 
 
   const setSingleFilter = (facet, filter) => {
-    setTimeout(() => {
       setPageNumber(0);
       const nFilters = { ...filters };
             nFilters[facet] = filter;
           setFilters(nFilters);
-    }, 500);
   }
   
   useEffect(() => {
