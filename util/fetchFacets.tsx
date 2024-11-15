@@ -2,7 +2,7 @@ export const fetchFacets = async (filters) => {
   try {
     const filterBody = JSON.stringify(filters);
     console.log({filterBody})
-    const response = await fetch("http://localhost:3000/api/search-facets", {
+    const response = await fetch(process.env.NEXT_PUBLIC_CURRENT_SITE+"/api/search-facets", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

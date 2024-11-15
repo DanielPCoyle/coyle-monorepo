@@ -3,6 +3,7 @@ import builder from "@builder.io/react";
 
 interface ProductData {
   Name?: string;
+  SelectedStyle?: string;
   // Other fields as needed from product API response
 }
 

@@ -109,7 +109,12 @@ const Page: React.FC<PageProps> = ({
   const isPreviewing = useIsPreviewing();
   const [filters, setFilters] = React.useState([]);
   const [pageNumber,setPageNumber] = React.useState(0);
-  const [results, setResults] = React.useState([]);
+  interface SearchResults {
+    nbPages: number;
+    [key: string]: any;
+  }
+
+  const [results, setResults] = React.useState<SearchResults>({ nbPages: 0 });
   const [loading,setLoading] = React.useState(false);
   const [recordTotal, setRecordTotal] = React.useState(0);
   const [filterFacets,setFilterFacets] = React.useState(facets);
@@ -127,6 +132,14 @@ const Page: React.FC<PageProps> = ({
       router.events.off("routeChangeError", handleRouteChangeError);
     };
   }, [router.events]);
+
+  useEffect(() => {
+    fetchFacets(filters).then((data) => {
+      console.log({facets:data})
+      setFilterFacets(data);
+    })  
+    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber });
+  }, [filters,pageNumber]);
 
   if (urlPath === "/cart") {
     return <CartPage />
@@ -182,18 +195,11 @@ const Page: React.FC<PageProps> = ({
             nFilters[facet] = filter;
           setFilters(nFilters);
   }
-  
-  useEffect(() => {
-    fetchFacets(filters).then((data) => {
-      console.log({facets:data})
-      setFilterFacets(data);
-    })  
-    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber });
-  }, [filters,pageNumber]);
+ 
 
 
   const nextSearchPage = () => {
-    const maxPages = results.nbPages;
+    const maxPages = results.nbPages || 0;
     if (pageNumber < maxPages) {
       setPageNumber(pageNumber + 1);
     } 

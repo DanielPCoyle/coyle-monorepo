@@ -28,7 +28,7 @@ export async function fetchProductsPageContent(slug: string): Promise<FetchProdu
   
    
   
-  const facets = await fetchFacets();
+  const facets = await fetchFacets(null);
 
   return {
     contentType: "product",
