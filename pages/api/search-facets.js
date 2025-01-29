@@ -2,8 +2,9 @@ import { searchClient } from '@algolia/client-search';
 import algoliasearch from 'algoliasearch';
 import chroma from 'chroma-js';
 
-const aClient = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID, process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY);
-const client = searchClient(process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID, process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY);
+
+const aClient = algoliasearch('S6ZEXIE5TS', '9f67131599df12752846dda0d6ba3e49');
+const client = searchClient('S6ZEXIE5TS', '9f67131599df12752846dda0d6ba3e49');
 
 // Define the index you want to work with
 const index = aClient.initIndex('products_index');

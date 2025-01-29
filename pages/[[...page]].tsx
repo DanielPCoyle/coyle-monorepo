@@ -225,12 +225,15 @@ const Page: React.FC<PageProps> = ({
       </div>
       <ProgressBar />
       {/* {JSON.stringify(results)} */}
+      <React.Suspense fallback={<div>Loading...</div>}>
+      {( typeof window !== 'undefined') &&
       <BuilderComponent
         renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
         data={{ productData, filters, facets:filterFacets, blogData, pagination, categoryData, functions, results, pageNumber, loading }}
         model={model}
         content={page || undefined}
-      />
+      /> }
+      </React.Suspense>
       <Footer />
     </>
   );

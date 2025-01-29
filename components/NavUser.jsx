@@ -4,7 +4,7 @@ import { getAuth, signOut,onAuthStateChanged } from 'firebase/auth';
 
 
 const NavUser = () => {
-  
+  return null;
   const [authUser, setAuthUser] = React.useState(null);
   const auth = getAuth();
 

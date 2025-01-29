@@ -109,8 +109,6 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId, styleI
 
   return (
     <>
-    <div>SESSION TOKEN:{sessionToken}</div>
-    <div>GUEST TOKEN:{guestToken}</div>
     <div className="embed-container">
       <div id="inksoftEmbed" style={{ width: '100%', height: '720px', padding: '0', margin: '0', border: '0', maxHeight: '100%' }}></div>
     </div>

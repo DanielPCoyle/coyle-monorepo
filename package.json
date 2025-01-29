@@ -16,6 +16,7 @@
     "@next/font": "^14.2.15",
     "algoliasearch": "^4.24.0",
     "animate.css": "^4.1.1",
+    "axios": "^1.7.7",
     "chroma-js": "^3.1.2",
     "firebase": "^11.0.1",
     "instantsearch.css": "^8.5.1",

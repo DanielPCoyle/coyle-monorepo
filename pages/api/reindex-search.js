@@ -8,13 +8,13 @@ import fs from 'fs';
 // Search-only version
 // import algoliasearch from 'algoliasearch/lite';
 
-const aClient = algoliasearch('B4G40MAX74', 'f4c7e0410d16c599a5e4e6b6c4c5ee57');
-const client = searchClient('B4G40MAX74', 'f4c7e0410d16c599a5e4e6b6c4c5ee57');
+const aClient = algoliasearch('S6ZEXIE5TS', '9f67131599df12752846dda0d6ba3e49');
+const client = searchClient('S6ZEXIE5TS', '9f67131599df12752846dda0d6ba3e49');
 // Fetch and index objects in Algolia
 const processRecords = async () => {
   const categoryRequest = await fetch('https://cdn.inksoft.com/'+process.env.NEXT_PUBLIC_INKSOFT_STORE+'/Api2/GetProductCategories?IncludeAllPublisherCategories=false&BlankProducts=true&StaticProducts=true&ProductType=all')
   const categories = await categoryRequest.json();
-  const datasetRequest = await fetch('https://cdn.inksoft.com/philadelphiascreenprinting/Api2/GetProductBaseList?Format=JSON&Index=0&MaxResults=-1&SortFilters=%5B%7B%22Property%22%3A%22Name%22%2C%22Direction%22%3A%22Ascending%22%7D%5D&IncludePrices=true&IncludeAllStyles=true&IncludeSizes=false&StoreVersion=638659111691800000-58100&IncludeQuantityPacks=true');
+  const datasetRequest = await fetch('https://cdn.inksoft.com/'+process.env.NEXT_PUBLIC_INKSOFT_STORE+'/Api2/GetProductBaseList?Format=JSON&Index=0&MaxResults=-1&SortFilters=%5B%7B%22Property%22%3A%22Name%22%2C%22Direction%22%3A%22Ascending%22%7D%5D&IncludePrices=true&IncludeAllStyles=true&IncludeSizes=false&StoreVersion=638659111691800000-58100&IncludeQuantityPacks=true');
    const products = await datasetRequest.json();
 
   let extractedProducts = products.Data.map(product => ({
