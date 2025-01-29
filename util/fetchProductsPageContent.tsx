@@ -1,5 +1,6 @@
-import friendlyUrl from '../data/friendly_urls.json';
+import friendlyUrl from '../data/slugIds.json';
 import builder from "@builder.io/react";
+import { fetchFacets } from './fetchFacets';
 
 interface ProductData {
   Name?: string;
@@ -14,29 +15,25 @@ interface SEO {
   url: string;
 }
 
-interface FetchProductContentReturn {
+interface FetchProductsPageContentReturn {
   contentType: string;
   model: string;
   page: any; // Replace `any` with a specific type if available from Builder API
   seo: SEO;
-  productData: ProductData;
+  facets: any;
 }
 
 // Fetch content for `/products/` URLs
-export async function fetchProductContent(slug: string): Promise<FetchProductContentReturn> {
-  const productId = friendlyUrl[slug];
+export async function fetchProductsPageContent(slug: string): Promise<FetchProductsPageContentReturn> {
   
-  // Fetch product data from external API
-  let productData: ProductData = await fetch(
-    `https://cdn.inksoft.com/philadelphiascreenprinting/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`
-  )
-    .then((res) => res.json())
-    .then((data) => data.Data);
+   
+  
+  const facets = await fetchFacets(null);
 
   return {
     contentType: "product",
     model: "symbol",
-    page: await builder.get("symbol", { query: { id: "c7eb7b53f2e04d4f8bd39f2b728d3551" } }).toPromise(),
+    page: await builder.get("symbol", { query: { id: "bfdb4053842f44da9ab8b65c3aa78bf7" } }).toPromise(),
     seo: {
       title: null,
       // title: productData.Name?.length < 40 ? `${productData.Name} | Philadelphia Screen Printing` : productData.Name,
@@ -45,6 +42,7 @@ export async function fetchProductContent(slug: string): Promise<FetchProductCon
       image: "",
       url: `https://philadelphiascreenprinting.com/products/${slug}`,
     },
-    productData,
+    facets,
   };
 }
+

@@ -1,5 +1,5 @@
 // pages/[...page].tsx
-import React, { useEffect } from "react";
+import React, { use, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
@@ -12,14 +12,23 @@ import NProgress from "nprogress";
 import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
-import { fetchProductContent } from "../util/fetchProductContent";
+import { fetchProductContent } from "../util/Search/fetchProductContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
+import {fetchProductsPageContent} from "../util/fetchProductsPageContent";
 import { fetchLoginLogic } from "../util/fetchLoginLogic";
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
-
+import login from '../util/login';
+import Footer from "../components/Footer";
+import CartPage from "../components/Cart";
+import {onAuthStateChanged} from '../util/firebase';
+import 'animate.css';
 import 'react-toastify/dist/ReactToastify.css';
 import '../components/builder-registry'; // Register custom components
+import { fetchProducts } from "../util/fetchProducts";
+import { register } from "../util/register";
+import { fetchFacets } from "../util/fetchFacets";
+
 
 export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);
@@ -32,6 +41,7 @@ interface PageProps {
   pagination?: any;
   urlPath: string;
   productData?: any;
+  facets?: any;
   categoryData?: any;
   contentType?: string;
   seo: {
@@ -44,7 +54,8 @@ interface PageProps {
 }
 
 // Main getServerSideProps function
-export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
+  const { params,query } = context;
   const urlPath = `/${params?.page ? (params.page as string[]).join("/") : ""}`;
   const slug = urlPath.split("/").pop()!;
   const offset = 0;
@@ -53,10 +64,12 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({ params
   let result;
   if (urlPath === "/login") {
     result = await fetchLoginLogic(urlPath);
+  } else if(urlPath === "/products") {
+    result = await fetchProductsPageContent(urlPath); 
   } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
   } else if (urlPath.includes("/products/")) {
-    result = await fetchProductContent(slug);
+    result = await fetchProductContent(slug,query);
   } else if (urlPath.includes("/category/")) {
     result = await fetchCategoryPageContent(urlPath);
   } else {
@@ -88,17 +101,28 @@ const Page: React.FC<PageProps> = ({
   urlPath,
   productData,
   categoryData,
+  facets,
   contentType,
   seo
 }) => {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
+  const [filters, setFilters] = React.useState([]);
+  const [pageNumber,setPageNumber] = React.useState(0);
+  interface SearchResults {
+    nbPages: number;
+    [key: string]: any;
+  }
+
+  const [results, setResults] = React.useState<SearchResults>({ nbPages: 0 });
+  const [loading,setLoading] = React.useState(false);
+  const [recordTotal, setRecordTotal] = React.useState(0);
+  const [filterFacets,setFilterFacets] = React.useState(facets);
 
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start();
     const handleRouteChangeComplete = () => NProgress.done();
     const handleRouteChangeError = () => NProgress.done();
-
     router.events.on("routeChangeStart", handleRouteChangeStart);
     router.events.on("routeChangeComplete", handleRouteChangeComplete);
     router.events.on("routeChangeError", handleRouteChangeError);
@@ -109,73 +133,114 @@ const Page: React.FC<PageProps> = ({
     };
   }, [router.events]);
 
+  useEffect(() => {
+    fetchFacets(filters).then((data) => {
+      console.log({facets:data})
+      setFilterFacets(data);
+    })  
+    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber });
+  }, [filters,pageNumber]);
+
+  if (urlPath === "/cart") {
+    return <CartPage />
+  }
+
   if (!page && !isPreviewing) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
   if (urlPath === "/edit-symbol") {
-    return <BuilderComponent model="symbol" />
+    return <BuilderComponent model="symbol"  options={
+      {
+        enrich: true,
+      }
+    } />
   }
 
+
+
+  const toggleManyFilter = (facet, filter) => {
+    // Clone the current filters object to avoid direct state mutation
+    setPageNumber(0);
+
+    let newFilters = { ...filters };
   
-  
-  async function login({ email, password }) {
-    try {
-      const response = await fetch('https://cdn.inksoft.com/philadelphiascreenprinting/Api2/SignIn', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams({
-          Email: email,
-          Password: password,
-          Format: 'JSON'
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const resText = await response.text();
-      const resJson = JSON.parse(resText);
-      const sessionToken = resJson.Data?.Token;
-  
-      if (sessionToken) {
-        document.cookie = `SessionToken=${sessionToken}; path=/`;
-      } else {
-        console.error('Session token not found in response');
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
+    // Check if the facet already exists in the filters object
+    if (!newFilters[facet]) {
+      // If it doesn't exist, initialize it as an empty array
+      newFilters[facet] = [];
     }
-  }
   
+    // Check if the filter already exists in the specific facet's filter array
+    if (newFilters[facet].includes(filter)) {
+      // If it exists, remove it from the array
+      newFilters[facet] = newFilters[facet].filter(item => item !== filter);
+  
+      // If the facet array is empty after removal, delete the facet key
+      if (newFilters[facet].length === 0) {
+        delete newFilters[facet];
+      }
+    } else {
+      // If it doesn't exist, add it to the facet array
+      newFilters[facet].push(filter);
+    }
+  
+    setFilters(newFilters);
+  };
 
-  const register = ({email,password}) => {
-    console.log({
-        thing: "Register",email,password
-    });
+
+  const setSingleFilter = (facet, filter) => {
+      setPageNumber(0);
+      const nFilters = { ...filters };
+            nFilters[facet] = filter;
+          setFilters(nFilters);
   }
+ 
 
-  const functions = {login,register};
 
+  const nextSearchPage = () => {
+    const maxPages = results.nbPages || 0;
+    if (pageNumber < maxPages) {
+      setPageNumber(pageNumber + 1);
+    } 
+  };
+
+  
+  const previousSearchPage = () => {
+   const minPages = 0; // Define the minimum number of pages
+    if (pageNumber > minPages) {
+      setPageNumber(pageNumber - 1);
+    } 
+  };
+
+
+  const functions = {login,register,toggleManyFilter,setSingleFilter,nextSearchPage,previousSearchPage};
+  
   return (
     <>
       <ToastContainer/>
       <SEOHeader seo={seo} productData={productData} />
       <div className='navContainer'>
-        <Navigation navData={navData} />
+        <Navigation navData={navData}  />
       </div>
       <ProgressBar />
+      {/* {JSON.stringify(results)} */}
+      <React.Suspense fallback={<div>Loading...</div>}>
+      {( typeof window !== 'undefined') &&
       <BuilderComponent
         renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
-        data={{ productData, blogData, pagination, categoryData, functions }}
+        data={{ productData, filters, facets:filterFacets, blogData, pagination, categoryData, functions, results, pageNumber, loading }}
         model={model}
         content={page || undefined}
-      />
+      /> }
+      </React.Suspense>
+      <Footer />
     </>
   );
 };
 
 export default Page;
+
+
+
+

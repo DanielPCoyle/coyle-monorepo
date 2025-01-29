@@ -1,31 +1,43 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 
 interface InksoftEmbedProps {
   productId: number;
   designId?: number;
+  styleId?: number;
 }
 
-const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
+const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId, styleId }) => {
   const router = useRouter();
   const launchCount = useRef(0); // Ref to track the number of launches
-
+  const [sessionToken, setSessionToken] = useState('');
+  const [guestToken, setGuestToken] = useState('');
   useEffect(() => {
     let scriptElement: HTMLScriptElement | undefined;
 
     // Function to launch the design studio with specified parameters
     const launchDesignStudio = () => {
-      launchCount.current += 1; // Increment launch count
-      console.log(`Launching InkSoft Design Studio - Run count: ${launchCount.current}`);
       
-      if (!document.getElementById('designStudioIframe') && launchCount.current === 1) {
+      if (!document.getElementById('designStudioIframe') && launchCount.current === 0) {
+        console.log(`Launching InkSoft Design Studio - Run count: ${launchCount.current}`);
+        launchCount.current += 1; // Increment launch count
+
         (window as any).inksoftApi.launchEmbeddedDesignStudio({
           targetElementId: 'inksoftEmbed',
           domain: 'https://stores.inksoft.com',
           cdnDomain: 'https://cdn.inksoft.com',
-          storeUri: 'DS369379180',
+          storeUri: process.env.NEXT_PUBLIC_INKSOFT_STORE,
           productId: productId,
+          productStyleId:styleId,
           designId: designId,
+          // sessionToken: sessionToken,
+          sessionToken: sessionToken,
+          onDesignerReady: (embedData) => {
+            ()=>router.push('/cart');
+          },
+          onCartTriggered: (embedData) => {
+            router.push('/cart');
+          }
         });
       }
     };
@@ -37,7 +49,7 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
         scriptElement.id = 'inksoftScript';
         scriptElement.type = 'text/javascript';
         scriptElement.async = true;
-        scriptElement.src = 'https://cdn.inksoft.com/FrontendApps/storefront/assets/scripts/designer-embed.js';
+        scriptElement.src = '/designer-embed.js';
         scriptElement.onload = launchDesignStudio;
         document.body.appendChild(scriptElement);
       } else {
@@ -58,12 +70,49 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({ productId, designId }) => {
         targetDiv.innerHTML = ''; // Clear any initialized content
       }
     };
-  }, [router.asPath, productId, designId]);
+  }, [router.asPath, productId, designId,sessionToken]);
+
+  useEffect(() => {
+    window.addEventListener('message', (event) => {
+      // Ensure the message is from the expected origin
+          if(event.data.forParent){
+            if(!document.cookie.includes('SessionToken')){
+                const sessionToken = event.data.data.SessionToken;
+                document.cookie = `SessionToken=${sessionToken}; path=/`;
+                setGuestToken(sessionToken);
+            } else{
+              const parseCookies = (cookieString) => {
+                return cookieString.split(';').reduce((cookies, cookie) => {
+                  const [name, value] = cookie.split('=').map(c => c.trim());
+                  cookies[name] = value;
+                  return cookies;
+                }, {});
+              };
+          
+              const cookies = parseCookies(document.cookie);
+              setSessionToken(cookies.SessionToken);
+            }
+          }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (sessionToken) {
+      launchCount.current = 0; // Reset launch count
+      // remove designStudioIframe
+      const targetDiv = document.getElementById('inksoftEmbed');
+      if (targetDiv) {
+        targetDiv.innerHTML = ''; // Clear any initialized content
+      }
+    }
+  }, [sessionToken]);
 
   return (
+    <>
     <div className="embed-container">
       <div id="inksoftEmbed" style={{ width: '100%', height: '720px', padding: '0', margin: '0', border: '0', maxHeight: '100%' }}></div>
     </div>
+    </>
   );
 };
 

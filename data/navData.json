@@ -31,18 +31,13 @@
       ]
     },
     {
-      "title": "About Us",
+      "title": "About",
       "url": "/about-us",
       "subLinks": []
     },
     {
       "title": "Blog",
       "url": "/blog",
-      "subLinks": []
-    },
-    {
-      "title": "Contact",
-      "url": "/contact-us",
       "subLinks": []
     }
   ]
