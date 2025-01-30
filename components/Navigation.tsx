@@ -32,20 +32,11 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({ navData }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showCart, setShowCart] = useState(false);
-  const [waiting, setWaiting] = useState(true);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
 
-  useEffect(() => {
-    setShowCart(true);
-    setTimeout(() => {
-      if (waiting) {
-        setWaiting(false);
-      }
-    }, 1000);
-  },[])
-
+  
   return (
     <>
       <nav>
@@ -73,20 +64,14 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
 
         </div>
  
-        <div style={{ marginTop: -8, overflow: 'hidden', width: 80, height: 80 }}>
+        <div style={{ marginTop: -8, overflow: 'hidden', width: 100, height: 80 }}>
           <iframe 
-            src={ showCart && "https://philadelphiascreenprinting.com/philadelphiascreenprinting/shop/home?cartOnly=true"} 
+            src={ "http://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true"} 
             style={{ 
-              width: 500,
-              border: 0,
-              background: "white",
-              borderRadius: 25,
-              paddingBottom: 30,
-              marginTop: 25,
-              height: 200,
-              transform: "scale(0.16)",
-              transformOrigin: "-83px -45.5px",
-              zoom: 11
+              zoom: .25,
+              transform: 'scale(5)',
+              transformOrigin: '270px 30px',
+              overflow: 'hidden',
              }}
           />
           
