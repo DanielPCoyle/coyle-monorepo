@@ -59,25 +59,25 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
         <div>
         <Link className="phoneNumber" href="tel:215-771-9404">215-771-9404</Link>
         </div>
-        <div className='signIn'>
-        <svg style={{margin:"auto"}} xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill={"currentColor"} className="bi bi-person-circle" viewBox="0 0 16 16">
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-          <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-        </svg>
-
-        </div>
  
-        <div style={{ marginTop: -8, overflow: 'hidden', width: 100, height: 80 }}>
+ <div style={{
+  width:200,
+  height:80,
+  overflow:"hidden",
+  position:"relative",
+ }}>
+        <div style={{ 
+          position:"absolute",
+          top:0,
+          right:-100,
+          width:1400, marginTop: -17,  overflow: 'hidden',  height: 80 }}>
           <iframe 
             src={ showCart && "https://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true"} 
-            style={{ 
-              zoom: .25,
-              transform: 'scale(5)',
-              transformOrigin: '270px 30px',
-              overflow: 'hidden',
-             }}
+            style={{
+              width:1400
+            }}
           />
-          
+        </div>
         </div>
         
       </nav>
