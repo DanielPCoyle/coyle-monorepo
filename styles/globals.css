@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=New+Amsterdam');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('./blog.css');
 
 html, body {
   font-family: 'Roboto', sans-serif;
@@ -310,4 +311,17 @@ a{
 .phoneNumber{
   font-size: 1.5em;
   color:rgba(126, 211, 33, 1);
+}
+
+.blogItem .image img {
+  width: 100% !important;
+}
+
+.blogList {
+  width: 800px;
+}
+
+.pageContainer{
+  width:1100px;
+  margin:auto;
 }

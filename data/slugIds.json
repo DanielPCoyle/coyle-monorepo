@@ -1,13 +1,5 @@
 [
   {
-    "slug": "7-oz-cloth-knot-button-chef-coat",
-    "id": 1000166
-  },
-  {
-    "slug": "7-oz-eight-button-chef-coat",
-    "id": 1000167
-  },
-  {
     "slug": "adult-5050-ecosmartreg-jersey-pocket-polo",
     "id": 1000227
   },
@@ -156,18 +148,6 @@
     "id": 1000063
   },
   {
-    "slug": "adult-workwear-long-sleeve-pocket-t-shirt",
-    "id": 1000059
-  },
-  {
-    "slug": "adult-workwear-pocket-t-shirt",
-    "id": 1000058
-  },
-  {
-    "slug": "amanda-canvas-tote",
-    "id": 1000189
-  },
-  {
     "slug": "american-apparel-fine-jersey-long-sleeve-t-shirt",
     "id": 1000009
   },
@@ -184,42 +164,6 @@
     "id": 1000001
   },
   {
-    "slug": "astoris-backpack",
-    "id": 1000169
-  },
-  {
-    "slug": "banker-briefcase",
-    "id": 1000186
-  },
-  {
-    "slug": "barrel-duffel",
-    "id": 1000185
-  },
-  {
-    "slug": "bay-view-giant-zipper-beach-tote",
-    "id": 1000176
-  },
-  {
-    "slug": "boston-drawstring-bag",
-    "id": 1000194
-  },
-  {
-    "slug": "cafeacutebistro-apron",
-    "id": 1000182
-  },
-  {
-    "slug": "canvas-belt-bag",
-    "id": 1000174
-  },
-  {
-    "slug": "canvas-field-bag",
-    "id": 1000173
-  },
-  {
-    "slug": "canvas-grocery-tote",
-    "id": 1000204
-  },
-  {
     "slug": "canvas-heavy-tote",
     "id": 1000207
   },
@@ -228,28 +172,8 @@
     "id": 1000203
   },
   {
-    "slug": "canvas-resort-tote",
-    "id": 1000201
-  },
-  {
-    "slug": "canvas-rucksack",
-    "id": 1000202
-  },
-  {
-    "slug": "carmel-classic-xl-cotton-canvas-resort-tote",
-    "id": 1000193
-  },
-  {
-    "slug": "chelsea-cotton-market-tote",
-    "id": 1000170
-  },
-  {
     "slug": "cinch-sak",
     "id": 1000208
-  },
-  {
-    "slug": "coast-to-coast-drawstring-pack",
-    "id": 1000172
   },
   {
     "slug": "comfort-colors-heavyweight-color-blast-tee-1745",
@@ -280,10 +204,6 @@
     "id": 1000219
   },
   {
-    "slug": "distressed-cap",
-    "id": 1000200
-  },
-  {
     "slug": "drawstring-tote-bag",
     "id": 1000206
   },
@@ -302,10 +222,6 @@
   {
     "slug": "full-zip-hooded-sweatshirt",
     "id": 1000388
-  },
-  {
-    "slug": "garment-bag",
-    "id": 1000199
   },
   {
     "slug": "gildan-dryblend-50-cotton50-dryblend-poly-t-shirt",
@@ -412,24 +328,12 @@
     "id": 1000036
   },
   {
-    "slug": "hanes-nano-t-cotton-t-shirt",
-    "id": 1000026
-  },
-  {
     "slug": "hanes-tagless-100-cotton-t-shirt",
     "id": 1000034
   },
   {
     "slug": "hanes-tagless-100-cotton-t-shirt-with-pocket",
     "id": 1000043
-  },
-  {
-    "slug": "hanes-youth-comfortblend-cotton-poly-t-shirt",
-    "id": 1000038
-  },
-  {
-    "slug": "hanes-youth-tagless-100-cotton-t-shirt",
-    "id": 1000041
   },
   {
     "slug": "heavyweight-pigment-dyed-hooded-sweatshirt",
@@ -441,11 +345,11 @@
   },
   {
     "slug": "hooded-pullover-sweatshirt",
-    "id": 1000390
+    "id": 1000256
   },
   {
     "slug": "hooded-pullover-sweatshirt",
-    "id": 1000256
+    "id": 1000390
   },
   {
     "slug": "insulated-can-holder",
@@ -492,28 +396,12 @@
     "id": 1000225
   },
   {
-    "slug": "ladies-8-oz-8020-comfortblendreg-ecosmartreg-open-bottom-fleece-pant",
-    "id": 1000061
-  },
-  {
-    "slug": "ladies-coastal-pique-fleece-quarter-zip",
-    "id": 1000056
-  },
-  {
     "slug": "ladies-combed-cotton-piqueacute-polo",
     "id": 1000235
   },
   {
     "slug": "ladies-cropped-fleece-hoodie",
     "id": 1000381
-  },
-  {
-    "slug": "ladies-dawson-quilted-hacking-jacket",
-    "id": 1000052
-  },
-  {
-    "slug": "ladies-dawson-quilted-hacking-vest",
-    "id": 1000054
   },
   {
     "slug": "ladies-flowy-cropped-t-shirt",
@@ -584,26 +472,6 @@
     "id": 1000412
   },
   {
-    "slug": "large-drawstring-bag",
-    "id": 1000195
-  },
-  {
-    "slug": "large-two-pocket-apron",
-    "id": 1000177
-  },
-  {
-    "slug": "large-two-pocket-apron",
-    "id": 1000178
-  },
-  {
-    "slug": "latitudes-foldaway-shopper-tote",
-    "id": 1000164
-  },
-  {
-    "slug": "laundry-bag",
-    "id": 1000198
-  },
-  {
     "slug": "legend--premium-heavyweight-cross-grain-sweatshirt",
     "id": 1000385
   },
@@ -612,24 +480,8 @@
     "id": 1000394
   },
   {
-    "slug": "madison-basic-tote",
-    "id": 1000183
-  },
-  {
     "slug": "mainstreet-hooded-sweatshirt",
     "id": 1000387
-  },
-  {
-    "slug": "marianne-cotton-canvas-tote",
-    "id": 1000190
-  },
-  {
-    "slug": "melody-large-tote",
-    "id": 1000184
-  },
-  {
-    "slug": "mens-coastal-pique-fleece-quarter-zip",
-    "id": 1000055
   },
   {
     "slug": "mens-combed-cotton-piqueacute-polo",
@@ -638,14 +490,6 @@
   {
     "slug": "mens-comfortsoftreg-cotton-piqueacute-polo",
     "id": 1000229
-  },
-  {
-    "slug": "mens-dawson-quilted-hacking-jacket",
-    "id": 1000051
-  },
-  {
-    "slug": "mens-dawson-quilted-hacking-vest",
-    "id": 1000053
   },
   {
     "slug": "mens-ez-tech-long-sleeve-polo",
@@ -708,10 +552,6 @@
     "id": 1000243
   },
   {
-    "slug": "mens-usa-made-heavyweight-waffle-knit-long-sleeve-thermal-shirt",
-    "id": 1000181
-  },
-  {
     "slug": "midweight-hooded-sweatshirt",
     "id": 1000391
   },
@@ -722,14 +562,6 @@
   {
     "slug": "nicole-cotton-canvas-tote",
     "id": 1000187
-  },
-  {
-    "slug": "p-o-cruiser-tote",
-    "id": 1000175
-  },
-  {
-    "slug": "pigment-dyed-large-canvas-tote",
-    "id": 1000171
   },
   {
     "slug": "polyester-zip-tote",
@@ -940,10 +772,6 @@
     "id": 1000386
   },
   {
-    "slug": "seaside-cotton-pigment-dyed-resort-tote",
-    "id": 1000191
-  },
-  {
     "slug": "seaside-cotton-pigment-dyed-large-tote",
     "id": 1000215
   },
@@ -1036,16 +864,8 @@
     "id": 1000188
   },
   {
-    "slug": "three-pocket-waist-apron",
-    "id": 1000179
-  },
-  {
     "slug": "two-pocket-30-apron",
     "id": 1000165
-  },
-  {
-    "slug": "two-pocket-adjustable-apron",
-    "id": 1000180
   },
   {
     "slug": "unisex-barley-contrast-stitch-recycled-bib-apron",
@@ -1126,14 +946,6 @@
   {
     "slug": "value-drawstring-bag",
     "id": 1000196
-  },
-  {
-    "slug": "whitedrawstring-backpack",
-    "id": 1000197
-  },
-  {
-    "slug": "windward-large-cotton-canvas-classic-resort-tote",
-    "id": 1000192
   },
   {
     "slug": "youth-95-oz-super-sweatsreg-nublendreg-fleece-crew",

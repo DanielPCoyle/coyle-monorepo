@@ -1,0 +1,84 @@
+.blogList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: left;
+}
+
+.blogItem {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: 85%;
+    margin: 10px;
+    text-align: left;
+}
+
+.blogItem h2{
+    margin: 0;
+    padding-left: 15px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.blogItem:hover {
+    transform: translateY(-5px);
+}
+
+.blogItem .image img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+}
+
+.blogItem h2 {
+    font-size: 1.5em;
+    margin: 15px 0;
+    color: #333;
+}
+
+.blogItem .tagLine {
+    font-size: 1em;
+    color: #666;
+    padding: 0 15px 15px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.pagination button {
+    background-color: #0070f3;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size:2em;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #005bb5;
+}
+
+
+
+.postDate{
+    margin-top: 10px;
+    padding-left:15px;
+    margin-bottom: -10px;
+    font-size: 0.8em;
+}
