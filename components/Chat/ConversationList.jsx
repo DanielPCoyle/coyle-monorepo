@@ -16,7 +16,7 @@ export const ConversationList = ({
             <button
                 onClick={toggleDrawer}
                 style={{
-                    position: "absolute",
+                    position: "fixed",
                     top: 10,
                     left: 10,
                     zIndex: 1000,

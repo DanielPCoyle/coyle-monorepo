@@ -11,7 +11,6 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
     const contentRef = useRef(null);
     const cameraRef = useRef(null);
     const fontRef = useRef(null);
-    const topMessageY = useRef(5);
     const cameraTargetY = useRef(5);
     const userScrolled = useRef(false);
 
@@ -32,7 +31,7 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
         directionalLight.position.set(2, 2, 2);
         scene.add(directionalLight);
 
-        scene.background = new THREE.Color('white');
+        scene.background = new THREE.Color('black');
         sceneRef.current = scene;
 
         const fontLoader = new FontLoader();

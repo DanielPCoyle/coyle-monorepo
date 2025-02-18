@@ -24,15 +24,29 @@ export default function Chat() {
     const [tick, setTick] = useState(0);
 
     useEffect(() => {
-        fetch("/api/getConversations").then((res) => res.json()).then((data) => {
-            if(!data?.length) return;
-            setHistoricConversations(data?.map((convo)=>{
+        if (!username && username !== "admin") return;
+        let controller = new AbortController();
+        const signal = controller.signal;
+
+        fetch("/api/getConversations", { signal }).then((res) => res.json()).then((data) => {
+            if (signal.aborted || !data?.length) return;
+            setHistoricConversations(data?.map((convo) => {
                 convo.username = convo.name;
                 convo.id = convo.conversation_key;
                 return convo;
             }));
+        }).catch((err) => {
+            if (err.name === 'AbortError') {
+                console.log('Fetch aborted');
+            } else {
+                console.error('Fetch error:', err);
+            }
         });
-    }, [tick]);
+
+        return () => {
+            controller.abort();
+        };
+    }, [tick, username]);
 
     
 
