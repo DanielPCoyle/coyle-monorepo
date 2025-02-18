@@ -325,3 +325,46 @@ a{
   width:1100px;
   margin:auto;
 }
+
+
+
+
+.inputContainer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  align-items: center;
+  background: #222;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 9;
+}
+
+@media (max-width:700px){
+  .inputContainer {
+    width: 90%;
+    left: 0;
+    transform: none;
+  }
+}
+
+.isTyping{
+  color:white;
+}
+
+
+.senderAvatar{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  margin-top: -15px;
+  
+  margin-right:5px;
+  margin-bottom: 5px;
+  justify-content: center;
+  background-color: white;
+  align-items: center;
+}
