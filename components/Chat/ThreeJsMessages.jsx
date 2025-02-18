@@ -257,12 +257,23 @@ useEffect(() => {
 
     return (
         <>
-        <div style={{ position: "fixed", top: 0, right:-500, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
-                <input type="number" step={0.01} max={100} min={-100} value={textureScale} onChange={(event) => setTextureScale(event.target.value)} />
-                <input type="number" step={0.01} max={2} min={-2} value={textureOffsetX} onChange={(event) => setTextureOffsetX(event.target.value)} />
-                <input type="number" step={0.01} max={2} min={-2} value={textureOffsetY} onChange={(event) => setTextureOffsetY(event.target.value )} />
-                <input type="number" step={0.01} max={2} min={-2} value={rotateModel} onChange={(event) => setRotateModel(event.target.value )} />
-
+            <div style={{ position: "fixed", top: 0, right: -500, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
+                <label>
+                    Texture Scale:
+                    <input type="range" step={0.01} max={100} min={-100} value={textureScale} onChange={(event) => setTextureScale(event.target.value)} />
+                </label>
+                <label>
+                    Texture Offset X:
+                    <input type="range" step={0.01} max={3} min={1} value={textureOffsetX} onChange={(event) => setTextureOffsetX(event.target.value)} />
+                </label>
+                <label>
+                    Texture Offset Y:
+                    <input type="range" step={0.01} max={3} min={1} value={textureOffsetY} onChange={(event) => setTextureOffsetY(event.target.value)} />
+                </label>
+                <label>
+                    Rotate Model:
+                    <input type="range" step={0.01} max={3} min={-3} value={rotateModel} onChange={(event) => setRotateModel(event.target.value)} />
+                </label>
             </div>
 
             <div ref={mountRef} style={{ position: "fixed", width: "100%", height: "100vh", zIndex: 0 }} />
@@ -273,8 +284,6 @@ useEffect(() => {
                     <Message key={index} {...{ message, username }} index={index} socket={socket} />
                 ))}
             </div>
-            
-
         </>
     );
 };
