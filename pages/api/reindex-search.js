@@ -8,8 +8,14 @@ import fs from 'fs';
 // Search-only version
 // import algoliasearch from 'algoliasearch/lite';
 
-const aClient = algoliasearch('S6ZEXIE5TS', '9f67131599df12752846dda0d6ba3e49');
-const client = searchClient('S6ZEXIE5TS', '9f67131599df12752846dda0d6ba3e49');
+const aClient = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY
+);
+const client = searchClient(
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY
+);
 // Fetch and index objects in Algolia
 const processRecords = async () => {
   const categoryRequest = await fetch('https://cdn.inksoft.com/'+process.env.NEXT_PUBLIC_INKSOFT_STORE+'/Api2/GetProductCategories?IncludeAllPublisherCategories=false&BlankProducts=true&StaticProducts=true&ProductType=all')
