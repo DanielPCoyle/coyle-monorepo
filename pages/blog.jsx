@@ -59,7 +59,7 @@ const Page  = () => {
         <Navigation navData={navData}  />
       </div>
       <div className='pageContainer'>
-        <h1>PhilaPrints' Latest Posts</h1>
+        <h1>PhilaPrints&apos; Latest Posts</h1>
         <div className="blogList">
             {posts.map((post)=>{
                 return <Link href={"/post/"+post.data.slug} key={post.data.slug}>
