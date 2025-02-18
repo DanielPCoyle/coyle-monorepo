@@ -224,7 +224,6 @@ const Page: React.FC<PageProps> = ({
         <Navigation navData={navData}  />
       </div>
       <ProgressBar />
-      {/* {JSON.stringify(results)} */}
       <React.Suspense fallback={<div>Loading...</div>}>
       {( typeof window !== 'undefined') &&
       <BuilderComponent

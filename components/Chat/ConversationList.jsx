@@ -40,7 +40,6 @@ export const ConversationList = ({
                 }}
             >
                 <h3>Active Conversations</h3>
-                {/* <pre>{JSON.stringify(,null,2)}</pre> */}
                 <ConversationListItems
                 socket={socket}
                 setCurrentConversation={setCurrentConversation} 

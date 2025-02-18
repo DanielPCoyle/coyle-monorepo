@@ -21,7 +21,9 @@ export default function Chat() {
     const [id, setId] = useState("");
     const [windowWidth, setWindowWidth] = useState(null);
     const [typing, setTyping] = useState(null);
-    const [tick, setTick] = useState(0);
+    const [color, setColor] = useState("yellow");  
+    const [files, setFiles] = React.useState([]);
+    
 
     useEffect(() => {
         if (!username && username !== "admin") return;
@@ -46,7 +48,7 @@ export default function Chat() {
         return () => {
             controller.abort();
         };
-    }, [tick, username]);
+    }, [ username]);
 
     
 
@@ -104,10 +106,7 @@ export default function Chat() {
 
     useEffect(() => {
         socket.on("conversations", (conversations) => {
-            setTick((prev) => prev + 1);
-            if (username.toLocaleLowerCase() === "admin") {
-                setConversations(conversations); // Admin sees all
-            } 
+            setConversations(conversations); // Admin sees all
         });     
     }, [currentConversation, username]);
 
@@ -235,7 +234,10 @@ export default function Chat() {
                         socket,
                         setInput,
                         username,
-                        typing
+                        typing,
+                        setColor,
+                         files,
+                        setFiles
                  }} />
             )}
             {username === "admin" && (
@@ -252,7 +254,7 @@ export default function Chat() {
                 }} />
             )}
             <div>  
-                <ThreeJsMessages socket={socket} messages={messages} username={username} />
+                <ThreeJsMessages files={files} socket={socket} messages={messages} username={username} color={color} />
             </div>
         </div>
     );

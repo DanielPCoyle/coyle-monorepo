@@ -368,3 +368,9 @@ a{
   background-color: white;
   align-items: center;
 }
+
+.message {
+  max-width: 240px;
+  word-wrap: break-word;
+  hyphens: auto;
+}

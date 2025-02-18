@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Message } from "./Message";
 
-export const ThreeJsMessages = ({ messages, username, socket }) => {
+export const ThreeJsMessages = ({ messages, username, socket, color, files }) => {
     const mountRef = useRef(null);
     const sceneRef = useRef(null);
     const rendererRef = useRef(null);
@@ -13,6 +13,12 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
     const fontRef = useRef(null);
     const cameraTargetY = useRef(5);
     const userScrolled = useRef(false);
+    const modelRef = useRef(null);
+
+    const [textureScale, setTextureScale] = useState(4);
+    const [textureOffsetX, setTextureOffsetX] = useState(-0.55);
+    const [textureOffsetY, setTextureOffsetY] = useState(-0.55);
+    const [rotateModel, setRotateModel] = useState(false);
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -42,15 +48,37 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
         const gltfLoader = new GLTFLoader();
         gltfLoader.load('/shirt/scene.gltf', (gltf) => {
             const model = gltf.scene;
-            model.scale.set(20, 20, 20); // Adjust the scale as needed to make it larger
-            model.position.set(0, -20, -10); // Adjust the position as needed
+            model.scale.set(30, 30, 30); // Adjust the scale as needed to make it larger
+            model.position.set(0, -30, -20); // Adjust the position as needed
             scene.add(model);
+            modelRef.current = model;
 
-            const rotateModel = () => {
-                requestAnimationFrame(rotateModel);
-                model.rotation.y += 0.005; // Adjust the rotation speed as needed
-            };
-            rotateModel();
+            const texture = new THREE.Texture();
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const context = canvas.getContext('2d');
+            context.fillStyle = color ?? 'yellow';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            texture.image = canvas;
+            texture.needsUpdate = true;
+
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    child.material.map = texture;
+                    child.material.needsUpdate = true;
+                    // scale down the texture to fit the model
+                    child.material.map.repeat.set(textureScale, textureScale);
+                    // position the texture on the model
+                    child.material.map.offset.set(textureOffsetX, textureOffsetY);
+                }
+            });
+
+            // const rotateModel = () => {
+            //     requestAnimationFrame(rotateModel);
+            //     model.rotation.y += .005; // Adjust the rotation speed as needed
+            // };
+            // rotateModel();
         }, undefined, (error) => {
             console.error('An error occurred while loading the GLTF model:', error);
         });
@@ -85,6 +113,28 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
     }, []);
 
     useEffect(() => {
+        if (modelRef.current) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const context = canvas.getContext('2d');
+            context.fillStyle = color ?? 'yellow';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            const texture = new THREE.Texture(canvas);
+            texture.needsUpdate = true;
+
+            modelRef.current.traverse((child) => {
+            if (child.isMesh) {
+                child.material.map = texture;
+                child.material.map.repeat.set(textureScale, textureScale);
+                child.material.map.offset.set(textureOffsetX, textureOffsetY);
+                child.material.needsUpdate = true;
+            }
+            });
+        }
+    }, [color, textureScale, textureOffsetX, textureOffsetY]);
+
+    useEffect(() => {
         const handleContentScroll = () => {
             const scrollTop = contentRef.current.scrollTop;
             cameraTargetY.current = 5 - scrollTop * 0.01; // Adjust the multiplier as needed
@@ -97,24 +147,7 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
         };
     }, []);
 
-    useEffect(() => {
-        const handleMouseMove = (event) => {
-            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            sceneRef.current.children.forEach((child) => {
-                if (child instanceof THREE.Mesh) {
-                    child.rotation.x = mouseY * 0.1;
-                    child.rotation.y = mouseX * 0.1;
-                }
-            });
-        };
-
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-        };
-    }, []);
+ 
 
     useEffect(() => {
         if (cameraRef.current) {
@@ -146,8 +179,92 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
         };
     }, []);
 
+
+   useEffect(() => {
+    if (modelRef.current && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const photoTexture = new THREE.Texture(img);
+                photoTexture.wrapS = THREE.RepeatWrapping;
+                photoTexture.wrapT = THREE.RepeatWrapping;
+                photoTexture.needsUpdate = true;
+
+                modelRef.current.traverse((child) => {
+                    if (child.isMesh) {
+                        const baseTexture = child.material.map;
+                        if (!baseTexture || !baseTexture.image) return;
+
+                        const canvas = document.createElement('canvas');
+                        canvas.width = 256;
+                        canvas.height = 256;
+                        const context = canvas.getContext('2d');
+
+                        // Draw base texture
+                        context.drawImage(baseTexture.image, 0, 0, canvas.width, canvas.height);
+
+                        // Overlay new texture
+                        context.globalAlpha = 0.5; // Adjust transparency
+                        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                        const combinedTexture = new THREE.CanvasTexture(canvas);
+                        combinedTexture.wrapS = THREE.RepeatWrapping;
+                        combinedTexture.wrapT = THREE.RepeatWrapping;
+                        combinedTexture.repeat.set(textureScale, textureScale);
+                        combinedTexture.offset.set(textureOffsetX, textureOffsetY);
+                        combinedTexture.needsUpdate = true;
+
+                        child.material.map = combinedTexture;
+                        child.material.needsUpdate = true;
+                    }
+                });
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}, [files, textureScale, textureOffsetX, textureOffsetY]); // Dependencies ensure updates
+
+useEffect(() => {
+    if (!modelRef.current) return;
+    
+    modelRef.current.traverse((child) => {
+        if (child.isMesh && child.material.map) {
+            child.material.map.wrapS = THREE.RepeatWrapping;
+            child.material.map.wrapT = THREE.RepeatWrapping;
+            child.material.map.repeat.set(textureScale, textureScale);
+            child.material.map.offset.set(textureOffsetX, textureOffsetY);
+            child.material.needsUpdate = true;
+        }
+    });
+}, [textureScale, textureOffsetX, textureOffsetY]);
+
+
+
+    useEffect(() => {
+        if (modelRef.current) {
+            const rotate = () => {
+                if (rotateModel) {
+                    modelRef.current.rotation.y = rotateModel; // Adjust the rotation speed as needed
+                }
+                requestAnimationFrame(rotate);
+            };
+            rotate();
+        }
+    }, [rotateModel]);
+
     return (
         <>
+        <div style={{ position: "fixed", top: 0, right:-500, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
+                <input type="number" step={0.01} max={100} min={-100} value={textureScale} onChange={(event) => setTextureScale(event.target.value)} />
+                <input type="number" step={0.01} max={2} min={-2} value={textureOffsetX} onChange={(event) => setTextureOffsetX(event.target.value)} />
+                <input type="number" step={0.01} max={2} min={-2} value={textureOffsetY} onChange={(event) => setTextureOffsetY(event.target.value )} />
+                <input type="number" step={0.01} max={2} min={-2} value={rotateModel} onChange={(event) => setRotateModel(event.target.value )} />
+
+            </div>
+
             <div ref={mountRef} style={{ position: "fixed", width: "100%", height: "100vh", zIndex: 0 }} />
             <div ref={contentRef}
                 className="messageContainer"
@@ -156,6 +273,8 @@ export const ThreeJsMessages = ({ messages, username, socket }) => {
                     <Message key={index} {...{ message, username }} index={index} socket={socket} />
                 ))}
             </div>
+            
+
         </>
     );
 };
