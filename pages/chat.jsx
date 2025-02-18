@@ -254,7 +254,7 @@ export default function Chat() {
                 }} />
             )}
             <div>  
-                <ThreeJsMessages files={files} socket={socket} messages={messages} username={username} color={color} />
+                <ThreeJsMessages files={files} currentConversation={currentConversation} socket={socket} messages={messages} username={username} color={color} />
             </div>
         </div>
     );

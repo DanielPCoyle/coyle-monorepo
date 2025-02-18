@@ -57,6 +57,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
           ))}
         </ul>
         <div>
+        <Link className="chat" href="/chat" target="_blank">Chat</Link>
         <Link className="phoneNumber" href="tel:215-771-9404">215-771-9404</Link>
         </div>
  

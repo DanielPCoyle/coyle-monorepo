@@ -374,3 +374,11 @@ a{
   word-wrap: break-word;
   hyphens: auto;
 }
+
+
+a.chat {
+  font-size: 23px;
+  margin-right: 7px;
+  border-right: solid;
+  padding-right: 10px;
+}

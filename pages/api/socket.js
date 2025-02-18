@@ -146,8 +146,12 @@ export default function handler(req, res) {
                     io.to(id).emit("chat message", { id, sender, message, id:messageId });
                 }
 
-                
                 io.emit("conversations", conversations); // Update clients
+            });
+
+
+            socket.on("file added", async (props) => {
+                io.to(props.conversationId).emit("file added", props);
             });
 
 

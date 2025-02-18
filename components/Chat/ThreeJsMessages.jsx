@@ -4,7 +4,7 @@ import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Message } from "./Message";
 
-export const ThreeJsMessages = ({ messages, username, socket, color, files }) => {
+export const ThreeJsMessages = ({ messages, username, socket, color, files, currentConversation }) => {
     const mountRef = useRef(null);
     const sceneRef = useRef(null);
     const rendererRef = useRef(null);
@@ -259,6 +259,10 @@ useEffect(() => {
         <>
             <div style={{ position: "fixed", top: 0, right: -500, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
                 <label>
+                    {currentConversation?.id}
+                </label>
+                <label>
+                    
                     Texture Scale:
                     <input type="range" step={0.01} max={100} min={-100} value={textureScale} onChange={(event) => setTextureScale(event.target.value)} />
                 </label>

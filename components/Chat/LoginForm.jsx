@@ -63,7 +63,7 @@ export const LoginForm = ({ setIsLoggedIn, username, email, setEmail, setUsernam
                 setIsLoggedIn(true);
             }}
         >
-            <p>Want to chat with Dan?<br/>Enter your name and email.</p>
+            <p>Want to chat with PhilaPrints?<br/>Enter your name and email.</p>
             <div style={iconContainer}>
             <DotLottieReact
             style={{width:"auto", height:"auto", transform: "scale(2)"}}
