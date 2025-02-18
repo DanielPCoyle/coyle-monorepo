@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
-import { Dan } from "./Dan";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Message } from "./Message";
 
-
-export const ThreeJsMessages = ({ messages, username,  socket }) => {
+export const ThreeJsMessages = ({ messages, username, socket }) => {
     const mountRef = useRef(null);
     const sceneRef = useRef(null);
     const rendererRef = useRef(null);
@@ -15,7 +14,6 @@ export const ThreeJsMessages = ({ messages, username,  socket }) => {
     const topMessageY = useRef(5);
     const cameraTargetY = useRef(5);
     const userScrolled = useRef(false);
-    
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -34,11 +32,28 @@ export const ThreeJsMessages = ({ messages, username,  socket }) => {
         directionalLight.position.set(2, 2, 2);
         scene.add(directionalLight);
 
+        scene.background = new THREE.Color('white');
         sceneRef.current = scene;
 
         const fontLoader = new FontLoader();
         fontLoader.load("https://threejs.org/examples/fonts/helvetiker_regular.typeface.json", (font) => {
             fontRef.current = font;
+        });
+
+        const gltfLoader = new GLTFLoader();
+        gltfLoader.load('/shirt/scene.gltf', (gltf) => {
+            const model = gltf.scene;
+            model.scale.set(20, 20, 20); // Adjust the scale as needed to make it larger
+            model.position.set(0, -20, -10); // Adjust the position as needed
+            scene.add(model);
+
+            const rotateModel = () => {
+                requestAnimationFrame(rotateModel);
+                model.rotation.y += 0.005; // Adjust the rotation speed as needed
+            };
+            rotateModel();
+        }, undefined, (error) => {
+            console.error('An error occurred while loading the GLTF model:', error);
         });
 
         const handleResize = () => {
@@ -54,33 +69,6 @@ export const ThreeJsMessages = ({ messages, username,  socket }) => {
             cameraTargetY.current = 5 - scrollY * 0.001; // Adjust the multiplier as needed
         };
         window.addEventListener("scroll", handleScroll);
-
-        // Add particle effect
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 5000;
-        const posArray = new Float32Array(particlesCount * 3);
-
-        for (let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 100;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.1,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8
-        });
-
-        const colors = [];
-        for (let i = 0; i < particlesCount; i++) {
-            colors.push(Math.random(), Math.random(), Math.random());
-        }
-        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(colors), 3));
-
-        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particles);
 
         const animate = () => {
             requestAnimationFrame(animate);
@@ -140,10 +128,10 @@ export const ThreeJsMessages = ({ messages, username,  socket }) => {
             const mouse = new THREE.Vector2();
             mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    
+
             const raycaster = new THREE.Raycaster();
             raycaster.setFromCamera(mouse, cameraRef.current);
-    
+
             const intersects = raycaster.intersectObjects(sceneRef.current.children, true);
             for (const intersect of intersects) {
                 if (intersect.object.userData?.url) {
@@ -152,7 +140,7 @@ export const ThreeJsMessages = ({ messages, username,  socket }) => {
                 }
             }
         };
-    
+
         window.addEventListener("click", handleClick);
         return () => {
             window.removeEventListener("click", handleClick);
@@ -163,10 +151,10 @@ export const ThreeJsMessages = ({ messages, username,  socket }) => {
         <>
             <div ref={mountRef} style={{ position: "fixed", width: "100%", height: "100vh", zIndex: 0 }} />
             <div ref={contentRef}
-            className="messageContainer"
-            style={{ position: "relative", width: "55%", margin: "auto", zIndex: 1, color: "white", padding: "10px", paddingBottom: "50vh", paddingTop: "1vh" }}>
+                className="messageContainer"
+                style={{ position: "relative", width: "55%", margin: "auto", zIndex: 1, color: "white", padding: "10px", paddingBottom: "50vh", paddingTop: "1vh" }}>
                 {messages.map((message, index) => (
-                    <Message key={index} {...{message,username}} index={index} socket={socket} />
+                    <Message key={index} {...{ message, username }} index={index} socket={socket} />
                 ))}
             </div>
         </>
