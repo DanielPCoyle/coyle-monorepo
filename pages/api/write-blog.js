@@ -5,8 +5,6 @@ export default async function handler(req, res) {
 
         try {
             const content = await generateBlogContent();
-            // Assuming you have a function to save the blog post to your database
-            // const newPost = await saveBlogPost({ title, content, featuredImage, tagLine, slug });
 
             return res.status(201).json(content);
         } catch (error) {
@@ -66,16 +64,12 @@ async function generateBlogContent() {
             if(!data.choices || !data.choices[0].message?.content) {
                 throw new Error('Failed to generate blog content');
             }
-            console.log(data.choices[0].message);
             const content = JSON.parse(data.choices[0].message.content);
             await saveBlogPost({ title, content });
             return { title, content };
         }));
 
-        
-       
         return posts;
-
         
     } catch (error) {
         console.error('Error generating blog content:', error);
@@ -139,7 +133,7 @@ async function generateFeaturedImage(blogContent) {
             },
             body: JSON.stringify({
                 model: "dall-e-3",  // Latest model for high-quality images
-                prompt: `Create a high-quality, eye-catching featured image for a blog post about: "${blogContent.tagLine}". The image should visually represent screen printing, custom apparel, or Philadelphia city elements.`,
+                prompt: `Create a high-quality, realistic, eye-catching featured image for a blog post about: "${blogContent.tagLine}". The image should visually represent screen printing, custom apparel, promotional materials.`,
                 n: 1, // Generate one image
                 size: "1024x1024" // Optimal size for featured images
             })
@@ -152,10 +146,40 @@ async function generateFeaturedImage(blogContent) {
         }
 
         // Extract and return the image URL
-        return data.data[0].url;
+        return  await uploadImage(data.data[0].url);
 
     } catch (error) {
         console.error("Error generating featured image:", error.message);
         return null; // Return null if image generation fails
+    }
+}
+
+
+async function uploadImage(fileURL) {
+    const apiKey = process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY;
+
+    try {
+        const response = await fetch(fileURL);
+        const fileData = await response.buffer();
+
+        const uploadUrl = "https://builder.io/api/v1/upload?name=banner.jpg&altText=Promo Banner";
+
+        const uploadResponse = await fetch(uploadUrl, {
+            method: "POST",
+            body: fileData,
+            headers: {
+                "Authorization": `Bearer ${apiKey}`,
+                "Content-Type": "image/jpg",
+            },
+        });
+
+        const data = await uploadResponse.json();
+        
+
+        return data?.url || null;
+
+    } catch (error) {
+        console.error("Upload failed:", error);
+        return null;
     }
 }

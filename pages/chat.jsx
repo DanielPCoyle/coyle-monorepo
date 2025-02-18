@@ -4,6 +4,7 @@ import { LoginForm } from "../components/Chat/LoginForm";
 import { ThreeJsMessages } from "../components/Chat/ThreeJsMessages";
 import { ConversationList } from "../components/Chat/ConversationList";
 import { ChatContainer } from "../components/Chat/ChatContainer";
+import 'animate.css';
 
 const socket = io("http://localhost:3000", {
     path: "/api/socket",

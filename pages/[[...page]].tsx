@@ -68,9 +68,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
     result = await fetchProductsPageContent(urlPath); 
   } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
-  } else if (urlPath.includes("/products/")) {
-    result = await fetchProductContent(slug,query);
-  } else if (urlPath.includes("/category/")) {
+  }  else if (urlPath.includes("/category/")) {
     result = await fetchCategoryPageContent(urlPath);
   } else {
     result = await fetchGeneralPageContent(urlPath, slug, offset, limit);

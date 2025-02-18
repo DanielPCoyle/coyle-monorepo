@@ -257,9 +257,9 @@ useEffect(() => {
 
     return (
         <>
-            <div style={{ position: "fixed", top: 0, right: -500, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
+            <div style={{ position: "fixed", bottom: 0, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
                 <label>
-                    {currentConversation?.id}
+                    {currentConversation?.id} |
                 </label>
                 <label>
                     
