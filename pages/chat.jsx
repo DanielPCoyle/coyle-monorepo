@@ -6,7 +6,7 @@ import { ConversationList } from "../components/Chat/ConversationList";
 import { ChatContainer } from "../components/Chat/ChatContainer";
 import 'animate.css';
 
-const socket = io("http://localhost:3000", {
+const socket = io(process.env.NEXT_PUBLIC_CURRENT_SITE, {
     path: "/api/socket",
 });
 

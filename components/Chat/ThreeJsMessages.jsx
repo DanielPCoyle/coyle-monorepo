@@ -15,9 +15,6 @@ export const ThreeJsMessages = ({ messages, username, socket, color, files, curr
     const userScrolled = useRef(false);
     const modelRef = useRef(null);
 
-    const [textureScale, setTextureScale] = useState(4);
-    const [textureOffsetX, setTextureOffsetX] = useState(-0.55);
-    const [textureOffsetY, setTextureOffsetY] = useState(-0.55);
     const [rotateModel, setRotateModel] = useState(false);
 
     useEffect(() => {
@@ -37,7 +34,7 @@ export const ThreeJsMessages = ({ messages, username, socket, color, files, curr
         directionalLight.position.set(2, 2, 2);
         scene.add(directionalLight);
 
-        scene.background = new THREE.Color('black');
+        scene.background = new THREE.Color('white');
         sceneRef.current = scene;
 
         const fontLoader = new FontLoader();
@@ -45,43 +42,7 @@ export const ThreeJsMessages = ({ messages, username, socket, color, files, curr
             fontRef.current = font;
         });
 
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.load('/shirt/scene.gltf', (gltf) => {
-            const model = gltf.scene;
-            model.scale.set(30, 30, 30); // Adjust the scale as needed to make it larger
-            model.position.set(0, -30, -20); // Adjust the position as needed
-            scene.add(model);
-            modelRef.current = model;
-
-            const texture = new THREE.Texture();
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
-            const context = canvas.getContext('2d');
-            context.fillStyle = color ?? 'yellow';
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            texture.image = canvas;
-            texture.needsUpdate = true;
-
-            model.traverse((child) => {
-                if (child.isMesh) {
-                    child.material.map = texture;
-                    child.material.needsUpdate = true;
-                    // scale down the texture to fit the model
-                    child.material.map.repeat.set(textureScale, textureScale);
-                    // position the texture on the model
-                    child.material.map.offset.set(textureOffsetX, textureOffsetY);
-                }
-            });
-
-            // const rotateModel = () => {
-            //     requestAnimationFrame(rotateModel);
-            //     model.rotation.y += .005; // Adjust the rotation speed as needed
-            // };
-            // rotateModel();
-        }, undefined, (error) => {
-            console.error('An error occurred while loading the GLTF model:', error);
-        });
+       
 
         const handleResize = () => {
             renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
@@ -112,27 +73,7 @@ export const ThreeJsMessages = ({ messages, username, socket, color, files, curr
         };
     }, []);
 
-    useEffect(() => {
-        if (modelRef.current) {
-            const canvas = document.createElement('canvas');
-            canvas.width = 256;
-            canvas.height = 256;
-            const context = canvas.getContext('2d');
-            context.fillStyle = color ?? 'yellow';
-            context.fillRect(0, 0, canvas.width, canvas.height);
-            const texture = new THREE.Texture(canvas);
-            texture.needsUpdate = true;
 
-            modelRef.current.traverse((child) => {
-            if (child.isMesh) {
-                child.material.map = texture;
-                child.material.map.repeat.set(textureScale, textureScale);
-                child.material.map.offset.set(textureOffsetX, textureOffsetY);
-                child.material.needsUpdate = true;
-            }
-            });
-        }
-    }, [color, textureScale, textureOffsetX, textureOffsetY]);
 
     useEffect(() => {
         const handleContentScroll = () => {
@@ -180,66 +121,6 @@ export const ThreeJsMessages = ({ messages, username, socket, color, files, curr
     }, []);
 
 
-   useEffect(() => {
-    if (modelRef.current && files.length > 0) {
-        const file = files[0];
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.onload = () => {
-                const photoTexture = new THREE.Texture(img);
-                photoTexture.wrapS = THREE.RepeatWrapping;
-                photoTexture.wrapT = THREE.RepeatWrapping;
-                photoTexture.needsUpdate = true;
-
-                modelRef.current.traverse((child) => {
-                    if (child.isMesh) {
-                        const baseTexture = child.material.map;
-                        if (!baseTexture || !baseTexture.image) return;
-
-                        const canvas = document.createElement('canvas');
-                        canvas.width = 256;
-                        canvas.height = 256;
-                        const context = canvas.getContext('2d');
-
-                        // Draw base texture
-                        context.drawImage(baseTexture.image, 0, 0, canvas.width, canvas.height);
-
-                        // Overlay new texture
-                        context.globalAlpha = 0.5; // Adjust transparency
-                        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-                        const combinedTexture = new THREE.CanvasTexture(canvas);
-                        combinedTexture.wrapS = THREE.RepeatWrapping;
-                        combinedTexture.wrapT = THREE.RepeatWrapping;
-                        combinedTexture.repeat.set(textureScale, textureScale);
-                        combinedTexture.offset.set(textureOffsetX, textureOffsetY);
-                        combinedTexture.needsUpdate = true;
-
-                        child.material.map = combinedTexture;
-                        child.material.needsUpdate = true;
-                    }
-                });
-            };
-            img.src = event.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-}, [files, textureScale, textureOffsetX, textureOffsetY]); // Dependencies ensure updates
-
-useEffect(() => {
-    if (!modelRef.current) return;
-    
-    modelRef.current.traverse((child) => {
-        if (child.isMesh && child.material.map) {
-            child.material.map.wrapS = THREE.RepeatWrapping;
-            child.material.map.wrapT = THREE.RepeatWrapping;
-            child.material.map.repeat.set(textureScale, textureScale);
-            child.material.map.offset.set(textureOffsetX, textureOffsetY);
-            child.material.needsUpdate = true;
-        }
-    });
-}, [textureScale, textureOffsetX, textureOffsetY]);
 
 
 
@@ -257,29 +138,7 @@ useEffect(() => {
 
     return (
         <>
-            <div style={{ position: "fixed", bottom: 0, width: "100%", zIndex: 9999, backgroundColor: "black", color: "white", padding: "10px" }}>
-                <label>
-                    {currentConversation?.id} |
-                </label>
-                <label>
-                    
-                    Texture Scale:
-                    <input type="range" step={0.01} max={100} min={-100} value={textureScale} onChange={(event) => setTextureScale(event.target.value)} />
-                </label>
-                <label>
-                    Texture Offset X:
-                    <input type="range" step={0.01} max={3} min={1} value={textureOffsetX} onChange={(event) => setTextureOffsetX(event.target.value)} />
-                </label>
-                <label>
-                    Texture Offset Y:
-                    <input type="range" step={0.01} max={3} min={1} value={textureOffsetY} onChange={(event) => setTextureOffsetY(event.target.value)} />
-                </label>
-                <label>
-                    Rotate Model:
-                    <input type="range" step={0.01} max={3} min={-3} value={rotateModel} onChange={(event) => setRotateModel(event.target.value)} />
-                </label>
-            </div>
-
+          
             <div ref={mountRef} style={{ position: "fixed", width: "100%", height: "100vh", zIndex: 0 }} />
             <div ref={contentRef}
                 className="messageContainer"

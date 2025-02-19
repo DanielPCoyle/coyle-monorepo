@@ -90,7 +90,7 @@ export const ChatContainer = ({
                 </div>
                 
 
-                <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "10px"}}>
+                <div style={{display: "flex", justifyContent: "start", alignItems: "center", marginTop: "10px"}}>
                 <label style={{ marginLeft: "10px", cursor: "pointer" }}>
                     <input type="file" onChange={handleFileUpload} style={{ display: "none" }} />
                     <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="white" class="bi bi-images" viewBox="0 0 16 16">
@@ -99,31 +99,7 @@ export const ChatContainer = ({
                     </svg>
                 </label>
 
-                <div style={{ color: "white", width: "100%", marginLeft: "20px" }}>
-                    <div style={{ display: "flex", justifyContent: "start" }}>
-                        {["purple", "yellow", "blue"].map((color) => (
-                            <label key={color} style={{ display: "flex", alignItems: "center" }}>
-                                <input
-                                    type="radio"
-                                    name="color"
-                                    value={color}
-                                    onChange={() => setColor(color)}
-                                    style={{ marginRight: "5px", display: "none" }}
-                                />
-                                <div
-                                    style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        borderRadius: "50%",
-                                        backgroundColor: color,
-                                        border: "1px solid #000",
-                                        marginRight: "10px",
-                                    }}
-                                ></div>
-                            </label>
-                        ))}
-                    </div>
-                    </div>
+
                 </div>
                 <div style={{ color: "white", width: "100%" }}>
                     {Boolean(typing && typing?.username !== username) ? <>{typing.username} is typing...</> : <>&nbsp;</>}

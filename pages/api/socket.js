@@ -121,7 +121,7 @@ export default function handler(req, res) {
                 if (error) {
                     console.error('Error updating message as seen:', error);
                 } else {
-                    console.log('Message marked as seen:', data);
+                    console.log('Message marked as seen:', messageId);
                 }
                 
             });

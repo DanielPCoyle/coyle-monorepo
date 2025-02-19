@@ -10,6 +10,7 @@ export const Message = ({ message, username, index, socket }) => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
+                    console.log("Message seen:", message);
                     socket.emit("seen", message.id);
                 } else {
                 }
