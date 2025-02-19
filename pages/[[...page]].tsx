@@ -115,7 +115,7 @@ const Page: React.FC<PageProps> = ({
   const [results, setResults] = React.useState<SearchResults>({ nbPages: 0 });
   const [loading,setLoading] = React.useState(false);
   const [recordTotal, setRecordTotal] = React.useState(0);
-  const [filterFacets,setFilterFacets] = React.useState(facets);
+  const [filterFacets,setFilterFacets] = React.useState({});
 
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start();
@@ -132,11 +132,7 @@ const Page: React.FC<PageProps> = ({
   }, [router.events]);
 
   useEffect(() => {
-    fetchFacets(filters).then((data) => {
-      console.log({facets:data})
-      setFilterFacets(data);
-    })  
-    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber });
+    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber,setFilterFacets });
   }, [filters,pageNumber]);
 
   if (urlPath === "/cart") {

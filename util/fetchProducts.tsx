@@ -1,6 +1,6 @@
 import NProgress from "nprogress";
 
-export const fetchProducts = async ({ filters, setLoading, pageNumber, setResults, setPageNumber }) => {
+export const fetchProducts = async ({ filters, setLoading, pageNumber, setResults, setPageNumber, setFilterFacets }) => {
   try {
     setLoading(true);
     NProgress.start();
@@ -20,6 +20,16 @@ export const fetchProducts = async ({ filters, setLoading, pageNumber, setResult
     const data = await response.json();
     setResults(data);
     setPageNumber(data.page);
+    if(data?.facets){
+      console.log('Facets:', data.facets);
+      setFilterFacets(
+        {
+          "categories": data.facets.Categories,
+          "manufacturer": data.facets.Manufacturer,
+          "color": data.facets['Styles.Color'],
+        }
+      );
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setTimeout(() => {
       setLoading(false);

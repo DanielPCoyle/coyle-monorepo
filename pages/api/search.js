@@ -38,6 +38,7 @@ export default async function handler(req, res) {
     // Perform search with keyword, combined filters, and pagination
     const response = await index.search(keyword, {
       filters: filters.join(' AND '), // Combine filters with AND operator
+      facets: ['Manufacturer', 'Styles.Color', 'Categories'], // Request facet counts
       page, // Pass the page parameter to Algolia
     });
 
