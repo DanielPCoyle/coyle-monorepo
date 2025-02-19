@@ -43,20 +43,24 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
   return (
     <>
       <nav>
+      <button className="menu-toggle" onClick={toggleMenu}>
+          ☰
+        </button>
         <div className="logo">
           <Link href="/">
             <img src="https://cdn.inksoft.com/images/publishers/19502/stores/philadelphiascreenprinting/img/header-logo.png?decache=638658398084130000" alt="Logo" />
           </Link>
         </div>
-        <button className="menu-toggle" onClick={toggleMenu}>
-          ☰
-        </button>
-        <ul className={isMenuOpen ? 'open' : ''}>
+        <ul className={`${isMenuOpen ? 'open animate__animated animate__slideInLeft animate__faster' : ''}`}>
           {navData.map((item, index) => (
             <NavItem key={index} item={item} />
           ))}
+          <li className="smallCommunicationBox">
+          <Link className="chat" href="/chat" target="_blank">Chat</Link>
+          <Link className="phoneNumber" href="tel:215-771-9404">215-771-9404</Link>
+          </li>
         </ul>
-        <div>
+        <div className="communicationBox">
         <Link className="chat" href="/chat" target="_blank">Chat</Link>
         <Link className="phoneNumber" href="tel:215-771-9404">215-771-9404</Link>
         </div>
