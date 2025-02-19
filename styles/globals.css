@@ -414,3 +414,14 @@ a.chat {
   border-right: solid;
   padding-right: 10px;
 }
+
+.urlPreview{
+  background-color: whitesmoke;
+  border:solid 1px black !important;
+  * {
+    color:black !important;
+  }
+  .small{
+    font-size:12px !important;
+  }
+}

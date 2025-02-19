@@ -1,9 +1,10 @@
-import React, { useEffect, useRef }  from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
 export const Message = ({ message, username, index, socket }) => {
 
-
     const messageRef = useRef(null);
+    const [urlPreview, setUrlPreview] = useState(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -27,6 +28,21 @@ export const Message = ({ message, username, index, socket }) => {
         };
 
     }, [messageRef.current,socket]);
+
+    useEffect(() => {
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        const urls = message.message.match(urlRegex);
+        if (urls && urls.length > 0) {
+            console.log({urls})
+            axios.get(`/api/url-preview?url=${urls[0]}`)
+                .then(response => {
+                    setUrlPreview(response.data);
+                })
+                .catch(error => {
+                    console.error("Error fetching URL metadata:", error);
+                });
+        }
+    }, [message.message]);
 
     return <div
         ref={messageRef}
@@ -59,6 +75,17 @@ export const Message = ({ message, username, index, socket }) => {
                 <div className="sender" style={{ fontWeight: "bolder", marginBottom: "5px" }}>{message.sender === "admin" ? "PhilaPrints" : message.sender}</div>
             </div>
             <div className="message">{message.message}</div>
+            {urlPreview && (
+                    <Link href={urlPreview.url} target="_blank" style={{ color: "blue" }}>
+                <div className="urlPreview" style={{ marginTop: "10px", border: "1px solid #ccc", borderRadius: "10px", padding: "10px" }}>
+                    
+                    <div style={{ fontWeight: "bold", }}>{urlPreview.title}</div>
+                    <div>{urlPreview.description}</div>
+                    {Boolean(urlPreview.image) && <img src={urlPreview.image} alt="preview" style={{ width: "45%", margin:"auto", borderRadius: "10px" }} /> }
+                    <div className="small">Link:{urlPreview.url}</div>
+                </div>
+                    </Link>
+            )}
         </div>
     </div>;
 };
