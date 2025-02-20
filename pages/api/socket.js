@@ -79,6 +79,7 @@ export default function handler(req, res) {
             peopleOnSite.push({socketId:socket.id});
             io.emit("peopleOnSite", peopleOnSite);
             let typingTimeout;
+            console.log("User connected", socket.id);
 
             socket.on("login", ({ username, email, id }) => {
                 conversations.push({ username, email, id, socketId:socket.id });
