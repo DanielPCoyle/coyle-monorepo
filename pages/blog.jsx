@@ -62,8 +62,8 @@ const Page  = () => {
         <h1>PhilaPrints&apos; Latest Posts</h1>
         <div className="blogList">
             {posts.map((post)=>{
-                return <Link href={"/post/"+post.data.slug} key={post.data.slug}>
-                    <div className="blogItem">
+                return <Link href={"/post/"+post.data.slug} key={post.data.slug} className="blogItem">
+                    <div >
                     <div className="image">
                         <img src={post.data.featuredImage} alt={post.data.title}/>
                     </div>

@@ -4,7 +4,7 @@ import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Message } from "./Message";
 
-export const ThreeJsMessages = ({ messages, username, socket, color, files, currentConversation }) => {
+export const ThreeJsMessages = ({ messages, username, socket }) => {
     const mountRef = useRef(null);
     const sceneRef = useRef(null);
     const rendererRef = useRef(null);

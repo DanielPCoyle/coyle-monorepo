@@ -345,16 +345,32 @@ a{
   color:rgba(126, 211, 33, 1);
 }
 
+.blogItem {
+  width: 43%;
+  margin-bottom: 20px;
+}
+
 .blogItem .image img {
   width: 100% !important;
 }
 
 .blogList {
-  width: 800px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .blogItem {
+    width: 90%;
+    margin: auto;
+  }
 }
 
 .pageContainer{
-  width:1100px;
+  width: 100%;
+  max-width:1100px;
   margin:auto;
 }
 
@@ -362,7 +378,7 @@ a{
 
 
 .inputContainer {
-  position: fixed;
+  position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
@@ -371,7 +387,7 @@ a{
   background: #222;
   border-radius: 8px;
   padding: 10px;
-  z-index: 9;
+  z-index: 2;
 }
 
 @media (max-width:700px){
@@ -425,3 +441,4 @@ a.chat {
     font-size:12px !important;
   }
 }
+

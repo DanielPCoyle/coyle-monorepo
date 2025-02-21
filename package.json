@@ -11,6 +11,8 @@
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
     "@builder.io/react": "^5.0.11",
+    "@emoji-mart/data": "^1.2.1",
+    "@emoji-mart/react": "^1.1.1",
     "@fortawesome/free-brands-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@lottiefiles/dotlottie-react": "^0.13.0",
@@ -22,6 +24,8 @@
     "cheerio": "^1.0.0",
     "chroma-js": "^3.1.2",
     "dotenv": "^16.4.7",
+    "draft-js": "^0.11.7",
+    "emoji-picker-react": "^4.12.0",
     "firebase": "^11.0.1",
     "framer-motion": "^12.4.3",
     "instantsearch.css": "^8.5.1",
