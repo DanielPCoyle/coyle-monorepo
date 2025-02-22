@@ -3,7 +3,8 @@ import { io } from "socket.io-client";
 import { LoginForm } from "../components/Chat/LoginForm";
 import { ThreeJsMessages } from "../components/Chat/ThreeJsMessages";
 import { ConversationList } from "../components/Chat/ConversationList";
-import { ChatContainer } from "../components/Chat/ChatContainer";
+import { ChatContainer } from "../components/Chat/ChatControls";
+import {ChatContext} from "../context/chatContext";
 import 'animate.css';
 
 const socket = io(process.env.NEXT_PUBLIC_CURRENT_SITE, {
@@ -22,10 +23,9 @@ export default function Chat() {
     const [id, setId] = useState("");
     const [windowWidth, setWindowWidth] = useState(null);
     const [typing, setTyping] = useState(null);
-    const [color, setColor] = useState("yellow");  
     const [files, setFiles] = React.useState([]);
+    const emojiPickerRef = useRef(null);
     
-
     useEffect(() => {
         if (!username && username !== "admin") return;
         let controller = new AbortController();
@@ -51,8 +51,6 @@ export default function Chat() {
         };
     }, [ username]);
 
-    
-
     useEffect(() => {
         // get id from localStorage or socket.id
         if (localStorage.getItem("id")) {
@@ -71,8 +69,6 @@ export default function Chat() {
             setEmail(localStorage.getItem("email") || "");
             setCurrentConversation(JSON.parse(localStorage.getItem("currentConversation")) || null);
         }
-
-        
         setWindowWidth(window.innerWidth);
     }, []);
 
@@ -96,8 +92,6 @@ export default function Chat() {
             });
     },[currentConversation]);
 
-
-
     useEffect(() => {
         if (currentConversation && username.toLocaleLowerCase() === "admin") {
             socket.emit("join", { id: currentConversation.id });
@@ -115,7 +109,6 @@ export default function Chat() {
         if (isLoggedIn) {
             // Generate a unique conversation ID for user-Admin chat
             const conversationId = `${id}`;
-            
             // Emit login event with unique conversation
             const loginEmitData = { id, username, email, conversationId, socketId: socket.id };
             socket.emit("login", loginEmitData);
@@ -211,88 +204,60 @@ export default function Chat() {
         });
     }, [currentConversation, username]);
 
-
-    // scroll to bottom of page when messages are updated
     useEffect(() => {
         setTimeout(() => {
             window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         }, 1500);
     }, [messages, windowWidth]);
-
-
-
     
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
+                setShowEmojiPicker(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [emojiPickerRef]);
+
     return (
-        <div className="animate__animated animate__fadeIn" >
-        
-            {!isLoggedIn ? (
-                <LoginForm {...{ setIsLoggedIn, username, email, setEmail, setUsername }} />
-            ) : (
-                <ChatContainer {...{ 
-                        styles,
-                        input,
-                        currentConversation,
-                        socket,
-                        setInput,
-                        username,
-                        typing,
-                        setColor,
-                         files,
-                        setFiles
-                 }} />
-            )}
-            {username === "admin" && (
-               <ConversationList {
-                ...{
-                    conversations,
-                    currentConversation,
-                    setCurrentConversation,
-                    socket,
-                    id,
-                    username,
-                    email,
-                    historicConversations
-                }} />
-            )}
-            <div>  
-                <ThreeJsMessages files={files} currentConversation={currentConversation} socket={socket} messages={messages} username={username} color={color} />
+        <ChatContext.Provider value={{
+            conversations,
+            currentConversation, 
+            email,
+            files,
+            historicConversations,
+            id,
+            setCurrentConversation,
+            setFiles,
+            socket,
+            typing,
+            username,
+            messages,
+            setMessages,
+            input,
+            setInput,
+        }}>
+            <div className="animate__animated animate__fadeIn chatFlex">
+                {username === "admin" && (
+                    <ConversationList/>
+                )}
+                <div className="chatStack">
+                    <div className="messages">
+                        <ThreeJsMessages/>
+                    </div>
+                    <div className="chatInputArea">
+                        {!isLoggedIn ? (
+                            <LoginForm />
+                        ) : (
+                            <ChatContainer />
+                        )}
+                    </div>
+                </div>
             </div>
-        </div>
+        </ChatContext.Provider>
     );
 }
-
-export const styles = {
-    authContainer: { position: "absolute", top: "30%", left: "50%", transform: "translate(-50%, -50%)", background: "#222", padding: "20px", borderRadius: "10px", color: "#fff", textAlign: "center" },
-    input: { width: "100%", padding: "10px", margin: "5px 0", borderRadius: "5px", border: "none" },
-    loginButton: { padding: "10px", background: "#007AFF", color: "#fff", border: "none", borderRadius: "5px", cursor: "pointer" },
-    adminPanel: { position: "absolute", top: "10px", left: "10px", background: "#333", padding: "10px", borderRadius: "5px", color: "#fff" },
-    conversationItem: { cursor: "pointer", padding: "5px", borderBottom: "1px solid #444" },
-    textarea: {
-      flex: 1,
-      background: "#333",
-      color: "#fff",
-      border: "none",
-      padding: "10px",
-      fontSize: "16px",
-      borderRadius: "5px",
-      resize: "none",
-      outline: "none",
-      height: 100,
-    },
-    sendButton: {
-      marginLeft: "10px",
-      background: "#007AFF",
-      color: "#fff",
-      border: "none",
-      padding: "10px",
-      fontSize: "16px",
-      borderRadius: "5px",
-      cursor: "pointer",
-    },
-    inputContainer: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      margin: "20px 0",
-    },
-  };

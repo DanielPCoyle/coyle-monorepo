@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { styles } from "../../pages/chat";
+import React, { useState, useContext } from "react";
 import { motion } from "framer-motion";
+import {ChatContext } from "../../context/chatContext";
 
-export const ConversationList = ({
-    conversations, currentConversation, setCurrentConversation, socket, id,historicConversations
-}) => {
+export const ConversationList = () => {
+    const {
+        conversations,
+        currentConversation,
+        setCurrentConversation,
+        socket,
+        id,
+        historicConversations,
+    } = useContext(ChatContext);
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
     const toggleDrawer = () => {
         setIsDrawerOpen(!isDrawerOpen);
     };
@@ -26,18 +32,7 @@ export const ConversationList = ({
                 {isDrawerOpen ? "Close" : "Open"} Conversations
             </button>
             <div
-                style={{
-                    position: "fixed",
-                    top: 0,
-                    left: window.innerWidth > 1100 ? 0 : isDrawerOpen ? 0 : "-250px",
-                    width: "250px",
-                    height: "100%",
-                    backgroundColor: "white",
-                    boxShadow: "2px 0 5px rgba(0,0,0,0.5)",
-                    transition: "left 0.3s ease",
-                    zIndex: 999,
-                    padding: "10px",
-                }}
+                className="conversationList"
             >
                 <h3>Active Conversations</h3>
                 <ConversationListItems
@@ -51,18 +46,18 @@ export const ConversationList = ({
                     return convo;
                 })} 
                 id={id} />
-                <h5 style={{marginTop:"3vh"}}>Historic Conversations</h5>
-                
-                <ConversationListItems
-                    socket={socket}
-                    setCurrentConversation={setCurrentConversation} 
-                    currentConversation={currentConversation} 
-                    conversations={historicConversations
-                        .filter(convo=>conversations.map(c=>c?.id).includes(convo?.id) === false)
-                    } 
-                    id={id} 
-                />
-
+                <div className="historicConversations">
+                <h5>Historic Conversations</h5>
+                    <ConversationListItems
+                        socket={socket}
+                        setCurrentConversation={setCurrentConversation} 
+                        currentConversation={currentConversation} 
+                        conversations={historicConversations
+                            .filter(convo=>conversations.map(c=>c?.id).includes(convo?.id) === false)
+                        } 
+                        id={id} 
+                    />
+                </div>
             </div>
         </>
     );
@@ -76,7 +71,6 @@ const ConversationListItems = ({conversations, socket, currentConversation, setC
         filteredConversations?.map((convo, i) => (
             <div
                 key={i}
-                style={convo?.id === currentConversation?.id ? { ...styles.conversationItem, backgroundColor: "lightblue" } : styles.conversationItem}
                 onClick={(prev) => {
                     setCurrentConversation((prev) => {
                         socket.emit("leave", { id: prev.id });
@@ -102,6 +96,3 @@ const ConversationListItems = ({conversations, socket, currentConversation, setC
         </motion.div>
         </>
 }
-
-
-

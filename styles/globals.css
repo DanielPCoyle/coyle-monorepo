@@ -376,28 +376,6 @@ a{
 
 
 
-
-.inputContainer {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-  align-items: center;
-  background: #222;
-  border-radius: 8px;
-  padding: 10px;
-  z-index: 2;
-}
-
-@media (max-width:700px){
-  .inputContainer {
-    width: 90%;
-    left: 0;
-    transform: none;
-  }
-}
-
 .isTyping{
   color:white;
 }
@@ -442,3 +420,114 @@ a.chat {
   }
 }
 
+
+.chatFlex{
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.chatFlex .messages{
+  height: 75vh;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+
+.chatStack{
+  border-left:solid 1px rgb(229, 229, 229);
+  width: 100%;
+}
+
+.chatInputArea{
+  background-color: rgb(22, 22, 22) !important;
+  padding:5px;
+  height: 30vh;
+}
+
+.conversationList{
+  width: 20vw;
+}
+
+.thumbnails {
+  position: absolute;
+  top: -110px;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.thumbnails img{
+  border-radius:10px;
+}
+
+.reactions{
+    display: flex;
+    margin-top: 5px;
+    gap: 5px;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.showReactionEmojiPicker{
+  position: absolute;
+  bottom: -15px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.reactionEmojiPicker.main{
+  position:absolute;
+  z-index: 999;
+}
+
+.reactionPicker{
+  text-align: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+
+.editor{
+  flex: 1;
+  color:white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  height: 8vh;
+  overflow-y: auto;
+}
+
+
+.formatButton{ margin-left: 10px;
+   cursor: pointer;
+   background: none;
+   border: none;
+   color: white;
+  }
+
+
+  .sendButton{
+    margin-left: 10px;
+    background: #007AFF;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+
+  .reactionsContainer {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 30px;
+}

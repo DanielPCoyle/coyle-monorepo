@@ -1,15 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import Picker from "@emoji-mart/react";
-import data from "@emoji-mart/data";
+import EmojiPicker from 'emoji-picker-react';
+import { ChatContext } from "../../context/chatContext";
 
-export const Message = ({ message, username, index, socket }) => {
-    const messageRef = useRef(null);
+export const Message = ({ message, index }) => {
+    const { username, socket } = React.useContext(ChatContext);
+    
     const [urlPreview, setUrlPreview] = useState(null);
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [showReactionPicker, setShowReactionPicker] = useState(false);
     const [reactions, setReactions] = useState(message.reactions || {}); // Store reactions
-    const emojiPickerRef = useRef(null);
+    
+    const reactionPickerRef = useRef(null);
+    const messageRef = useRef(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -47,16 +50,24 @@ export const Message = ({ message, username, index, socket }) => {
     }, [message.message]);
 
     const addReaction = (emoji) => {
-        const newReactions = { ...reactions, [username]: emoji.native }; // Store reaction per user
+        const newReactions = { ...reactions };
+        newReactions[emoji.emoji] = emoji.emoji;
         setReactions(newReactions);
-        setShowEmojiPicker(false);
-        socket.emit("message reaction", { messageId: message.id, reactions: newReactions });
+        socket.emit("addReaction", { messageId: message.id, reactions: newReactions });
+        setShowReactionPicker(false);
+    };
+
+    const removeReaction = (emoji) => {
+        const newReactions = { ...reactions };
+        delete newReactions[emoji.emoji];
+        setReactions(newReactions);
+        socket.emit("removeReaction", { messageId: message.id, reactions: newReactions });
     };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
-                setShowEmojiPicker(false);
+            if (reactionPickerRef.current && !reactionPickerRef.current.contains(event.target)) {
+                setShowReactionPicker(false);
             }
         };
 
@@ -67,12 +78,14 @@ export const Message = ({ message, username, index, socket }) => {
     }, []);
 
     return (
+        <>
         <div ref={messageRef} className="animate__animated animate__zoomIn"
             key={index} style={{
+                alignItems: message.sender === username ? "flex-end" : "flex-start",
                 display: "flex",
                 flexDirection: "column",
-                alignItems: message.sender === username ? "flex-end" : "flex-start",
-                marginBottom: "10px"
+                marginBottom: "20px",
+                position: "relative"
             }}>
             <div style={{
                 maxWidth: "70%",
@@ -83,8 +96,8 @@ export const Message = ({ message, username, index, socket }) => {
                 borderRadius: message.sender === username ? "20px 20px 0 20px" : "20px 20px 20px 0",
                 boxShadow: "0 1px 1px rgba(0, 0, 0, 0.2)",
                 minWidth: "20%",
-                position: "relative"
             }}>
+                
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <div className="senderAvatar" style={{
                         background: message.sender === "admin" ? "white" : "black",
@@ -112,53 +125,33 @@ export const Message = ({ message, username, index, socket }) => {
                     </Link>
                 )}
 
-                {/* Emoji Reaction Button */}
                 <button
-                    onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                    style={{
-                        position: "absolute",
-                        bottom: "-15px",
-                        right: "10px",
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer",
-                        fontSize: "18px"
-                    }}>
+                    onClick={(e) => {
+                        setShowReactionPicker(true);
+                    }}
+                    className="showReactionEmojiPicker">
                     😊
                 </button>
-
-                {/* Emoji Picker Popup */}
-                {showEmojiPicker && (
-                    <div ref={emojiPickerRef} style={{
-                        position: "absolute",
-                        top: "30px",
-                        right: "10px",
-                        zIndex: 1,
-                        background: "white",
-                        borderRadius: "10px",
-                        boxShadow: "0px 0px 10px rgba(0,0,0,0.2)"
-                    }}>
-                        <Picker data={data} onEmojiSelect={addReaction} />
-                    </div>
-                )}
             </div>
-
-            {/* Display Reactions */}
-            {Object.values(reactions).length > 0 && (
-                <div style={{
-                    display: "flex",
-                    marginTop: "5px",
-                    gap: "5px",
-                    fontSize: "16px",
-                    background: "rgba(0, 0, 0, 0.05)",
-                    padding: "5px 10px",
-                    borderRadius: "10px"
-                }}>
-                    {Object.values(reactions).map((emoji, idx) => (
-                        <span key={idx} style={{ cursor: "pointer" }}>{emoji}</span>
-                    ))}
+        </div>
+        {showReactionPicker && (
+            <div className="reactionPicker">
+                <div className="animate__animated animate__slideInUp" ref={reactionPickerRef}>
+                <EmojiPicker reactionsDefaultOpen={true} onReactionClick={addReaction} />
+                </div>
+            </div>
+        )}
+        {Object.values(reactions).length > 0 && (
+                <div className="reactionsContainer">
+                    <div className="reactions">
+                        {Object.values(reactions).map((emoji, idx) => (
+                            <span 
+                            onClick={() => removeReaction({ emoji })}
+                            key={idx} style={{ cursor: "pointer" }}>{emoji}</span>
+                        ))}
+                    </div>
                 </div>
             )}
-        </div>
+        </>
     );
 };

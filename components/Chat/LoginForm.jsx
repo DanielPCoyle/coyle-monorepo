@@ -1,10 +1,11 @@
 import React from "react";
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { ChatContext } from "../../context/chatContext";
 
 
-
-export const LoginForm = ({ setIsLoggedIn, username, email, setEmail, setUsername }) => {
+export const LoginForm = () => {
+    const { username, setUsername, email, setEmail, setIsLoggedIn } = React.useContext(ChatContext);
     const formStyle = {
         position: "absolute",
         top: "50%",
