@@ -6,6 +6,7 @@ html, body {
   font-family: 'Roboto', sans-serif;
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 
@@ -435,18 +436,22 @@ a.chat {
 
 
 .chatStack{
-  border-left:solid 1px rgb(229, 229, 229);
+  border-left:solid 1px rgb(19, 19, 19);
   width: 100%;
 }
 
 .chatInputArea{
   background-color: rgb(22, 22, 22) !important;
-  padding:5px;
+  padding-left:5px;
+  padding-right:5px;
+  padding-bottom:5px;
   height: 30vh;
 }
 
 .conversationList{
   width: 20vw;
+  background: rgb(22, 22, 22) !important;
+  color: white;
 }
 
 .thumbnails {
@@ -463,13 +468,16 @@ a.chat {
 }
 
 .reactions{
+    position: relative;
+    margin-right: 10px;
     display: flex;
-    margin-top: 5px;
+    margin-top: -25px;
     gap: 5px;
     font-size: 16px;
     background: rgba(0, 0, 0, 0.05);
     padding: 5px 10px;
     border-radius: 10px;
+    background-color: lightgray;
 }
 
 .showReactionEmojiPicker{
@@ -527,4 +535,68 @@ a.chat {
     display: flex;
     justify-content: end;
     margin-bottom: 30px;
+}
+
+
+.messageContainer {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding-bottom: 55vh;
+  padding-top: 1vh;
+  overflow: hidden;
+}
+
+
+
+.messages {
+  scrollbar-width: thin;
+  scrollbar-color: black gray;
+}
+
+/* For Webkit-based browsers */
+.messages::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: gray;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 4px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: darkgray;
+}
+
+
+.messageContent {
+  max-width: 40%;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #E5E5EA;
+  color: #000000;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  min-width: 20%;
+}
+
+.messageContent.sender {
+  background-color: #007AFF;
+  color: #FFFFFF;
+  border-radius: 20px 20px 0 20px;
+}
+
+.messageContent.receiver {
+  border-radius: 20px 20px 20px 0;
+}
+
+
+.loading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import {ChatContext } from "../../../context/chatContext";
+import {ChatContext } from "../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
 export const ConversationList = () => {
     const {
@@ -30,31 +30,35 @@ export const ConversationList = () => {
             >
                 {isDrawerOpen ? "Close" : "Open"} Conversations
             </button>
-            <div
-                className="conversationList"
-            >
+            <div className="conversationList">
                 <h3>Active Conversations</h3>
                 <ConversationListItems
-                socket={socket}
-                setCurrentConversation={setCurrentConversation} 
-                currentConversation={currentConversation} 
-                conversations={conversations.map((convo)=>{
-                    if(!convo?.id) return null;
-                    const historicRecord = historicConversations.find(historic=>historic.conversation_key === convo.id);
-                    convo.unSeenMessages = historicRecord?.unSeenMessages || 0;
-                    return convo;
-                })} 
-                id={id} />
+                    socket={socket}
+                    setCurrentConversation={setCurrentConversation}
+                    currentConversation={currentConversation}
+                    conversations={conversations.map((convo) => {
+                        if (!convo?.id) return null;
+                        const historicRecord = historicConversations.find(
+                            (historic) => historic.id === convo.id
+                        );
+                        convo.unSeenMessages = historicRecord?.unSeenMessages || 0;
+                        return convo;
+                    }).filter((convo, index, self) => 
+                        convo && index === self.findIndex((c) => c?.id === convo?.id)
+                    )}
+                    id={id}
+                />
                 <div className="historicConversations">
-                <h5>Historic Conversations</h5>
+                    <h5>Historic Conversations</h5>
                     <ConversationListItems
                         socket={socket}
-                        setCurrentConversation={setCurrentConversation} 
-                        currentConversation={currentConversation} 
-                        conversations={historicConversations
-                            .filter(convo=>conversations.map(c=>c?.id).includes(convo?.id) === false)
-                        } 
-                        id={id} 
+                        setCurrentConversation={setCurrentConversation}
+                        currentConversation={currentConversation}
+                        conversations={historicConversations.filter(
+                            (convo) =>
+                                !conversations.some((c) => c?.id === convo?.id)
+                        )}
+                        id={id}
                     />
                 </div>
             </div>

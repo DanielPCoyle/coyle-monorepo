@@ -5,7 +5,7 @@ import { SendSvg } from "../../svg/SendSvg";
 import { Thumbnail } from "./Thumbnail";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
-import { ChatContext } from "../../../context/chatContext";
+import { ChatContext } from "../ChatContext";
 
 export const ChatContainer = () => {
     const {

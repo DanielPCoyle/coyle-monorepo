@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 export const ConversationListItems = ({conversations, socket, currentConversation, setCurrentConversation, id}) => {
     const filteredConversations = conversations
     ?.filter((convo) => convo?.id !== id && convo?.username  && convo?.username !== "admin");

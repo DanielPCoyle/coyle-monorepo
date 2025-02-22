@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import { ChatContext } from "../../context/chatContext";
+import { ChatContext } from "./ChatContext";
 
 
 export const LoginForm = () => {
