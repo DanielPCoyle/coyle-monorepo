@@ -9,7 +9,7 @@ export const Message = ({ message, index }) => {
     
     const [urlPreview, setUrlPreview] = useState(null);
     const [showReactionPicker, setShowReactionPicker] = useState(false);
-    const [reactions, setReactions] = useState(message.reactions || {}); // Store reactions
+    const [reactions, setReactions] = useState(message.reactions || {}); 
     
     const reactionPickerRef = useRef(null);
     const messageRef = useRef(null);
@@ -80,13 +80,15 @@ export const Message = ({ message, index }) => {
     return (
         <>
         <div ref={messageRef} className="animate__animated animate__zoomIn"
-            key={index} style={{
+            key={index} 
+            style={{
                 alignItems: message.sender === username ? "flex-end" : "flex-start",
                 display: "flex",
                 flexDirection: "column",
                 marginBottom: "20px",
                 position: "relative"
-            }}>
+            }}
+            >
             <div style={{
                 maxWidth: "70%",
                 padding: "10px",
@@ -124,7 +126,6 @@ export const Message = ({ message, index }) => {
                         </div>
                     </Link>
                 )}
-
 
                 <button
                     onClick={(e) => {
