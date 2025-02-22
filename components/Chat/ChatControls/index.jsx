@@ -108,9 +108,6 @@ export const ChatContainer = () => {
                 )}
                 <div style={{ display: "flex"}}>
                     <FormattingBar {...{toggleInlineStyle,toggleBlockType}} />
-                    <div className="isTyping">
-                        {Boolean(typing && typing?.username !== username) ? <>{typing.username} is typing...</> : <>&nbsp;</>}
-                    </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <div className="editor">
@@ -128,7 +125,7 @@ export const ChatContainer = () => {
                         <SendSvg />
                     </button>
                 </div>
-              <MessageAddons {...{handleFileUpload,showEmojiPicker,setShowEmojiPicker,emojiPickerRef,insertEmoji}} />
+              <MessageAddons {...{handleFileUpload,showEmojiPicker,setShowEmojiPicker,emojiPickerRef,insertEmoji, typing}} />
             </div>
         </>
     );

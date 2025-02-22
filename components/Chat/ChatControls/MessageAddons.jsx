@@ -1,9 +1,10 @@
+import React, { useContext } from "react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import React from "react";
 import { ImageSvg } from "../../svg/ImageSvg";
-
-export const MessageAddons = ({ handleFileUpload, showEmojiPicker, setShowEmojiPicker, emojiPickerRef, insertEmoji }) => {
+import { ChatContext } from "../ChatContext";
+export const MessageAddons = ({ handleFileUpload, showEmojiPicker, setShowEmojiPicker, emojiPickerRef, insertEmoji, typing }) => {
+    const { username } = useContext(ChatContext);
     return <div style={{ display: "flex", justifyContent: "start", alignItems: "center", marginTop: "10px" }}>
         <label style={{ marginLeft: "10px", cursor: "pointer" }}>
             <input type="file" onChange={handleFileUpload} style={{ display: "none" }} />
@@ -17,5 +18,8 @@ export const MessageAddons = ({ handleFileUpload, showEmojiPicker, setShowEmojiP
                 <Picker data={data} onEmojiSelect={insertEmoji} />
             </div>
         )}
+        <div className="isTyping">
+            {Boolean(typing && typing?.username !== username) ? <>{typing.username} is typing...</> : <>&nbsp;</>}
+        </div>
     </div>;
 };
