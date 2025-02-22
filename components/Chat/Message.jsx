@@ -125,6 +125,7 @@ export const Message = ({ message, index }) => {
                     </Link>
                 )}
 
+
                 <button
                     onClick={(e) => {
                         setShowReactionPicker(true);
@@ -135,7 +136,11 @@ export const Message = ({ message, index }) => {
             </div>
         </div>
         {showReactionPicker && (
-            <div className="reactionPicker">
+            <div className="reactionPicker"
+                style={{
+                    textAlign: username === message.sender ? "right" : "left",
+                }}
+            >
                 <div className="animate__animated animate__slideInUp" ref={reactionPickerRef}>
                 <EmojiPicker reactionsDefaultOpen={true} onReactionClick={addReaction} />
                 </div>

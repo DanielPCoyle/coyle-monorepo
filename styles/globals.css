@@ -474,8 +474,6 @@ a.chat {
 
 .showReactionEmojiPicker{
   position: absolute;
-  bottom: -15px;
-  right: 10px;
   background: none;
   border: none;
   cursor: pointer;
@@ -488,7 +486,6 @@ a.chat {
 }
 
 .reactionPicker{
-  text-align: right;
   margin-top: 10px;
   margin-bottom: 10px;
   overflow: hidden;
