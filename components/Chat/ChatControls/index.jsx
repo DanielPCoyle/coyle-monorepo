@@ -1,13 +1,26 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { Editor, EditorState, RichUtils, convertToRaw, Modifier } from "draft-js";
+import { stateToHTML } from "draft-js-export-html";
+
 import "draft-js/dist/Draft.css";
 import { SendSvg } from "../../svg/SendSvg";
 import { Thumbnail } from "./Thumbnail";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
 import { ChatContext } from "../ChatContext";
+import { createClient } from '@supabase/supabase-js';
 
-export const ChatContainer = () => {
+// Initialize Supabase client
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
+
+console.log(    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+
+export const ChatControls = ({replyId}) => {
     const {
         currentConversation, 
         socket,  
@@ -65,21 +78,65 @@ export const ChatContainer = () => {
         setEditorState(RichUtils.toggleBlockType(editorState, blockType));
     };
 
-    const sendMessage = () => {
+    const uploadFileToSupabase = async (file) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        const filePath = `public/${uniqueSuffix}-${file.name}`;
+        const { data, error } = await supabase.storage
+            .from("messages") // Replace with your bucket name
+            .upload(filePath, file, {
+                cacheControl: "3600",
+                upsert: false
+            });
+    
+        if (error) {
+            console.error("Error uploading file:", error);
+            return null;
+        }
+    
+        // Get public URL
+        const { data: publicURLData } = supabase
+            .storage
+            .from("messages")
+            .getPublicUrl(filePath);
+    
+        return publicURLData.publicUrl;
+    };
+    
+    const sendMessage = async () => {
         const contentState = editorState.getCurrentContent();
         const rawContent = convertToRaw(contentState);
-        const messageText = rawContent.blocks.map(block => block.text).join('\n');
+        const htmlContent = stateToHTML(contentState);
+        const messageText = rawContent.blocks.map(block => {
+            let text = block.text;
+            block.inlineStyleRanges.forEach(range => {
+                const style = range.style.toLowerCase();
+                text = text.slice(0, range.offset) + `<${style}>` + text.slice(range.offset, range.offset + range.length) + `</${style}>`;
+            });
+            return text;
+        }).join("\n");
         const randomString = Math.random().toString(36).substring(7);
+
         if (currentConversation) {
+            let uploadedFiles = [];
+
+            if (files.length > 0) {
+                const uploadPromises = files.map(uploadFileToSupabase);
+                uploadedFiles = await Promise.all(uploadPromises);
+            }
+
             const message = {
                 id: currentConversation.id,
                 messageId: randomString,
-                message: messageText,
+                message: htmlContent,
                 sender: username,
-                files,
+                replyId: replyId,
+                files: uploadedFiles.filter(url => url),
             };
+
+            console.log({message})
             socket.emit("chat message", message);
             setEditorState(EditorState.createEmpty());
+            setFiles([]); // Clear uploaded files after sending the message
         }
     };
 

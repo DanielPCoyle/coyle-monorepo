@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import {ChatContext } from "../ChatContext";
+import { ChatContext } from "../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
+
 export const ConversationList = () => {
     const {
         conversations,

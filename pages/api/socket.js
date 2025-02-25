@@ -1,64 +1,15 @@
 import { Server } from "socket.io";
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
+import { addConversation } from "./addConversation";
+import { addMessage } from "./addMessage";
 
 dotenv.config();
 
-const supabase = createClient(
+export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
-
-
-async function addConversation({name,email, conversation_key}) {
-    const { data: existingData, error: existingError } = await supabase
-      .from('conversations')
-      .select('*')
-      .eq('conversation_key', conversation_key);
-
-    if (existingError) {
-        console.error(existingError);
-        return;
-    }
-
-    if (existingData.length > 0) {
-        return;
-    }
-
-    const { data, error } = await supabase
-      .from('conversations')
-      .insert([{ name, email, conversation_key }]);
-  
-    if (error) console.error(error);
-    else console.log('Inserted:', data);
-}
-
-async function addMessage({ sender, message, conversation_key }) {
-    // Fetch the conversation ID
-    const { data, error } = await supabase
-        .from('conversations')
-        .select('id')
-        .eq('conversation_key', conversation_key)
-        .single(); // Ensures we get only one result
-
-    if (error) {
-        return null;
-    }
-
-    const conversationId = data.id;
-
-    // Insert message and return the newly inserted record
-    const { data: messageData, error: messageError } = await supabase
-        .from('messages')
-        .insert([{ conversation_id: conversationId, message, sender }])
-        .select(); // 👈 This ensures the response includes the inserted row(s)
-
-    if (messageError) {
-        return null;
-    }
-
-    return messageData[0].id; // Return the inserted message with its ID
-}
 
 
 let conversations = [];
@@ -90,12 +41,29 @@ export default function handler(req, res) {
 
             socket.on("join", ({ id }) => {
                 socket.join(id);
+                console.log("JOIN", id);
                 io.to(id).emit("update messages request",id);
             });
 
             socket.on("leave", ({ id }) => {
                 socket.leave(id);
             })
+
+            socket.on("addReaction", async({ id, messageId, reactions }) => {
+                const { data, error } = await supabase
+                .from('messages')
+                .update({ reaction: reactions })
+                .eq('id', messageId);
+                // io.emit("conversations", conversations); // Update clients
+                console.log("Add reaction", id, messageId, reactions);
+                io.to(id).emit("addReaction", { messageId, reactions });
+
+                if (error) {
+                    console.error('Error updating message as seen:', error);
+                } else {
+                    console.log('Message marked as seen:', messageId);
+                }
+            });
 
             socket.on("update messages action", ({ id, messages }) => {
                 io.to(id).emit("update messages result", { convoId:id, messages });
@@ -140,11 +108,12 @@ export default function handler(req, res) {
             });
 
 
-            socket.on("chat message", async ({ id, message, sender }) => {
+            socket.on("chat message", async ({ id, message, sender, files }) => {
                 const recipient = conversations.find(convo => convo?.socketId === socket.id);
                 if (recipient) {
-                    const messageId = await addMessage({sender, message, conversation_key:id});
-                    io.to(id).emit("chat message", { id, sender, message, id:messageId });
+                    const formattedMessage = message.replace(/\n/g, '<br/>'); // Apply formatting
+                    const messageId = await addMessage({sender, message: formattedMessage, conversation_key:id, files});
+                    io.to(id).emit("chat message", { id, sender, message: formattedMessage, id:messageId, files });
                 }
 
                 io.emit("conversations", conversations); // Update clients

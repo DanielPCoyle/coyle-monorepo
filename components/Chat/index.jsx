@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import { LoginForm } from "./LoginForm";
 import { Conversation } from "./Conversation";
 import { ConversationList } from "./ConversationList";
-import { ChatContainer } from "./ChatControls";
+import { ChatControls } from "./ChatControls";
 import {ChatContext} from "./ChatContext";
 import 'animate.css';
 
@@ -25,6 +25,8 @@ export default function Chat() {
     const [typing, setTyping] = useState(null);
     const [files, setFiles] = React.useState([]);
     const emojiPickerRef = useRef(null);
+    const [modalSource,setModalSource] = useState(null);
+    const [modalIndex,setModalIndex] = useState(null);
     
     useEffect(() => {
         if (!username && username !== "admin") return;
@@ -132,6 +134,7 @@ export default function Chat() {
                 return uniqueMessages;
             });
         });
+
     }, []);
 
     useEffect(() => {
@@ -148,6 +151,8 @@ export default function Chat() {
                 setMessages(messages);
             }
         });
+
+
     }, [currentConversation,messages,username]);
 
     
@@ -232,6 +237,8 @@ export default function Chat() {
             socket,
             typing,
             username,
+            setModalSource,
+            setModalIndex,
             setCurrentConversation,
             setEmail,
             setFiles,
@@ -250,10 +257,39 @@ export default function Chat() {
                         <Conversation/>
                     </div>
                     <div className="chatInputArea">
-                        <ChatContainer />
+                        <ChatControls />
                     </div>
                 </div>
             </div> }
+
+            {modalSource?.length > 0 && (
+                <div className="modal">
+                    <div className="modalContent">
+                        <img
+                            src={modalSource[modalIndex]}
+                            alt="file"
+                            style={{ width: "100%", borderRadius: 10 }}
+                        />
+                        <button
+                            onClick={() => {
+                                setModalSource(null);
+                            }}
+                            style={{
+                                position: "fixed",
+                                top: "5px",
+                                right: "5px",
+                                background: "red",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "50%",
+                                cursor: "pointer",
+                            }}
+                        >
+                            X
+                        </button>
+                    </div>
+                </div>
+            ) }
         </ChatContext.Provider>
     );
 }
