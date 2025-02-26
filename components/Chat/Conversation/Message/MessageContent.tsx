@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import {MessageContext } from "./MessageContext";
 import { LinkPreview } from "./LinkPreview";
