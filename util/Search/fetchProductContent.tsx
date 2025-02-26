@@ -26,7 +26,7 @@ interface FetchProductContentReturn {
 // Fetch content for `/products/` URLs
 export async function fetchProductContent(
   slug: string,
-  query: any,
+  query: Record<string, unknown>,
 ): Promise<FetchProductContentReturn> {
   const productId = friendlyUrl.find((item) => item.slug === slug)?.id;
   // get styleId from query params
@@ -37,7 +37,7 @@ export async function fetchProductContent(
     .then((res) => res.json())
     .then((data) => data.Data);
 
-  if (query.style) {
+  if (typeof query.style === 'string') {
     productData.SelectedStyle = query.style;
   }
   return {

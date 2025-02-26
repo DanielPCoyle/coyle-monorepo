@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -53,7 +53,7 @@ export default async function handler(
     );
 
     return res.status(200).json({ token });
-  } catch (error: any) {
-    return res.status(500).json({ error: error.message });
+  } catch (error: unknown) {
+    return res.status(500).json({ error: (error as Error).message });
   }
 }

@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcrypt";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -38,7 +38,7 @@ export default async function handler(
     return res
       .status(201)
       .json({ message: "User created successfully", user: data[0] });
-  } catch (error: any) {
+  } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PropTypes from 'prop-types';
 import { Highlight } from "react-instantsearch";
 export const Hit = ({ hit }) => {
   return (
@@ -16,4 +17,18 @@ export const Hit = ({ hit }) => {
     </Link>
   );
 };
+
+Hit.propTypes = {
+  hit: PropTypes.shape({
+    ID: PropTypes.string.isRequired,
+    Styles: PropTypes.arrayOf(
+      PropTypes.shape({
+        ImageFilePath_Front: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    Name: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default Hit;
 

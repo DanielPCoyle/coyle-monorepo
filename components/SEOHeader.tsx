@@ -1,4 +1,6 @@
 import Head from "next/head";
+import PropTypes from 'prop-types';
+import React from 'react';
 
 interface SEOProps {
   seo: {
@@ -104,6 +106,24 @@ const SEOHeader: React.FC<SEOProps> = ({ seo, productData }) => {
       </noscript>
     </Head>
   );
+};
+
+SEOHeader.propTypes = {
+  seo: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    keywords: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    Url: PropTypes.string.isRequired,
+    contentType: PropTypes.string,
+  }).isRequired,
+  productData: PropTypes.shape({
+    Name: PropTypes.string.isRequired,
+    Sku: PropTypes.string.isRequired,
+    ManufacturerSku: PropTypes.string.isRequired,
+    Manufacturer: PropTypes.string.isRequired,
+    UnitPrice: PropTypes.number.isRequired,
+  }),
 };
 
 export default SEOHeader;

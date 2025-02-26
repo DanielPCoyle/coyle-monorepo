@@ -11,7 +11,11 @@ interface SEO {
 }
 
 interface PageData {
-  // Define the structure of the page data returned by the Builder API
+  data?: {
+    title?: string;
+    description?: string;
+    featuredImage?: string;
+  };
 }
 
 interface Facet {
@@ -21,7 +25,7 @@ interface Facet {
 interface FetchProductsPageContentReturn {
   contentType: string;
   model: string;
-  page: unknown; // Replace `unknown` with a specific type if available from Builder API
+  page: PageData | null;
   seo: SEO;
   facets: Facet[];
 }
@@ -48,3 +52,5 @@ export async function fetchProductsPageContent(
     facets,
   };
 }
+
+export default fetchProductsPageContent;

@@ -10,7 +10,11 @@ interface BlogData {
 }
 
 interface PageData {
-  // Define the specific type for the page data
+  data?: {
+    title?: string;
+    description?: string;
+    featuredImage?: string;
+  };
 }
 
 interface FetchPostContentReturn {

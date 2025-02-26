@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface InksoftEmbedProps {
   productId: number;
@@ -41,7 +42,7 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({
           // sessionToken: sessionToken,
           sessionToken: sessionToken,
           onDesignerReady: (embedData) => {
-            () => router.push("/cart");
+            router.push("/cart");
           },
           onCartTriggered: (embedData) => {
             router.push("/cart");
@@ -132,6 +133,12 @@ const InksoftEmbed: React.FC<InksoftEmbedProps> = ({
       </div>
     </>
   );
+};
+
+InksoftEmbed.propTypes = {
+  productId: PropTypes.number.isRequired,
+  designId: PropTypes.number,
+  styleId: PropTypes.number,
 };
 
 export default InksoftEmbed;

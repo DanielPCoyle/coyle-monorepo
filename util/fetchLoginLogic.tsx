@@ -1,7 +1,11 @@
 import builder from "@builder.io/react";
 
 interface PageData {
-  // Define the structure of PageData here
+  data?: {
+    title?: string;
+    description?: string;
+    featuredImage?: string;
+  };
 }
 
 interface FetchLoginLogicResponse {

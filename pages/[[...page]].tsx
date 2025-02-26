@@ -27,43 +27,69 @@ export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);
 
 // Type definitions for props
+interface BlogData {
+  [key: string]: any;
+}
+
+interface PageData {
+  [key: string]: any;
+}
+
+interface Pagination {
+  [key: string]: any;
+}
+
+interface ProductData {
+  [key: string]: any;
+}
+
+interface Facets {
+  [key: string]: any;
+}
+
+interface CategoryData {
+  [key: string]: any;
+}
+
+interface SEO {
+  title: string;
+  description: string;
+  keywords: string;
+  image: string;
+  Url: string;
+}
+
 interface PageProps {
-  blogData?: any;
-  page?: any;
+  blogData?: BlogData;
+  page?: PageData;
   model?: string;
-  pagination?: any;
+  pagination?: Pagination;
   urlPath: string;
-  productData?: any;
-  facets?: any;
-  categoryData?: any;
+  productData?: ProductData;
+  facets?: Facets;
+  categoryData?: CategoryData;
   contentType?: string;
-  seo: {
-    title: string;
-    description: string;
-    keywords: string;
-    image: string;
-    Url: string;
-  };
+  seo: SEO;
 }
 
 // Main getServerSideProps function
 export const getServerSideProps: GetServerSideProps<PageProps> = async (
   context,
 ) => {
-  const { params, query } = context;
-  const urlPath = `/${params?.page ? (params.page as string[]).join("/") : ""}`;
-  const slug = urlPath.split("/").pop()!;
+  const { params } = context;
+  const urlPath = `/${params?.page ? (params.page as string[]).join('/') : ''}`;
+  const slug = urlPath.split('/').pop()!;
   const offset = 0;
   const limit = 10;
 
   let result;
-  if (urlPath === "/login") {
-    result = await fetchLoginLogic(urlPath);
-  } else if (urlPath === "/products") {
+  if (urlPath === '/login') {
+    result = await fetchLoginLogic();
+  } else if (urlPath === '/products') {
     result = await fetchProductsPageContent(urlPath);
-  } else if (urlPath.includes("/post/")) {
+  } else if (urlPath.includes('/post/')) {
     result = await fetchPostContent(urlPath);
-  } else if (urlPath.includes("/category/")) {
+  } else if (urlPath.includes('/category/')) {
     result = await fetchCategoryPageContent(urlPath);
   } else {
     result = await fetchGeneralPageContent(urlPath, slug, offset, limit);
@@ -75,12 +101,18 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
       urlPath,
       page: result.page || null,
       seo: result.seo || {
-        title: "Philadelphia Screen Printing",
-        description: "",
-        keywords: "",
-        image:
-          "https://cdn.inksoft.com/philadelphiascreenprinting/Assets/philadelphiascreenprinting-logo.png",
+        title: 'Philadelphia Screen Printing',
+        description: '',
+        keywords: '',
+        image: 'https://cdn.inksoft.com/philadelphiascreenprinting/Assets/philadelphiascreenprinting-logo.png',
         url: `https://philadelphiascreenprinting.com${urlPath}`,
+      },
+      productData: result.productData || {
+        Name: 'Default Name',
+        Sku: 'Default Sku',
+        ManufacturerSku: 'Default ManufacturerSku',
+        Manufacturer: 'Default Manufacturer',
+        UnitPrice: 0,
       },
     },
   };
@@ -93,7 +125,13 @@ const Page: React.FC<PageProps> = ({
   model,
   pagination,
   urlPath,
-  productData,
+  productData = {
+    Name: 'Default Name',
+    Sku: 'Default Sku',
+    ManufacturerSku: 'Default ManufacturerSku',
+    Manufacturer: 'Default Manufacturer',
+    UnitPrice: 0,
+  },
   categoryData,
   facets,
   contentType,

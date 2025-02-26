@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import PropTypes from 'prop-types';
+import { useState } from "react";
 import { Range } from "react-range";
 
 const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
@@ -74,6 +75,14 @@ const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
       </div>
     </div>
   );
+};
+
+PriceRange.propTypes = {
+  min: PropTypes.number,
+  max: PropTypes.number,
+  step: PropTypes.number,
+  onChange: PropTypes.func,
+  style: PropTypes.object,
 };
 
 export default PriceRange;

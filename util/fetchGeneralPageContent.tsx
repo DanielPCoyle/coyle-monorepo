@@ -92,3 +92,5 @@ export async function fetchGeneralPageContent(
     pagination: { offset, limit, search },
   };
 }
+
+export default fetchGeneralPageContent;

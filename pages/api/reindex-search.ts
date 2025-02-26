@@ -146,19 +146,18 @@ const processRecords = async (): Promise<
     fs.writeFileSync("./data/slugIds.json", JSON.stringify(slugIds, null, 2));
 
     return { count: extractedProducts.length, tooBig };
-  } catch (e) {
+  } catch (e: unknown) {
     console.error(e);
   }
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+const reindexSearch = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const results = await processRecords();
     return res.status(200).json({ message: "Indexing complete", results });
-  } catch (e) {
+  } catch (e: unknown) {
     console.error(e);
   }
-}
+};
+
+export default reindexSearch;

@@ -13,10 +13,6 @@ interface Product {
   // Add other properties as needed
 }
 
-interface ProductData {
-  Data: Product[];
-}
-
 interface ProductApiResponse {
   Data: Product[];
 }
