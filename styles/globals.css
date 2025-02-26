@@ -695,4 +695,41 @@ button.closeModal svg{
   .conversationList {
     display: none;
   }
+
+  .conversationList.open {
+    display: block;
+    width:100%;
+    position: absolute;
+    z-index: 10;
+    height: 100vh;
+  } 
+}
+
+.conversationList h3{
+  margin-top:15px;
+}
+
+.conversationListItem{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  font-size:.9em;
+}
+
+.conversationListItem:hover{
+  background-color: #333;
+}
+
+.conversationListItem.active{
+  background-color: #333;
+}
+
+.historicConversations{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  overflow-y: auto;
 }

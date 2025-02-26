@@ -8,6 +8,7 @@ export const ConversationListItems = ({ conversations, socket, currentConversati
         <>
             {filteredConversations?.map((convo, i) => (
                 <div
+                    className={`conversationListItem ${currentConversation?.id === convo.id ? "active" : ""}`}
                     key={i}
                     onClick={(prev) => {
                         setCurrentConversation((prev) => {

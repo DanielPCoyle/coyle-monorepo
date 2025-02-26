@@ -5,7 +5,9 @@ import { ChatContext } from "./ChatContext";
 
 
 export const LoginForm = () => {
-    const { username, setUsername, email, setEmail, setIsLoggedIn } = React.useContext(ChatContext);
+    const { username, setUsername, email, setEmail, setIsLoggedIn, socket } = React.useContext(ChatContext);
+    const [showAdminLogin, setShowAdminLogin] = React.useState(false);
+    const [password, setPassword] = React.useState("");
     const formStyle = {
         position: "absolute",
         top: "50%",
@@ -53,13 +55,34 @@ export const LoginForm = () => {
     return (
         <form
             style={formStyle}
-            onSubmit={(e) => {
+            onSubmit={!showAdminLogin ? (e) => {
                 e.preventDefault();
                 if (!username || !email) {
                     alert("Please enter both username and email.");
                     return;
                 }
                 setIsLoggedIn(true);
+            } : (e) => {
+                e.preventDefault();
+                if (!email || !password) {
+                    alert("Please enter both email and password.");
+                    return;
+                }
+                fetch("/api/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ email, password })
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else {
+                            setIsLoggedIn(true);
+                        }
+                    });
             }}
         >
             <p>Want to chat with PhilaPrints?<br/>Enter your name and email.</p>
@@ -71,7 +94,7 @@ export const LoginForm = () => {
       autoplay
     />
     </div>
-            <div>
+            {!showAdminLogin && <div>
                 <label>
                     Name:
                     <input
@@ -81,10 +104,10 @@ export const LoginForm = () => {
                         style={inputStyle}
                         required />
                 </label>
-            </div>
+            </div> }
             <div>
                 <label>
-                    Email or Phone:
+                    Email
                     <input
                         type="email"
                         value={email}
@@ -93,7 +116,25 @@ export const LoginForm = () => {
                         required />
                 </label>
             </div>
+            {showAdminLogin && <div>
+                <label>
+                    Password:
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        style={inputStyle}
+                        required />
+                </label>
+            </div> }
             <button type="submit" style={buttonStyle}>Chat Now</button>
+            <div style={{marginTop: "20px"}}>
+            <small
+                onClick={() => setShowAdminLogin(!showAdminLogin)}
+            >
+                {showAdminLogin ? "Customer Login" : "Admin Login"  } 
+            </small>
+            </div>
         </form>
     );
 };
