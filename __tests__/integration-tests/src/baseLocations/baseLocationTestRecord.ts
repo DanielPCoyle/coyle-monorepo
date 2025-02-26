@@ -1,0 +1,16 @@
+export const baseLocationTestRecord = (id: number = 1) => ({
+  id,
+  state: `USA_${id}`,
+  city: `11111${id}`,
+  seoTitle: `SEO TITLE${id}`,
+  seoDescription: `SEO DESCRIPTION${id}`,
+  featuredImage: null,
+  latitude: '24.396308',
+  longitude: '-125.000000',
+  lastScraped: new Date('2024-04-18'),
+  total: 0,
+  collected: 0,
+  status: 'success',
+  message: '',
+  type: 'geo',
+});
