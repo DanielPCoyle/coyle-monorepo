@@ -1,15 +1,14 @@
 // pages/[...page].tsx
-import React, { use, useEffect, useState } from "react";
+import moment from "moment";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 import navData from "../data/navData.json";
-import SEOHeader from "../components/SEOHeader";
-import Link from "next/link";
-import moment from "moment";
-
+ß
 interface Post {
   data: {
     slug: string;

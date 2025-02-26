@@ -1,7 +1,7 @@
+import { Server, Socket } from "socket.io";
+import { supabase } from "../../pages/api/socket";
 import { addConversation } from "../addConversation";
 import { addMessage } from "../addMessage";
-import { supabase } from "../../pages/api/socket";
-import { Server, Socket } from "socket.io";
 
 interface Conversation {
   username: string;
@@ -44,7 +44,7 @@ export function handleConnection(
   });
 
   socket.on("addReaction", async ({ id, messageId, reactions }) => {
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from("messages")
       .update({ reaction: reactions })
       .eq("id", messageId);

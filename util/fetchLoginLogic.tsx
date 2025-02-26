@@ -7,9 +7,7 @@ interface FetchLoginLogicResponse {
 }
 
 // Fetch content for `/post/` URLs
-export async function fetchLoginLogic(
-  urlPath: string,
-): Promise<FetchLoginLogicResponse> {
+export async function fetchLoginLogic(): Promise<FetchLoginLogicResponse> {
   return {
     contentType: "post",
     model: "symbol",
