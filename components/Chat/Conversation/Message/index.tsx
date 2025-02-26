@@ -20,7 +20,7 @@ const customStyles = {
     background: "black",
     borderRadius: "10px",
     border: "none",
-    width: "80%",
+    width: "50%",
     height: "100%",
     margin: "auto",
   },

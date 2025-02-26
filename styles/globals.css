@@ -586,6 +586,7 @@ a.chat {
 
 .replyModal .messageContent {
   margin-bottom: 20px;
+  width:350px;
 }
 
 .replyModal h3 {
