@@ -1,4 +1,4 @@
-import friendlyUrl from '../../data/slugIds.json';
+import friendlyUrl from "../../data/slugIds.json";
 import builder from "@builder.io/react";
 
 interface ProductData {
@@ -24,24 +24,28 @@ interface FetchProductContentReturn {
 }
 
 // Fetch content for `/products/` URLs
-export async function fetchProductContent(slug: string, query:any): Promise<FetchProductContentReturn> {
-  
+export async function fetchProductContent(
+  slug: string,
+  query: any,
+): Promise<FetchProductContentReturn> {
   const productId = friendlyUrl.find((item) => item.slug === slug)?.id;
   // get styleId from query params
   // Fetch product data from external API
   const productData: ProductData = await fetch(
-    `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`
+    `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`,
   )
     .then((res) => res.json())
     .then((data) => data.Data);
 
-    if(query.style){
-      productData.SelectedStyle = query.style;
-    }
+  if (query.style) {
+    productData.SelectedStyle = query.style;
+  }
   return {
     contentType: "product",
     model: "symbol",
-    page: await builder.get("symbol", { query: { id: "c7eb7b53f2e04d4f8bd39f2b728d3551" } }).toPromise(),
+    page: await builder
+      .get("symbol", { query: { id: "c7eb7b53f2e04d4f8bd39f2b728d3551" } })
+      .toPromise(),
     seo: {
       title: null,
       // title: productData.Name?.length < 40 ? `${productData.Name} | Philadelphia Screen Printing` : productData.Name,

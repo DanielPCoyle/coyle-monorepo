@@ -1,6 +1,13 @@
 import NProgress from "nprogress";
 
-export const fetchProducts = async ({ filters, setLoading, pageNumber, setResults, setPageNumber, setFilterFacets }) => {
+export const fetchProducts = async ({
+  filters,
+  setLoading,
+  pageNumber,
+  setResults,
+  setPageNumber,
+  setFilterFacets,
+}) => {
   try {
     setLoading(true);
     NProgress.start();
@@ -12,7 +19,7 @@ export const fetchProducts = async ({ filters, setLoading, pageNumber, setResult
       }
     }
 
-    queryParams.append('page', pageNumber.toString());
+    queryParams.append("page", pageNumber.toString());
 
     const queryString = queryParams.toString();
 
@@ -20,22 +27,20 @@ export const fetchProducts = async ({ filters, setLoading, pageNumber, setResult
     const data = await response.json();
     setResults(data);
     setPageNumber(data.page);
-    if(data?.facets){
-      console.log('Facets:', data.facets);
-      setFilterFacets(
-        {
-          "categories": data.facets.Categories,
-          "manufacturer": data.facets.Manufacturer,
-          "color": data.facets['Styles.Color'],
-        }
-      );
+    if (data?.facets) {
+      console.log("Facets:", data.facets);
+      setFilterFacets({
+        categories: data.facets.Categories,
+        manufacturer: data.facets.Manufacturer,
+        color: data.facets["Styles.Color"],
+      });
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setTimeout(() => {
       setLoading(false);
     }, 1000);
     NProgress.done();
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
   }
 };

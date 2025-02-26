@@ -1,44 +1,43 @@
 [
-    {
-      "title": "Products",
-      "url": "/products",
-      "megaMenu": true
-    },
-    {
-      "title": "Services",
-      "url": "#",
-      "subLinks": [
-        {
-          "title": "Screen Printing",
-          "url": "/services/screen-printing",
-          "subLinks": []
-        },
-        {
-          "title": "Embroidery",
-          "url": "/services/embroidery",
-          "subLinks": []
-        },
-        {
-            "title": "Graphic Design",
-            "url": "/services/graphic-design",
-            "subLinks": []
-        },
-        {
-            "title": "Get A Store",
-            "url": "/services/get-a-store",
-            "subLinks": []
-        }
-      ]
-    },
-    {
-      "title": "About",
-      "url": "/about-us",
-      "subLinks": []
-    },
-    {
-      "title": "Blog",
-      "url": "/blog",
-      "subLinks": []
-    }
-  ]
-  
+  {
+    "title": "Products",
+    "url": "/products",
+    "megaMenu": true
+  },
+  {
+    "title": "Services",
+    "url": "#",
+    "subLinks": [
+      {
+        "title": "Screen Printing",
+        "url": "/services/screen-printing",
+        "subLinks": []
+      },
+      {
+        "title": "Embroidery",
+        "url": "/services/embroidery",
+        "subLinks": []
+      },
+      {
+        "title": "Graphic Design",
+        "url": "/services/graphic-design",
+        "subLinks": []
+      },
+      {
+        "title": "Get A Store",
+        "url": "/services/get-a-store",
+        "subLinks": []
+      }
+    ]
+  },
+  {
+    "title": "About",
+    "url": "/about-us",
+    "subLinks": []
+  },
+  {
+    "title": "Blog",
+    "url": "/blog",
+    "subLinks": []
+  }
+]

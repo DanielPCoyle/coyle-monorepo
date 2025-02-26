@@ -17,13 +17,15 @@ interface FetchPostContentReturn {
 }
 
 // Fetch content for `/post/` URLs
-export async function fetchPostContent(urlPath: string): Promise<FetchPostContentReturn> {
+export async function fetchPostContent(
+  urlPath: string,
+): Promise<FetchPostContentReturn> {
   const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY;
   const path = "/" + urlPath.split("/post/")[1];
 
   // Fetch blog data from Builder API
   const blogData: BlogData = await fetch(
-    `https://cdn.builder.io/api/v2/content/blog?apiKey=${apiKey}&query.data.slug=${path}&limit=1`
+    `https://cdn.builder.io/api/v2/content/blog?apiKey=${apiKey}&query.data.slug=${path}&limit=1`,
   )
     .then((res) => res.json())
     .then((data) => data.results[0]);
@@ -34,7 +36,9 @@ export async function fetchPostContent(urlPath: string): Promise<FetchPostConten
   return {
     contentType: "post",
     model: "symbol",
-    page: await builder.get("symbol", { query: { id: "7a9ae2a603a24f58971a9f137a337ab8" } }).toPromise(),
+    page: await builder
+      .get("symbol", { query: { id: "7a9ae2a603a24f58971a9f137a337ab8" } })
+      .toPromise(),
     blogData,
   };
 }

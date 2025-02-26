@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 interface NavItemType {
   title: string;
   url: string;
@@ -12,9 +12,7 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ item }) => (
   <li>
-    <Link href={item.url}>
-      {item.title}
-    </Link>
+    <Link href={item.url}>{item.title}</Link>
     {item.subLinks && (
       <ul>
         {item.subLinks.map((subItem, index) => (
@@ -37,56 +35,77 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
 
   React.useEffect(() => {
     setShowCart(true);
-  },[])
-  
-  
+  }, []);
+
   return (
     <>
       <nav>
-      <button className="menu-toggle" onClick={toggleMenu}>
+        <button className="menu-toggle" onClick={toggleMenu}>
           ☰
         </button>
         <div className="logo">
           <Link href="/">
-            <img src="https://cdn.inksoft.com/images/publishers/19502/stores/philadelphiascreenprinting/img/header-logo.png?decache=638658398084130000" alt="Logo" />
+            <img
+              src="https://cdn.inksoft.com/images/publishers/19502/stores/philadelphiascreenprinting/img/header-logo.png?decache=638658398084130000"
+              alt="Logo"
+            />
           </Link>
         </div>
-        <ul className={`${isMenuOpen ? 'open animate__animated animate__slideInLeft animate__faster' : ''}`}>
+        <ul
+          className={`${isMenuOpen ? "open animate__animated animate__slideInLeft animate__faster" : ""}`}
+        >
           {navData.map((item, index) => (
             <NavItem key={index} item={item} />
           ))}
           <li className="smallCommunicationBox">
-          <Link className="chat" href="/chat" target="_blank">Chat</Link>
-          <Link className="phoneNumber" href="tel:215-771-9404">215-771-9404</Link>
+            <Link className="chat" href="/chat" target="_blank">
+              Chat
+            </Link>
+            <Link className="phoneNumber" href="tel:215-771-9404">
+              215-771-9404
+            </Link>
           </li>
         </ul>
         <div className="communicationBox">
-        <Link className="chat" href="/chat" target="_blank">Chat</Link>
-        <Link className="phoneNumber" href="tel:215-771-9404">215-771-9404</Link>
+          <Link className="chat" href="/chat" target="_blank">
+            Chat
+          </Link>
+          <Link className="phoneNumber" href="tel:215-771-9404">
+            215-771-9404
+          </Link>
         </div>
- 
- <div style={{
-  width:200,
-  height:80,
-  overflow:"hidden",
-  position:"relative",
- }}>
-        <div style={{ 
-          position:"absolute",
-          top:0,
-          right:-100,
-          width:1400, marginTop: -17,  overflow: 'hidden',  height: 80 }}>
-          <iframe 
-            src={ showCart && "https://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true"} 
-            style={{
-              width:1400
-            }}
-          />
-        </div>
-        </div>
-        
-      </nav>
 
+        <div
+          style={{
+            width: 200,
+            height: 80,
+            overflow: "hidden",
+            position: "relative",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              right: -100,
+              width: 1400,
+              marginTop: -17,
+              overflow: "hidden",
+              height: 80,
+            }}
+          >
+            <iframe
+              src={
+                showCart &&
+                "https://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true"
+              }
+              style={{
+                width: 1400,
+              }}
+            />
+          </div>
+        </div>
+      </nav>
     </>
   );
 };

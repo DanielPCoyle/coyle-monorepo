@@ -5,24 +5,23 @@ import { useRouter } from "next/router";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
 import DefaultErrorPage from "next/error";
 import Navigation from "../components/Navigation";
-import navData from '../data/navData.json';
+import navData from "../data/navData.json";
 import SEOHeader from "../components/SEOHeader";
 import Link from "next/link";
 import NProgress from "nprogress";
-import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
+import { PagesProgressBar as ProgressBar } from "next-nprogress-bar";
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
-import {fetchProductsPageContent} from "../util/fetchProductsPageContent";
+import { fetchProductsPageContent } from "../util/fetchProductsPageContent";
 import { fetchLoginLogic } from "../util/fetchLoginLogic";
-import { ToastContainer } from 'react-toastify';
-import login from '../util/login';
+import { ToastContainer } from "react-toastify";
+import login from "../util/login";
 import Footer from "../components/Footer";
 
-import '../components/builder-registry'; // Register custom components
+import "../components/builder-registry"; // Register custom components
 import { fetchProducts } from "../util/fetchProducts";
 import { fetchFacets } from "../util/fetchFacets";
-
 
 export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);
@@ -48,8 +47,10 @@ interface PageProps {
 }
 
 // Main getServerSideProps function
-export const getServerSideProps: GetServerSideProps<PageProps> = async (context) => {
-  const { params,query } = context;
+export const getServerSideProps: GetServerSideProps<PageProps> = async (
+  context,
+) => {
+  const { params, query } = context;
   const urlPath = `/${params?.page ? (params.page as string[]).join("/") : ""}`;
   const slug = urlPath.split("/").pop()!;
   const offset = 0;
@@ -58,11 +59,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
   let result;
   if (urlPath === "/login") {
     result = await fetchLoginLogic(urlPath);
-  } else if(urlPath === "/products") {
-    result = await fetchProductsPageContent(urlPath); 
+  } else if (urlPath === "/products") {
+    result = await fetchProductsPageContent(urlPath);
   } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
-  }  else if (urlPath.includes("/category/")) {
+  } else if (urlPath.includes("/category/")) {
     result = await fetchCategoryPageContent(urlPath);
   } else {
     result = await fetchGeneralPageContent(urlPath, slug, offset, limit);
@@ -77,7 +78,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (context)
         title: "Philadelphia Screen Printing",
         description: "",
         keywords: "",
-        image: "https://cdn.inksoft.com/philadelphiascreenprinting/Assets/philadelphiascreenprinting-logo.png",
+        image:
+          "https://cdn.inksoft.com/philadelphiascreenprinting/Assets/philadelphiascreenprinting-logo.png",
         url: `https://philadelphiascreenprinting.com${urlPath}`,
       },
     },
@@ -95,21 +97,21 @@ const Page: React.FC<PageProps> = ({
   categoryData,
   facets,
   contentType,
-  seo
+  seo,
 }) => {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
   const [filters, setFilters] = React.useState([]);
-  const [pageNumber,setPageNumber] = React.useState(0);
+  const [pageNumber, setPageNumber] = React.useState(0);
   interface SearchResults {
     nbPages: number;
     [key: string]: any;
   }
 
   const [results, setResults] = React.useState<SearchResults>({ nbPages: 0 });
-  const [loading,setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [recordTotal, setRecordTotal] = React.useState(0);
-  const [filterFacets,setFilterFacets] = React.useState({});
+  const [filterFacets, setFilterFacets] = React.useState({});
 
   useEffect(() => {
     const handleRouteChangeStart = () => NProgress.start();
@@ -126,41 +128,48 @@ const Page: React.FC<PageProps> = ({
   }, [router.events]);
 
   useEffect(() => {
-    fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber,setFilterFacets });
-  }, [filters,pageNumber]);
-
+    fetchProducts({
+      filters,
+      pageNumber,
+      setLoading,
+      setResults,
+      setPageNumber,
+      setFilterFacets,
+    });
+  }, [filters, pageNumber]);
 
   if (!page && !isPreviewing) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
   if (urlPath === "/edit-symbol") {
-    return <BuilderComponent model="symbol"  options={
-      {
-        enrich: true,
-      }
-    } />
+    return (
+      <BuilderComponent
+        model="symbol"
+        options={{
+          enrich: true,
+        }}
+      />
+    );
   }
-
-
 
   const toggleManyFilter = (facet, filter) => {
     // Clone the current filters object to avoid direct state mutation
     setPageNumber(0);
 
     const newFilters = { ...filters };
-  
+
     // Check if the facet already exists in the filters object
     if (!newFilters[facet]) {
       // If it doesn't exist, initialize it as an empty array
       newFilters[facet] = [];
     }
-  
+
     // Check if the filter already exists in the specific facet's filter array
     if (newFilters[facet].includes(filter)) {
       // If it exists, remove it from the array
-      newFilters[facet] = newFilters[facet].filter(item => item !== filter);
-  
+      newFilters[facet] = newFilters[facet].filter((item) => item !== filter);
+
       // If the facet array is empty after removal, delete the facet key
       if (newFilters[facet].length === 0) {
         delete newFilters[facet];
@@ -169,54 +178,71 @@ const Page: React.FC<PageProps> = ({
       // If it doesn't exist, add it to the facet array
       newFilters[facet].push(filter);
     }
-  
+
     setFilters(newFilters);
   };
 
-
   const setSingleFilter = (facet, filter) => {
-      setPageNumber(0);
-      const nFilters = { ...filters };
-            nFilters[facet] = filter;
-          setFilters(nFilters);
-  }
- 
-
+    setPageNumber(0);
+    const nFilters = { ...filters };
+    nFilters[facet] = filter;
+    setFilters(nFilters);
+  };
 
   const nextSearchPage = () => {
     const maxPages = results.nbPages || 0;
     if (pageNumber < maxPages) {
       setPageNumber(pageNumber + 1);
-    } 
+    }
   };
 
-  
   const previousSearchPage = () => {
-   const minPages = 0; // Define the minimum number of pages
+    const minPages = 0; // Define the minimum number of pages
     if (pageNumber > minPages) {
       setPageNumber(pageNumber - 1);
-    } 
+    }
   };
 
+  const functions = {
+    login,
+    toggleManyFilter,
+    setSingleFilter,
+    nextSearchPage,
+    previousSearchPage,
+  };
 
-  const functions = {login,toggleManyFilter,setSingleFilter,nextSearchPage,previousSearchPage};
-  
   return (
     <>
-      <ToastContainer/>
+      <ToastContainer />
       <SEOHeader seo={seo} productData={productData} />
-      <div className='navContainer'>
-        <Navigation navData={navData}  />
+      <div className="navContainer">
+        <Navigation navData={navData} />
       </div>
       <ProgressBar />
       <React.Suspense fallback={<div>Loading...</div>}>
-      {( typeof window !== 'undefined') &&
-      <BuilderComponent
-        renderLink={(props) => <Link href={props.href} {...props}>{props.children}</Link>}
-        data={{ productData, filters, facets:filterFacets, blogData, pagination, categoryData, functions, results, pageNumber, loading }}
-        model={model}
-        content={page || undefined}
-      /> }
+        {typeof window !== "undefined" && (
+          <BuilderComponent
+            renderLink={(props) => (
+              <Link href={props.href} {...props}>
+                {props.children}
+              </Link>
+            )}
+            data={{
+              productData,
+              filters,
+              facets: filterFacets,
+              blogData,
+              pagination,
+              categoryData,
+              functions,
+              results,
+              pageNumber,
+              loading,
+            }}
+            model={model}
+            content={page || undefined}
+          />
+        )}
       </React.Suspense>
       <Footer />
     </>
@@ -224,7 +250,3 @@ const Page: React.FC<PageProps> = ({
 };
 
 export default Page;
-
-
-
-

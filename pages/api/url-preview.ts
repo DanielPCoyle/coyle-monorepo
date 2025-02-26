@@ -9,7 +9,10 @@ interface Metadata {
   url: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const { url } = req.query;
   console.log("FIRED", url);
   if (req.method === "GET") {
@@ -31,7 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       };
       res.status(200).json(metadata);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch metadata", details: (error as Error).message });
+      res
+        .status(500)
+        .json({
+          error: "Failed to fetch metadata",
+          details: (error as Error).message,
+        });
     }
   } else {
     res.status(405).json({ error: "Method not allowed" });

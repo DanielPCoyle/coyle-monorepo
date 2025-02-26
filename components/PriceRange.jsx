@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Range } from 'react-range';
+import React, { useState } from "react";
+import { Range } from "react-range";
 
 const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
   // Set initial state for min and max values of the range
@@ -12,7 +12,7 @@ const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
   };
 
   return (
-    <div style={{ width: '100%', padding: '20px' }}>
+    <div style={{ width: "100%", padding: "20px" }}>
       <Range
         values={values}
         step={step}
@@ -24,18 +24,18 @@ const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
             {...props}
             style={{
               ...props.style,
-              height: '6px',
-              width: '100%',
-              backgroundColor: '#ddd',
-              position: 'relative',
+              height: "6px",
+              width: "100%",
+              backgroundColor: "#ddd",
+              position: "relative",
             }}
           >
             <div
               style={{
-                position: 'absolute',
-                height: '100%',
+                position: "absolute",
+                height: "100%",
                 width: `${((values[1] - values[0]) / (max - min)) * 100}%`,
-                backgroundColor: '#548BF4',
+                backgroundColor: "#548BF4",
                 left: `${((values[0] - min) / (max - min)) * 100}%`,
               }}
             />
@@ -47,22 +47,28 @@ const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
             {...props}
             style={{
               ...props.style,
-              height: '20px',
-              width: '20px',
-              borderRadius: '50%',
-              backgroundColor: '#548BF4',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              color: '#fff',
-              fontSize: '12px',
+              height: "20px",
+              width: "20px",
+              borderRadius: "50%",
+              backgroundColor: "#548BF4",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#fff",
+              fontSize: "12px",
             }}
           >
             {values[index]}
           </div>
         )}
       />
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '10px' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "10px",
+        }}
+      >
         <span>Min: ${values[0]}</span>
         <span>Max: ${values[1]}</span>
       </div>

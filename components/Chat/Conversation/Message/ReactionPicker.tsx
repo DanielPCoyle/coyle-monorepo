@@ -4,23 +4,31 @@ import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
 
 interface ReactionPickerProps {
-    reactionPickerRef: RefObject<HTMLDivElement>;
+  reactionPickerRef: RefObject<HTMLDivElement>;
 }
 
-export const ReactionPicker: React.FC<ReactionPickerProps> = ({ reactionPickerRef }) => {
-    const { username } = useContext(ChatContext);
-    const { message, addReaction } = useContext(MessageContext);
+export const ReactionPicker: React.FC<ReactionPickerProps> = ({
+  reactionPickerRef,
+}) => {
+  const { username } = useContext(ChatContext);
+  const { message, addReaction } = useContext(MessageContext);
 
-    return (
-        <div
-            className="reactionPicker"
-            style={{
-                textAlign: username === message.sender ? "right" : "left",
-            }}
-        >
-            <div className="animate__animated animate__slideInUp" ref={reactionPickerRef}>
-                <EmojiPicker reactionsDefaultOpen={true} onReactionClick={addReaction} />
-            </div>
-        </div>
-    );
+  return (
+    <div
+      className="reactionPicker"
+      style={{
+        textAlign: username === message.sender ? "right" : "left",
+      }}
+    >
+      <div
+        className="animate__animated animate__slideInUp"
+        ref={reactionPickerRef}
+      >
+        <EmojiPicker
+          reactionsDefaultOpen={true}
+          onReactionClick={addReaction}
+        />
+      </div>
+    </div>
+  );
 };

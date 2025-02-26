@@ -1,6 +1,6 @@
-import friendlyUrl from '../data/slugIds.json';
+import friendlyUrl from "../data/slugIds.json";
 import builder from "@builder.io/react";
-import { fetchFacets } from './fetchFacets';
+import { fetchFacets } from "./fetchFacets";
 
 interface ProductData {
   Name?: string;
@@ -24,16 +24,17 @@ interface FetchProductsPageContentReturn {
 }
 
 // Fetch content for `/products/` URLs
-export async function fetchProductsPageContent(slug: string): Promise<FetchProductsPageContentReturn> {
-  
-   
-  
+export async function fetchProductsPageContent(
+  slug: string,
+): Promise<FetchProductsPageContentReturn> {
   const facets = await fetchFacets(null);
 
   return {
     contentType: "product",
     model: "symbol",
-    page: await builder.get("symbol", { query: { id: "bfdb4053842f44da9ab8b65c3aa78bf7" } }).toPromise(),
+    page: await builder
+      .get("symbol", { query: { id: "bfdb4053842f44da9ab8b65c3aa78bf7" } })
+      .toPromise(),
     seo: {
       title: null,
       // title: productData.Name?.length < 40 ? `${productData.Name} | Philadelphia Screen Printing` : productData.Name,
@@ -45,4 +46,3 @@ export async function fetchProductsPageContent(slug: string): Promise<FetchProdu
     facets,
   };
 }
-

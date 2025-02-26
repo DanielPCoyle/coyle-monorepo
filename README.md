@@ -1,4 +1,3 @@
-
 # Philadelphia Screen Printing E-commerce Platform
 
 This project is an e-commerce website developed using **Builder.io**, **Next.js**, and **Inksoft**. The goal of this project is to provide a highly customizable, SEO-friendly platform for managing product listings, categories, and blog posts through **Builder.io**, an API-driven content management system. Inksoft integration allows for real-time product data and design customization options, enhancing the user experience for screen printing services.
@@ -16,22 +15,26 @@ The application integrates **Builder.io** for dynamic content management, allowi
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/DanielPCoyle/philaprints.git
    ```
 
 2. Install dependencies:
+
    ```bash
    cd philadelphia-screen-printing
    npm install
    ```
 
 3. Create a `.env.local` file at the root and add your **Builder.io** API key:
+
    ```env
    NEXT_PUBLIC_BUILDER_API_KEY=your_builder_io_api_key
    ```
 
 4. Run the development server:
+
    ```bash
    npm run dev
    ```
@@ -81,15 +84,18 @@ Inksoft is integrated to provide product data, pricing, and a customizable desig
 ## Key Features
 
 1. **Dynamic Content with Builder.io**:
+
    - **Pages**: General pages are fetched using `fetchGeneralPageContent`, allowing for a wide range of layouts and content managed directly through Builder.io.
    - **Blog Support**: The blog system fetches posts based on URL paths and can display lists of articles with `fetchPostContent`.
    - **Categories**: Category pages use `fetchCategoryPageContent` to display lists of products for specific categories.
 
 2. **Inksoft Product Integration**:
+
    - **Product Listings**: Product data is fetched with `fetchProductContent` based on the URL slug. Products are displayed with live pricing and design options from Inksoft.
    - **Embedded Design Studio**: Users can customize products through an embedded design studio powered by Inksoft, allowing for a more interactive and engaging shopping experience.
 
 3. **SEO Optimization**:
+
    - **SEO Headers**: The `SEOHeader` component manages SEO metadata, including Open Graph and Twitter tags.
    - **Structured Data**: Product pages include structured data to improve search engine ranking and enhance visibility in Google search results.
 
@@ -107,7 +113,7 @@ import { fetchProductContent } from "../util/fetchProductContent";
 export async function getStaticProps({ params }) {
   const slug = params.slug;
   const productData = await fetchProductContent(slug);
-  
+
   return {
     props: {
       productData,
@@ -125,6 +131,7 @@ This allows products to be dynamically generated based on URL slugs, with data d
 - **Error Handling**: API fetches use try-catch blocks to log errors without disrupting the user experience.
 
 ## Todo
+
 - Login on parent frame
 - Additional SEO / syntax
 - Analytics on parent frame

@@ -37,39 +37,42 @@ export async function fetchGeneralPageContent(
   urlPath: string,
   slug: string,
   offset: number,
-  limit: number
+  limit: number,
 ): Promise<FetchGeneralPageContentReturn> {
-  
- 
-
-  const page = (await builder.get("page", {
-    userAttributes: { urlPath: urlPath.includes("/blog") ? "/blog" : urlPath },
-  }).toPromise()) as PageData;
+  const page = (await builder
+    .get("page", {
+      userAttributes: {
+        urlPath: urlPath.includes("/blog") ? "/blog" : urlPath,
+      },
+    })
+    .toPromise()) as PageData;
 
   const seoTitle = page?.data?.title || "Philadelphia Screen Printing";
-  const seoDescription = page?.data?.description || "Philadelphia Screen Printing";
+  const seoDescription =
+    page?.data?.description || "Philadelphia Screen Printing";
   const seoImage = page?.data?.featuredImage || null;
 
   let blogData: any[] | null = null; // Set as `any[]` or a specific type if available
-    let search: string | null = null;
+  let search: string | null = null;
   if (urlPath.includes("/blog")) {
     const urlParts = urlPath.split("/");
     const lastPart = urlParts[urlParts.length - 1];
     // is lastPart a number
     const isNumber = /^\d+$/.test(lastPart);
-    if(isNumber){
+    if (isNumber) {
       offset = parseInt(lastPart);
       search = urlParts[urlParts.length - 2];
     }
-    if(slug !== 'blog'){
+    if (slug !== "blog") {
       search = slug;
     }
 
     try {
-      const url = `https://cdn.builder.io/api/v3/content/blog?apiKey=${apiKey}&offset=${offset * limit}&limit=${limit}`+(Boolean(search) && `&query.data.title.$regex=${search}&query.data.title.$options=i`);
-      const response = await fetch(
-        url
-      );
+      const url =
+        `https://cdn.builder.io/api/v3/content/blog?apiKey=${apiKey}&offset=${offset * limit}&limit=${limit}` +
+        (Boolean(search) &&
+          `&query.data.title.$regex=${search}&query.data.title.$options=i`);
+      const response = await fetch(url);
       const blogDataResponse: BlogData = await response.json();
       blogData = blogDataResponse.results;
     } catch (error) {

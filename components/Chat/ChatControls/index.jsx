@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { Editor, EditorState, RichUtils, convertToRaw, Modifier } from "draft-js";
+import {
+  Editor,
+  EditorState,
+  RichUtils,
+  convertToRaw,
+  Modifier,
+} from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 
 import "draft-js/dist/Draft.css";
@@ -8,182 +14,215 @@ import { Thumbnail } from "./Thumbnail";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
 import { ChatContext } from "../ChatContext";
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 // Initialize Supabase client
 const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
+console.log(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+);
 
-console.log(    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+export const ChatControls = ({ replyId }) => {
+  const {
+    currentConversation,
+    socket,
+    username,
+    typing,
+    files,
+    setFiles,
+    setInput,
+  } = useContext(ChatContext);
 
-export const ChatControls = ({replyId}) => {
-    const {
-        currentConversation, 
-        socket,  
-        username, 
-        typing,  
-        files, 
-        setFiles,
-        setInput,
-    } = useContext(ChatContext);
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty(),
+  );
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const emojiPickerRef = useRef(null);
 
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
-    const emojiPickerRef = useRef(null);
-
-    const insertEmoji = (emoji) => {
-        const contentState = editorState.getCurrentContent();
-        const selectionState = editorState.getSelection();
-        const newContentState = Modifier.insertText(contentState, selectionState, emoji.native);
-        const newEditorState = EditorState.push(editorState, newContentState, "insert-characters");
-        setEditorState(newEditorState);
-        setShowEmojiPicker(false);
-    };
-
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
-        if(!file) return;
-        setFiles([...files, file]);
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const fileBuffer = e.target.result; // Binary data
-            socket.emit("file added", { 
-                conversationId: currentConversation.id, 
-                file: fileBuffer, 
-                fileName: file.name,
-                fileType: file.type
-            });
-        };
-        reader.readAsArrayBuffer(file); // Convert to raw binary
-    };
-
-    const handleKeyCommand = (command) => {
-        const newState = RichUtils.handleKeyCommand(editorState, command);
-        if (newState) {
-            setEditorState(newState);
-            return 'handled';
-        }
-        return 'not-handled';
-    };
-
-    const toggleInlineStyle = (style) => {
-        setEditorState(RichUtils.toggleInlineStyle(editorState, style));
-    };
-
-    const toggleBlockType = (blockType) => {
-        setEditorState(RichUtils.toggleBlockType(editorState, blockType));
-    };
-
-    const uploadFileToSupabase = async (file) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        const filePath = `public/${uniqueSuffix}-${file.name}`;
-        const { data, error } = await supabase.storage
-            .from("messages") // Replace with your bucket name
-            .upload(filePath, file, {
-                cacheControl: "3600",
-                upsert: false
-            });
-    
-        if (error) {
-            console.error("Error uploading file:", error);
-            return null;
-        }
-    
-        // Get public URL
-        const { data: publicURLData } = supabase
-            .storage
-            .from("messages")
-            .getPublicUrl(filePath);
-    
-        return publicURLData.publicUrl;
-    };
-    
-    const sendMessage = async () => {
-        const contentState = editorState.getCurrentContent();
-        const rawContent = convertToRaw(contentState);
-        const htmlContent = stateToHTML(contentState);
-        const messageText = rawContent.blocks.map(block => {
-            let text = block.text;
-            block.inlineStyleRanges.forEach(range => {
-                const style = range.style.toLowerCase();
-                text = text.slice(0, range.offset) + `<${style}>` + text.slice(range.offset, range.offset + range.length) + `</${style}>`;
-            });
-            return text;
-        }).join("\n");
-        const randomString = Math.random().toString(36).substring(7);
-
-        if (currentConversation) {
-            let uploadedFiles = [];
-
-            if (files.length > 0) {
-                const uploadPromises = files.map(uploadFileToSupabase);
-                uploadedFiles = await Promise.all(uploadPromises);
-            }
-
-            const message = {
-                id: currentConversation.id,
-                messageId: randomString,
-                message: htmlContent,
-                sender: username,
-                replyId: replyId,
-                files: uploadedFiles.filter(url => url),
-            };
-
-            console.log({message})
-            socket.emit("chat message", message);
-            setEditorState(EditorState.createEmpty());
-            setFiles([]); // Clear uploaded files after sending the message
-        }
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
-                setShowEmojiPicker(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-
-    return (
-        <>
-            <div className="inputContainer">
-                {files.length > 0 && (
-                    <div className="thumbnails">
-                        {files.map((file, index) => (
-                            <Thumbnail key={index} file={file} files={files} setFiles={setFiles} />
-                        ))}
-                    </div>
-                )}
-                <div style={{ display: "flex"}}>
-                    <FormattingBar {...{toggleInlineStyle,toggleBlockType}} />
-                </div>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <div className="editor">
-                        <Editor
-                            editorState={editorState}
-                            handleKeyCommand={handleKeyCommand}
-                            onChange={(es)=>{
-                                setInput(es.getCurrentContent().getPlainText())
-                                setEditorState(es)
-                            }}
-                            placeholder="Type a message..."
-                        />
-                    </div>
-                    <button onClick={sendMessage} className="sendButton">
-                        <SendSvg />
-                    </button>
-                </div>
-              <MessageAddons {...{handleFileUpload,showEmojiPicker,setShowEmojiPicker,emojiPickerRef,insertEmoji, typing}} />
-            </div>
-        </>
+  const insertEmoji = (emoji) => {
+    const contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+    const newContentState = Modifier.insertText(
+      contentState,
+      selectionState,
+      emoji.native,
     );
+    const newEditorState = EditorState.push(
+      editorState,
+      newContentState,
+      "insert-characters",
+    );
+    setEditorState(newEditorState);
+    setShowEmojiPicker(false);
+  };
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    setFiles([...files, file]);
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const fileBuffer = e.target.result; // Binary data
+      socket.emit("file added", {
+        conversationId: currentConversation.id,
+        file: fileBuffer,
+        fileName: file.name,
+        fileType: file.type,
+      });
+    };
+    reader.readAsArrayBuffer(file); // Convert to raw binary
+  };
+
+  const handleKeyCommand = (command) => {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      setEditorState(newState);
+      return "handled";
+    }
+    return "not-handled";
+  };
+
+  const toggleInlineStyle = (style) => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, style));
+  };
+
+  const toggleBlockType = (blockType) => {
+    setEditorState(RichUtils.toggleBlockType(editorState, blockType));
+  };
+
+  const uploadFileToSupabase = async (file) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const filePath = `public/${uniqueSuffix}-${file.name}`;
+    const { data, error } = await supabase.storage
+      .from("messages") // Replace with your bucket name
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+    if (error) {
+      console.error("Error uploading file:", error);
+      return null;
+    }
+
+    // Get public URL
+    const { data: publicURLData } = supabase.storage
+      .from("messages")
+      .getPublicUrl(filePath);
+
+    return publicURLData.publicUrl;
+  };
+
+  const sendMessage = async () => {
+    const contentState = editorState.getCurrentContent();
+    const rawContent = convertToRaw(contentState);
+    const htmlContent = stateToHTML(contentState);
+    const messageText = rawContent.blocks
+      .map((block) => {
+        let text = block.text;
+        block.inlineStyleRanges.forEach((range) => {
+          const style = range.style.toLowerCase();
+          text =
+            text.slice(0, range.offset) +
+            `<${style}>` +
+            text.slice(range.offset, range.offset + range.length) +
+            `</${style}>`;
+        });
+        return text;
+      })
+      .join("\n");
+    const randomString = Math.random().toString(36).substring(7);
+
+    if (currentConversation) {
+      let uploadedFiles = [];
+
+      if (files.length > 0) {
+        const uploadPromises = files.map(uploadFileToSupabase);
+        uploadedFiles = await Promise.all(uploadPromises);
+      }
+
+      const message = {
+        id: currentConversation.id,
+        messageId: randomString,
+        message: htmlContent,
+        sender: username,
+        replyId: replyId,
+        files: uploadedFiles.filter((url) => url),
+      };
+
+      console.log({ message });
+      socket.emit("chat message", message);
+      setEditorState(EditorState.createEmpty());
+      setFiles([]); // Clear uploaded files after sending the message
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(event.target)
+      ) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <>
+      <div className="inputContainer">
+        {files.length > 0 && (
+          <div className="thumbnails">
+            {files.map((file, index) => (
+              <Thumbnail
+                key={index}
+                file={file}
+                files={files}
+                setFiles={setFiles}
+              />
+            ))}
+          </div>
+        )}
+        <div style={{ display: "flex" }}>
+          <FormattingBar {...{ toggleInlineStyle, toggleBlockType }} />
+        </div>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div className="editor">
+            <Editor
+              editorState={editorState}
+              handleKeyCommand={handleKeyCommand}
+              onChange={(es) => {
+                setInput(es.getCurrentContent().getPlainText());
+                setEditorState(es);
+              }}
+              placeholder="Type a message..."
+            />
+          </div>
+          <button onClick={sendMessage} className="sendButton">
+            <SendSvg />
+          </button>
+        </div>
+        <MessageAddons
+          {...{
+            handleFileUpload,
+            showEmojiPicker,
+            setShowEmojiPicker,
+            emojiPickerRef,
+            insertEmoji,
+            typing,
+          }}
+        />
+      </div>
+    </>
+  );
 };
