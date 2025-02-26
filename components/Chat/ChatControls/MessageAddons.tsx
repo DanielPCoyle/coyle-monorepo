@@ -1,9 +1,19 @@
-import React, { useContext } from "react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import React, { RefObject, useContext } from "react";
 import { ImageSvg } from "../../svg/ImageSvg";
 import { ChatContext } from "../ChatContext";
-export const MessageAddons = ({
+
+interface MessageAddonsProps {
+  handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  showEmojiPicker: boolean;
+  setShowEmojiPicker: (show: boolean) => void;
+  emojiPickerRef: RefObject<HTMLDivElement>;
+  insertEmoji: (emoji: any) => void;
+  typing: { username: string } | null;
+}
+
+export const MessageAddons: React.FC<MessageAddonsProps> = ({
   handleFileUpload,
   showEmojiPicker,
   setShowEmojiPicker,
@@ -12,6 +22,7 @@ export const MessageAddons = ({
   typing,
 }) => {
   const { username } = useContext(ChatContext);
+
   return (
     <div
       style={{
@@ -54,7 +65,7 @@ export const MessageAddons = ({
         </div>
       )}
       <div className="isTyping">
-        {typing && typing?.username !== username ? (
+        {typing && typing.username !== username ? (
           <>{typing.username} is typing...</>
         ) : (
           <>&nbsp;</>
