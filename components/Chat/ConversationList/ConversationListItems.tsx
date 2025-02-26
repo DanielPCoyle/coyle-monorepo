@@ -1,6 +1,22 @@
 import { motion } from "framer-motion";
 
-export const ConversationListItems = ({ conversations, socket, currentConversation, setCurrentConversation, id }) => {
+interface Conversation {
+    id: string;
+    username: string;
+    email: string;
+    status: string;
+    unSeenMessages: number;
+}
+
+interface ConversationListItemsProps {
+    conversations: Conversation[];
+    socket: any;
+    currentConversation: Conversation | null;
+    setCurrentConversation: (conversation: Conversation) => void;
+    id: string;
+}
+
+export const ConversationListItems: React.FC<ConversationListItemsProps> = ({ conversations, socket, currentConversation, setCurrentConversation, id }) => {
     const filteredConversations = conversations
         ?.filter((convo) => convo?.id !== id && convo?.username && convo?.username !== "admin");
 
@@ -10,11 +26,9 @@ export const ConversationListItems = ({ conversations, socket, currentConversati
                 <div
                     className={`conversationListItem ${currentConversation?.id === convo.id ? "active" : ""}`}
                     key={i}
-                    onClick={(prev) => {
-                        setCurrentConversation((prev) => {
-                            socket.emit("leave", { id: prev.id });
-                            return convo;
-                        });
+                    onClick={() => {
+                        socket.emit("leave", { id: currentConversation?.id });
+                        setCurrentConversation(convo);
                     }}
                 >
                     {convo.status}
