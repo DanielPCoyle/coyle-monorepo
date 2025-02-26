@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import Modal from 'react-modal';
 import { ChatControls } from "../../ChatControls";
 
