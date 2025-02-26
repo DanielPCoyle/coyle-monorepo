@@ -28,24 +28,24 @@ const customStyles = {
     },
   };
 
-export const Message = ({ message, index }) => {
+export const Message: React.FC<{ message: any; index: number }> = ({ message, index }) => {
     const { username, currentConversation, socket, id, email } = React.useContext(ChatContext);
     
-    const [urlPreview, setUrlPreview] = useState(null);
-    const [showReactionPicker, setShowReactionPicker] = useState(false);
-    const [showReplyModal, setShowReplyModal] = useState(false);
-    const [reactions, setReactions] = useState(message.reaction || {}); 
+    const [urlPreview, setUrlPreview] = useState<string | null>(null);
+    const [showReactionPicker, setShowReactionPicker] = useState<boolean>(false);
+    const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
+    const [reactions, setReactions] = useState<{ [key: string]: string[] }>(message.reaction || {}); 
 
     useEffect(() => {
-        socket.on("addReaction", ({ messageId, reactions:reaction  }) => {
+        socket.on("addReaction", ({ messageId, reactions: reaction }) => {
             if (messageId === message.id) {
                 setReactions(reaction);
             }     
         });
     }, []);
     
-    const reactionPickerRef = useRef(null);
-    const messageRef = useRef(null);
+    const reactionPickerRef = useRef<HTMLDivElement | null>(null);
+    const messageRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -70,25 +70,22 @@ export const Message = ({ message, index }) => {
         };
     }, [messageRef.current, socket]);
 
- 
-
-    const addReaction = (emoji) => {
+    const addReaction = (emoji: { emoji: string }) => {
         const newReactions = { ...reactions };
-        if(!newReactions[email]) {
-            newReactions[email] = []
+        if (!newReactions[email]) {
+            newReactions[email] = [];
         }
         newReactions[email].push(emoji.emoji);
-        console.log({id,message, newReactions});
         setReactions(newReactions);
         socket.emit("addReaction", { 
-            id:currentConversation?.id,
+            id: currentConversation?.id,
             messageId: message.id,
             reactions: newReactions 
         });
         setShowReactionPicker(false);
     };
 
-    const removeReaction = (emoji) => {
+    const removeReaction = (emoji: { emoji: string }) => {
         const newReactions = { ...reactions };
         if (newReactions[email]) {
             newReactions[email] = newReactions[email].filter(e => e !== emoji.emoji);
@@ -105,8 +102,8 @@ export const Message = ({ message, index }) => {
     };
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (reactionPickerRef.current && !reactionPickerRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (reactionPickerRef.current && !reactionPickerRef.current.contains(event.target as Node)) {
                 setShowReactionPicker(false);
             }
         };
@@ -149,32 +146,30 @@ export const Message = ({ message, index }) => {
         
         {Object.values(reactions).length > 0 && (
             <Reactions {...{
-                isSender:message.sender === username,
-                reactions,removeReaction}} />
+                isSender: message.sender === username,
+                reactions, removeReaction }} />
         )}
 
-
-
-            <Modal
+        <Modal
             isOpen={showReplyModal}
-            // onAfterOpen={()=>alert("Modal is open")}
-            // onRequestClose={()=>alert("Modal is requested to close")}
             style={customStyles}
             contentLabel="Example Modal"
-          >
+        >
             <div className="replyModal animate__animated animate__fadeIn">
-                <div style={{display:"flex",justifyContent:"space-between"}}>
-                <h3>Replying to...</h3>
-                <button className="closeModal" onClick={()=>setShowReplyModal(false)}>
-                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"  xmlns="http://www.w3.org/2000/svg"><path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path></svg>
-                </button>
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <h3>Replying to...</h3>
+                    <button className="closeModal" onClick={() => setShowReplyModal(false)}>
+                        <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
+                        </svg>
+                    </button>
                 </div>
                 <div className="replies">
                     <MessageContent />
                 </div>
-                <hr/>
-                <div style={{overflow:"hidden"}}>
-                    <div className="animate__animated animate__faster animate__slideInDown" >
+                <hr />
+                <div style={{ overflow: "hidden" }}>
+                    <div className="animate__animated animate__faster animate__slideInDown">
                         <ChatControls replyId={message.id} />
                     </div>
                 </div>

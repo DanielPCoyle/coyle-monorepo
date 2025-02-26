@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
 
-export const ThreeJsBackground = () => {
-    const mountRef = useRef(null);
-    const sceneRef = useRef(null);
-    const rendererRef = useRef(null);
+export const ThreeJsBackground: React.FC = () => {
+    const mountRef = useRef<HTMLDivElement | null>(null);
+    const sceneRef = useRef<THREE.Scene | null>(null);
+    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -12,7 +12,9 @@ export const ThreeJsBackground = () => {
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        mountRef.current.appendChild(renderer.domElement);
+        if (mountRef.current) {
+            mountRef.current.appendChild(renderer.domElement);
+        }
 
         const geometry = new THREE.CircleGeometry();
         const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -35,8 +37,11 @@ export const ThreeJsBackground = () => {
         rendererRef.current = renderer;
 
         return () => {
-            mountRef?.current?.removeChild(renderer.domElement);
+            if (mountRef.current) {
+                mountRef.current.removeChild(renderer.domElement);
+            }
         };
     }, []);
-    return <div ref={mountRef} style={{ position: "absolute", width: "100%", height:"75vh", zIndex: 0, overflow: "hidden" }} />;
+
+    return <div ref={mountRef} style={{ position: "absolute", width: "100%", height: "75vh", zIndex: 0, overflow: "hidden" }} />;
 };

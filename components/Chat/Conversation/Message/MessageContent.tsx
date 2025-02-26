@@ -26,10 +26,8 @@ export const MessageContent = () => {
                 </small>
         </div>
         <FilePreview message={message} />
-        <div className="message"  dangerouslySetInnerHTML={{__html:message.message}} />
-
-        
-            <LinkPreview message={message} />
+        <div className="message" dangerouslySetInnerHTML={{ __html: message.message }} />
+        <LinkPreview message={message} />
 
         <button
             onClick={(e) => {

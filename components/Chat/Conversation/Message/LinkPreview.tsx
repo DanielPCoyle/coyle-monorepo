@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
 
-export const LinkPreview = ({ message }) => {
-    const hasLink = message.message.includes("http");
-    const [loading, setLoading] = React.useState(hasLink);
-    const [urlPreview, setUrlPreview] = React.useState(null);
+interface Message {
+    message: string;
+}
 
-    React.useEffect(() => {
+interface UrlPreview {
+    url: string;
+    type?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+}
+
+interface LinkPreviewProps {
+    message: Message;
+}
+
+export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
+    const hasLink = message.message.includes("http");
+    const [loading, setLoading] = useState<boolean>(hasLink);
+    const [urlPreview, setUrlPreview] = useState<UrlPreview | null>(null);
+
+    useEffect(() => {
         const urlRegex = /(https?:\/\/[^\s]+)/g;
         const urls = message.message.match(urlRegex);
         
@@ -21,7 +37,7 @@ export const LinkPreview = ({ message }) => {
                 axios.get(`/api/url-preview?url=${url}`)
                     .then(response => {
                         setUrlPreview(response.data);
-                        setLoading(false)
+                        setLoading(false);
                     })
                     .catch(error => {
                         console.error("Error fetching URL metadata:", error);
