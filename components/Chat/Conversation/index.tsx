@@ -1,8 +1,6 @@
-import React, { useRef, useState, useContext } from "react";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Message } from "./Message";
+import React, { useContext, useRef } from "react";
 import { ChatContext } from "../ChatContext";
+import { Message } from "./Message";
 import { ThreeJsBackground } from "./ThreeJsBackground";
 
 interface MessageType {

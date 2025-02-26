@@ -1,12 +1,10 @@
-import { Server } from "socket.io";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
-import { addConversation } from "../../util/addConversation";
-import { addMessage } from "../../util/addMessage";
-import { handleConnection } from "../../util/socketHandlers/handleConnection";
-import { NextApiRequest, NextApiResponse } from "next";
 import { Server as NetServer } from "http";
 import { Socket as NetSocket } from "net";
+import { NextApiRequest, NextApiResponse } from "next";
+import { Server } from "socket.io";
+import { handleConnection } from "../../util/socketHandlers/handleConnection";
 
 dotenv.config();
 
@@ -14,6 +12,7 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
+
 
 const conversations: any[] = [];
 const peopleOnSite: any[] = [];

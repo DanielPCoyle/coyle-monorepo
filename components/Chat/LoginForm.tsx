@@ -1,5 +1,5 @@
-import React, { useContext, useState, FormEvent, ChangeEvent } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { ChatContext } from "./ChatContext";
 
 interface ChatContextType {

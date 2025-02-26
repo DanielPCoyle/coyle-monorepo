@@ -1,4 +1,3 @@
-import friendlyUrl from "../data/slugIds.json";
 import builder from "@builder.io/react";
 import { fetchFacets } from "./fetchFacets";
 
@@ -6,6 +5,7 @@ interface ProductData {
   Name?: string;
   // Other fields as needed from product API response
 }
+
 
 interface SEO {
   title: string | null;

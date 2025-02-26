@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
 
 interface InksoftEmbedProps {
   productId: number;

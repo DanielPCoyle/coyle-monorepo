@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import React, { useState } from "react";
 interface NavItemType {
   title: string;
   url: string;

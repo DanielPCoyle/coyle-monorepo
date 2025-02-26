@@ -1,9 +1,8 @@
-import React from "react";
 import { BoldSvg } from "../../svg/BoldSvg";
 import { ItalicSvg } from "../../svg/ItalicSvg";
 import { LinkSvg } from "../../svg/LinkSvg";
-import { UnorderedListSvg } from "../../svg/UnorderedListSvg";
 import { StrikeThroughSvg } from "../../svg/StrikeThroughSvg";
+import { UnorderedListSvg } from "../../svg/UnorderedListSvg";
 
 export const FormattingBar = ({ toggleInlineStyle, toggleBlockType }) => {
   return (

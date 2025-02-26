@@ -1,27 +1,27 @@
 // pages/[...page].tsx
-import React, { use, useEffect } from "react";
-import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 import { BuilderComponent, builder, useIsPreviewing } from "@builder.io/react";
-import DefaultErrorPage from "next/error";
-import Navigation from "../components/Navigation";
-import navData from "../data/navData.json";
-import SEOHeader from "../components/SEOHeader";
-import Link from "next/link";
-import NProgress from "nprogress";
+import { GetServerSideProps } from "next";
 import { PagesProgressBar as ProgressBar } from "next-nprogress-bar";
-import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
-import { fetchPostContent } from "../util/fetchPostContent";
-import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
-import { fetchProductsPageContent } from "../util/fetchProductsPageContent";
-import { fetchLoginLogic } from "../util/fetchLoginLogic";
+import DefaultErrorPage from "next/error";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import NProgress from "nprogress";
+import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import login from "../util/login";
 import Footer from "../components/Footer";
+import Navigation from "../components/Navigation";
+import SEOHeader from "../components/SEOHeader";
+import navData from "../data/navData.json";
+import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
+import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
+import { fetchLoginLogic } from "../util/fetchLoginLogic";
+import { fetchPostContent } from "../util/fetchPostContent";
+import { fetchProductsPageContent } from "../util/fetchProductsPageContent";
+import login from "../util/login";
 
 import "../components/builder-registry"; // Register custom components
 import { fetchProducts } from "../util/fetchProducts";
-import { fetchFacets } from "../util/fetchFacets";
+
 
 export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);

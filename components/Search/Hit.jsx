@@ -1,6 +1,5 @@
-import { Highlight } from "react-instantsearch";
-import { getPropertyByPath } from "instantsearch.js/es/lib/utils";
 import Link from "next/link";
+import { Highlight } from "react-instantsearch";
 export const Hit = ({ hit }) => {
   return (
     <Link href={"/products/" + hit.ID}>
@@ -17,3 +16,4 @@ export const Hit = ({ hit }) => {
     </Link>
   );
 };
+
