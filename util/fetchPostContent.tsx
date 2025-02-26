@@ -9,10 +9,14 @@ interface BlogData {
   readingTime?: string;
 }
 
+interface PageData {
+  // Define the specific type for the page data
+}
+
 interface FetchPostContentReturn {
   contentType: string;
   model: string;
-  page: any; // Replace `any` with a specific type if available from Builder API
+  page: PageData; // Replace `any` with a specific type if available from Builder API
   blogData: BlogData;
 }
 

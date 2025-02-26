@@ -1,5 +1,5 @@
-import fetch from "node-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
+import fetch from "node-fetch";
 
 interface BlogContent {
   content: string;
@@ -116,7 +116,7 @@ async function generateBlogContent(): Promise<BlogPost[]> {
   }
 }
 
-async function saveBlogPost(postData: BlogPost): Promise<any> {
+async function saveBlogPost(postData: BlogPost): Promise<unknown> {
   const apiKey = process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY;
   const modelName = "blog"; // Replace with your actual model name
 

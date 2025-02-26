@@ -1,13 +1,8 @@
-import { searchClient } from "@algolia/client-search";
 import algoliasearch from "algoliasearch";
 import chroma from "chroma-js";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const aClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY!,
-);
-const client = searchClient(
   process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
   process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY!,
 );

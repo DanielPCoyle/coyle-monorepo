@@ -13,9 +13,20 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );
 
+interface Conversation {
+  id: string;
+  username: string;
+  email: string;
+  socketId: string;
+}
 
-const conversations: any[] = [];
-const peopleOnSite: any[] = [];
+interface PersonOnSite {
+  socketId: string;
+  [key: string]: string | number | boolean;
+}
+
+const conversations: Conversation[] = [];
+const peopleOnSite: PersonOnSite[] = [];
 
 interface SocketServer extends NetServer {
   io?: Server;

@@ -1,9 +1,13 @@
 import builder from "@builder.io/react";
 
+interface PageData {
+  // Define the structure of PageData here
+}
+
 interface FetchLoginLogicResponse {
   contentType: string;
   model: string;
-  page: any;
+  page: PageData;
 }
 
 // Fetch content for `/post/` URLs

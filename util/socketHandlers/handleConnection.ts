@@ -12,7 +12,7 @@ interface Conversation {
 
 interface PersonOnSite {
   socketId: string;
-  [key: string]: any;
+  [key: string]: string | number | boolean;
 }
 
 export function handleConnection(
@@ -72,8 +72,8 @@ export function handleConnection(
     }, 1000);
   });
 
-  socket.on("seen", async (messageId) => {
-    const { data, error } = await supabase
+  socket.on("seen", async (messageId: string) => {
+    const { error } = await supabase
       .from("messages")
       .update({ seen: true })
       .eq("id", messageId);

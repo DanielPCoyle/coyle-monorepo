@@ -6,12 +6,19 @@ interface CategoryData {
   };
 }
 
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  // Add other properties as needed
+}
+
 interface ProductData {
-  Data: any[]; // Replace `any` with a more specific type if available, like ProductItem[]
+  Data: Product[];
 }
 
 interface ProductApiResponse {
-  Data: any[]; // Replace `any` with a more specific type if available
+  Data: Product[];
 }
 
 interface SEO {
@@ -25,9 +32,9 @@ interface SEO {
 interface FetchCategoryPageContentReturn {
   contentType: string;
   model: string;
-  page: any; // Replace `any` with specific type if available from Builder API
+  page: unknown; // Replace `unknown` with specific type if available from Builder API
   seo: SEO;
-  productData: any[]; // Replace `any` with a more specific type if available
+  productData: Product[];
   categoryData: CategoryData | null;
 }
 
@@ -49,7 +56,7 @@ export async function fetchCategoryPageContent(
   const categoryId = categoryData.data.inkSoftId;
 
   // Fetch product data from external API
-  let productData: any[] = []; // Default empty array for product data
+  let productData: Product[] = []; // Default empty array for product data
   const fetchUrl = `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProductBaseList?Format=JSON&Index=0&MaxResults=24&SortFilters=%5B%7B%22Property%22%3A%22Name%22%2C%22Direction%22%3A%22Ascending%22%7D%5D&ProductCategoryIds=%5B${categoryId}%5D&IncludePrices=true&IncludeAllStyles=true&IncludeSizes=false&StoreVersion=638659111691800000&IncludeQuantityPacks=true`;
 
   const response: ProductApiResponse = await fetch(fetchUrl).then((res) =>

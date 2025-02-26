@@ -1,5 +1,5 @@
-import friendlyUrl from "../../data/slugIds.json";
 import builder from "@builder.io/react";
+import friendlyUrl from "../../data/slugIds.json";
 
 interface ProductData {
   Name?: string;
@@ -18,7 +18,7 @@ interface SEO {
 interface FetchProductContentReturn {
   contentType: string;
   model: string;
-  page: any; // Replace `any` with a specific type if available from Builder API
+  page: unknown; // Replace `unknown` with a specific type if available from Builder API
   seo: SEO;
   productData: ProductData;
 }

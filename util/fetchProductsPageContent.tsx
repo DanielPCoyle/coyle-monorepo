@@ -1,11 +1,6 @@
 import builder from "@builder.io/react";
 import { fetchFacets } from "./fetchFacets";
 
-interface ProductData {
-  Name?: string;
-  // Other fields as needed from product API response
-}
-
 
 interface SEO {
   title: string | null;
@@ -15,12 +10,20 @@ interface SEO {
   url: string;
 }
 
+interface PageData {
+  // Define the structure of the page data returned by the Builder API
+}
+
+interface Facet {
+  // Define the structure of a facet
+}
+
 interface FetchProductsPageContentReturn {
   contentType: string;
   model: string;
-  page: any; // Replace `any` with a specific type if available from Builder API
+  page: unknown; // Replace `unknown` with a specific type if available from Builder API
   seo: SEO;
-  facets: any;
+  facets: Facet[];
 }
 
 // Fetch content for `/products/` URLs
@@ -37,7 +40,6 @@ export async function fetchProductsPageContent(
       .toPromise(),
     seo: {
       title: null,
-      // title: productData.Name?.length < 40 ? `${productData.Name} | Philadelphia Screen Printing` : productData.Name,
       description: "",
       keywords: "",
       image: "",

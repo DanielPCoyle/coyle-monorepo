@@ -4,7 +4,7 @@ interface AddMessageParams {
   sender: string;
   message: string;
   conversation_key: string;
-  files: any;
+  files: File[];
 }
 
 export async function addMessage({

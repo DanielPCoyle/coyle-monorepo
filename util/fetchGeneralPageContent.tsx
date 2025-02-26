@@ -15,8 +15,12 @@ interface PageData {
   };
 }
 
+interface BlogPost {
+  // Define the structure of a blog post here
+}
+
 interface BlogData {
-  results: any[]; // Replace `any` with a more specific type if available
+  results: BlogPost[];
 }
 
 interface FetchGeneralPageContentReturn {
@@ -24,7 +28,7 @@ interface FetchGeneralPageContentReturn {
   model: string;
   page: PageData | null;
   seo: SEO;
-  blogData: any[] | null; // Replace `any` with a specific blog post type if available
+  blogData: BlogPost[] | null;
   pagination: {
     offset: number;
     limit: number;
@@ -52,12 +56,11 @@ export async function fetchGeneralPageContent(
     page?.data?.description || "Philadelphia Screen Printing";
   const seoImage = page?.data?.featuredImage || null;
 
-  let blogData: any[] | null = null; // Set as `any[]` or a specific type if available
+  let blogData: BlogPost[] | null = null;
   let search: string | null = null;
   if (urlPath.includes("/blog")) {
     const urlParts = urlPath.split("/");
     const lastPart = urlParts[urlParts.length - 1];
-    // is lastPart a number
     const isNumber = /^\d+$/.test(lastPart);
     if (isNumber) {
       offset = parseInt(lastPart);

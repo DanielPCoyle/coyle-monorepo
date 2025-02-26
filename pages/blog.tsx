@@ -1,14 +1,13 @@
 // pages/[...page].tsx
 import moment from "moment";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 import navData from "../data/navData.json";
-ß
+
 interface Post {
   data: {
     slug: string;
@@ -22,12 +21,8 @@ interface Post {
 // Main Page component
 const Page: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [hasMorePosts, setHasMorePosts] = useState(true);
-  const router = useRouter();
   const limit = 6;
   const offset = (page - 1) * limit;
   useEffect(() => {
@@ -37,14 +32,11 @@ const Page: React.FC = () => {
       .then((data) => {
         setPosts(data.results);
         console.log(data);
-        setTotalPages(data.totalPages);
         setHasMorePosts(data.results.length === limit);
-        setLoading(false);
         window.scrollTo(0, 0); // Scroll to top when page changes
       })
-      .catch((error) => {
-        setError(error);
-        setLoading(false);
+      .catch(() => {
+        setHasMorePosts(false);
       });
   }, [page]);
 

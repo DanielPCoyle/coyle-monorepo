@@ -1,7 +1,7 @@
 // pages/api/searchProducts.ts
 
-import { NextApiRequest, NextApiResponse } from "next";
 import algoliasearch from "algoliasearch";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
@@ -16,10 +16,11 @@ export default async function handler(
   let {
     color = [],
     category = [],
-    keyword = "",
     manufacturer = [],
     page = 0,
   } = req.query;
+
+  const keyword = req.query.keyword || "";
 
   // Convert page to an integer for Algolia pagination
   page = parseInt(page as string, 10) || 0;

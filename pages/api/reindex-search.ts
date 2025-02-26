@@ -60,7 +60,7 @@ const processRecords = async (): Promise<
   );
   const products = await datasetRequest.json();
 
-  let extractedProducts: Product[] = products.Data.map((product: any) => ({
+  let extractedProducts: Product[] = products.Data.map((product: Product) => ({
     CanEmbroider: product.CanEmbroider,
     CanScreenPrint: product.CanScreenPrint,
     CanDigitalPrint: product.CanDigitalPrint,
@@ -101,7 +101,7 @@ const processRecords = async (): Promise<
   }));
 
   let tooBig = 0;
-  extractedProducts = extractedProducts.filter((product, index) => {
+  extractedProducts = extractedProducts.filter((product: Product, index: number) => {
     if (index === 0) {
       console.log("Product:", JSON.stringify(product, null, 2));
     }
