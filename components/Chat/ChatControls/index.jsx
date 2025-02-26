@@ -1,20 +1,20 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
 import {
+  convertToRaw,
   Editor,
   EditorState,
-  RichUtils,
-  convertToRaw,
   Modifier,
+  RichUtils,
 } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
+import { useContext, useEffect, useRef, useState } from "react";
 
+import { createClient } from "@supabase/supabase-js";
 import "draft-js/dist/Draft.css";
 import { SendSvg } from "../../svg/SendSvg";
-import { Thumbnail } from "./Thumbnail";
+import { ChatContext } from "../ChatContext";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
-import { ChatContext } from "../ChatContext";
-import { createClient } from "@supabase/supabase-js";
+import { Thumbnail } from "./Thumbnail";
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -155,7 +155,6 @@ export const ChatControls = ({ replyId }) => {
         files: uploadedFiles.filter((url) => url),
       };
 
-      console.log({ message });
       socket.emit("chat message", message);
       setEditorState(EditorState.createEmpty());
       setFiles([]); // Clear uploaded files after sending the message

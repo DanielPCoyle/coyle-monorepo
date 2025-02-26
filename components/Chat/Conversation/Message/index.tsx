@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import { ChatControls } from "../../ChatControls";
 
+import { MessageContent } from "./MessageContent";
 import { ReactionPicker } from "./ReactionPicker";
 import { Reactions } from "./Reactions";
-import { MessageContent } from "./MessageContent";
 
 import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
@@ -190,6 +190,27 @@ export const Message: React.FC<{ message: any; index: number }> = ({
           </div>
           <div className="replies">
             <MessageContent />
+            {message.replies && (
+              <div>
+                {message.replies.map((reply: any, index: number) => (
+                  <div key={index}>
+                    <MessageContext.Provider
+                    value={{
+                      message:reply,
+                      urlPreview,
+                      username,
+                      setShowReactionPicker,
+                      setShowReplyModal,
+                      showReplyModal,
+                      addReaction,
+                      reactions,
+                    }}
+                    >
+                      <MessageContent />
+                    </MessageContext.Provider>
+                  </div>
+                ))}
+                </div> )}
           </div>
           <hr />
           <div style={{ overflow: "hidden" }}>

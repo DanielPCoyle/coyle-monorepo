@@ -96,7 +96,7 @@ export function handleConnection(
     }
   });
 
-  socket.on("chat message", async ({ id, message, sender, files }) => {
+  socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
     const recipient = conversations.find(
       (convo) => convo?.socketId === socket.id,
     );
@@ -106,12 +106,14 @@ export function handleConnection(
         sender,
         message: formattedMessage,
         conversation_key: id,
+        parent_id: replyId,
         files,
       });
       io.to(id).emit("chat message", {
         sender,
         message: formattedMessage,
         id: messageId,
+        parentId:replyId,
         files,
       });
     }

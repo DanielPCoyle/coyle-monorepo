@@ -3,6 +3,7 @@ import { supabase } from "../pages/api/socket";
 interface AddMessageParams {
   sender: string;
   message: string;
+  parent_id: number | null;
   conversation_key: string;
   files: File[];
 }
@@ -11,6 +12,7 @@ export async function addMessage({
   sender,
   message,
   conversation_key,
+  parent_id,
   files,
 }: AddMessageParams): Promise<number | null> {
   // Fetch the conversation ID
@@ -29,7 +31,7 @@ export async function addMessage({
   // Insert message and return the newly inserted record
   const { data: messageData, error: messageError } = await supabase
     .from("messages")
-    .insert([{ conversation_id: conversationId, message, sender, files }])
+    .insert([{ conversation_id: conversationId, message, sender, files, parent_id }])
     .select(); // 👈 This ensures the response includes the inserted row(s)
 
   if (messageError) {

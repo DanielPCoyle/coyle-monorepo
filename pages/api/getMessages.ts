@@ -13,13 +13,34 @@ async function getMessages(conversation_key) {
     .from("conversations")
     .select("id")
     .eq("conversation_key", conversation_key);
-  if (error) console.error(error);
+  if (error) {
+    console.error(error);
+    return [];
+  }
   const conversationId = data[0].id;
   const { data: messageData, error: messageError } = await supabase
     .from("messages")
     .select("*")
-    .eq("conversation_id", conversationId);
-  if (messageError) console.error(messageError);
+    .eq("conversation_id", conversationId)
+    .is("parent_id", null);
+  if (messageError) {
+    console.error(messageError);
+    return [];
+  }
+
+  for (const message of messageData) {
+    const { data: replies, error: repliesError } = await supabase
+      .from("messages")
+      .select("*")
+      .eq("parent_id", message.id);
+    if (repliesError) {
+      console.error(repliesError);
+      message.replies = [];
+    } else {
+      message.replies = replies;
+    }
+  }
+
   return messageData;
 }
 

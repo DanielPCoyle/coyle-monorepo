@@ -551,6 +551,7 @@ a.chat {
   background-color: #007aff;
   color: #ffffff;
   border-radius: 20px 20px 0 20px;
+  margin-left:auto;
 }
 
 .messageContent.receiver {

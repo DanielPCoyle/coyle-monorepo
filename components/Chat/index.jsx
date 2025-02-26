@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import "animate.css";
+import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
-import { LoginForm } from "./LoginForm";
+import { ChatContext } from "./ChatContext";
+import { ChatControls } from "./ChatControls";
 import { Conversation } from "./Conversation";
 import { ConversationList } from "./ConversationList";
-import { ChatControls } from "./ChatControls";
-import { ChatContext } from "./ChatContext";
-import "animate.css";
+import { LoginForm } from "./LoginForm";
 
 const socket = io(process.env.NEXT_PUBLIC_CURRENT_SITE, {
   path: "/api/socket",
@@ -154,7 +154,21 @@ export default function Chat() {
   useEffect(() => {
     socket.on("chat message", (message) => {
       setMessages((prev) => {
-        const newMessages = [...prev, message];
+        const newMessages = [...prev];
+         console.log({message})
+        if (message.parentId) {
+          const parentMessage = newMessages.find((msg) => msg.id === message.parentId);
+          if (parentMessage) {
+            parentMessage.replies = parentMessage.replies || [];
+            parentMessage.replies.push(message);
+            parentMessage.replies = parentMessage.replies.filter(
+              (reply, index, self) =>
+              index === self.findIndex((r) => r.id === reply.id)
+            );
+          }
+        } else {
+          newMessages.push(message);
+        }
         const uniqueMessages = newMessages.filter(
           (msg, index, self) =>
             index === self.findIndex((m) => m.id === msg.id),
