@@ -22,7 +22,7 @@ export async function fetchPostContent(urlPath: string): Promise<FetchPostConten
   const path = "/" + urlPath.split("/post/")[1];
 
   // Fetch blog data from Builder API
-  let blogData: BlogData = await fetch(
+  const blogData: BlogData = await fetch(
     `https://cdn.builder.io/api/v2/content/blog?apiKey=${apiKey}&query.data.slug=${path}&limit=1`
   )
     .then((res) => res.json())

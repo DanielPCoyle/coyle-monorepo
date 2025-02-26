@@ -148,7 +148,7 @@ const Page: React.FC<PageProps> = ({
     // Clone the current filters object to avoid direct state mutation
     setPageNumber(0);
 
-    let newFilters = { ...filters };
+    const newFilters = { ...filters };
   
     // Check if the facet already exists in the filters object
     if (!newFilters[facet]) {

@@ -34,7 +34,7 @@ interface FetchCategoryPageContentReturn {
 // Fetch content for `/products/` URLs
 export async function fetchCategoryPageContent(slug: string): Promise<FetchCategoryPageContentReturn> {
   // Fetch category data from Builder API
-  let categoryData = (await builder.get("categories", {
+  const categoryData = (await builder.get("categories", {
     query: {
       data: {
         slug: slug.replace("/category", ""),

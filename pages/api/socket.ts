@@ -15,8 +15,8 @@ export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
-let conversations: any[] = [];
-let peopleOnSite: any[] = [];
+const conversations: any[] = [];
+const peopleOnSite: any[] = [];
 
 interface SocketServer extends NetServer {
   io?: Server;

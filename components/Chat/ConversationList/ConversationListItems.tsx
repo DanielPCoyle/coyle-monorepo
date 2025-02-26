@@ -20,7 +20,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({ co
     const filteredConversations = conversations
         ?.filter((convo) => convo?.id !== id && convo?.username && convo?.username !== "admin");
 
-    return Boolean(filteredConversations?.length) ? (
+    return filteredConversations?.length ? (
         <>
             {filteredConversations?.map((convo, i) => (
                 <div

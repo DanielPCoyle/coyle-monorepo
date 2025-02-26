@@ -19,7 +19,7 @@ export const MessageAddons = ({ handleFileUpload, showEmojiPicker, setShowEmojiP
             </div>
         )}
         <div className="isTyping">
-            {Boolean(typing && typing?.username !== username) ? <>{typing.username} is typing...</> : <>&nbsp;</>}
+            {typing && typing?.username !== username ? <>{typing.username} is typing...</> : <>&nbsp;</>}
         </div>
     </div>;
 };

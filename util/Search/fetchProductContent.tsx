@@ -29,7 +29,7 @@ export async function fetchProductContent(slug: string, query:any): Promise<Fetc
   const productId = friendlyUrl.find((item) => item.slug === slug)?.id;
   // get styleId from query params
   // Fetch product data from external API
-  let productData: ProductData = await fetch(
+  const productData: ProductData = await fetch(
     `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProduct?ProductId=${productId}&IncludeQuantityPacks=true&IncludePricing=true&StoreVersion=1730304704667`
   )
     .then((res) => res.json())
