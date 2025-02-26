@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "docker compose up -d && vitest && docker compose down"
+    "test": "docker compose up -d && vitest && docker compose down",
+    "generate-migration": "npx drizzle-kit generate --schema=./database/schema.ts --dialect=postgresql",
+    "migrate": "npx drizzle-kit migrate"
   },
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
@@ -21,6 +23,7 @@
     "@supabase/supabase-js": "^2.49.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@types/uuid": "^10.0.0",
     "algoliasearch": "^4.24.0",
     "animate.css": "^4.1.1",
     "axios": "^1.7.7",
@@ -30,6 +33,8 @@
     "dotenv": "^16.4.7",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
     "emoji-picker-react": "^4.12.0",
     "firebase": "^11.0.1",
     "framer-motion": "^12.4.3",
@@ -40,6 +45,7 @@
     "next": "15.0.2",
     "next-nprogress-bar": "^2.3.14",
     "nprogress": "^0.2.0",
+    "pg": "^8.13.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-instantsearch": "^7.13.7",
@@ -51,12 +57,14 @@
     "tailwindcss": "^3.4.14",
     "three": "^0.173.0",
     "typescript-eslint": "^8.25.0",
+    "uuid": "^11.1.0",
     "vitest": "^3.0.7"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "22.8.6",
+    "@types/pg": "^8.11.11",
     "@types/react": "18.3.12",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
