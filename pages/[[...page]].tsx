@@ -18,7 +18,6 @@ import { fetchLoginLogic } from "../util/fetchLoginLogic";
 import { ToastContainer } from 'react-toastify';
 import login from '../util/login';
 import Footer from "../components/Footer";
-import CartPage from "../components/Cart";
 
 import '../components/builder-registry'; // Register custom components
 import { fetchProducts } from "../util/fetchProducts";
@@ -130,9 +129,6 @@ const Page: React.FC<PageProps> = ({
     fetchProducts({ filters,  pageNumber, setLoading, setResults, setPageNumber,setFilterFacets });
   }, [filters,pageNumber]);
 
-  if (urlPath === "/cart") {
-    return <CartPage />
-  }
 
   if (!page && !isPreviewing) {
     return <DefaultErrorPage statusCode={404} />;
