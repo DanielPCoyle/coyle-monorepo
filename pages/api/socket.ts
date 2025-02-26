@@ -1,8 +1,8 @@
 import { Server } from "socket.io";
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
-import { addConversation } from "./addConversation";
-import { addMessage } from "./addMessage";
+import { addConversation } from "../../util/addConversation";
+import { addMessage } from "../../util/addMessage";
 import { handleConnection } from "../../util/socketHandlers/handleConnection";
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Server as NetServer } from 'http';

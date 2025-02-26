@@ -12,21 +12,16 @@ import NProgress from "nprogress";
 import { PagesProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
-import { fetchProductContent } from "../util/Search/fetchProductContent";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import {fetchProductsPageContent} from "../util/fetchProductsPageContent";
 import { fetchLoginLogic } from "../util/fetchLoginLogic";
 import { ToastContainer } from 'react-toastify';
-import { toast } from 'react-toastify';
 import login from '../util/login';
 import Footer from "../components/Footer";
 import CartPage from "../components/Cart";
-import {onAuthStateChanged} from '../util/firebase';
-import 'animate.css';
-import 'react-toastify/dist/ReactToastify.css';
+
 import '../components/builder-registry'; // Register custom components
 import { fetchProducts } from "../util/fetchProducts";
-import { register } from "../util/register";
 import { fetchFacets } from "../util/fetchFacets";
 
 
@@ -208,7 +203,7 @@ const Page: React.FC<PageProps> = ({
   };
 
 
-  const functions = {login,register,toggleManyFilter,setSingleFilter,nextSearchPage,previousSearchPage};
+  const functions = {login,toggleManyFilter,setSingleFilter,nextSearchPage,previousSearchPage};
   
   return (
     <>

@@ -1,5 +1,5 @@
-import { addConversation } from "../../pages/api/addConversation";
-import { addMessage } from "../../pages/api/addMessage";
+import { addConversation } from "../addConversation";
+import { addMessage } from "../addMessage";
 import { supabase } from "../../pages/api/socket";
 import { Server, Socket } from "socket.io";
 
@@ -96,7 +96,7 @@ export function handleConnection(socket: Socket, io: Server, conversations: Conv
         if (recipient) {
             const formattedMessage = message.replace(/\n/g, '<br/>'); // Apply formatting
             const messageId = await addMessage({ sender, message: formattedMessage, conversation_key: id, files });
-            io.to(id).emit("chat message", { id, sender, message: formattedMessage, id: messageId, files });
+            io.to(id).emit("chat message", {  sender, message: formattedMessage, id: messageId, files });
         }
 
         io.emit("conversations", conversations); // Update clients

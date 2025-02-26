@@ -1,11 +1,23 @@
 import fetch from 'node-fetch';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler(req, res) {
+interface BlogContent {
+    content: string;
+    seoTitleTag: string;
+    seoDescription: string;
+    tagLine: string;
+    tags: string[];
+}
+
+interface BlogPost {
+    title: string;
+    content: BlogContent;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-
         try {
             const content = await generateBlogContent();
-
             return res.status(201).json(content);
         } catch (error) {
             console.error(error);
@@ -17,7 +29,7 @@ export default async function handler(req, res) {
     }
 }
 
-async function generateBlogContent() {
+async function generateBlogContent(): Promise<BlogPost[]> {
     const apiKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
 
     try {
@@ -38,12 +50,12 @@ async function generateBlogContent() {
         });
 
         const promptData = await promptsResponse.json();
-        const titles = JSON.parse(promptData.choices[0].message.content);
-        if(!titles || !Array.isArray(titles)) {
+        const titles: string[] = JSON.parse(promptData.choices[0].message.content);
+        if (!titles || !Array.isArray(titles)) {
             throw new Error('Failed to generate blog titles');
         }
 
-        const posts =  await Promise.all(titles.map(async (title) => {
+        const posts: BlogPost[] = await Promise.all(titles.map(async (title) => {
             const response = await fetch('https://api.openai.com/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -53,33 +65,30 @@ async function generateBlogContent() {
                 body: JSON.stringify({
                     model: 'gpt-4-turbo',
                     messages: [
-                    { role: 'system', content: 'You are an expert blog writer. You are an AI assistant that outputs valid JSON only. Return an object with content, seoTitleTag, seoDescription, tagLine, and tags(an array of keywords) attribute keys' },
-                    { role: 'user', content: `Write an SEO optimized blog post named:"${title}" in HTML syntax for PhilaPrints.com, a screen printing company serving the Philadelphia area. Give just the html for the <article> tag of the post. Hyper link anchor text to the home page.` }
+                        { role: 'system', content: 'You are an expert blog writer. You are an AI assistant that outputs valid JSON only. Return an object with content, seoTitleTag, seoDescription, tagLine, and tags(an array of keywords) attribute keys' },
+                        { role: 'user', content: `Write an SEO optimized blog post named:"${title}" in HTML syntax for PhilaPrints.com, a screen printing company serving the Philadelphia area. Give just the html for the <article> tag of the post. Hyper link anchor text to the home page.` }
                     ],
                     max_tokens: 2000
                 })
             });
 
             const data = await response.json();
-            if(!data.choices || !data.choices[0].message?.content) {
+            if (!data.choices || !data.choices[0].message?.content) {
                 throw new Error('Failed to generate blog content');
             }
-            const content = JSON.parse(data.choices[0].message.content);
+            const content: BlogContent = JSON.parse(data.choices[0].message.content);
             await saveBlogPost({ title, content });
             return { title, content };
         }));
 
         return posts;
-        
     } catch (error) {
         console.error('Error generating blog content:', error);
-        return '<p>Sorry, we could not generate the blog content at this time.</p>';
+        return [];
     }
 }
- 
 
-// Mock function to save the blog post
-async function saveBlogPost(postData) {
+async function saveBlogPost(postData: BlogPost): Promise<any> {
     const apiKey = process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY;
     const modelName = 'blog'; // Replace with your actual model name
 
@@ -97,10 +106,10 @@ async function saveBlogPost(postData) {
                     title: postData.title,
                     featuredImage,
                     body: postData.content.content,
-                    slug: "/"+postData.title.toLowerCase().replace(/\s+/g, '-'),
+                    slug: "/" + postData.title.toLowerCase().replace(/\s+/g, '-'),
                     tags: postData.content.tags,
                     tagLine: postData.content.tagLine,
-                    seo:{
+                    seo: {
                         titleTag: postData.content.seoTitleTag,
                         metaDescription: postData.content.seoDescription
                     }
@@ -120,8 +129,7 @@ async function saveBlogPost(postData) {
     }
 }
 
-
-async function generateFeaturedImage(blogContent) {
+async function generateFeaturedImage(blogContent: BlogContent): Promise<string | null> {
     const apiKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
 
     try {
@@ -146,16 +154,14 @@ async function generateFeaturedImage(blogContent) {
         }
 
         // Extract and return the image URL
-        return  await uploadImage(data.data[0].url);
-
+        return await uploadImage(data.data[0].url);
     } catch (error) {
         console.error("Error generating featured image:", error.message);
         return null; // Return null if image generation fails
     }
 }
 
-
-async function uploadImage(fileURL) {
+async function uploadImage(fileURL: string): Promise<string | null> {
     const apiKey = process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY;
 
     try {
@@ -174,10 +180,8 @@ async function uploadImage(fileURL) {
         });
 
         const data = await uploadResponse.json();
-        
 
         return data?.url || null;
-
     } catch (error) {
         console.error("Upload failed:", error);
         return null;

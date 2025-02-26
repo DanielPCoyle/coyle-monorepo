@@ -10,12 +10,22 @@ import SEOHeader from "../components/SEOHeader";
 import Link from "next/link";
 import moment from 'moment';
 
-// Main Page component
-const Page  = () => {  
+interface Post {
+    data: {
+        slug: string;
+        featuredImage: string;
+        title: string;
+        tagLine: string;
+    };
+    createdDate: string;
+}
 
-    const [posts, setPosts] = useState([]);
+// Main Page component
+const Page: React.FC = () => {  
+
+    const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<Error | null>(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [hasMorePosts, setHasMorePosts] = useState(true);

@@ -1,11 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-export default async function handler(req, res) {
+interface SignupRequestBody {
+    organization: string;
+    contact: string;
+    email: string;
+    phone: string;
+    website: string;
+    store_domain: string;
+    custom_domain: string;
+    products: string;
+    order_fulfillment: string;
+    additional_requests: string;
+}
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method Not Allowed' });
     }
@@ -21,7 +35,7 @@ export default async function handler(req, res) {
         products,
         order_fulfillment,
         additional_requests
-    } = req.body;
+    }: SignupRequestBody = req.body;
 
     // Convert "yes"/"no" from the form to a boolean value
     const has_custom_domain = custom_domain === "yes";

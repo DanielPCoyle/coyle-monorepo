@@ -1,6 +1,13 @@
-import { supabase } from "./socket";
+import { supabase } from "../pages/api/socket";
 
-export async function addMessage({ sender, message, conversation_key, files }) {
+interface AddMessageParams {
+    sender: string;
+    message: string;
+    conversation_key: string;
+    files: any;
+}
+
+export async function addMessage({ sender, message, conversation_key, files }: AddMessageParams): Promise<number | null> {
     // Fetch the conversation ID
     const { data, error } = await supabase
         .from('conversations')

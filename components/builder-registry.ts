@@ -1,8 +1,10 @@
-// builder-register.js
+// builder-register.ts
 import { Builder } from '@builder.io/react';
 import DesignerEmbed from './InksoftEmbed';
-import {Search} from './Search/Search';
+import { Search } from './Search/Search';
 import PriceRange from './PriceRange';
+
+
 // Register the component with Builder.io
 Builder.registerComponent(DesignerEmbed, {
   name: 'DesignerEmbed',

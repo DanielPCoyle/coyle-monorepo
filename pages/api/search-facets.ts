@@ -1,15 +1,15 @@
 import { searchClient } from '@algolia/client-search';
 import algoliasearch from 'algoliasearch';
 import chroma from 'chroma-js';
-
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const aClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY  
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY!  
 );
 const client = searchClient(
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
+  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY!
 );
 
 // Define the index you want to work with
@@ -17,7 +17,7 @@ const index = aClient.initIndex('products_index');
 
 // Fetch facet values for a given attribute
 // Fetch facet values for a given attribute with filters
-const getFacetValues = async (facetAttribute, facetFilters) => {
+const getFacetValues = async (facetAttribute: string, facetFilters: string[]) => {
   try {
     const response = await index.search('', {
       facets: [facetAttribute],
@@ -29,11 +29,11 @@ const getFacetValues = async (facetAttribute, facetFilters) => {
   }
 };
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { filters } = req.body;
 
   // Helper to generate facetFilters based on existing filters but excluding the current facet
-  const createFacetFilters = (excludeFacet) => {
+  const createFacetFilters = (excludeFacet: string): string[] => {
     return filters
       ? Object.entries(filters)
           .filter(([key]) => key !== excludeFacet)
@@ -60,7 +60,7 @@ export default async function handler(req, res) {
     }))
     .sort((a, b) => a.brightness - b.brightness);
 
-  const nColors = {};
+  const nColors: { [key: string]: number } = {};
   sortedColors.reverse().forEach((c) => {
     nColors[c.hex] = c.count;
   });
