@@ -80,6 +80,7 @@ export const LoginForm = () => {
                         if (data.error) {
                             alert(data.error);
                         } else {
+                            setUsername("admin")
                             setIsLoggedIn(true);
                         }
                     });
