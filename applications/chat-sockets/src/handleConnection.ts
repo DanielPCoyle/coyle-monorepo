@@ -1,8 +1,9 @@
-import { getDB } from "@coyle/database/db.ts";
-import { conversations as convos, messages } from "@coyle/database/schema.ts";
-import { addConversation } from "@coyle/web/util/addConversation.ts";
+import { getDB, schema } from "@coyle/database";
+import { addConversation } from "@coyle/web/util/addConversation";
 import { eq } from 'drizzle-orm';
 import { Server, Socket } from "socket.io";
+
+const {conversations:convos, messages} = schema;
 
 interface PersonOnSite {
   socketId: string;

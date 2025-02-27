@@ -1,9 +1,11 @@
 {
-    "compilerOptions": {
-      "moduleResolution": "node",
-      "allowJs": true,
-      "esModuleInterop": true,
-      "resolveJsonModule": true
-    }
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "./",
+    "module": "NodeNext",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "skipLibCheck": true
   }
-  
+}

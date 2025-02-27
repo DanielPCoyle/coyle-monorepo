@@ -7,9 +7,7 @@ import { Conversation } from "./Conversation";
 import { ConversationList } from "./ConversationList";
 import { LoginForm } from "./LoginForm";
 
-const socket = io(process.env.NEXT_PUBLIC_CURRENT_SITE, {
-  path: "/api/socket",
-});
+const socket = io(process.env.NEXT_PUBLIC_CURRENT_SITE);
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);

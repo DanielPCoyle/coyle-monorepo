@@ -7,7 +7,7 @@
   "scripts": {
     "web:dev": "yarn workspace @coyle/web dev",
     "web:build": "yarn workspace @coyle/web build",
-    "sockets:dev": "yarn workspace @coyle/sockets dev",
+    "sockets:start": "yarn workspace @coyle/sockets start",
     "chat:start": "yarn workspace @coyle/chat start",
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate"

@@ -7,10 +7,12 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "@coyle/database": "*",
+    "@coyle/web": "*"
   },
   "scripts": {
-    "start": "node index.ts",
+    "start": "npx tsx src/index.ts",
     "dev": "nodemon index.ts"
   },
   "devDependencies": {
