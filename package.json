@@ -5,7 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:web": "yarn workspace philaprints-web dev"
+    "dev:web": "yarn workspace philaprints-web dev",
+    "dev:socket": "yarn workspace chat-sockets dev"
   },
   "workspaces": {
     "packages": ["applications/*", "packages/*"]
