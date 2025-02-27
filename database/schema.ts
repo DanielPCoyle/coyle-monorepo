@@ -14,7 +14,7 @@ export const users = pgTable('users', {
 export const messages = pgTable('messages', {
   id: serial('id').primaryKey(),
   conversation_id: integer('conversation_id').notNull(),
-  sender: varchar('sender', 255).notNull(),
+  sender: varchar('sender', { length: 255 }).notNull(),
   message: text('message').notNull(),
   created_at: timestamp('created_at').defaultNow().notNull(),
   seen: boolean('seen').notNull(),
@@ -25,9 +25,9 @@ export const messages = pgTable('messages', {
 
 export const conversations = pgTable('conversations', {
   id: serial('id').primaryKey(),
-  conversation_key: varchar('conversation_key', 255).notNull(),
-  name: varchar('name', 255).notNull(),
-  email: varchar('email', 255).notNull(),
+  conversation_key: varchar('conversation_key', { length: 255 }).notNull(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: varchar('email', { length: 255 }).notNull(),
   created_at: timestamp('created_at').defaultNow().notNull()
 });
 

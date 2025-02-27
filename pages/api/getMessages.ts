@@ -1,16 +1,20 @@
-import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 import { eq } from "drizzle-orm";
+import { NextApiRequest, NextApiResponse } from "next";
 import { getDB } from "../../database/db";
 import { conversations, messages } from "../../database/schema";
 dotenv.config();
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
 
-async function getMessages(conversation_key) {
+interface Message {
+  id: number;
+  conversation_id: number;
+  parent_id: number | null;
+  replies?: Message[];
+  // ...other message fields...
+}
+
+async function getMessages(conversation_key: string): Promise<Message[]> {
   const db = getDB();
   
   try{
@@ -22,19 +26,15 @@ async function getMessages(conversation_key) {
     return [];
   } 
   const conversationId = data[0].id;
-  const messageData = await db.select()
+  const messageData: Message[] = await db.select()
     .from(messages)
     .where(eq(messages.conversation_id, conversationId));
 
   for (const message of messageData) {
-    const { data: replies, error: repliesError } = await  db.select()
+    const replies = await  db.select()
     .from(messages)
     .where(eq(messages.parent_id, message.id))
-    if (repliesError) {
-      message.replies = [];
-    } else {
-      message.replies = replies;
-    }
+    message.replies = replies;
   }
 
   return messageData;
@@ -44,8 +44,8 @@ async function getMessages(conversation_key) {
   }
 }
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { conversation_key } = req.query;
-  const messages = await getMessages(conversation_key);
+  const messages = await getMessages(conversation_key as string);
   res.status(200).json(messages);
 }

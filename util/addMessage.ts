@@ -17,22 +17,24 @@ export async function addMessage({
   parent_id,
   files,
 }: AddMessageParams): Promise<number | null> {
+  try{
   const db = getDB();
-  // Fetch the conversation ID
   const data = await db.select()
     .from(conversations)
     .where(eq(conversations.conversation_key, conversation_key))
 
-  const conversationId = data[0].id;
-
-  // Insert message and return the newly inserted record
-  try{
-
+    const conversationId = data[0].id;
     const messageData = await db
     .insert(messages)
-    .values({ conversation_id: conversationId, message, sender, files, parent_id, seen: false });
-    console.log({messageData});
-    return messageData.id; // Return the inserted message with its ID
+    .values({ 
+      conversation_id: conversationId,
+      message,
+      sender,
+      parent_id,
+      seen: false
+     });
+    
+    return messageData.id; 
   } catch (error) {
     console.error(error);
     return null;
