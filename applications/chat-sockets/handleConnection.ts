@@ -1,8 +1,8 @@
-import { getDB } from "@coyle/database/db";
-import { conversations as convos, messages } from "@coyle/database/schema";
+import { getDB } from "@coyle/database/db.ts";
+import { conversations as convos, messages } from "@coyle/database/schema.ts";
+import { addConversation } from "@coyle/web/util/addConversation.ts";
 import { eq } from 'drizzle-orm';
 import { Server, Socket } from "socket.io";
-import { addConversation } from "../addConversation";
 
 interface PersonOnSite {
   socketId: string;
@@ -145,3 +145,6 @@ export function handleConnection(
     }
   });
 }
+
+
+export default handleConnection;

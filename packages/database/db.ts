@@ -1,10 +1,14 @@
+import * as schema from '@coyle/database/schema';
 import 'dotenv/config';
 import type { SQLWrapper } from 'drizzle-orm';
 import { sql } from 'drizzle-orm';
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { Pool } from 'pg';
-import * as schema from './schema';
+import pkg from 'pg';
+
+const { Pool } = pkg;
+
+export { eq } from 'drizzle-orm';
 
 
 export type AdminDb = NodePgDatabase<typeof schema>;

@@ -1,9 +1,9 @@
+import { handleConnection } from "@coyle/sockets/handleConnection";
 import dotenv from "dotenv";
 import { Server as NetServer } from "http";
 import { Socket as NetSocket } from "net";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Server } from "socket.io";
-import { handleConnection } from "../../util/socketHandlers/handleConnection";
 
 dotenv.config();
 

@@ -2,6 +2,7 @@
   "name": "@coyle/web",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,6 +13,7 @@
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
     "@builder.io/react": "^5.0.11",
+    "@coyle/database": "^1.0.0",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -55,10 +57,10 @@
     "socket.io-client": "^4.8.1",
     "tailwindcss": "^3.4.14",
     "three": "^0.173.0",
+    "typescript": "^5.7.3",
     "typescript-eslint": "^8.25.0",
     "uuid": "^11.1.0",
-    "vitest": "^3.0.7",
-    "@coyle/database": "^1.0.0"
+    "vitest": "^3.0.7"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

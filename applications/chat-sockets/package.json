@@ -1,15 +1,20 @@
 {
   "name": "@coyle/sockets",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "license": "MIT",
+  "type": "module",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "socket.io": "^4.8.1"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.ts",
+    "dev": "nodemon index.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "typescript": "5.7.3"
   }
 }
