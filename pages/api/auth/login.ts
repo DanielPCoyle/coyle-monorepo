@@ -1,12 +1,9 @@
-import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcrypt";
+import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
+import { getDB } from "../../../database/db";
+import { users } from "../../../database/schema";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
@@ -25,19 +22,15 @@ export default async function handler(
   }
 
   try {
-    // Fetch the user from Supabase
-    const { data: users, error } = await supabase
-      .from("users")
-      .select("id, email, password_hash")
-      .eq("email", email)
-      .limit(1);
+    const db = getDB();
+    // Fetch the user from the database
+    const data = await db.select().from(users).where(eq(users.email, email)).limit(1);
 
-    if (error) throw error;
-    if (!users || users.length === 0) {
+    if (data.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const user = users[0];
+    const user = data[0];
 
     // Compare the hashed password
     const isMatch = await bcrypt.compare(password, user.password_hash);

@@ -1,4 +1,6 @@
-import { supabase } from "../pages/api/socket";
+import { eq } from 'drizzle-orm';
+import { getDB } from "../database/db";
+import { conversations, messages } from "../database/schema";
 
 interface AddMessageParams {
   sender: string;
@@ -15,28 +17,26 @@ export async function addMessage({
   parent_id,
   files,
 }: AddMessageParams): Promise<number | null> {
-  // Fetch the conversation ID
-  const { data, error } = await supabase
-    .from("conversations")
-    .select("id")
-    .eq("conversation_key", conversation_key)
-    .single(); // Ensures we get only one result
+  try{
+  const db = getDB();
+  const data = await db.select()
+    .from(conversations)
+    .where(eq(conversations.conversation_key, conversation_key))
 
-  if (error) {
+    const conversationId = data[0].id;
+    const messageData = await db
+    .insert(messages)
+    .values({ 
+      conversation_id: conversationId,
+      message,
+      sender,
+      parent_id,
+      seen: false
+     });
+    
+    return messageData.id; 
+  } catch (error) {
+    console.error(error);
     return null;
   }
-
-  const conversationId = data.id;
-
-  // Insert message and return the newly inserted record
-  const { data: messageData, error: messageError } = await supabase
-    .from("messages")
-    .insert([{ conversation_id: conversationId, message, sender, files, parent_id }])
-    .select(); // 👈 This ensures the response includes the inserted row(s)
-
-  if (messageError) {
-    return null;
-  }
-
-  return messageData[0].id; // Return the inserted message with its ID
 }
