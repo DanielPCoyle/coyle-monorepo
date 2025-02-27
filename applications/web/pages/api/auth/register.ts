@@ -1,8 +1,8 @@
+import { getDB } from "@coyle/database/db";
+import { users } from "@coyle/database/schema";
 import bcrypt from "bcrypt";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
-import { getDB } from "../../../database/db";
-import { users } from "../../../database/schema";
 
 const SALT_ROUNDS = 10;
 

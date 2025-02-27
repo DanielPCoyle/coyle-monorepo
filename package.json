@@ -5,9 +5,12 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev:web": "yarn workspace philaprints-web dev",
-    "dev:sockets": "yarn workspace chat-sockets dev",
-    "start:chat": "yarn workspace chat-app start"
+    "web:dev": "yarn workspace @coyle/web dev",
+    "web:build": "yarn workspace @coyle/web build",
+    "sockets:dev": "yarn workspace @coyle/sockets dev",
+    "chat:start": "yarn workspace @coyle/chat start",
+    "db:create-migration": "yarn workspace @coyle/database create-migration",
+    "db:migrate": "yarn workspace @coyle/database migrate"
   },
   "workspaces": {
     "packages": ["applications/*", "packages/*"]

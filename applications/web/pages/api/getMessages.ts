@@ -1,8 +1,9 @@
+import { getDB } from "@coyle/database/db";
+import { conversations, messages } from "@coyle/database/schema";
 import dotenv from "dotenv";
 import { eq } from "drizzle-orm";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDB } from "../../database/db";
-import { conversations, messages } from "../../database/schema";
+
 dotenv.config();
 
 

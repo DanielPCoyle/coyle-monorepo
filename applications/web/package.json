@@ -1,5 +1,5 @@
 {
-  "name": "philaprints-web",
+  "name": "@coyle/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "docker compose up -d && vitest && docker compose down",
-    "generate-migration": "npx drizzle-kit generate --schema=./database/schema.ts --dialect=postgresql",
-    "migrate": "npx drizzle-kit migrate"
+    "test": "docker compose up -d && vitest && docker compose down"
   },
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
@@ -59,7 +57,8 @@
     "three": "^0.173.0",
     "typescript-eslint": "^8.25.0",
     "uuid": "^11.1.0",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.7",
+    "@coyle/database": "^1.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

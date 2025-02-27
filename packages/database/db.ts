@@ -1,10 +1,11 @@
+import 'dotenv/config';
 import type { SQLWrapper } from 'drizzle-orm';
 import { sql } from 'drizzle-orm';
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
-
 import * as schema from './schema';
+
 
 export type AdminDb = NodePgDatabase<typeof schema>;
 

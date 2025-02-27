@@ -1,7 +1,7 @@
+import { getDB } from '@coyle/database/db';
+import { conversations } from '@coyle/database/schema';
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDB } from '../../database/db';
-import { conversations } from '../../database/schema';
 
 dotenv.config();
 
@@ -18,7 +18,6 @@ interface Conversation {
 async function getConversations(): Promise<Conversation[]> {
   const db = getDB();
   const data: Conversation[] = await db.select().from(conversations);
-
   return data;
 }
 

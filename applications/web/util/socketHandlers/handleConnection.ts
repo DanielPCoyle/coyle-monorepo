@@ -1,7 +1,7 @@
+import { getDB } from "@coyle/database/db";
+import { conversations as convos, messages } from "@coyle/database/schema";
 import { eq } from 'drizzle-orm';
 import { Server, Socket } from "socket.io";
-import { getDB } from "../../database/db";
-import { conversations as convos, messages } from "../../database/schema";
 import { addConversation } from "../addConversation";
 
 interface PersonOnSite {

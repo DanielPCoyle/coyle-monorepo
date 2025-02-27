@@ -1,0 +1,13 @@
+{
+  "name": "@coyle/database",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "drizzle-orm": "^0.40.0"
+  },
+  "scripts": {
+    "create-migration": "npx drizzle-kit generate --schema=./schema.ts --dialect=postgresql",
+    "migrate": "npx drizzle-kit migrate"
+  }
+}

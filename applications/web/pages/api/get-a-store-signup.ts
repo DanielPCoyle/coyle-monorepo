@@ -1,6 +1,6 @@
+import { getDB } from "@coyle/database/db";
+import { getAStoreSignUps } from "@coyle/database/schema";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getDB } from "../../database/db";
-import { getAStoreSignUps } from "../../database/schema";
 
 interface SignupRequestBody {
   organization_name: string;

@@ -1,9 +1,9 @@
+import { getDB } from "@coyle/database/db";
+import { users } from "@coyle/database/schema";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getDB } from "../../../database/db";
-import { users } from "../../../database/schema";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 

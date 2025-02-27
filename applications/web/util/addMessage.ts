@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
-import { getDB } from "../database/db";
-import { conversations, messages } from "../database/schema";
+import { getDB } from "../../../packages/database/db";
+import { conversations, messages } from "../../../packages/database/schema";
 
 interface AddMessageParams {
   sender: string;

@@ -10,7 +10,6 @@ import React, { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
-import SEOHeader from "../components/SEOHeader";
 import navData from "../data/navData.json";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
@@ -247,7 +246,6 @@ const Page: React.FC<PageProps> = ({
   return (
     <>
       <ToastContainer />
-      <SEOHeader seo={seo} productData={productData} />
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
