@@ -1,4 +1,3 @@
-import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 import { Server as NetServer } from "http";
 import { Socket as NetSocket } from "net";
@@ -8,10 +7,7 @@ import { handleConnection } from "../../util/socketHandlers/handleConnection";
 
 dotenv.config();
 
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
+
 
 interface Conversation {
   id: string;

@@ -1,3 +1,4 @@
+import { createClient } from "@supabase/supabase-js";
 import {
   convertToRaw,
   Editor,
@@ -6,10 +7,8 @@ import {
   RichUtils,
 } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
-import { useContext, useEffect, useRef, useState } from "react";
-
-import { createClient } from "@supabase/supabase-js";
 import "draft-js/dist/Draft.css";
+import { useContext, useEffect, useRef, useState } from "react";
 import { SendSvg } from "../../svg/SendSvg";
 import { ChatContext } from "../ChatContext";
 import { FormattingBar } from "./FormattingBar";
@@ -18,11 +17,6 @@ import { Thumbnail } from "./Thumbnail";
 
 // Initialize Supabase client
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
-
-console.log(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 );

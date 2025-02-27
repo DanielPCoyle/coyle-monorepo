@@ -1,4 +1,6 @@
-import { supabase } from "../pages/api/socket";
+import { eq } from 'drizzle-orm';
+import { getDB } from '../database/db';
+import { conversations } from '../database/schema';
 
 interface AddConversationParams {
   name: string;
@@ -11,20 +13,10 @@ export async function addConversation({
   email,
   conversation_key,
 }: AddConversationParams): Promise<void> {
-  const { data: existingData, error: existingError } = await supabase
-    .from("conversations")
-    .select("*")
-    .eq("conversation_key", conversation_key);
-  if (existingError) {
-    console.error(existingError);
-    return;
-  }
+  const db = getDB();
+  const existingData = await db.select().from(conversations).where(eq(conversations.conversation_key, conversation_key));
   if (existingData.length > 0) {
     return;
   }
-  const { data, error } = await supabase
-    .from("conversations")
-    .insert([{ name, email, conversation_key }]);
-  if (error) console.error(error);
-  else console.log("Inserted:", data);
+  await db.insert(conversations).values({ name, email, conversation_key });
 }

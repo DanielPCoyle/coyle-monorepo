@@ -14,10 +14,8 @@ import SEOHeader from "../components/SEOHeader";
 import navData from "../data/navData.json";
 import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
-import { fetchLoginLogic } from "../util/fetchLoginLogic";
 import { fetchPostContent } from "../util/fetchPostContent";
 import { fetchProductsPageContent } from "../util/fetchProductsPageContent";
-import login from "../util/login";
 
 import "../components/builder-registry"; // Register custom components
 import { fetchProducts } from "../util/fetchProducts";
@@ -83,9 +81,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
   const limit = 10;
 
   let result;
-  if (urlPath === '/login') {
-    result = await fetchLoginLogic();
-  } else if (urlPath === '/products') {
+  if (urlPath === '/products') {
     result = await fetchProductsPageContent(urlPath);
   } else if (urlPath.includes('/post/')) {
     result = await fetchPostContent(urlPath);
