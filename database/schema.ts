@@ -37,16 +37,16 @@ export const knowledge = pgTable('knowledge', {
   embedding: text('embedding').notNull()
 });
 
-export const get_a_store_signups = pgTable('get_a_store_signups', {
-  id: serial('id').primaryKey(),
-  organization_name: text('organization_name').notNull(),
-  contact_person: text('contact_person').notNull(),
-  email: text('email').notNull(),
-  phone: text('phone').notNull(),
-  website: text('website').notNull(),
-  store_domain: text('store_domain').notNull(),
-  custom_domain: boolean('custom_domain').notNull(),
-  products: text('products').notNull(),
-  order_fulfillment: text('order_fulfillment').notNull(),
-  additional_requests: text('additional_requests').notNull()
+export const getAStoreSignUps = pgTable('get_a_store_signups', {
+    id: serial('id').primaryKey(),
+    organization_name: text('organization_name').notNull(),
+    contact_person: text('contact_person').notNull(),
+    email: text('email').notNull(),
+    phone: text('phone').notNull(),
+    website: text('website').notNull(),
+    store_domain: text('store_domain').notNull(),
+    custom_domain: boolean('custom_domain').notNull(),
+    products: text('products').notNull(),
+    order_fulfillment: text('order_fulfillment').notNull(),
+    additional_requests: text('additional_requests').notNull()
 });

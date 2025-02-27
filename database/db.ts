@@ -11,16 +11,16 @@ export type AdminDb = NodePgDatabase<typeof schema>;
 let pool: Pool;
 export function getPool(): Pool {
   if (!pool) {
-    const poolLimit = Number(process.env.ADMIN_DB_POOL_LIMIT ?? 10);
+    const poolLimit = Number(process.env.DB_POOL_LIMIT ?? 10);
 
     pool = new Pool({
-      host: process.env.ADMIN_DB_HOST!,
-      port: Number(process.env.ADMIN_DB_PORT!),
+      host: process.env.DB_HOST!,
+      port: Number(process.env.DB_PORT!),
 
-      user: process.env.ADMIN_DB_USERNAME!,
-      password: process.env.ADMIN_DB_PASSWORD!,
+      user: process.env.DB_USERNAME!,
+      password: process.env.DB_PASSWORD!,
 
-      database: process.env.ADMIN_DB_NAME!,
+      database: process.env.DB_NAME!,
 
       max: poolLimit,
       connectionTimeoutMillis: 5000,

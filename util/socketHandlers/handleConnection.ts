@@ -24,7 +24,6 @@ export function handleConnection(
   peopleOnSite.push({ socketId: socket.id });
   io.emit("peopleOnSite", peopleOnSite);
   let typingTimeout: NodeJS.Timeout;
-  console.log("User connected", socket.id);
 
   socket.on("login", ({ username, email, id }) => {
     conversations.push({ username, email, id, socketId: socket.id });
@@ -35,7 +34,6 @@ export function handleConnection(
 
   socket.on("join", ({ id }) => {
     socket.join(id);
-    console.log("JOIN", id);
     io.to(id).emit("update messages request", id);
   });
 
@@ -48,7 +46,6 @@ export function handleConnection(
       .from("messages")
       .update({ reaction: reactions })
       .eq("id", messageId);
-    console.log("Add reaction", id, messageId, reactions);
     io.to(id).emit("addReaction", { messageId, reactions });
 
     if (error) {
@@ -64,7 +61,6 @@ export function handleConnection(
 
   socket.on("user typing", ({ conversationId, username }) => {
     io.to(conversationId).emit("user typing", { username });
-    console.log("User typing", username);
     if (typingTimeout) clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(() => {
@@ -126,12 +122,9 @@ export function handleConnection(
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id);
-    console.log("People on site", peopleOnSite);
     const userIndex = peopleOnSite.findIndex(
       (user) => user?.socketId === socket.id,
     );
-    console.log("User index", userIndex);
     if (userIndex) {
       delete peopleOnSite[userIndex];
     }

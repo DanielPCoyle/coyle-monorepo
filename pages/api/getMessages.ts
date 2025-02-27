@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
-
+import { eq } from "drizzle-orm";
+import { getDB } from "../../database/db";
+import { conversations, messages } from "../../database/schema";
 dotenv.config();
 
 const supabase = createClient(
@@ -9,32 +11,26 @@ const supabase = createClient(
 );
 
 async function getMessages(conversation_key) {
-  const { data, error } = await supabase
-    .from("conversations")
-    .select("id")
-    .eq("conversation_key", conversation_key);
-  if (error) {
-    console.error(error);
+  const db = getDB();
+  
+  try{
+
+  const data = await db.select()
+  .from(conversations)
+  .where(eq(conversations.conversation_key, conversation_key));
+  if (data.length === 0) {
     return [];
-  }
+  } 
   const conversationId = data[0].id;
-  const { data: messageData, error: messageError } = await supabase
-    .from("messages")
-    .select("*")
-    .eq("conversation_id", conversationId)
-    .is("parent_id", null);
-  if (messageError) {
-    console.error(messageError);
-    return [];
-  }
+  const messageData = await db.select()
+    .from(messages)
+    .where(eq(messages.conversation_id, conversationId));
 
   for (const message of messageData) {
-    const { data: replies, error: repliesError } = await supabase
-      .from("messages")
-      .select("*")
-      .eq("parent_id", message.id);
+    const { data: replies, error: repliesError } = await  db.select()
+    .from(messages)
+    .where(eq(messages.parent_id, message.id))
     if (repliesError) {
-      console.error(repliesError);
       message.replies = [];
     } else {
       message.replies = replies;
@@ -42,6 +38,10 @@ async function getMessages(conversation_key) {
   }
 
   return messageData;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
 
 export default async function handler(req, res) {
