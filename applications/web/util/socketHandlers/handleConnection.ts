@@ -1,14 +1,8 @@
+import { eq } from 'drizzle-orm';
 import { Server, Socket } from "socket.io";
-import { supabase } from "../../pages/api/socket";
+import { getDB } from "../../database/db";
+import { conversations as convos, messages } from "../../database/schema";
 import { addConversation } from "../addConversation";
-import { addMessage } from "../addMessage";
-
-interface Conversation {
-  username: string;
-  email: string;
-  id: string;
-  socketId: string;
-}
 
 interface PersonOnSite {
   socketId: string;
@@ -18,9 +12,10 @@ interface PersonOnSite {
 export function handleConnection(
   socket: Socket,
   io: Server,
-  conversations: Conversation[],
+  conversations: any[],
   peopleOnSite: PersonOnSite[],
 ) {
+  const db = getDB() as any;
   peopleOnSite.push({ socketId: socket.id });
   io.emit("peopleOnSite", peopleOnSite);
   let typingTimeout: NodeJS.Timeout;
@@ -42,16 +37,14 @@ export function handleConnection(
   });
 
   socket.on("addReaction", async ({ id, messageId, reactions }) => {
-    const { error } = await supabase
-      .from("messages")
-      .update({ reaction: reactions })
-      .eq("id", messageId);
-    io.to(id).emit("addReaction", { messageId, reactions });
-
-    if (error) {
-      console.error("Error updating message as seen:", error);
-    } else {
-      console.log("Message marked as seen:", messageId);
+    try{
+      await db
+        .update(messages)
+        .set({ reaction: reactions })
+        .where(eq(messages.id, Number(messageId)));
+      io.to(id).emit("addReaction", { messageId, reactions });
+    } catch (error) {
+      console.log("ERROR ADDING REACTION",{ error });
     }
   });
 
@@ -69,16 +62,15 @@ export function handleConnection(
   });
 
   socket.on("seen", async (messageId: string) => {
-    const { error } = await supabase
-      .from("messages")
-      .update({ seen: true })
-      .eq("id", messageId);
-    io.emit("conversations", conversations); // Update clients
-
-    if (error) {
-      console.error("Error updating message as seen:", error);
-    } else {
-      console.log("Message marked as seen:", messageId);
+    try{
+      await db
+        .update(messages)
+        .set({ seen: true })
+        .where(eq(messages.id, Number(messageId)));
+  
+      io.emit("conversations", conversations); // Update clients
+    } catch (error) {
+      console.log("ERROR UPDATING SEEN RECORD",{ error });
     }
   });
 
@@ -93,28 +85,44 @@ export function handleConnection(
   });
 
   socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
+    try{
     const recipient = conversations.find(
       (convo) => convo?.socketId === socket.id,
     );
+
     if (recipient) {
-      const formattedMessage = message.replace(/\n/g, "<br/>"); // Apply formatting
-      const messageId = await addMessage({
+      const conversation = await db.select()
+      .from(convos)
+      .where(eq(convos.conversation_key, recipient.id));
+      const conversationId = conversation[0].id;
+    
+      const formattedMessage = message.replace(/\n/g, "<br/>");
+      const insert = {
         sender,
         message: formattedMessage,
-        conversation_key: id,
+        conversation_id: conversationId,
         parent_id: replyId,
         files,
-      });
+        seen: false,
+      };
+      const data = await db
+        .insert(messages)
+        .values(insert).returning()
+        .execute();
+
       io.to(id).emit("chat message", {
         sender,
         message: formattedMessage,
-        id: messageId,
-        parentId:replyId,
+        id: data.id,
+        parentId: replyId,
         files,
       });
     }
 
     io.emit("conversations", conversations); // Update clients
+    } catch (error) {
+      console.log({ error });
+    }
   });
 
   socket.on("file added", async (props) => {

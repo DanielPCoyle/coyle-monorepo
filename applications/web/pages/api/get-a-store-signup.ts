@@ -4,7 +4,7 @@ import { getAStoreSignUps } from "../../database/schema";
 
 interface SignupRequestBody {
   organization_name: string;
-  contact: string;
+  contact_person: string;
   email: string;
   phone: string;
   website: string;
@@ -41,18 +41,6 @@ export default async function handler(
 
   try {
     const db = getDB();
-    console.log({
-      organization_name,
-      contact_person,
-      email,
-      phone,
-      website,
-      store_domain,
-      custom_domain: has_custom_domain,
-      products,
-      order_fulfillment,
-      additional_requests,
-    })
     const result = await db.insert(getAStoreSignUps).values({
       organization_name,
       contact_person,

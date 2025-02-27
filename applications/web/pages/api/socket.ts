@@ -7,8 +7,6 @@ import { handleConnection } from "../../util/socketHandlers/handleConnection";
 
 dotenv.config();
 
-
-
 interface Conversation {
   id: string;
   username: string;
