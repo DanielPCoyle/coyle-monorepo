@@ -238,7 +238,6 @@ const Page: React.FC<PageProps> = ({
   };
 
   const functions = {
-    login,
     toggleManyFilter,
     setSingleFilter,
     nextSearchPage,
