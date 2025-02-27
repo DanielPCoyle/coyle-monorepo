@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev:web": "yarn workspace philaprints-web dev",
-    "dev:socket": "yarn workspace chat-sockets dev"
+    "dev:sockets": "yarn workspace chat-sockets dev",
+    "start:chat": "yarn workspace chat-app start"
   },
   "workspaces": {
     "packages": ["applications/*", "packages/*"]
