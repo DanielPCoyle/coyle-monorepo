@@ -60,17 +60,6 @@ export const ChatControls = ({ replyId } : { replyId:number }) => {
     const file = event.target.files[0];
     if (!file) return;
     setFiles([...files, file]);
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const fileBuffer = e.target.result; // Binary data
-      socket.emit("file added", {
-        conversationId: currentConversation.id,
-        file: fileBuffer,
-        fileName: file.name,
-        fileType: file.type,
-      });
-    };
-    reader.readAsArrayBuffer(file); // Convert to raw binary
   };
 
   const handleKeyCommand = (command) => {

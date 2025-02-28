@@ -172,7 +172,6 @@ export default function Chat() {
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
-        console.log("uniqueMessages", uniqueMessages, {message});
         return uniqueMessages;
       });
     });
