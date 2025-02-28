@@ -8,12 +8,15 @@
     "web:dev": "yarn workspace @coyle/web dev",
     "web:build": "yarn workspace @coyle/web build",
     "web:lint": "yarn workspace @coyle/web lint",
+    "web:test": "yarn workspace @coyle/web test",
+    "web:start": "yarn workspace @coyle/web start",
     "sockets:start": "yarn workspace @coyle/sockets start",
     "chat:start": "yarn workspace @coyle/chat start",
     "db:create-migration": "yarn workspace @coyle/database create-migration",
-    "db:migrate": "yarn workspace @coyle/database migrate"
+    "db:migrate": "yarn workspace @coyle/database migrate",
+    "server:test": "yarn workspace @coyle/server-side-tests test"
   },
   "workspaces": {
-    "packages": ["applications/*", "packages/*"]
+    "packages": ["applications/*", "packages/*", "tests/*"]
   }
 }

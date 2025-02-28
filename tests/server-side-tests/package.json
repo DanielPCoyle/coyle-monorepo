@@ -1,0 +1,24 @@
+{
+  "name": "@coyle/server-side-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "lint:fix": "yarn lint --fix",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@testcontainers/postgresql": "^10.14.0",
+    "@types/debug": "^4.1.8",
+    "axios": "^1.7.7",
+    "debug": "^4.3.7",
+    "dotenv": "^16.3.1",
+    "form-data": "^4.0.1",
+    "get-port": "^7.0.0",
+    "nock": "^13.5.6",
+    "pg": "^8.13.1",
+    "vitest": "^2.1.5"
+  }
+}
