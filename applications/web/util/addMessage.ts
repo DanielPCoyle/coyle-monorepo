@@ -7,7 +7,6 @@ interface AddMessageParams {
   message: string;
   parent_id: number | null;
   conversation_key: string;
-  files: File[];
 }
 
 export async function addMessage({
@@ -15,7 +14,6 @@ export async function addMessage({
   message,
   conversation_key,
   parent_id,
-  files,
 }: AddMessageParams): Promise<number | null> {
   try{
   const db = getDB();

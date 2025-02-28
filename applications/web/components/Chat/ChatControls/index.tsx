@@ -1,10 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 import {
-  convertToRaw,
   Editor,
   EditorState,
   Modifier,
-  RichUtils,
+  RichUtils
 } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import "draft-js/dist/Draft.css";
@@ -16,12 +15,14 @@ import { MessageAddons } from "./MessageAddons";
 import { Thumbnail } from "./Thumbnail";
 
 // Initialize Supabase client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-);
 
-export const ChatControls = ({ replyId }) => {
+/* eslint-disable no-undef */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+/* eslint-disable no-undef */
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient( supabaseUrl, supabaseAnonKey );
+
+export const ChatControls = ({ replyId } : { replyId:number }) => {
   const {
     currentConversation,
     socket,
@@ -92,7 +93,7 @@ export const ChatControls = ({ replyId }) => {
   const uploadFileToSupabase = async (file) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const filePath = `public/${uniqueSuffix}-${file.name}`;
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from("messages") // Replace with your bucket name
       .upload(filePath, file, {
         cacheControl: "3600",
@@ -114,22 +115,7 @@ export const ChatControls = ({ replyId }) => {
 
   const sendMessage = async () => {
     const contentState = editorState.getCurrentContent();
-    const rawContent = convertToRaw(contentState);
     const htmlContent = stateToHTML(contentState);
-    const messageText = rawContent.blocks
-      .map((block) => {
-        let text = block.text;
-        block.inlineStyleRanges.forEach((range) => {
-          const style = range.style.toLowerCase();
-          text =
-            text.slice(0, range.offset) +
-            `<${style}>` +
-            text.slice(range.offset, range.offset + range.length) +
-            `</${style}>`;
-        });
-        return text;
-      })
-      .join("\n");
     const randomString = Math.random().toString(36).substring(7);
 
     if (currentConversation) {
@@ -176,9 +162,10 @@ export const ChatControls = ({ replyId }) => {
       <div className="inputContainer">
         {files.length > 0 && (
           <div className="thumbnails">
-            {files.map((file, index) => (
+            {files.map((file:File, index:number) => (
               <Thumbnail
                 key={index}
+                index={index}
                 file={file}
                 files={files}
                 setFiles={setFiles}

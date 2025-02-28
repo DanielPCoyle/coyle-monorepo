@@ -10,7 +10,7 @@ interface MessageType {
 }
 
 export const Conversation: React.FC = () => {
-  const { messages, username, socket } = useContext(ChatContext);
+  const { messages, username } = useContext(ChatContext);
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (

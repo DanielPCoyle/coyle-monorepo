@@ -16,7 +16,12 @@ interface PageData {
 }
 
 interface BlogPost {
-  // Define the structure of a blog post here
+  data: {
+    title: string;
+    description: string;
+    featuredImage: string;
+    body: string;
+  };
 }
 
 interface BlogData {

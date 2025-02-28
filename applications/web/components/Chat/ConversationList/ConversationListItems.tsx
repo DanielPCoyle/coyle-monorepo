@@ -1,5 +1,6 @@
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
+import type { Socket } from "socket.io-client";
 
 interface Conversation {
   id: string;
@@ -11,7 +12,7 @@ interface Conversation {
 
 interface ConversationListItemsProps {
   conversations: Conversation[];
-  socket: any;
+  socket: Socket;
   currentConversation: Conversation | null;
   setCurrentConversation: (conversation: Conversation) => void;
   id: string;

@@ -1,5 +1,5 @@
 import "animate.css";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ChatContext } from "./ChatContext";
 import { ChatControls } from "./ChatControls";
@@ -7,7 +7,9 @@ import { Conversation } from "./Conversation";
 import { ConversationList } from "./ConversationList";
 import { LoginForm } from "./LoginForm";
 
-const socket = io(process.env.NEXT_PUBLIC_CURRENT_SITE);
+/* eslint-disable no-undef */
+const currentSite = process.env.NEXT_PUBLIC_CURRENT_SITE;
+const socket = io(currentSite);
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -22,7 +24,6 @@ export default function Chat() {
   const [windowWidth, setWindowWidth] = useState(null);
   const [typing, setTyping] = useState(null);
   const [files, setFiles] = React.useState([]);
-  const emojiPickerRef = useRef(null);
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
 
@@ -58,7 +59,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (localStorage.getItem("id")) {
-      "ID from localStorage:", localStorage.getItem("id");
+      console.log("ID from localStorage:", localStorage.getItem("id"));
       setId(localStorage.getItem("id"));
     } else {
       const randomString = Math.random().toString(36).substring(7);
@@ -261,22 +262,6 @@ export default function Chat() {
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }, 1500);
   }, [messages, windowWidth]);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (
-        emojiPickerRef.current &&
-        !emojiPickerRef.current.contains(event.target)
-      ) {
-        setShowEmojiPicker(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [emojiPickerRef]);
 
   return (
     <ChatContext.Provider

@@ -2,19 +2,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { ChatContext } from "./ChatContext";
 
-interface ChatContextType {
-  username: string;
-  setUsername: (username: string) => void;
-  email: string;
-  setEmail: (email: string) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  socket: any;
-}
-
 export const LoginForm: React.FC = () => {
-  const { username, setUsername, email, setEmail, setIsLoggedIn } = useContext(
-    ChatContext,
-  ) as any;
+  const { username, setUsername, email, setEmail, setIsLoggedIn } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
 

@@ -1,4 +1,6 @@
+/* eslint-disable */
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@coyle/database'],
@@ -24,5 +26,7 @@ const nextConfig = {
     ];
   },
 };
+
+export default nextConfig;
 
 export default nextConfig;

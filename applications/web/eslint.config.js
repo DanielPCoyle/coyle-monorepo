@@ -5,10 +5,17 @@ import tseslint from "typescript-eslint";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { ignores: [".next/", "next.config.mjs", "tailwind.config.js"] },
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  {
+    rules: {
+      "react/react-in-jsx-scope": "off"
+    }
+  },
+  {
+    ignores: ["node_modules", "dist", "build", "out", "coverage", ".next"]
+  }
 ];

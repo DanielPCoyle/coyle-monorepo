@@ -9,7 +9,7 @@ interface MessageAddonsProps {
   showEmojiPicker: boolean;
   setShowEmojiPicker: (show: boolean) => void;
   emojiPickerRef: RefObject<HTMLDivElement>;
-  insertEmoji: (emoji: any) => void;
+  insertEmoji: (emoji: string) => void;
   typing: { username: string } | null;
 }
 

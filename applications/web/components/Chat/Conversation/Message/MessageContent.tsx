@@ -1,9 +1,8 @@
-import React from "react";
-import { useContext } from "react";
-import { MessageContext } from "./MessageContext";
-import { LinkPreview } from "./LinkPreview";
-import { FilePreview } from "./FilePreview";
 import moment from "moment";
+import { useContext } from "react";
+import { FilePreview } from "./FilePreview";
+import { LinkPreview } from "./LinkPreview";
+import { MessageContext } from "./MessageContext";
 
 export const MessageContent = () => {
   const { message, username, setShowReactionPicker, setShowReplyModal } =
@@ -49,7 +48,7 @@ export const MessageContent = () => {
       <LinkPreview message={message} />
 
       <button
-        onClick={(e) => {
+        onClick={() => {
           setShowReactionPicker(true);
         }}
         className="showReactionEmojiPicker"
@@ -57,7 +56,7 @@ export const MessageContent = () => {
         😊
       </button>
       <button
-        onClick={(e) => {
+        onClick={() => {
           setShowReplyModal(true);
         }}
         className="showReply"

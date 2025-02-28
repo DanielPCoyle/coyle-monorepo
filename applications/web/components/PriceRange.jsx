@@ -9,7 +9,9 @@ const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
   // Handle the change in slider values
   const handleRangeChange = (values) => {
     setValues(values);
-    onChange && onChange(values); // Call the parent onChange if provided
+    if(typeof onChange === "function") {
+      onChange(values); 
+    } 
   };
 
   return (

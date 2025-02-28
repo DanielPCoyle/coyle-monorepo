@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ChatContext } from "../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
 
@@ -15,7 +15,7 @@ export const ConversationList: React.FC = () => {
     socket,
     id,
     historicConversations,
-  } = useContext(ChatContext) as any;
+  } = useContext(ChatContext);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => {

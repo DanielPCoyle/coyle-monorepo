@@ -33,7 +33,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
   const { username, currentConversation, socket, id, email } =
     React.useContext(ChatContext);
 
-  const [urlPreview, setUrlPreview] = useState<string | null>(null);
+  const [urlPreview] = useState<string | null>(null);
   const [showReactionPicker, setShowReactionPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
@@ -55,9 +55,9 @@ export const Message: React.FC<{ message: any; index: number }> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          username !== message.sender &&
-            !message.seen &&
-            socket.emit("seen", message.id);
+          if(username !== message.sender && !message.seen) {
+              socket.emit("seen", message.id);
+            }
         }
       },
       { threshold: 0.1 },

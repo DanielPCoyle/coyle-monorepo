@@ -40,10 +40,6 @@ interface ProductData {
   [key: string]: any;
 }
 
-interface Facets {
-  [key: string]: any;
-}
-
 interface CategoryData {
   [key: string]: any;
 }
@@ -63,7 +59,6 @@ interface PageProps {
   pagination?: Pagination;
   urlPath: string;
   productData?: ProductData;
-  facets?: Facets;
   categoryData?: CategoryData;
   contentType?: string;
   seo: SEO;
@@ -128,9 +123,6 @@ const Page: React.FC<PageProps> = ({
     UnitPrice: 0,
   },
   categoryData,
-  facets,
-  contentType,
-  seo,
 }) => {
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
@@ -143,7 +135,6 @@ const Page: React.FC<PageProps> = ({
 
   const [results, setResults] = React.useState<SearchResults>({ nbPages: 0 });
   const [loading, setLoading] = React.useState(false);
-  const [recordTotal, setRecordTotal] = React.useState(0);
   const [filterFacets, setFilterFacets] = React.useState({});
 
   useEffect(() => {
@@ -254,7 +245,7 @@ const Page: React.FC<PageProps> = ({
         {typeof window !== "undefined" && (
           <BuilderComponent
             renderLink={(props) => (
-              <Link href={props.href} {...props}>
+              <Link href={props.href as string} {...props}>
                 {props.children}
               </Link>
             )}
