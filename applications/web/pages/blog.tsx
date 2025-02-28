@@ -4,8 +4,8 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Footer from "../components/Footer";
-import Navigation from "../components/Navigation";
+import Footer from "../components/layout/Footer";
+import Navigation from "../components/layout/Navigation";
 import navData from "../data/navData.json";
 
 interface Post {

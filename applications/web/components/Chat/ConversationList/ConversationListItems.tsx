@@ -32,7 +32,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
 
   return filteredConversations?.length ? (
     <>
-      {filteredConversations?.map((convo, i) => (
+      {conversations?.map((convo, i) => (
         <div
           className={`conversationListItem ${currentConversation?.id === convo.id ? "active" : ""}`}
           key={i}

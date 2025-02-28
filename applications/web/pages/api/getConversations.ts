@@ -8,16 +8,17 @@ dotenv.config();
 
 interface Conversation {
   id: number;
-  conversation_key: string;
+  conversationKey: string;
   name: string;
   email: string;
-  created_at: Date;
+  createdAt: Date;
   unSeenMessages?: number;
 }
 
 async function getConversations(): Promise<Conversation[]> {
   const db = getDB();
   const data: Conversation[] = await db.select().from(conversations);
+  console.log({data})
   return data;
 }
 

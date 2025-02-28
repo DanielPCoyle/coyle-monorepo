@@ -39,7 +39,7 @@ export default function Chat() {
         setHistoricConversations(
           data?.map((convo) => {
             convo.username = convo.name;
-            convo.id = convo.conversation_key;
+            convo.id = convo.conversationKey;
             return convo;
           }),
         );
@@ -81,7 +81,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`/api/getMessages?conversation_key=${id}`)
+    fetch(`/api/getMessages?conversationKey=${id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
@@ -91,7 +91,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (!currentConversation?.id) return;
-    fetch(`/api/getMessages?conversation_key=${currentConversation.id}`)
+    fetch(`/api/getMessages?conversationKey=${currentConversation.id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);

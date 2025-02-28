@@ -33,7 +33,7 @@ export default async function handler(
     const user = data[0];
 
     // Compare the hashed password
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid credentials" });
     }

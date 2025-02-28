@@ -37,7 +37,7 @@ export const MessageContent = () => {
           {message.sender === "admin" ? "PhilaPrints" : message.sender}
         </div>
         <small className="time" style={{ marginLeft: "5px" }}>
-          ({moment(message.created_at).format("D MMM hh:mm A")})
+          ({moment(message.createdAt).format("D MMM hh:mm A")})
         </small>
       </div>
       <FilePreview message={message} />

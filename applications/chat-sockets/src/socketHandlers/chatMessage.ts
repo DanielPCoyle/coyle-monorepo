@@ -3,19 +3,17 @@ import { eq } from "drizzle-orm";
 export const chatMessage = ({ socket, io, conversations, convos, messages, db }) => socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
   try {
 
-    console.log({ id, message, sender, files, replyId });
-
     const conversation = await db.select()
       .from(convos)
-      .where(eq(convos.conversation_key, id));
+      .where(eq(convos.conversationKey, id));
     const conversationId = conversation[0].id;
 
     const formattedMessage = message.replace(/\n/g, "<br/>");
     const insert = {
       sender,
       message: formattedMessage,
-      conversation_id: conversationId,
-      parent_id: replyId,
+      conversationId: conversationId,
+      parentId: replyId,
       files,
       seen: false,
     };

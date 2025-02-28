@@ -3,16 +3,16 @@ import { getAStoreSignUps } from "@coyle/database/schema";
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface SignupRequestBody {
-  organization_name: string;
-  contact_person: string;
+  organizationName: string;
+  contactPerson: string;
   email: string;
   phone: string;
   website: string;
-  store_domain: string;
-  custom_domain: string;
+  storeDomain: string;
+  customDomain: string;
   products: string;
-  order_fulfillment: string;
-  additional_requests: string;
+  orderFulfillment: string;
+  additionalRequests: string;
 }
 
 export default async function handler(
@@ -24,34 +24,34 @@ export default async function handler(
   }
 
   const {
-    organization_name,
-    contact_person,
+    organizationName,
+    contactPerson,
     email,
     phone,
     website,
-    store_domain,
-    custom_domain,
+    storeDomain,
+    customDomain,
     products,
-    order_fulfillment,
-    additional_requests,
+    orderFulfillment,
+    additionalRequests,
   }: SignupRequestBody = req.body;
 
   // Convert "yes"/"no" from the form to a boolean value
-  const has_custom_domain = custom_domain === "yes";
+  const hasCustomDomain = customDomain === "yes";
 
   try {
     const db = getDB();
     const result = await db.insert(getAStoreSignUps).values({
-      organization_name,
-      contact_person,
+      organizationName,
+      contactPerson,
       email,
       phone,
       website,
-      store_domain,
-      custom_domain: has_custom_domain,
+      storeDomain,
+      customDomain: hasCustomDomain,
       products,
-      order_fulfillment,
-      additional_requests,
+      orderFulfillment,
+      additionalRequests,
     }).returning()
     .execute();
 

@@ -29,8 +29,8 @@ export default async function handler(
     const insertData = {
       id: uuidv4(),
       email,
-      password_hash: hashedPassword,
-      is_active: true,
+      passwordHash: hashedPassword,
+      isActive: true,
       role: "user",
     };
 
