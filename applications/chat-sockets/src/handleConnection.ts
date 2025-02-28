@@ -2,6 +2,8 @@ import { getDB, schema } from "@coyle/database";
 import { addConversation } from "@coyle/web/util/addConversation";
 import { eq } from 'drizzle-orm';
 import { Server, Socket } from "socket.io";
+import { addReaction } from "./addReaction.js";
+import { chatMessage } from "./chatMessage.js";
 
 const {conversations:convos, messages} = schema;
 
@@ -37,17 +39,11 @@ export function handleConnection(
     socket.leave(id);
   });
 
-  socket.on("addReaction", async ({ id, messageId, reactions }) => {
-    try{
-      await db
-        .update(messages)
-        .set({ reaction: reactions })
-        .where(eq(messages.id, Number(messageId)));
-      io.to(id).emit("addReaction", { messageId, reactions });
-    } catch (error) {
-      console.log("ERROR ADDING REACTION",{ error });
-    }
-  });
+  chatMessage({socket,io,conversations,convos, messages, db})
+
+  addReaction({socket,io,messages,db});
+
+
 
   socket.on("update messages action", ({ id, messages }) => {
     io.to(id).emit("update messages result", { convoId: id, messages });
@@ -85,46 +81,7 @@ export function handleConnection(
     }
   });
 
-  socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
-    try{
-    const recipient = conversations.find(
-      (convo) => convo?.socketId === socket.id,
-    );
-
-    if (recipient) {
-      const conversation = await db.select()
-      .from(convos)
-      .where(eq(convos.conversation_key, recipient.id));
-      const conversationId = conversation[0].id;
-    
-      const formattedMessage = message.replace(/\n/g, "<br/>");
-      const insert = {
-        sender,
-        message: formattedMessage,
-        conversation_id: conversationId,
-        parent_id: replyId,
-        files,
-        seen: false,
-      };
-      const data = await db
-        .insert(messages)
-        .values(insert).returning()
-        .execute();
-
-      io.to(id).emit("chat message", {
-        sender,
-        message: formattedMessage,
-        id: data.id,
-        parentId: replyId,
-        files,
-      });
-    }
-
-    io.emit("conversations", conversations); // Update clients
-    } catch (error) {
-      console.log({ error });
-    }
-  });
+  
 
   socket.on("file added", async (props) => {
     io.to(props.conversationId).emit("file added", props);
@@ -149,3 +106,5 @@ export function handleConnection(
 
 
 export default handleConnection;
+
+

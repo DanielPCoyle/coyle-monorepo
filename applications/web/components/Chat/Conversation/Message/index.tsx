@@ -37,11 +37,12 @@ export const Message: React.FC<{ message: any; index: number }> = ({
   const [showReactionPicker, setShowReactionPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
-    message.reaction || {},
+    message.reactions || {},
   );
 
   useEffect(() => {
-    socket.on("addReaction", ({ messageId, reactions: reaction }) => {
+    socket.on("addReaction", ({ messageId, reaction }) => {
+      console.log({ messageId, reaction });
       if (messageId === message.id) {
         setReactions(reaction);
       }
