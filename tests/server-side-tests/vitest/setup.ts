@@ -17,14 +17,17 @@ export async function setup() {
 
   const [adminDb] = await createDatabases(connection);
 
-  process.env.ADMIN_DB_HOST = container.getHost();
-  process.env.ADMIN_DB_PORT = container.getPort().toString();
-  process.env.ADMIN_DB_USERNAME = container.getUsername();
-  process.env.ADMIN_DB_PASSWORD = container.getPassword();
-  process.env.ADMIN_DB_NAME = adminDb;
+  process.env.DB_HOST = container.getHost();
+  process.env.DB_PORT = container.getPort().toString();
+  process.env.DB_USERNAME = container.getUsername();
+  process.env.DB_PASSWORD = container.getPassword();
+  process.env.DB_NAME = adminDb;
+
 
   logger('Migrating database...');
   logger('Migrated database', await runMigrations());
+  console.log("Setup done");
+
 }
 
 export async function teardown() {

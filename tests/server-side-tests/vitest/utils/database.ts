@@ -20,7 +20,15 @@ export async function runMigrations() {
     exec(
       'yarn workspace @coyle/database migrate',
       { env: process.env },
-      (error, output) => (error ? reject(error) : resolve(output))
+      (error, output) => {
+      if (error) {
+        console.error('Migration error:', error);
+        reject(error);
+      } else {
+        console.log('Migration output:\n', output);
+        resolve(output);
+      }
+      }
     );
   });
 }
