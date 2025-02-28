@@ -16,9 +16,9 @@ import { Thumbnail } from "./Thumbnail";
 
 // Initialize Supabase client
 
-/* eslint-disable no-undef */
+ 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-/* eslint-disable no-undef */
+ 
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient( supabaseUrl, supabaseAnonKey );
 
