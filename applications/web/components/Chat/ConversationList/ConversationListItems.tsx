@@ -15,6 +15,7 @@ interface ConversationListItemsProps {
   socket: Socket;
   currentConversation: Conversation | null;
   setCurrentConversation: (conversation: Conversation) => void;
+  toggleDrawer: () => void;
   id: string;
 }
 
@@ -23,6 +24,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   socket,
   currentConversation,
   setCurrentConversation,
+  toggleDrawer,
   id,
 }) => {
   const filteredConversations = conversations?.filter(
@@ -39,6 +41,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
           onClick={() => {
             socket.emit("leave", { id: currentConversation?.id });
             setCurrentConversation(convo);
+            toggleDrawer();
           }}
         >
           {convo.status}
