@@ -154,7 +154,7 @@ export default function Chat() {
     socket.on("chat message", (message) => {
       setMessages((prev) => {
         const newMessages = [...prev];
-         console.log({message})
+        
         if (message.parentId) {
           const parentMessage = newMessages.find((msg) => msg.id === message.parentId);
           if (parentMessage) {
@@ -165,14 +165,14 @@ export default function Chat() {
               index === self.findIndex((r) => r.id === reply.id)
             );
           }
-        } else {
-          newMessages.push(message);
-        }
+        } 
+        newMessages.push(message);
         const uniqueMessages = newMessages.filter(
           (msg, index, self) =>
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
+        console.log("uniqueMessages", uniqueMessages, {message});
         return uniqueMessages;
       });
     });

@@ -3,6 +3,8 @@ import { eq } from "drizzle-orm";
 export const chatMessage = ({ socket, io, conversations, convos, messages, db }) => socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
   try {
 
+    console.log({ id, message, sender, files, replyId });
+
     const conversation = await db.select()
       .from(convos)
       .where(eq(convos.conversation_key, id));
@@ -17,7 +19,7 @@ export const chatMessage = ({ socket, io, conversations, convos, messages, db })
       files,
       seen: false,
     };
-    const data = await db
+    const [data] = await db
       .insert(messages)
       .values(insert).returning()
       .execute();

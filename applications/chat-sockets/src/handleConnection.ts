@@ -1,9 +1,10 @@
 import { getDB, schema } from "@coyle/database";
 import { addConversation } from "@coyle/web/util/addConversation";
-import { eq } from 'drizzle-orm';
 import { Server, Socket } from "socket.io";
 import { addReaction } from "./addReaction.js";
 import { chatMessage } from "./chatMessage.js";
+import { fileAdded } from "./fileAdded.js";
+import { seen } from "./seen.js";
 
 const {conversations:convos, messages} = schema;
 
@@ -58,18 +59,8 @@ export function handleConnection(
     }, 1000);
   });
 
-  socket.on("seen", async (messageId: string) => {
-    try{
-      await db
-        .update(messages)
-        .set({ seen: true })
-        .where(eq(messages.id, Number(messageId)));
+  seen({socket,io,messages,db,conversations})
   
-      io.emit("conversations", conversations); // Update clients
-    } catch (error) {
-      console.log("ERROR UPDATING SEEN RECORD",{ error });
-    }
-  });
 
   socket.on("mouseMoveUpdatePeopleOnSite", ({ data, socketId }) => {
     const personIndex = peopleOnSite
@@ -81,12 +72,8 @@ export function handleConnection(
     }
   });
 
+  fileAdded({socket,io})
   
-
-  socket.on("file added", async (props) => {
-    io.to(props.conversationId).emit("file added", props);
-  });
-
   socket.on("disconnect", () => {
     const userIndex = peopleOnSite.findIndex(
       (user) => user?.socketId === socket.id,
@@ -106,5 +93,3 @@ export function handleConnection(
 
 
 export default handleConnection;
-
-
