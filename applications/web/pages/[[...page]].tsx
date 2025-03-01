@@ -11,7 +11,6 @@ import { ToastContainer } from "react-toastify";
 import Footer from "../components/layout/Footer";
 import Navigation from "../components/layout/Navigation";
 import navData from "../data/navData.json";
-import { fetchCategoryPageContent } from "../util/fetchCategoryPageContent";
 import { fetchGeneralPageContent } from "../util/fetchGeneralPageContent";
 import { fetchPostContent } from "../util/fetchPostContent";
 import { fetchProductsPageContent } from "../util/fetchProductsPageContent";
@@ -79,9 +78,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
     result = await fetchProductsPageContent(urlPath);
   } else if (urlPath.includes('/post/')) {
     result = await fetchPostContent(urlPath);
-  } else if (urlPath.includes('/category/')) {
-    result = await fetchCategoryPageContent(urlPath);
-  } else {
+  }  else {
     result = await fetchGeneralPageContent(urlPath, slug, offset, limit);
   }
 
