@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --fix",
-    "test": "docker compose up -d && vitest && docker compose down"
+    "test": "vitest run"
   },
   "dependencies": {
     "@algolia/client-search": "^5.12.0",

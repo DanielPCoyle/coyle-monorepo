@@ -12677,7 +12677,7 @@ vitest@^2.1.5:
 
 vitest@^3.0.7:
   version "3.0.7"
-  resolved "https://registry.npmjs.org/vitest/-/vitest-3.0.7.tgz"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-3.0.7.tgz#ed8f42e1b0e09e2179eaefd966cb58a8b75f0f6a"
   integrity sha512-IP7gPK3LS3Fvn44x30X1dM9vtawm0aesAa2yBIZ9vQf+qB69NXC5776+Qmcr7ohUXIQuLhk7xQR0aSUIDPqavg==
   dependencies:
     "@vitest/expect" "3.0.7"

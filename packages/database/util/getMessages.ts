@@ -28,7 +28,7 @@ export async function getMessages(conversationKey: string): Promise<Message[]> {
       const replies = await db.select()
         .from(messages)
         .where(eq(messages.parentId, message.id));
-      message.replies = replies;
+      message.replies = replies || [];
     }
 
     return messageData;

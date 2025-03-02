@@ -9,12 +9,14 @@
     "@coyle/web": "*",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "vitest": "^3.0.7"
   },
   "scripts": {
     "start": "npx tsx src/index.ts",
     "dev": "nodemon index.ts",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

@@ -17,7 +17,8 @@
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate",
     "server:test": "yarn workspace @coyle/server-side-tests test",
-    "lint": "rm -f lint.log && yarn web:lint >> lint.log || true && yarn chat:lint >> lint.log || true && yarn sockets:lint >> lint.log"
+    "lint": "rm -f lint.log && yarn web:lint >> lint.log || true && yarn chat:lint >> lint.log || true && yarn sockets:lint >> lint.log",
+    "test": "yarn workspaces run test"
   },
   "workspaces": {
     "packages": ["applications/*", "packages/*", "tests/*"]
