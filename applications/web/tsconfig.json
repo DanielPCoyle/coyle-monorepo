@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "../../packages/database/util/getConversations.ts"  , "../../packages/database/util/getMessages.1.ts"],
   "paths": {
     "@coyle/database/*": [
       "../../packages/database/*"
