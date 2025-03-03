@@ -1,0 +1,27 @@
+name: Run Tests on PR
+
+on:
+  pull_request:
+    branches:
+      - main  # Adjust if needed, e.g., "develop"
+
+jobs:
+  test:
+    name: Run Yarn Tests
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4  # Ensures your code is available
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18  # Adjust based on your project
+          cache: 'yarn'  # Caches dependencies for faster runs
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile  # Ensures package versions are consistent
+
+      - name: Run tests
+        run: yarn test
