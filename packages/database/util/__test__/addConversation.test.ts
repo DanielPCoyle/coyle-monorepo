@@ -1,7 +1,7 @@
 import { getDB } from '@coyle/database/db';
 import { conversations } from '@coyle/database/schema';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { addConversation } from '../addConversation';
+import { addConversation } from '../chat/addConversation';
 
 vi.mock('@coyle/database/db', () => ({
     getDB: vi.fn(),

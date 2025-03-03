@@ -1,6 +1,5 @@
-import { getDB, schema } from "@coyle/database";
+import { addReaction, getDB, schema } from "@coyle/database";
 import { Server, Socket } from "socket.io";
-import { addReaction } from "./socketHandlers/addReaction.js";
 import { chatMessage } from "./socketHandlers/chatMessage.js";
 import { disconnect } from "./socketHandlers/disconnect.js";
 import { join } from "./socketHandlers/join.js";
