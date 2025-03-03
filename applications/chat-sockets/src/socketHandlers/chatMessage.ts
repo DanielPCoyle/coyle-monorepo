@@ -1,14 +1,11 @@
-import { eq } from "drizzle-orm";
+import { getConversationIdByKey, insertMessage } from "@coyle/database";
 
-export const chatMessage = ({ socket, io, conversations, convos, messages, db }) => socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
+export const chatMessage = ({ socket, io, conversations }) => socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
   try {
 
-    const conversation = await db.select()
-      .from(convos)
-      .where(eq(convos.conversationKey, id));
-    const conversationId = conversation[0].id;
-
+    const conversationId = await getConversationIdByKey(id)
     const formattedMessage = message.replace(/\n/g, "<br/>");
+
     const insert = {
       sender,
       message: formattedMessage,
@@ -17,11 +14,8 @@ export const chatMessage = ({ socket, io, conversations, convos, messages, db })
       files,
       seen: false,
     };
-    const [data] = await db
-      .insert(messages)
-      .values(insert).returning()
-      .execute();
 
+    const data = await insertMessage(insert);
 
     io.to(id).emit("chat message", {
       sender,
@@ -36,3 +30,6 @@ export const chatMessage = ({ socket, io, conversations, convos, messages, db })
     console.log({ error });
   }
 });
+
+
+

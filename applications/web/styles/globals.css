@@ -475,7 +475,7 @@ a.chat {
   background-color: lightgray;
 }
 
-.showReactionEmojiPicker {
+.showreactionsEmojiPicker {
   position: absolute;
   background: none;
   border: none;
@@ -483,12 +483,12 @@ a.chat {
   font-size: 18px;
 }
 
-.reactionEmojiPicker.main {
+.reactionsEmojiPicker.main {
   position: absolute;
   z-index: 999;
 }
 
-.reactionPicker {
+.reactionsPicker {
   margin-top: 10px;
   margin-bottom: 10px;
   overflow: hidden;

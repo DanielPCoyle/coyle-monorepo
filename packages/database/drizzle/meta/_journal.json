@@ -13,6 +13,13 @@
       "when": 1740685538887,
       "tag": "0001_confused_hannibal_king",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741037927003,
+      "tag": "0002_zippy_iron_monger",
+      "breakpoints": true
     }
   ]
 }

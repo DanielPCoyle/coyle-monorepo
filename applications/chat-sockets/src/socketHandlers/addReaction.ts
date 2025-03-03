@@ -1,14 +1,14 @@
-import { eq } from "drizzle-orm";
+import { addReactionToMessage } from "@coyle/database";
 
-export const addReaction = ({ socket, io, messages, db }) => socket.on("addReaction", async ({ id, messageId, reactions }) => {
+export const addReaction = ({ socket, io}) => socket.on("addReaction", async ({ id, messageId, reactions }) => {
   try {
-    await db
-      .update(messages)
-      .set({ reactions: reactions })
-      .where(eq(messages.id, messageId));
+    console.log({reactions},"addReaction.ts")
+    await addReactionToMessage({ reactions, messageId });
 
-    io.to(id).emit("addReaction", { messageId, reaction: reactions });
+    io.to(id).emit("addReaction", { messageId, reactions: reactions });
   } catch (error) {
     console.log("ERROR ADDING REACTION", { error });
   }
 });
+
+

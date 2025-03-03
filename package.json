@@ -12,12 +12,15 @@
     "web:start": "yarn workspace @coyle/web start",
     "sockets:start": "yarn workspace @coyle/sockets start",
     "sockets:lint": "yarn workspace @coyle/sockets lint",
+    "sockets:test": "yarn workspace @coyle/sockets test",
     "chat:start": "yarn workspace @coyle/chat start",
     "chat:lint": "yarn workspace @coyle/chat lint",
+    "chat:test": "yarn workspace @coyle/chat test",
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate",
+    "db:lint": "yarn workspace @coyle/database lint",
     "server:test": "yarn workspace @coyle/server-side-tests test",
-    "lint": "rm -f lint.log && yarn web:lint >> lint.log || true && yarn chat:lint >> lint.log || true && yarn sockets:lint >> lint.log",
+    "lint": "rm -f lint.log && yarn web:lint >> lint.log || true && yarn chat:lint >> lint.log || true && yarn sockets:lint >> lint.log || true && yarn db:lint >> lint.log || true",
     "test": "yarn workspaces run test"
   },
   "workspaces": {

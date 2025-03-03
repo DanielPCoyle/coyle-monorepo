@@ -1,5 +1,5 @@
-import { getDB } from "@coyle/database/db";
 import { users } from "@coyle/database/schema";
+import { getDB } from "@coyle/database/src/db";
 import bcrypt from "bcrypt";
 import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";

@@ -1,4 +1,4 @@
-import { getDB } from '@coyle/database/db';
+import { getDB } from '@coyle/database';
 import { conversations } from '@coyle/database/schema';
 import { eq } from 'drizzle-orm';
 

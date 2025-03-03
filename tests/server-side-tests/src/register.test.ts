@@ -1,10 +1,16 @@
-import { getDB } from "@coyle/database/db";
+import { getDB } from "@coyle/database/src/db";
 import handler from '@coyle/web/pages/api/auth/register';
 import { createMocks } from "node-mocks-http";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@coyle/database/db", () => ({
-  getDB: vi.fn(),
+vi.mock("@coyle/database/src/db", () => ({
+  getDB: vi.fn().mockReturnValue({
+    insert: () => ({
+      values: () => ({
+        returning: () => Promise.resolve([{ id: "123", email: "test@example.com" }]),
+      }),
+    }),
+  }),
 }));
 
 vi.mock("bcrypt", async () => {

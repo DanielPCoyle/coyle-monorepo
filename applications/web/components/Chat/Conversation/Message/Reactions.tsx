@@ -3,14 +3,14 @@ import ChatContext from "../../ChatContext";
 
 interface ReactionsProps {
   isSender: boolean;
-  reactions: { [key: string]: { [key: string]: string } };
-  removeReaction: (reaction: { emoji: string }) => void;
+  reactions: any;
+  removeReactions: (reactions: { emoji: string }) => void;
 }
 
 export const Reactions: React.FC<ReactionsProps> = ({
   isSender,
   reactions,
-  removeReaction,
+  removeReactions,
 }) => {
   const { email } = useContext(ChatContext);
 
@@ -27,7 +27,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
             <span
               onClick={() => {
                 if (key === email) {
-                  removeReaction({ emoji });
+                  removeReactions({ emoji });
                 }
               }}
               key={idx}

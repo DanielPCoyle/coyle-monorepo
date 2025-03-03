@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import { ChatControls } from "../../ChatControls";
 
+import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
+import { MessageContext } from "./MessageContext";
 import { ReactionPicker } from "./ReactionPicker";
 import { Reactions } from "./Reactions";
-
-import { ChatContext } from "../../ChatContext";
-import { MessageContext } from "./MessageContext";
 
 Modal.setAppElement("#__next");
 
@@ -34,22 +33,22 @@ export const Message: React.FC<{ message: any; index: number }> = ({
     React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
-  const [showReactionPicker, setShowReactionPicker] = useState<boolean>(false);
+  const [showReactionsPicker, setShowReactionsPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
     message.reactions || {},
   );
 
   useEffect(() => {
-    socket.on("addReaction", ({ messageId, reaction }) => {
-      console.log({ messageId, reaction });
-      if (messageId === message.id) {
-        setReactions(reaction);
+    socket.on("addReaction", (payload) => {
+      console.log({payload})
+      if (payload.messageId === message.id) {
+        setReactions(payload.reactions);
       }
     });
   }, []);
 
-  const reactionPickerRef = useRef<HTMLDivElement | null>(null);
+  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   const messageRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -87,10 +86,10 @@ export const Message: React.FC<{ message: any; index: number }> = ({
       messageId: message.id,
       reactions: newReactions,
     });
-    setShowReactionPicker(false);
+    setShowReactionsPicker(false);
   };
 
-  const removeReaction = (emoji: { emoji: string }) => {
+  const removeReactions = (emoji: { emoji: string }) => {
     const newReactions = { ...reactions };
     if (newReactions[email]) {
       newReactions[email] = newReactions[email].filter(
@@ -100,6 +99,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
         delete newReactions[email];
       }
       setReactions(newReactions);
+      
       socket.emit("addReaction", {
         id,
         messageId: message.id,
@@ -111,10 +111,10 @@ export const Message: React.FC<{ message: any; index: number }> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        reactionPickerRef.current &&
-        !reactionPickerRef.current.contains(event.target as Node)
+        reactionsPickerRef.current &&
+        !reactionsPickerRef.current.contains(event.target as Node)
       ) {
-        setShowReactionPicker(false);
+        setShowReactionsPicker(false);
       }
     };
 
@@ -130,7 +130,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
         message,
         urlPreview,
         username,
-        setShowReactionPicker,
+        setShowReactionsPicker,
         setShowReplyModal,
         showReplyModal,
         addReaction,
@@ -152,17 +152,15 @@ export const Message: React.FC<{ message: any; index: number }> = ({
         <MessageContent />
       </div>
 
-      {showReactionPicker && (
-        <ReactionPicker reactionPickerRef={reactionPickerRef} />
+      {showReactionsPicker && (
+        <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
       )}
 
-      {Object.values(reactions).length > 0 && (
+      {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-          {...{
-            isSender: message.sender === username,
-            reactions,
-            removeReaction,
-          }}
+            isSender={ message.sender === username}
+            reactions={reactions}
+            removeReactions={removeReactions}
         />
       )}
 
@@ -200,7 +198,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
                       message:reply,
                       urlPreview,
                       username,
-                      setShowReactionPicker,
+                      setShowReactionsPicker,
                       setShowReplyModal,
                       showReplyModal,
                       addReaction,

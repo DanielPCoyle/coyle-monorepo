@@ -1,0 +1,95 @@
+name: "🐛 Bug Report"
+description: "Report a bug to help improve the project"
+title: "[Bug]: <Brief issue summary>"
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: "### 📌 Please fill in the details below."
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "🔍 Describe the bug"
+      description: "A clear and concise description of the bug."
+      placeholder: "Example: When I click the submit button, nothing happens."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "🚀 Steps to Reproduce"
+      description: "List the steps to reproduce the issue."
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error '...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "✅ Expected Behavior"
+      description: "What should have happened?"
+      placeholder: "Example: The form should be submitted successfully."
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: "❌ Actual Behavior"
+      description: "What actually happened?"
+      placeholder: "Example: The form did not submit, and an error appeared in the console."
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "🔥 Severity Level"
+      description: "How severe is the bug?"
+      options:
+        - "🔴 Critical (Breaks core functionality)"
+        - "🟠 Major (Severely impacts user experience)"
+        - "🟡 Minor (Not ideal but does not break functionality)"
+        - "⚪ Cosmetic (Visual or UI-related issue)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: "📜 Logs & Error Messages"
+      description: "Paste any error messages from the console, logs, or terminal."
+      render: shell
+      placeholder: "Example: TypeError: Cannot read property 'x' of undefined"
+
+  - type: input
+    id: environment
+    attributes:
+      label: "💻 Environment"
+      description: "Which environment did you find this issue in?"
+      placeholder: "Example: Production / Staging / Development"
+
+  - type: checkboxes
+    id: browser
+    attributes:
+      label: "🌐 Browsers Tested"
+      description: "Select the browsers in which you encountered the issue."
+      options:
+        - label: "Chrome"
+        - label: "Firefox"
+        - label: "Safari"
+        - label: "Edge"
+        - label: "Other"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "📎 Additional Context"
+      description: "Add any other relevant details or screenshots."
+
+  - type: markdown
+    attributes:
+      value: "Thank you for helping improve our project! 🛠️"
+

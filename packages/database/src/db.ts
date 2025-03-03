@@ -4,7 +4,7 @@ import { sql } from 'drizzle-orm';
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import pgPkg from 'pg';
-import * as schema from './schema';
+import * as schema from '../schema';
 
 const { Pool } = pgPkg;
 
@@ -51,7 +51,7 @@ export async function explainAnalyze<Q extends SQLWrapper>(
     sql`EXPLAIN ANALYZE ${query.getSQL()}`
   );
 
-  // eslint-disable-next-line no-console
+   
   console.debug(
     debugResult.rows
       .reduce((plan, row) => `${plan}\n${row['QUERY PLAN']}`, '')
