@@ -10,6 +10,13 @@
 !.yarn/releases
 !.yarn/versions
 
+**/node_modules
+**/.next
+**/.env
+
+*/.pnp
+*/.pnp.*
+
 # testing
 /coverage
 
@@ -40,3 +47,4 @@ yarn-error.log*
 next-env.d.ts
 
 __tests__/integration-tests/node_modules/*
+lint.log
