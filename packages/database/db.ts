@@ -51,7 +51,7 @@ export async function explainAnalyze<Q extends SQLWrapper>(
     sql`EXPLAIN ANALYZE ${query.getSQL()}`
   );
 
-  // eslint-disable-next-line no-console
+   
   console.debug(
     debugResult.rows
       .reduce((plan, row) => `${plan}\n${row['QUERY PLAN']}`, '')

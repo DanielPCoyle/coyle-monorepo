@@ -16,8 +16,9 @@
     "chat:lint": "yarn workspace @coyle/chat lint",
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate",
+    "db:lint": "yarn workspace @coyle/database lint",
     "server:test": "yarn workspace @coyle/server-side-tests test",
-    "lint": "rm -f lint.log && yarn web:lint >> lint.log || true && yarn chat:lint >> lint.log || true && yarn sockets:lint >> lint.log",
+    "lint": "rm -f lint.log && yarn web:lint >> lint.log || true && yarn chat:lint >> lint.log || true && yarn sockets:lint >> lint.log || true && yarn db:lint >> lint.log || true",
     "test": "yarn workspaces run test"
   },
   "workspaces": {
