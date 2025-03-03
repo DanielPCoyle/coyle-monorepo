@@ -6,7 +6,8 @@
   "license": "MIT",
   "dependencies": {
     "drizzle-orm": "^0.40.0",
-    "pg": "^8.13.3"
+    "pg": "^8.13.3",
+    "@coyle/database": "*"
   },
   "scripts": {
     "create-migration": "npx drizzle-kit generate --schema=./schema.ts --dialect=postgresql",
@@ -24,5 +25,11 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.26.0",
     "vitest": "^0.34.1"
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   }
 }

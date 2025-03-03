@@ -1,8 +1,7 @@
-import { getDB } from '@coyle/database';
+import { getDB, setMessageSeen } from '@coyle/database';
+import { messages } from '@coyle/database/schema';
 import { eq } from 'drizzle-orm';
 import { describe, expect, it, vi } from 'vitest';
-import { messages } from '../../../schema';
-import { setMessageSeen } from '../chat/setMessageSeen';
 
 vi.mock('@coyle/database', () => ({
   getDB: vi.fn(),

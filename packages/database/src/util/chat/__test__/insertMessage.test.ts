@@ -1,7 +1,6 @@
+import { getDB, insertMessage } from '@coyle/database';
+import { messages } from '@coyle/database/schema';
 import { describe, expect, it, vi } from 'vitest';
-import { messages } from '../../../schema';
-import { getDB } from '../../db';
-import { insertMessage } from '../chat/insertMessage';
 
 vi.mock('../../db', () => ({
     getDB: vi.fn(),

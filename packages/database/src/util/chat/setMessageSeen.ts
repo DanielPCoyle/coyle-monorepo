@@ -1,6 +1,6 @@
 import { getDB } from "@coyle/database";
+import { messages } from "@coyle/database/schema";
 import { eq } from "drizzle-orm";
-import { messages } from "../../../schema";
 
 export const setMessageSeen = async (messageId: number) => {
   try {

@@ -1,5 +1,5 @@
-import { messages } from "../../../schema";
-import { getDB } from "../../db";
+import { getDB } from "@coyle/database";
+import { messages } from "@coyle/database/schema";
 export const insertMessage = async (insert) => {
   const db = getDB();
   const [data] = await db

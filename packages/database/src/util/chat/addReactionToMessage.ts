@@ -1,8 +1,13 @@
-import { eq } from "drizzle-orm";
-import { messages } from "../../../schema";
-import { getDB } from "../../db";
+
+import { getDB } from '@coyle/database';
+import { messages } from '@coyle/database/schema';
+import { eq } from 'drizzle-orm';
 
 export const addReactionToMessage = async ({ reactions, messageId }) => {
+  if(!reactions || !messageId) {
+    console.log('ERROR ADDING REACTION', { error: 'Missing reactions or messageId' });
+    return;
+  }
   const db = getDB();
   await db
     .update(messages)

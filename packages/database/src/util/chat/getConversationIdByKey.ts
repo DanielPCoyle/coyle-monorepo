@@ -1,6 +1,6 @@
+import { getDB } from "@coyle/database";
+import { conversations as convos } from "@coyle/database/schema";
 import { eq } from "drizzle-orm";
-import { conversations as convos } from "../../../schema";
-import { getDB } from "../../db";
 export const getConversationIdByKey = async (key) => {
   const db = getDB() as any;
   const conversation = await db.select()

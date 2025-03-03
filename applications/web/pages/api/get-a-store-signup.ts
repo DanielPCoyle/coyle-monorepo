@@ -1,4 +1,4 @@
-import { getDB } from "@coyle/database/db";
+import { getDB } from "@coyle/database";
 import { getAStoreSignUps } from "@coyle/database/schema";
 import { NextApiRequest, NextApiResponse } from "next";
 

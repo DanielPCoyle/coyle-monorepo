@@ -1,8 +1,7 @@
+import { getConversationIdByKey, getDB } from '@coyle/database';
+import { conversations as convos } from '@coyle/database/schema';
 import { eq } from "drizzle-orm";
 import { describe, expect, it, vi } from 'vitest';
-import { conversations as convos } from '../../../schema';
-import { getDB } from '../../db';
-import { getConversationIdByKey } from '../chat/getConversationIdByKey';
 
 vi.mock('../../db', () => ({
     getDB: vi.fn(),

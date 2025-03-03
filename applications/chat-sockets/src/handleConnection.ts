@@ -1,4 +1,4 @@
-import { addReaction, getDB, schema } from "@coyle/database";
+import { addReactionToMessage, getDB, schema } from "@coyle/database";
 import { Server, Socket } from "socket.io";
 import { chatMessage } from "./socketHandlers/chatMessage.js";
 import { disconnect } from "./socketHandlers/disconnect.js";
@@ -30,7 +30,7 @@ export function handleConnection(
   join({socket,io})
   leave({socket})
   chatMessage({socket,io,conversations,convos, messages, db})
-  addReaction({socket,io,messages,db});
+  addReactionToMessage({socket,io,messages,db});
   updateMessageAction({socket,io})
   userTyping({socket,io,typingTimeout})
   seen({socket,io,messages,db,conversations})

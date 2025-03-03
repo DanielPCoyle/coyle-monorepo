@@ -1,4 +1,4 @@
-import { getMessages } from "@coyle/database/util/getMessages";
+import { getMessages } from "@coyle/database";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 
