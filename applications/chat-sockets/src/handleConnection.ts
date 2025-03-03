@@ -1,4 +1,4 @@
-import { getDB, schema } from "@coyle/database";
+import { getDB } from "@coyle/database";
 import { Server, Socket } from "socket.io";
 import { addReaction } from "./socketHandlers/addReaction.js";
 import { chatMessage } from "./socketHandlers/chatMessage.js";
@@ -10,7 +10,6 @@ import { seen } from "./socketHandlers/seen.js";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction.js";
 import { userTyping } from "./socketHandlers/userTyping.js";
 
-const {conversations:convos, messages} = schema;
 
 interface PersonOnSite {
   socketId: string;
