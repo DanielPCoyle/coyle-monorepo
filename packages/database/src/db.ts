@@ -4,7 +4,7 @@ import { sql } from 'drizzle-orm';
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import pgPkg from 'pg';
-import * as schema from './schema';
+import * as schema from '../schema';
 
 const { Pool } = pgPkg;
 

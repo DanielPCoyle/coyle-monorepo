@@ -18,8 +18,8 @@ export const messages = pgTable('messages', {
   message: text('message').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   seen: boolean('seen').notNull(),
+  reactions: jsonb("reactions"), // Add this line
   parentId: integer('parent_id'),
-  reactions: jsonb('reaction'),
   files: jsonb('files')
 });
 

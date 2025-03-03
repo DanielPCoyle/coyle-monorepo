@@ -5,7 +5,6 @@ import { disconnect } from "./socketHandlers/disconnect.js";
 import { join } from "./socketHandlers/join.js";
 import { leave } from "./socketHandlers/leave.js";
 import { login } from "./socketHandlers/login.js";
-import { mouseMoveUpdatePeopleOnSite } from "./socketHandlers/mouseMoveUpdatePeopleOnSite.js";
 import { seen } from "./socketHandlers/seen.js";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction.js";
 import { userTyping } from "./socketHandlers/userTyping.js";
@@ -35,7 +34,6 @@ export function handleConnection(
   updateMessageAction({socket,io})
   userTyping({socket,io,typingTimeout})
   seen({socket,io,messages,db,conversations})
-  mouseMoveUpdatePeopleOnSite({socket,io,peopleOnSite})
   disconnect({socket,io,peopleOnSite,conversations,})
   
 }

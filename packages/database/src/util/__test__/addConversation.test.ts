@@ -1,9 +1,9 @@
-import { getDB } from '@coyle/database/db';
-import { conversations } from '@coyle/database/schema';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, Mock, vi } from 'vitest';
+import { conversations } from '../../../schema';
+import { getDB } from '../../db';
 import { addConversation } from '../chat/addConversation';
 
-vi.mock('@coyle/database/db', () => ({
+vi.mock('../../db', () => ({
     getDB: vi.fn(),
 }));
 
@@ -18,7 +18,7 @@ const mockDB = {
 describe('addConversation', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        (getDB as vi.Mock).mockReturnValue(mockDB);
+        (getDB as Mock).mockReturnValue(mockDB);
     });
 
     it('should add a new conversation if it does not exist', async () => {

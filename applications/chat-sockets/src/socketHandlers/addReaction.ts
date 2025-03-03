@@ -1,0 +1,13 @@
+import { addReactionToMessage } from "@coyle/database/util/chat/addReactionToMessage.js";
+
+export const addReaction = ({ socket, io}) => socket.on("addReaction", async ({ id, messageId, reactions }) => {
+  try {
+    await addReactionToMessage({ reactions, messageId });
+
+    io.to(id).emit("addReaction", { messageId, reaction: reactions });
+  } catch (error) {
+    console.log("ERROR ADDING REACTION", { error });
+  }
+});
+
+

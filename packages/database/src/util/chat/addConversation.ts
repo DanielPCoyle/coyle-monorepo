@@ -1,6 +1,6 @@
-import { getDB } from '@coyle/database/db';
-import { conversations } from '@coyle/database/schema';
 import { eq } from 'drizzle-orm';
+import { conversations } from '../../../schema';
+import { getDB } from '../../db';
 
 interface AddConversationParams {
   name: string;

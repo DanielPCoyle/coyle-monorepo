@@ -1,14 +1,13 @@
-import { eq } from "drizzle-orm";
+import { setMessageSeen } from "@coyle/database";
 
-export const seen = ({ socket, io, messages,db,conversations}) => socket.on("seen", async (messageId: string) => {
-  try {
-    await db
-      .update(messages)
-      .set({ seen: true })
-      .where(eq(messages.id, Number(messageId)));
+export const seen = ({ socket, io, conversations }) =>
+  socket.on("seen", async (messageId: number) => {
+    try {
+      await setMessageSeen(messageId);
+      io.emit("conversations", conversations); // Update clients
+    } catch (error) {
+      console.log("ERROR UPDATING SEEN RECORD", error);
+    }
+  });
 
-    io.emit("conversations", conversations); // Update clients
-  } catch (error) {
-    console.log("ERROR UPDATING SEEN RECORD", { error });
-  }
-});
+
