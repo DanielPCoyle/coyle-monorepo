@@ -4,10 +4,8 @@ import { messages } from '@coyle/database/schema';
 import { eq } from 'drizzle-orm';
 
 export const addReactionToMessage = async ({ reactions, messageId }) => {
-  if(!reactions || !messageId) {
-    console.log('ERROR ADDING REACTION', { error: 'Missing reactions or messageId' });
-    return;
-  }
+  console.log(">>>>>>>>>!!!!!!!!!")
+  console.log({reactions})
   const db = getDB();
   await db
     .update(messages)

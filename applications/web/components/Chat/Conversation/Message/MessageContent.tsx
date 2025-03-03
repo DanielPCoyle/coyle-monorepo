@@ -5,7 +5,7 @@ import { LinkPreview } from "./LinkPreview";
 import { MessageContext } from "./MessageContext";
 
 export const MessageContent = () => {
-  const { message, username, setShowReactionPicker, setShowReplyModal } =
+  const { message, username, setShowReactionsPicker, setShowReplyModal } =
     useContext(MessageContext);
   return (
     <div
@@ -49,9 +49,9 @@ export const MessageContent = () => {
 
       <button
         onClick={() => {
-          setShowReactionPicker(true);
+          setShowReactionsPicker(true);
         }}
-        className="showReactionEmojiPicker"
+        className="showreactionsEmojiPicker"
       >
         😊
       </button>
