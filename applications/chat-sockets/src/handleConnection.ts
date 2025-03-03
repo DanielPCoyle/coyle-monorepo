@@ -10,7 +10,6 @@ import { seen } from "./socketHandlers/seen.js";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction.js";
 import { userTyping } from "./socketHandlers/userTyping.js";
 
-
 interface PersonOnSite {
   socketId: string;
   [key: string]: string | number | boolean;
