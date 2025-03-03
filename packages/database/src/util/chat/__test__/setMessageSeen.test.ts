@@ -3,7 +3,7 @@ import { messages } from '@coyle/database/schema';
 import { eq } from 'drizzle-orm';
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('@coyle/database', () => ({
+vi.mock('../../../db', () => ({
   getDB: vi.fn(),
 }));
 

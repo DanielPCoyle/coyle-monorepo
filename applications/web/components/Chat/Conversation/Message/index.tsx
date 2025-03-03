@@ -85,7 +85,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
     socket.emit("addReaction", {
       id: currentConversation?.id,
       messageId: message.id,
-      reactions: newReactions,
+      reaction: newReactions,
     });
     setShowReactionPicker(false);
   };

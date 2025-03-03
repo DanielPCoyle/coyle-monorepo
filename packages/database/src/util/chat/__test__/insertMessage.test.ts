@@ -2,7 +2,7 @@ import { getDB, insertMessage } from '@coyle/database';
 import { messages } from '@coyle/database/schema';
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock('../../db', () => ({
+vi.mock('../../../db', () => ({
     getDB: vi.fn(),
 }));
 

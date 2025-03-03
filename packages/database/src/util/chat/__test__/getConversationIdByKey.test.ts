@@ -1,9 +1,8 @@
 import { getConversationIdByKey, getDB } from '@coyle/database';
 import { conversations as convos } from '@coyle/database/schema';
 import { eq } from "drizzle-orm";
-import { describe, expect, it, vi } from 'vitest';
-
-vi.mock('../../db', () => ({
+import { describe, expect, it, Mock, vi } from 'vitest';
+vi.mock('../../../db', () => ({
     getDB: vi.fn(),
 }));
 
@@ -17,7 +16,7 @@ describe('getConversationIdByKey', () => {
             where: vi.fn().mockResolvedValue(mockConversation),
         };
 
-        (getDB as vi.Mock).mockReturnValue(mockDb);
+        (getDB as Mock).mockReturnValue(mockDb);
 
         const conversationId = await getConversationIdByKey(mockKey);
 

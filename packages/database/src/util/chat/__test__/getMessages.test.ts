@@ -1,7 +1,7 @@
 import { getDB, getMessages } from "@coyle/database";
 import { describe, expect, it, vi } from 'vitest';
 
-vi.mock("@coyle/database", () => ({
+vi.mock('../../../db', () => ({
     getDB: vi.fn()
 }));
 
