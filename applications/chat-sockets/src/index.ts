@@ -1,9 +1,7 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
-import handleConnection from "./handleConnection.ts";
-
-const { Request, Response } = express;
+import { handleConnection } from "./handleConnection";
 
 const app = express();
 const server = http.createServer(app);
@@ -16,7 +14,7 @@ const io = new Server(server, {
 
 // Express route
 app.get("/", (req: Request, res: Response) => {
-  void req; // to avoid 'req' is declared but its value is never read
+  void req;
   res.send("Socket.io server is running");
 });
 

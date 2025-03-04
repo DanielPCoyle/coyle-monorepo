@@ -30,7 +30,7 @@ describe("POST /api/auth/register", () => {
   it("returns 405 for non-POST requests", async () => {
     const { req, res } = createMocks({ method: "GET" });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(405);
     expect(res._getJSONData()).toEqual({ error: "Method Not Allowed" });
@@ -42,7 +42,7 @@ describe("POST /api/auth/register", () => {
       body: { email: "abc@test.com" },
     });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(400);
     expect(res._getJSONData()).toEqual({
@@ -56,7 +56,7 @@ describe("POST /api/auth/register", () => {
       body: { password: "321password!@" },
     });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(400);
     expect(res._getJSONData()).toEqual({
@@ -83,7 +83,7 @@ describe("POST /api/auth/register", () => {
       body: { email: "test@example.com", password: "password123" },
     });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(201);
     expect(res._getJSONData()).toEqual({
@@ -108,7 +108,7 @@ describe("POST /api/auth/register", () => {
       body: { email: "test@example.com", password: "password123" },
     });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(500);
     expect(res._getJSONData()).toEqual({ error: "DB error" });

@@ -48,3 +48,5 @@ next-env.d.ts
 
 __tests__/integration-tests/node_modules/*
 lint.log
+
+**/coverage

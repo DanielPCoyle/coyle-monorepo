@@ -1,26 +1,24 @@
-import React, { useRef } from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-import { ConversationsScreen } from "./ConversationsScreen";
-import { HomeScreen } from "./HomeScreen";
 import { AppContext } from "@/context/AppContext";
+import { useColorScheme } from "@/hooks/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { io } from "socket.io-client";
 import { ChatScreen } from "./ChatScreen";
-import { StyleSheet } from "react-native";
+import { ConversationsScreen } from "./ConversationsScreen";
 import { DesignScreen } from "./DesignScreen";
+import { HomeScreen } from "./HomeScreen";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -86,13 +84,6 @@ export default function RootLayout() {
           <Drawer.Screen
             name="Sign Out"
             component={() => {
-              useEffect(() => {
-                const signOut = async () => {
-                  await AsyncStorage.removeItem("user");
-                  setUser(null);
-                };
-                signOut();
-              }, []);
               return null;
             }}
             options={{ title: "Sign Out" }}
