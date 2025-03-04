@@ -12,8 +12,8 @@ export { eq } from "drizzle-orm";
 
 export type AdminDb = NodePgDatabase<typeof schema>;
 
-let pool: any;
-export function getPool(): any {
+let pool: pgPkg.Pool;
+export function getPool(): pgPkg.Pool {
   if (!pool) {
     const poolLimit = Number(process.env.DB_POOL_LIMIT ?? 10);
 

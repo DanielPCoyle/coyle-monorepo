@@ -1,10 +1,7 @@
 import "dotenv/config";
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { defineConfig } from "drizzle-kit";
 import { resolve } from "path";
 
-// eslint-disable-next-line import/no-default-export
 export default defineConfig({
   dialect: "postgresql",
 

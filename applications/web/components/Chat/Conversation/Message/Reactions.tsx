@@ -3,7 +3,7 @@ import ChatContext from "../../ChatContext";
 
 interface ReactionsProps {
   isSender: boolean;
-  reactions: any;
+  reactions: { [key: string]: string[] };
   removeReactions: (reactions: { emoji: string }) => void;
 }
 
@@ -23,7 +23,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
     >
       <div className="reactions">
         {Object.keys(reactions).map((key) =>
-          Object.values(reactions[key]).map((emoji, idx) => (
+          Object.values(reactions[key]).map((emoji:string, idx:number) => (
             <span
               onClick={() => {
                 if (key === email) {

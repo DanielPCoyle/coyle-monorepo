@@ -1,9 +1,8 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
-import handleConnection from "./handleConnection.ts";
+import { handleConnection } from "./handleConnection";
 
-const { Request, Response } = express;
 
 const app = express();
 const server = http.createServer(app);

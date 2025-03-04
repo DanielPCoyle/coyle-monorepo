@@ -1,4 +1,3 @@
-import { getDB } from "@coyle/database";
 import { Server, Socket } from "socket.io";
 import { addReaction } from "./socketHandlers/addReaction.js";
 import { chatMessage } from "./socketHandlers/chatMessage.js";
@@ -21,7 +20,6 @@ export function handleConnection(
   conversations: any[],
   peopleOnSite: PersonOnSite[],
 ) {
-  const db = getDB() as any;
   peopleOnSite.push({ socketId: socket.id });
   io.emit("peopleOnSite", peopleOnSite);
   let typingTimeout: NodeJS.Timeout;
