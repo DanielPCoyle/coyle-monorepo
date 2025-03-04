@@ -170,7 +170,6 @@ const Page: React.FC<PageProps> = ({
   },
   categoryData,
 }) => {
-  console.log(">>>>>>!!!!!!", JSON.stringify(page));
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
   const [filters, setFilters] = React.useState([]);

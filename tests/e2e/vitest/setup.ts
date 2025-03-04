@@ -45,7 +45,7 @@ export async function setup() {
 
   // Start Puppeteer
   logger("Launching Puppeteer...");
-  browser = await puppeteer.launch({ headless: false });
+  browser = await puppeteer.launch({ headless: true });
 
   return { browser };
 }

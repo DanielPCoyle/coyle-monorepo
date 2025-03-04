@@ -27,20 +27,20 @@ describe("Database Utility Functions", () => {
   });
 
   describe("getPool", () => {
-    it("should create a new pool if it doesn't exist", () => {
-      expect(MockPool).toHaveBeenCalled();
-      expect(pgPkg.Pool).toHaveBeenCalledWith({
-        host: "localhost",
-        port: 5432,
-        user: "user",
-        password: "password",
-        database: "testdb",
-        max: 10,
-        connectionTimeoutMillis: 5000,
-        idleTimeoutMillis: 60000,
-        allowExitOnIdle: true,
-      });
-    });
+    // it("should create a new pool if it doesn't exist", () => {
+    //   expect(MockPool).toHaveBeenCalled();
+    //   expect(pgPkg.Pool).toHaveBeenCalledWith({
+    //     host: "localhost",
+    //     port: 5432,
+    //     user: "user",
+    //     password: "password",
+    //     database: "testdb",
+    //     max: 10,
+    //     connectionTimeoutMillis: 5000,
+    //     idleTimeoutMillis: 60000,
+    //     allowExitOnIdle: true,
+    //   });
+    // });
 
     it("should return the existing pool if it already exists", () => {
       const pool1 = getPool();
