@@ -22,7 +22,8 @@
     "server:test": "yarn workspace @coyle/server-side-tests test",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
-    "types": "yarn workspaces run types"
+    "types": "yarn workspaces run types",
+    "prettier": "yarn workspaces run prettier"
   },
   "workspaces": {
     "packages": ["applications/*", "packages/*", "tests/*"]

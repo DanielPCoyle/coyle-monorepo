@@ -1,16 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-import { debug } from 'debug';
+import { debug } from "debug";
 
-import { getPool } from '@coyle/database';
+import { getPool } from "@coyle/database";
 
-import { createDatabases, runMigrations } from './utils/database';
-import { startPostgresContainer } from './utils/docker';
+import { createDatabases, runMigrations } from "./utils/database";
+import { startPostgresContainer } from "./utils/docker";
 
-const logger = debug('setup');
+const logger = debug("setup");
 
 export async function setup() {
-  logger('Starting PostgreSQL server...');
+  logger("Starting PostgreSQL server...");
   const container = await startPostgresContainer();
   const connection = container.getConnectionUri();
   logger(`Started PostgreSQL server at "${connection}"!`);
@@ -23,11 +23,9 @@ export async function setup() {
   process.env.DB_PASSWORD = container.getPassword();
   process.env.DB_NAME = adminDb;
 
-
-  logger('Migrating database...');
-  logger('Migrated database', await runMigrations());
+  logger("Migrating database...");
+  logger("Migrated database", await runMigrations());
   console.log("Setup done");
-
 }
 
 export async function teardown() {
