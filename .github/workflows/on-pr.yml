@@ -113,4 +113,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run Yarn Audit
-        run: yarn audit
+        run: yarn audit --level high
