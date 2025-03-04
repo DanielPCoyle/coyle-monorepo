@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 import { debug } from "debug";
 
 import { getPool } from "@coyle/database";

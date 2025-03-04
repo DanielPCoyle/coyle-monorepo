@@ -1,13 +1,11 @@
 import handler from "@coyle/web/pages/api/auth/login"; // Adjust the import path as needed
 import { createMocks } from "node-mocks-http";
 import { describe, expect, it, vi } from "vitest";
-
 vi.mock("bcrypt");
 vi.mock("jsonwebtoken");
 vi.mock("@coyle/database/db");
 
 describe("/api/auth/login", () => {
-  const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
 
   it("should return 405 if method is not POST", async () => {
     const { req, res } = createMocks({

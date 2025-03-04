@@ -1,3 +1,4 @@
+export type { NextApiRequest, NextApiResponse } from "next";
 export interface Message {
   id: number;
   conversationId: number;
@@ -10,3 +11,4 @@ export interface Message {
   files: any[];
   replies: any[];
 }
+

@@ -20,6 +20,7 @@
     "db:migrate": "yarn workspace @coyle/database migrate",
     "db:lint": "yarn workspace @coyle/database lint",
     "server:test": "yarn workspace @coyle/server-side-tests test",
+    "server:test:lint": "yarn workspace @coyle/server-side-tests lint",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
     "types": "yarn workspaces run types",
