@@ -2,6 +2,7 @@
   "name": "@coyle/server-side-tests",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "yarn lint --fix",
