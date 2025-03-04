@@ -30,14 +30,14 @@ export const Conversation: React.FC = () => {
           {messages
             .filter((message: MessageType) => !message.parentId)
             .map((message: MessageType, index: number) => (
-                <Message 
+              <Message
                 key={message.id}
                 index={index}
                 message={message as any}
-                />
-              ))}
-            </div>
-            </div>
+              />
+            ))}
+        </div>
+      </div>
     </>
   );
 };
