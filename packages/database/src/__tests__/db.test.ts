@@ -13,7 +13,6 @@ vi.mock("pg", () => {
   return { Pool, default: { Pool } };
 });
 
-
 describe("Database Utility Functions", () => {
   beforeAll(() => {
     process.env.DB_HOST = "localhost";
