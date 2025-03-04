@@ -14,7 +14,6 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   const { url } = req.query;
-  console.log("FIRED", url);
   if (req.method === "GET") {
     try {
       const { data } = await axios.get(url as string);

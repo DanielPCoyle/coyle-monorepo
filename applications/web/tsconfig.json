@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -23,7 +27,13 @@
     "../../packages/database/src/util/insertGetAStoreSignup.ts"
   ],
   "paths": {
-    "@coyle/database/*": ["../../packages/database/*"]
+    "@coyle/database/*": [
+      "../../packages/database/*"
+    ]
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }
