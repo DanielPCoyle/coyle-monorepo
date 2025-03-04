@@ -86,7 +86,9 @@ describe("POST /api/philprints/get-a-store-signup", () => {
       json: vi.fn(),
     } as unknown as NextApiResponse;
 
-    (insertGetAStoreSignup as vi.Mock).mockRejectedValue(new Error("Database Error"));
+    (insertGetAStoreSignup as vi.Mock).mockRejectedValue(
+      new Error("Database Error"),
+    );
 
     await handler(req, res);
 

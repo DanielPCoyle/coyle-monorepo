@@ -24,7 +24,8 @@
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
     "types": "yarn workspaces run types",
-    "prettier": "yarn workspaces run prettier"
+    "prettier": "yarn workspaces run prettier",
+    "pre-push": "yarn prettier --write && yarn lint && yarn test && yarn types"
   },
   "workspaces": {
     "packages": [
