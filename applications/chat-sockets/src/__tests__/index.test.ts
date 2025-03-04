@@ -32,7 +32,7 @@ beforeAll((done) => {
     handleConnection(socket, io, conversations, peopleOnSite);
   });
 
-  server = httpServer.listen(3001, done);
+  server = httpServer.listen(3002, done);
 });
 
 afterAll(() => {
@@ -50,7 +50,7 @@ describe("Express Server", () => {
 
 describe("Socket.io Server", () => {
   it("should allow a client to connect and receive a welcome message", (done) => {
-    const client = Client("http://localhost:3001");
+    const client = Client("http://localhost:3002");
 
     client.on("connect", () => {
       expect(client.connected).toBeTruthy();
@@ -59,12 +59,7 @@ describe("Socket.io Server", () => {
     });
   });
 
-  describe("Express Server", () => {
-    it("should return a success message on GET /", async () => {
-      const response = await request(httpServer).get("/");
-      expect(response.status).toBe(200);
-      expect(response.text).toBe("Socket.io server is running");
-    });
+ 
 
     it("should return 404 for unknown routes", async () => {
       const response = await request(httpServer).get("/unknown");
@@ -72,20 +67,9 @@ describe("Socket.io Server", () => {
     });
   });
 
-  describe("Socket.io Server", () => {
-    it("should allow a client to connect and receive a welcome message", (done) => {
-      const client = Client("http://localhost:3001");
-
-      client.on("connect", () => {
-        expect(client.connected).toBeTruthy();
-        client.disconnect();
-        done();
-      });
-    });
-
     it("should handle multiple client connections", (done) => {
-      const client1 = Client("http://localhost:3001");
-      const client2 = Client("http://localhost:3001");
+      const client1 = Client("http://localhost:3002");
+      const client2 = Client("http://localhost:3002");
 
       let connectedClients = 0;
 
@@ -103,7 +87,7 @@ describe("Socket.io Server", () => {
     });
 
     it("should handle client disconnection", (done) => {
-      const client = Client("http://localhost:3001");
+      const client = Client("http://localhost:3002");
 
       client.on("connect", () => {
         expect(client.connected).toBeTruthy();
@@ -115,5 +99,3 @@ describe("Socket.io Server", () => {
         done();
       });
     });
-  });
-});
