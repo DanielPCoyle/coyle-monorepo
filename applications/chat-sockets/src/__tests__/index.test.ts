@@ -12,108 +12,108 @@ let io;
 let httpServer;
 
 beforeAll((done) => {
-    const app = express();
-    httpServer = createServer(app);
-    io = new Server(httpServer, {
-        cors: {
-            origin: "*",
-            methods: ["GET", "POST"],
-        },
-    });
+  const app = express();
+  httpServer = createServer(app);
+  io = new Server(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
 
-    app.get("/", (req, res) => {
-        res.send("Socket.io server is running");
-    });
+  app.get("/", (req, res) => {
+    res.send("Socket.io server is running");
+  });
 
-    const conversations = [];
-    const peopleOnSite = [];
+  const conversations = [];
+  const peopleOnSite = [];
 
-    io.on("connection", (socket) => {
-        handleConnection(socket, io, conversations, peopleOnSite);
-    });
+  io.on("connection", (socket) => {
+    handleConnection(socket, io, conversations, peopleOnSite);
+  });
 
-    server = httpServer.listen(3001, done);
+  server = httpServer.listen(3001, done);
 });
 
 afterAll(() => {
-    io.close();
-    server.close();
+  io.close();
+  server.close();
 });
 
 describe("Express Server", () => {
-    it("should return a success message on GET /", async () => {
-        const response = await request(httpServer).get("/");
-        expect(response.status).toBe(200);
-        expect(response.text).toBe("Socket.io server is running");
-    });
+  it("should return a success message on GET /", async () => {
+    const response = await request(httpServer).get("/");
+    expect(response.status).toBe(200);
+    expect(response.text).toBe("Socket.io server is running");
+  });
 });
 
 describe("Socket.io Server", () => {
+  it("should allow a client to connect and receive a welcome message", (done) => {
+    const client = Client("http://localhost:3001");
+
+    client.on("connect", () => {
+      expect(client.connected).toBeTruthy();
+      client.disconnect();
+      done();
+    });
+  });
+
+  describe("Express Server", () => {
+    it("should return a success message on GET /", async () => {
+      const response = await request(httpServer).get("/");
+      expect(response.status).toBe(200);
+      expect(response.text).toBe("Socket.io server is running");
+    });
+
+    it("should return 404 for unknown routes", async () => {
+      const response = await request(httpServer).get("/unknown");
+      expect(response.status).toBe(404);
+    });
+  });
+
+  describe("Socket.io Server", () => {
     it("should allow a client to connect and receive a welcome message", (done) => {
-        const client = Client("http://localhost:3001");
+      const client = Client("http://localhost:3001");
 
-        client.on("connect", () => {
-            expect(client.connected).toBeTruthy();
-            client.disconnect();
-            done();
-        });
+      client.on("connect", () => {
+        expect(client.connected).toBeTruthy();
+        client.disconnect();
+        done();
+      });
     });
 
-    describe("Express Server", () => {
-        it("should return a success message on GET /", async () => {
-            const response = await request(httpServer).get("/");
-            expect(response.status).toBe(200);
-            expect(response.text).toBe("Socket.io server is running");
-        });
+    it("should handle multiple client connections", (done) => {
+      const client1 = Client("http://localhost:3001");
+      const client2 = Client("http://localhost:3001");
 
-        it("should return 404 for unknown routes", async () => {
-            const response = await request(httpServer).get("/unknown");
-            expect(response.status).toBe(404);
-        });
+      let connectedClients = 0;
+
+      const checkConnections = () => {
+        connectedClients++;
+        if (connectedClients === 2) {
+          client1.disconnect();
+          client2.disconnect();
+          done();
+        }
+      };
+
+      client1.on("connect", checkConnections);
+      client2.on("connect", checkConnections);
     });
 
-    describe("Socket.io Server", () => {
-        it("should allow a client to connect and receive a welcome message", (done) => {
-            const client = Client("http://localhost:3001");
+    it("should handle client disconnection", (done) => {
+      const client = Client("http://localhost:3001");
 
-            client.on("connect", () => {
-                expect(client.connected).toBeTruthy();
-                client.disconnect();
-                done();
-            });
-        });
+      client.on("connect", () => {
+        expect(client.connected).toBeTruthy();
+        client.disconnect();
+      });
 
-        it("should handle multiple client connections", (done) => {
-            const client1 = Client("http://localhost:3001");
-            const client2 = Client("http://localhost:3001");
-
-            let connectedClients = 0;
-
-            const checkConnections = () => {
-                connectedClients++;
-                if (connectedClients === 2) {
-                    client1.disconnect();
-                    client2.disconnect();
-                    done();
-                }
-            };
-
-            client1.on("connect", checkConnections);
-            client2.on("connect", checkConnections);
-        });
-
-        it("should handle client disconnection", (done) => {
-            const client = Client("http://localhost:3001");
-
-            client.on("connect", () => {
-                expect(client.connected).toBeTruthy();
-                client.disconnect();
-            });
-
-            client.on("disconnect", () => {
-                expect(client.connected).toBeFalsy();
-                done();
-            });
-        });
+      client.on("disconnect", () => {
+        expect(client.connected).toBeFalsy();
+        done();
+      });
     });
+  });
 });
