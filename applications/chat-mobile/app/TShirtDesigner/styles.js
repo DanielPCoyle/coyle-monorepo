@@ -35,21 +35,10 @@ export const styles = StyleSheet.create({
     height: 750,
     resizeMode: "contain",
   },
-  designImageContainer: {
-    position: "absolute",
-  },
   designImage: {
     width: 150,
     height: 150,
     resizeMode: "contain",
-  },
-  resizeIcon: {
-    position: "absolute",
-    top: -10,
-    left: -10,
-    backgroundColor: "#007AFF",
-    borderRadius: 15,
-    padding: 5,
   },
   rotateIcon: {
     position: "absolute",
@@ -105,23 +94,10 @@ export const styles = StyleSheet.create({
   designImageContainer: {
     position: "absolute",
   },
-  designImage: {
-    width: 150,
-    height: 150,
-    resizeMode: "contain",
-  },
   resizeIcon: {
     position: "absolute",
     top: -10,
     left: -10,
-    backgroundColor: "#007AFF",
-    borderRadius: 15,
-    padding: 5,
-  },
-  rotateIcon: {
-    position: "absolute",
-    bottom: -10,
-    right: -10,
     backgroundColor: "#007AFF",
     borderRadius: 15,
     padding: 5,
