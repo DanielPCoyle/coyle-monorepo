@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@coyle/database": "*",
-    "@coyle/web":"*",
+    "@coyle/web": "*",
     "@testcontainers/postgresql": "^10.14.0",
     "@types/debug": "^4.1.8",
     "axios": "^1.7.7",

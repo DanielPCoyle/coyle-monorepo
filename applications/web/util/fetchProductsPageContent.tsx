@@ -16,7 +16,6 @@ interface PageData {
   };
 }
 
-
 interface FetchProductsPageContentReturn {
   contentType: string;
   model: string;
@@ -28,7 +27,6 @@ interface FetchProductsPageContentReturn {
 export async function fetchProductsPageContent(
   slug: string,
 ): Promise<FetchProductsPageContentReturn> {
-
   return {
     contentType: "product",
     model: "symbol",

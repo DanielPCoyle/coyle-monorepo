@@ -80,12 +80,10 @@ interface PageData {
 }
 
 interface Pagination {
-   
   [key: string]: any;
 }
 
 interface ProductData {
-   
   [key: string]: any;
 }
 
@@ -172,7 +170,7 @@ const Page: React.FC<PageProps> = ({
   },
   categoryData,
 }) => {
-  console.log(">>>>>>!!!!!!",JSON.stringify(page))
+  console.log(">>>>>>!!!!!!", JSON.stringify(page));
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
   const [filters, setFilters] = React.useState([]);
@@ -293,7 +291,7 @@ const Page: React.FC<PageProps> = ({
       <React.Suspense fallback={<div>Loading...</div>}>
         {typeof window !== "undefined" && (
           <BuilderComponent
-            renderLink={(props:any) => (
+            renderLink={(props: any) => (
               <Link href={props.href as string} {...props}>
                 {props.children}
               </Link>

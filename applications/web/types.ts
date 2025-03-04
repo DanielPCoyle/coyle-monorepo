@@ -11,4 +11,3 @@ export interface Message {
   files: any[];
   replies: any[];
 }
-

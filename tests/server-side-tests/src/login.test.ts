@@ -6,7 +6,6 @@ vi.mock("jsonwebtoken");
 vi.mock("@coyle/database/db");
 
 describe("/api/auth/login", () => {
-
   it("should return 405 if method is not POST", async () => {
     const { req, res } = createMocks({
       method: "GET",

@@ -6,7 +6,7 @@ export const addReactionToMessage = async ({ reactions, messageId }) => {
   const db = getDB();
   await db
     .update(messages)
-     
+
     .set({ reactions: reactions })
     .where(eq(messages.id, messageId));
 };

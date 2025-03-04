@@ -26,14 +26,10 @@ const customStyles = {
   },
 };
 
-
-
 export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  
-
   const { username, currentConversation, socket, id, email } =
     React.useContext(ChatContext);
 

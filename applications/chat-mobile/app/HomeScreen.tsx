@@ -8,7 +8,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
 export function HomeScreen() {
@@ -23,7 +23,7 @@ export function HomeScreen() {
     if (user) {
       navigation.navigate("Conversations");
     }
-  }, [user,navigation]);
+  }, [user, navigation]);
 
   const handleWebsiteChange = (text: string) => {
     if (!text.startsWith("https://")) {
