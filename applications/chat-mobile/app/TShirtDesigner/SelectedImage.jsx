@@ -1,14 +1,14 @@
-import React, { useState, useRef } from "react";
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  PanResponder,
-  Animated,
-} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { styles } from "./styles";
 import Slider from "@react-native-community/slider";
+import React, { useRef, useState } from "react";
+import {
+  Animated,
+  Image,
+  PanResponder,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { styles } from "./styles";
 
 export const SelectedImage = ({
   selectedImages,
@@ -21,7 +21,7 @@ export const SelectedImage = ({
   killControls,
 }) => {
   const [showControls, setShowControls] = useState(false);
-  const [dragging, setDragging] = useState(false);
+  // const [dragging, setDragging] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
   const [sliderType, setSliderType] = useState("");
   const [showSlider, setShowSlider] = useState(false);
@@ -44,7 +44,7 @@ export const SelectedImage = ({
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gestureState) => {
-        setDragging(true);
+        // setDragging(true);
         // Update pan value for smooth dragging
         pan.setValue({
           x: image.x + gestureState.dx,
@@ -52,7 +52,7 @@ export const SelectedImage = ({
         });
       },
       onPanResponderRelease: () => {
-        setDragging(false);
+        // setDragging(false);
         handleLongPress(index);
         // Update the image position after drag is complete
         const newImages = [...selectedImages[view]];

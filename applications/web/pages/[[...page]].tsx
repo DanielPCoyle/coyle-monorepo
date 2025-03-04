@@ -23,18 +23,69 @@ builder.init(apiKey);
 
 // Type definitions for props
 interface BlogData {
-  [key: string]: any;
+  id: string;
+  name: string;
+  createdDate: number;
+  modelId: string;
+  data: {
+    title: string;
+    featuredImage: string;
+    body: string;
+    slug: string;
+    tags: string[];
+    tagLine: string;
+    seo: {
+      titleTag: string;
+      metaDescription: string;
+    };
+  };
+  query: { [key: string]: string }[];
+  published: string;
+  firstPublished: number;
+  rev: string;
+  readingTime: string;
 }
 
 interface PageData {
-  [key: string]: any;
+  query: any[];
+  folders: any[];
+  createdDate: number;
+  id: string;
+  name: string;
+  modelId: string;
+  published: string;
+  meta: {
+    hasLinks: boolean;
+    lastPreviewUrl: string;
+    kind: string;
+  };
+  data: {
+    inputs: any[];
+    blocks: any[];
+    state: {
+      deviceSize: string;
+      location: {
+        path: string;
+        query: { [key: string]: any };
+      };
+    };
+  };
+  variations: { [key: string]: any };
+  lastUpdated: number;
+  firstPublished: number;
+  testRatio: number;
+  createdBy: string;
+  lastUpdatedBy: string;
+  rev: string;
 }
 
 interface Pagination {
+   
   [key: string]: any;
 }
 
 interface ProductData {
+   
   [key: string]: any;
 }
 
@@ -121,6 +172,7 @@ const Page: React.FC<PageProps> = ({
   },
   categoryData,
 }) => {
+  console.log(">>>>>>!!!!!!",JSON.stringify(page))
   const router = useRouter();
   const isPreviewing = useIsPreviewing();
   const [filters, setFilters] = React.useState([]);
@@ -241,7 +293,7 @@ const Page: React.FC<PageProps> = ({
       <React.Suspense fallback={<div>Loading...</div>}>
         {typeof window !== "undefined" && (
           <BuilderComponent
-            renderLink={(props) => (
+            renderLink={(props:any) => (
               <Link href={props.href as string} {...props}>
                 {props.children}
               </Link>

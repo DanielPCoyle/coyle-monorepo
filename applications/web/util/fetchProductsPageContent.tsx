@@ -1,5 +1,4 @@
 import builder from "@builder.io/react";
-import { fetchFacets } from "./fetchFacets";
 
 interface SEO {
   title: string | null;
@@ -17,23 +16,18 @@ interface PageData {
   };
 }
 
-interface Facet {
-  // Define the structure of a facet
-}
 
 interface FetchProductsPageContentReturn {
   contentType: string;
   model: string;
   page: PageData | null;
   seo: SEO;
-  facets: Facet[];
 }
 
 // Fetch content for `/products/` URLs
 export async function fetchProductsPageContent(
   slug: string,
 ): Promise<FetchProductsPageContentReturn> {
-  const facets = await fetchFacets(null);
 
   return {
     contentType: "product",
@@ -48,7 +42,6 @@ export async function fetchProductsPageContent(
       image: "",
       url: `https://philadelphiascreenprinting.com/products/${slug}`,
     },
-    facets,
   };
 }
 

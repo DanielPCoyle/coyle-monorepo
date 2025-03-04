@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import { ChatControls } from "../../ChatControls";
 
+import type { Message as MessageType } from "../../../../types";
 import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
 import { MessageContext } from "./MessageContext";
@@ -25,10 +26,14 @@ const customStyles = {
   },
 };
 
-export const Message: React.FC<{ message: any; index: number }> = ({
+
+
+export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
+  
+
   const { username, currentConversation, socket, id, email } =
     React.useContext(ChatContext);
 
@@ -192,7 +197,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
             <MessageContent />
             {message.replies && (
               <div>
-                {message.replies.map((reply: any, index: number) => (
+                {message.replies.map((reply: MessageType, index: number) => (
                   <div key={index}>
                     <MessageContext.Provider
                       value={{
