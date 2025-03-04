@@ -3,7 +3,6 @@ import http from "http";
 import { Server, Socket } from "socket.io";
 import { handleConnection } from "./handleConnection";
 
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {

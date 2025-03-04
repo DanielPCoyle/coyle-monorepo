@@ -23,7 +23,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
     >
       <div className="reactions">
         {Object.keys(reactions).map((key) =>
-          Object.values(reactions[key]).map((emoji:string, idx:number) => (
+          Object.values(reactions[key]).map((emoji: string, idx: number) => (
             <span
               onClick={() => {
                 if (key === email) {

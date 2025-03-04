@@ -35,7 +35,7 @@ export default async function handler(
     };
 
     await db.insert(users).values(insertData).returning();
-    
+
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error("Error creating user:", error.message);
