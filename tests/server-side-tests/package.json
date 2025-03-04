@@ -8,7 +8,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "types": "tsc --noEmit",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --check ."
   },
   "dependencies": {
     "@coyle/database": "*",

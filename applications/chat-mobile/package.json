@@ -11,7 +11,7 @@
     "test": "jest",
     "lint": "expo lint",
     "types": "tsc --noEmit",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --check ."
   },
   "jest": {
     "preset": "jest-expo"

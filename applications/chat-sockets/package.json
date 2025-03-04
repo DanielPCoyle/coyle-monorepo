@@ -18,7 +18,7 @@
     "lint": "eslint . --ext .ts",
     "test": "vitest run",
     "types": "tsc --noEmit",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --check ."
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

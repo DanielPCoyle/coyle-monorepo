@@ -10,7 +10,7 @@
     "lint": "eslint . --fix",
     "test": "vitest run",
     "types": "tsc --noEmit",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --check ."
   },
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
