@@ -1,5 +1,4 @@
 import { sql } from "drizzle-orm";
-import pgPkg from "pg";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { explainAnalyze, getDB, getPool } from "../db";
 
@@ -14,7 +13,6 @@ vi.mock("pg", () => {
   return { Pool, default: { Pool } };
 });
 
-const MockPool = pgPkg.Pool;
 
 describe("Database Utility Functions", () => {
   beforeAll(() => {
