@@ -1,6 +1,6 @@
-import { getDB } from '@coyle/database';
-import { conversations } from '@coyle/database/schema';
-import { eq } from 'drizzle-orm';
+import { getDB } from "@coyle/database";
+import { conversations } from "@coyle/database/schema";
+import { eq } from "drizzle-orm";
 
 interface AddConversationParams {
   name: string;
@@ -14,7 +14,10 @@ export async function addConversation({
   conversationKey,
 }: AddConversationParams): Promise<void> {
   const db = getDB();
-  const existingData = await db.select().from(conversations).where(eq(conversations.conversationKey, conversationKey));
+  const existingData = await db
+    .select()
+    .from(conversations)
+    .where(eq(conversations.conversationKey, conversationKey));
   if (existingData.length > 0) {
     return;
   }

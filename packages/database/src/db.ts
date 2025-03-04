@@ -1,14 +1,14 @@
-import 'dotenv/config';
-import type { SQLWrapper } from 'drizzle-orm';
-import { sql } from 'drizzle-orm';
-import type { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { drizzle } from 'drizzle-orm/node-postgres';
-import pgPkg from 'pg';
-import * as schema from '../schema';
+import "dotenv/config";
+import type { SQLWrapper } from "drizzle-orm";
+import { sql } from "drizzle-orm";
+import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/node-postgres";
+import pgPkg from "pg";
+import * as schema from "../schema";
 
 const { Pool } = pgPkg;
 
-export { eq } from 'drizzle-orm';
+export { eq } from "drizzle-orm";
 
 export type AdminDb = NodePgDatabase<typeof schema>;
 
@@ -16,7 +16,7 @@ let pool: any;
 export function getPool(): any {
   if (!pool) {
     const poolLimit = Number(process.env.DB_POOL_LIMIT ?? 10);
-   
+
     pool = new Pool({
       host: process.env.DB_HOST!,
       port: Number(process.env.DB_PORT!),
@@ -45,17 +45,16 @@ export function getDB(): AdminDb {
 }
 
 export async function explainAnalyze<Q extends SQLWrapper>(
-  query: Q
+  query: Q,
 ): Promise<Q> {
   const debugResult = await getDB().execute(
-    sql`EXPLAIN ANALYZE ${query.getSQL()}`
+    sql`EXPLAIN ANALYZE ${query.getSQL()}`,
   );
 
-   
   console.debug(
     debugResult.rows
-      .reduce((plan, row) => `${plan}\n${row['QUERY PLAN']}`, '')
-      .trim()
+      .reduce((plan, row) => `${plan}\n${row["QUERY PLAN"]}`, "")
+      .trim(),
   );
 
   return query;

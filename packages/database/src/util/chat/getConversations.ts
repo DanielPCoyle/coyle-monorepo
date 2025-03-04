@@ -1,5 +1,5 @@
-import { getDB } from '@coyle/database';
-import { conversations } from '@coyle/database/schema';
+import { getDB } from "@coyle/database";
+import { conversations } from "@coyle/database/schema";
 
 interface Conversation {
   id: number;

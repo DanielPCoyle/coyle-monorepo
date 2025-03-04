@@ -1,8 +1,14 @@
-import React, { useState, useRef } from 'react';
-import { View, Image, TouchableOpacity, PanResponder, Animated } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { styles } from './styles';
-import Slider from '@react-native-community/slider';
+import React, { useState, useRef } from "react";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  PanResponder,
+  Animated,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { styles } from "./styles";
+import Slider from "@react-native-community/slider";
 
 export const SelectedImage = ({
   selectedImages,
@@ -17,18 +23,14 @@ export const SelectedImage = ({
   const [showControls, setShowControls] = useState(false);
   const [dragging, setDragging] = useState(false);
   const [sliderValue, setSliderValue] = useState(1);
-  const [sliderType, setSliderType] = useState('');
+  const [sliderType, setSliderType] = useState("");
   const [showSlider, setShowSlider] = useState(false);
-
-
-
-  
 
   const handleSliderChange = (value) => {
     const newImages = [...selectedImages[view]];
-    if (sliderType === 'resize') {
+    if (sliderType === "resize") {
       newImages[selectedImageIndex].scale = value;
-    } else if (sliderType === 'rotate') {
+    } else if (sliderType === "rotate") {
       newImages[selectedImageIndex].rotate = value;
     }
     setSelectedImages({ ...selectedImages, [view]: newImages });
@@ -44,7 +46,10 @@ export const SelectedImage = ({
       onPanResponderMove: (event, gestureState) => {
         setDragging(true);
         // Update pan value for smooth dragging
-        pan.setValue({ x: image.x + gestureState.dx, y: image.y + gestureState.dy });
+        pan.setValue({
+          x: image.x + gestureState.dx,
+          y: image.y + gestureState.dy,
+        });
       },
       onPanResponderRelease: () => {
         setDragging(false);
@@ -58,17 +63,17 @@ export const SelectedImage = ({
         };
         setSelectedImages({ ...selectedImages, [view]: newImages });
       },
-    })
+    }),
   ).current;
 
   const showResizeSlider = () => {
-    setSliderType('resize');
+    setSliderType("resize");
     setSliderValue(selectedImages[view][selectedImageIndex].scale);
     setShowSlider(true);
   };
 
   const showRotateSlider = () => {
-    setSliderType('rotate');
+    setSliderType("rotate");
     setSliderValue(selectedImages[view][selectedImageIndex].rotate);
     setShowSlider(true);
   };
@@ -102,45 +107,53 @@ export const SelectedImage = ({
           },
         ]}
       >
-        <Image
-          source={{ uri: image.uri }}
-          style={styles.designImage}
-        />
+        <Image source={{ uri: image.uri }} style={styles.designImage} />
         {showControls && selectedImageIndex === index && (
-        <>
-          <TouchableOpacity style={styles.resizeIcon} onPress={showResizeSlider}>
-            <Ionicons name="resize" size={24} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.rotateIcon} onPress={showRotateSlider}>
-            <Ionicons name="refresh" size={24} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.pencilIcon} onPress={() => { /* Add your edit functionality here */ }}>
-            <Ionicons name="pencil" size={24} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.closeIcon} onPress={handleRemoveImage}>
-            <Ionicons name="close" size={24} color="#fff" />
-          </TouchableOpacity>
-
-        
-        </>
-      )}
+          <>
+            <TouchableOpacity
+              style={styles.resizeIcon}
+              onPress={showResizeSlider}
+            >
+              <Ionicons name="resize" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.rotateIcon}
+              onPress={showRotateSlider}
+            >
+              <Ionicons name="refresh" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.pencilIcon}
+              onPress={() => {
+                /* Add your edit functionality here */
+              }}
+            >
+              <Ionicons name="pencil" size={24} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.closeIcon}
+              onPress={handleRemoveImage}
+            >
+              <Ionicons name="close" size={24} color="#fff" />
+            </TouchableOpacity>
+          </>
+        )}
       </Animated.View>
       {showSlider && (
         <View style={styles.sliderContainer}>
-            <Ionicons
-                name={sliderType === 'resize' ? 'resize' : 'refresh'}
-                size={24}
-                color="#fff"
-                style={styles.sliderIcon}
-            />
+          <Ionicons
+            name={sliderType === "resize" ? "resize" : "refresh"}
+            size={24}
+            color="#fff"
+            style={styles.sliderIcon}
+          />
           <Slider
             style={styles.slider}
-            minimumValue={sliderType === 'resize' ? 0.5 : 0}
-            maximumValue={sliderType === 'resize' ? 2 : 360}
+            minimumValue={sliderType === "resize" ? 0.5 : 0}
+            maximumValue={sliderType === "resize" ? 2 : 360}
             value={sliderValue}
             onValueChange={handleSliderChange}
             thumbTintColor="blue"
-
           />
         </View>
       )}

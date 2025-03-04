@@ -1,22 +1,26 @@
-import React, { useRef } from 'react';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import 'react-native-reanimated';
+import React, { useRef } from "react";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
+import "react-native-reanimated";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { ConversationsScreen } from './ConversationsScreen';
-import { HomeScreen } from './HomeScreen';
-import { AppContext } from '@/context/AppContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { ConversationsScreen } from "./ConversationsScreen";
+import { HomeScreen } from "./HomeScreen";
+import { AppContext } from "@/context/AppContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { io } from "socket.io-client";
-import { ChatScreen } from './ChatScreen';
-import { StyleSheet } from 'react-native';
-import { DesignScreen } from './DesignScreen';
+import { ChatScreen } from "./ChatScreen";
+import { StyleSheet } from "react-native";
+import { DesignScreen } from "./DesignScreen";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -31,25 +35,24 @@ export default function RootLayout() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const storedUser = await AsyncStorage.getItem('user');
+        const storedUser = await AsyncStorage.getItem("user");
         if (storedUser) {
           const parsedUser = JSON.parse(storedUser);
           setUser(parsedUser);
-          socketRef.current = io(parsedUser.website,{
+          socketRef.current = io(parsedUser.website, {
             path: "/api/socket",
-        });
+          });
         }
       } catch (error) {
-        console.error('Failed to load user from AsyncStorage', error);
+        console.error("Failed to load user from AsyncStorage", error);
       }
     };
-
 
     fetchUser();
   }, []);
 
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -63,32 +66,36 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AppContext.Provider value={{ user, setUser }}>
-        <Drawer.Navigator initialRouteName={user ? "ConversationsStack" : "Home"}>
-          {!user && <Drawer.Screen 
-            name="Home" 
-            component={HomeScreen} 
-            options={{ headerShown: false }} 
-          /> }
-          <Drawer.Screen 
-            name="ConversationsStack" 
-            component={ConversationsStack} 
-            options={{ title: 'Chat' }} 
+        <Drawer.Navigator
+          initialRouteName={user ? "ConversationsStack" : "Home"}
+        >
+          {!user && (
+            <Drawer.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+          )}
+          <Drawer.Screen
+            name="ConversationsStack"
+            component={ConversationsStack}
+            options={{ title: "Chat" }}
           />
-          <Drawer.Screen 
-            name="Sign Out" 
+          <Drawer.Screen
+            name="Sign Out"
             component={() => {
               useEffect(() => {
                 const signOut = async () => {
-                  await AsyncStorage.removeItem('user');
+                  await AsyncStorage.removeItem("user");
                   setUser(null);
                 };
                 signOut();
               }, []);
               return null;
-            }} 
-            options={{ title: 'Sign Out' }} 
+            }}
+            options={{ title: "Sign Out" }}
           />
         </Drawer.Navigator>
         <StatusBar style="auto" />
@@ -100,24 +107,21 @@ export default function RootLayout() {
 function ConversationsStack() {
   return (
     <Stack.Navigator initialRouteName="Conversations">
-      <Stack.Screen 
-        name="Conversations" 
-        component={ConversationsScreen} 
+      <Stack.Screen
+        name="Conversations"
+        component={ConversationsScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen 
-        name="Chat" 
-        component={ChatScreen} 
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen 
-        name="Design" 
-        component={DesignScreen} 
+      <Stack.Screen
+        name="Design"
+        component={DesignScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
 }
-
-
-

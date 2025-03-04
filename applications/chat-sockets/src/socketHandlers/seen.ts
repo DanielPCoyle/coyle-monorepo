@@ -9,5 +9,3 @@ export const seen = ({ socket, io, conversations }) =>
       console.log("ERROR UPDATING SEEN RECORD", error);
     }
   });
-
-
