@@ -17,7 +17,7 @@ interface PersonOnSite {
 export function handleConnection(
   socket: Socket,
   io: Server,
-  conversations: any[],
+  conversations: unknown[],
   peopleOnSite: PersonOnSite[],
 ) {
   peopleOnSite.push({ socketId: socket.id });

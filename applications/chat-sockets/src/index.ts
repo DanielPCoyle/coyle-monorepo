@@ -14,7 +14,7 @@ const io = new Server(server, {
 
 // Express route
 app.get("/", (req: Request, res: Response) => {
-  void req; // to avoid 'req' is declared but its value is never read
+  void req; 
   res.send("Socket.io server is running");
 });
 

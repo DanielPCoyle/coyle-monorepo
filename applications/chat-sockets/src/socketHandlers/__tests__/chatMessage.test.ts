@@ -8,7 +8,7 @@ vi.mock("@coyle/database");
 describe("chatMessage handler", () => {
   let socket: Socket;
   let io: Server;
-  let conversations: any;
+  let conversations: unknown[];
 
   beforeEach(() => {
     socket = {

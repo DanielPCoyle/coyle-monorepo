@@ -14,7 +14,7 @@ describe("/api/auth/login", () => {
       method: "GET",
     });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(405);
     expect(res._getJSONData()).toEqual({ error: "Method Not Allowed" });
@@ -26,7 +26,7 @@ describe("/api/auth/login", () => {
       body: {},
     });
 
-    await handler(req, res);
+    await handler(req as any, res as any);
 
     expect(res._getStatusCode()).toBe(400);
     expect(res._getJSONData()).toEqual({

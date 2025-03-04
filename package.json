@@ -26,6 +26,15 @@
     "prettier": "yarn workspaces run prettier"
   },
   "workspaces": {
-    "packages": ["applications/*", "packages/*", "tests/*"]
+    "packages": [
+      "applications/*",
+      "packages/*",
+      "tests/*"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0"
   }
 }
