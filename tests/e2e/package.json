@@ -1,5 +1,5 @@
 {
-  "name": "@coyle/server-side-tests",
+  "name": "@coyle/e2e-tests",
   "version": "1.0.0",
   "private": true,
   "type": "module",
