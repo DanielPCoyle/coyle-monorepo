@@ -1,10 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import {
-  Editor,
-  EditorState,
-  Modifier,
-  RichUtils
-} from "draft-js";
+import { Editor, EditorState, Modifier, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import "draft-js/dist/Draft.css";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -16,13 +11,12 @@ import { Thumbnail } from "./Thumbnail";
 
 // Initialize Supabase client
 
- 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
- 
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-const supabase = createClient( supabaseUrl, supabaseAnonKey );
 
-export const ChatControls = ({ replyId } : { replyId:number }) => {
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export const ChatControls = ({ replyId }: { replyId: number }) => {
   const {
     currentConversation,
     socket,
@@ -151,7 +145,7 @@ export const ChatControls = ({ replyId } : { replyId:number }) => {
       <div className="inputContainer">
         {files.length > 0 && (
           <div className="thumbnails">
-            {files.map((file:File, index:number) => (
+            {files.map((file: File, index: number) => (
               <Thumbnail
                 key={index}
                 index={index}

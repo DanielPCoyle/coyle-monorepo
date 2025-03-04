@@ -15,16 +15,16 @@ export default async function handler(
   }
 
   const { email, password } = req.body;
-  
+
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
   }
-  
+
   try {
     const db = getDB();
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    
+
     // Insert user into the database
     const insertData = {
       id: uuidv4(),
@@ -34,17 +34,12 @@ export default async function handler(
       role: "user",
     };
 
-    const [newUser] = await db
-      .insert(users)
-      .values(insertData)
-      .returning();
+    const [newUser] = await db.insert(users).values(insertData).returning();
 
-    return res
-      .status(201)
-      .json({ message: "User created successfully" });
+    return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error("Error creating user:", error.message);
-    
+
     return res.status(500).json({ error: error.message });
   }
 }

@@ -154,18 +154,20 @@ export default function Chat() {
     socket.on("chat message", (message) => {
       setMessages((prev) => {
         const newMessages = [...prev];
-        
+
         if (message.parentId) {
-          const parentMessage = newMessages.find((msg) => msg.id === message.parentId);
+          const parentMessage = newMessages.find(
+            (msg) => msg.id === message.parentId,
+          );
           if (parentMessage) {
             parentMessage.replies = parentMessage.replies || [];
             parentMessage.replies.push(message);
             parentMessage.replies = parentMessage.replies.filter(
               (reply, index, self) =>
-              index === self.findIndex((r) => r.id === reply.id)
+                index === self.findIndex((r) => r.id === reply.id),
             );
           }
-        } 
+        }
         newMessages.push(message);
         const uniqueMessages = newMessages.filter(
           (msg, index, self) =>

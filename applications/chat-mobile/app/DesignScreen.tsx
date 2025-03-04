@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TShirtDesigner } from './TShirtDesigner';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { TShirtDesigner } from "./TShirtDesigner";
 
 export const DesignScreen = () => {
   return (
@@ -13,7 +13,6 @@ export const DesignScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 });
-

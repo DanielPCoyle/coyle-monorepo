@@ -5,15 +5,17 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
+    "@coyle/database": "*",
     "drizzle-orm": "^0.40.0",
-    "pg": "^8.13.3",
-    "@coyle/database": "*"
+    "pg": "^8.13.3"
   },
   "scripts": {
     "create-migration": "npx drizzle-kit generate --schema=./schema.ts --dialect=postgresql",
     "migrate": "npx drizzle-kit migrate",
     "test": "vitest run",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "types": "tsc --noEmit",
+    "prettier": "prettier --check ."
   },
   "devDependencies": {
     "@babel/core": "^7.26.9",
@@ -21,6 +23,7 @@
     "babel-loader": "^10.0.0",
     "eslint": "^9.21.0",
     "globals": "^16.0.0",
+    "prettier": "^3.5.3",
     "ts-loader": "^9.5.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.26.0",
@@ -29,7 +32,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"]
+      "@src/*": [
+        "src/*"
+      ]
     }
   }
 }

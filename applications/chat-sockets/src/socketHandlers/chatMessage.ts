@@ -1,35 +1,32 @@
 import { getConversationIdByKey, insertMessage } from "@coyle/database";
 
-export const chatMessage = ({ socket, io, conversations }) => socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
-  try {
+export const chatMessage = ({ socket, io, conversations }) =>
+  socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
+    try {
+      const conversationId = await getConversationIdByKey(id);
+      const formattedMessage = message.replace(/\n/g, "<br/>");
 
-    const conversationId = await getConversationIdByKey(id)
-    const formattedMessage = message.replace(/\n/g, "<br/>");
+      const insert = {
+        sender,
+        message: formattedMessage,
+        conversationId: conversationId,
+        parentId: replyId,
+        files,
+        seen: false,
+      };
 
-    const insert = {
-      sender,
-      message: formattedMessage,
-      conversationId: conversationId,
-      parentId: replyId,
-      files,
-      seen: false,
-    };
+      const data = await insertMessage(insert);
 
-    const data = await insertMessage(insert);
+      io.to(id).emit("chat message", {
+        sender,
+        message: formattedMessage,
+        id: data.id,
+        parentId: replyId,
+        files,
+      });
 
-    io.to(id).emit("chat message", {
-      sender,
-      message: formattedMessage,
-      id: data.id,
-      parentId: replyId,
-      files,
-    });
-
-    io.emit("conversations", conversations); // Update clients
-  } catch (error) {
-    console.log({ error });
-  }
-});
-
-
-
+      io.emit("conversations", conversations); // Update clients
+    } catch (error) {
+      console.log({ error });
+    }
+  });

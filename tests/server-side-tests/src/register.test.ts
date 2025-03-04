@@ -1,5 +1,5 @@
 import { getDB } from "@coyle/database/src/db";
-import handler from '@coyle/web/pages/api/auth/register';
+import handler from "@coyle/web/pages/api/auth/register";
 import { createMocks } from "node-mocks-http";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -7,7 +7,8 @@ vi.mock("@coyle/database/src/db", () => ({
   getDB: vi.fn().mockReturnValue({
     insert: () => ({
       values: () => ({
-        returning: () => Promise.resolve([{ id: "123", email: "test@example.com" }]),
+        returning: () =>
+          Promise.resolve([{ id: "123", email: "test@example.com" }]),
       }),
     }),
   }),
@@ -36,29 +37,40 @@ describe("POST /api/auth/register", () => {
   });
 
   it("returns 400 if  password is missing", async () => {
-    const { req, res } = createMocks({ method: "POST", body: {email:"abc@test.com"} });
+    const { req, res } = createMocks({
+      method: "POST",
+      body: { email: "abc@test.com" },
+    });
 
     await handler(req, res);
 
     expect(res._getStatusCode()).toBe(400);
-    expect(res._getJSONData()).toEqual({ error: "Email and password are required" });
+    expect(res._getJSONData()).toEqual({
+      error: "Email and password are required",
+    });
   });
 
-
-    it("returns 400 if email is missing", async () => {
-      const { req, res } = createMocks({ method: "POST", body: {password:"321password!@"} });
-  
-      await handler(req, res);
-  
-      expect(res._getStatusCode()).toBe(400);
-      expect(res._getJSONData()).toEqual({ error: "Email and password are required" });
+  it("returns 400 if email is missing", async () => {
+    const { req, res } = createMocks({
+      method: "POST",
+      body: { password: "321password!@" },
     });
+
+    await handler(req, res);
+
+    expect(res._getStatusCode()).toBe(400);
+    expect(res._getJSONData()).toEqual({
+      error: "Email and password are required",
+    });
+  });
 
   it("creates a user and returns 201", async () => {
     const mockDB = {
       insert: vi.fn().mockReturnValue({
         values: vi.fn().mockReturnValue({
-          returning: vi.fn().mockResolvedValue([{ id: "123", email: "test@example.com" }]),
+          returning: vi
+            .fn()
+            .mockResolvedValue([{ id: "123", email: "test@example.com" }]),
         }),
       }),
     };
@@ -74,7 +86,9 @@ describe("POST /api/auth/register", () => {
     await handler(req, res);
 
     expect(res._getStatusCode()).toBe(201);
-    expect(res._getJSONData()).toEqual({ message: "User created successfully" });
+    expect(res._getJSONData()).toEqual({
+      message: "User created successfully",
+    });
     expect(mockDB.insert).toHaveBeenCalled();
   });
 

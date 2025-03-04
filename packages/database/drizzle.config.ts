@@ -1,15 +1,15 @@
-import 'dotenv/config';
+import "dotenv/config";
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { defineConfig } from 'drizzle-kit';
-import { resolve } from 'path';
+import { defineConfig } from "drizzle-kit";
+import { resolve } from "path";
 
 // eslint-disable-next-line import/no-default-export
 export default defineConfig({
-  dialect: 'postgresql',
+  dialect: "postgresql",
 
-  out: resolve(__dirname, './drizzle'),
-  schema: resolve(__dirname, './schema.ts'),
+  out: resolve(__dirname, "./drizzle"),
+  schema: resolve(__dirname, "./schema.ts"),
 
   dbCredentials: {
     host: process.env.DB_HOST!,
@@ -17,7 +17,7 @@ export default defineConfig({
     user: process.env.DB_USERNAME!,
     password: process.env.DB_PASSWORD!,
     database: process.env.DB_NAME!,
-    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
+    ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : false,
   },
 
   // Print all statements

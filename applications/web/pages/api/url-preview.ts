@@ -34,12 +34,10 @@ export default async function handler(
       };
       res.status(200).json(metadata);
     } catch (error) {
-      res
-        .status(500)
-        .json({
-          error: "Failed to fetch metadata",
-          details: (error as Error).message,
-        });
+      res.status(500).json({
+        error: "Failed to fetch metadata",
+        details: (error as Error).message,
+      });
     }
   } else {
     res.status(405).json({ error: "Method not allowed" });

@@ -10,7 +10,6 @@ import { seen } from "./socketHandlers/seen.js";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction.js";
 import { userTyping } from "./socketHandlers/userTyping.js";
 
-
 interface PersonOnSite {
   socketId: string;
   [key: string]: string | number | boolean;
@@ -20,28 +19,22 @@ export function handleConnection(
   socket: Socket,
   io: Server,
   conversations: any[],
-  peopleOnSite: PersonOnSite[]) {
+  peopleOnSite: PersonOnSite[],
+) {
   const db = getDB() as any;
   peopleOnSite.push({ socketId: socket.id });
   io.emit("peopleOnSite", peopleOnSite);
   let typingTimeout: NodeJS.Timeout;
 
-  login({socket,io,conversations})
-  join({socket,io})
-  leave({socket})
-  chatMessage({socket,io,conversations})
-  addReaction({socket,io});
-  updateMessageAction({socket,io})
-  userTyping({socket,io,typingTimeout})
-  seen({socket,io, conversations})
-  disconnect({socket,io,peopleOnSite,conversations,})
-  
+  login({ socket, io, conversations });
+  join({ socket, io });
+  leave({ socket });
+  chatMessage({ socket, io, conversations });
+  addReaction({ socket, io });
+  updateMessageAction({ socket, io });
+  userTyping({ socket, io, typingTimeout });
+  seen({ socket, io, conversations });
+  disconnect({ socket, io, peopleOnSite, conversations });
 }
 
-
 export default handleConnection;
-
-
-
-
-

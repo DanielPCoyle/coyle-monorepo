@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, TextInput, PanResponder, Alert } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import { Ionicons } from '@expo/vector-icons';
-import { ViewButtons } from './ViewButtons';
-import { SelectedImage } from './SelectedImage';
-import { styles } from './styles';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  TextInput,
+  PanResponder,
+  Alert,
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
+import { ViewButtons } from "./ViewButtons";
+import { SelectedImage } from "./SelectedImage";
+import { styles } from "./styles";
 
 export const TShirtDesigner = () => {
-  const [selectedImages, setSelectedImages] = useState({ front: [], back: [], left: [], right: [] });
-  const [text, setText] = useState('');
-  const [view, setView] = useState('front');
+  const [selectedImages, setSelectedImages] = useState({
+    front: [],
+    back: [],
+    left: [],
+    right: [],
+  });
+  const [text, setText] = useState("");
+  const [view, setView] = useState("front");
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
-  
-
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -25,7 +36,10 @@ export const TShirtDesigner = () => {
     if (!result.cancelled) {
       setSelectedImages({
         ...selectedImages,
-        [view]: [...selectedImages[view], { uri: result.assets[0].uri, x: 0, y: 0, scale: 1, rotate: 0 }],
+        [view]: [
+          ...selectedImages[view],
+          { uri: result.assets[0].uri, x: 0, y: 0, scale: 1, rotate: 0 },
+        ],
       });
     }
   };
@@ -40,48 +54,45 @@ export const TShirtDesigner = () => {
     if (!result.cancelled) {
       setSelectedImages({
         ...selectedImages,
-        [view]: [...selectedImages[view], { uri: result.assets[0].uri, x: 0, y: 0, scale: 1, rotate: 0 }],
+        [view]: [
+          ...selectedImages[view],
+          { uri: result.assets[0].uri, x: 0, y: 0, scale: 1, rotate: 0 },
+        ],
       });
     }
   };
 
-
- 
-
- 
-
   const renderTShirtImage = () => {
     switch (view) {
-      case 'front':
-        return require('../../assets/images/shirt.jpg');
-      case 'back':
-        return require('../../assets/images/shirt.jpg');
-      case 'left':
-        return require('../../assets/images/shirt.jpg');
-      case 'right':
-        return require('../../assets/images/shirt.jpg');
+      case "front":
+        return require("../../assets/images/shirt.jpg");
+      case "back":
+        return require("../../assets/images/shirt.jpg");
+      case "left":
+        return require("../../assets/images/shirt.jpg");
+      case "right":
+        return require("../../assets/images/shirt.jpg");
       default:
-        return require('../../assets/images/shirt.jpg');
+        return require("../../assets/images/shirt.jpg");
     }
   };
 
   return (
     <View style={styles.container}>
-    <ViewButtons setView={setView} />
+      <ViewButtons setView={setView} />
       <View style={styles.tshirtContainer}>
         <Image source={renderTShirtImage()} style={styles.tshirtImage} />
-        {selectedImages[view].map((image,index) => (
-            <SelectedImage 
+        {selectedImages[view].map((image, index) => (
+          <SelectedImage
             key={index}
-            image={image} 
-            index={index} 
-            selectedImages={selectedImages} 
+            image={image}
+            index={index}
+            selectedImages={selectedImages}
             selectedImageIndex={selectedImageIndex}
-            
             view={view}
             setSelectedImageIndex={setSelectedImageIndex}
             setSelectedImages={setSelectedImages}
-             />
+          />
         ))}
         <Text style={styles.designText}>{text}</Text>
       </View>
@@ -99,8 +110,6 @@ export const TShirtDesigner = () => {
           onChangeText={setText}
         />
       </View>
-     
     </View>
   );
 };
-
