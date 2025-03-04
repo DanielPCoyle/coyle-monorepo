@@ -59,43 +59,41 @@ describe("Socket.io Server", () => {
     });
   });
 
- 
+  it("should return 404 for unknown routes", async () => {
+    const response = await request(httpServer).get("/unknown");
+    expect(response.status).toBe(404);
+  });
+});
 
-    it("should return 404 for unknown routes", async () => {
-      const response = await request(httpServer).get("/unknown");
-      expect(response.status).toBe(404);
-    });
+it("should handle multiple client connections", (done) => {
+  const client1 = Client("http://localhost:3002");
+  const client2 = Client("http://localhost:3002");
+
+  let connectedClients = 0;
+
+  const checkConnections = () => {
+    connectedClients++;
+    if (connectedClients === 2) {
+      client1.disconnect();
+      client2.disconnect();
+      done();
+    }
+  };
+
+  client1.on("connect", checkConnections);
+  client2.on("connect", checkConnections);
+});
+
+it("should handle client disconnection", (done) => {
+  const client = Client("http://localhost:3002");
+
+  client.on("connect", () => {
+    expect(client.connected).toBeTruthy();
+    client.disconnect();
   });
 
-    it("should handle multiple client connections", (done) => {
-      const client1 = Client("http://localhost:3002");
-      const client2 = Client("http://localhost:3002");
-
-      let connectedClients = 0;
-
-      const checkConnections = () => {
-        connectedClients++;
-        if (connectedClients === 2) {
-          client1.disconnect();
-          client2.disconnect();
-          done();
-        }
-      };
-
-      client1.on("connect", checkConnections);
-      client2.on("connect", checkConnections);
-    });
-
-    it("should handle client disconnection", (done) => {
-      const client = Client("http://localhost:3002");
-
-      client.on("connect", () => {
-        expect(client.connected).toBeTruthy();
-        client.disconnect();
-      });
-
-      client.on("disconnect", () => {
-        expect(client.connected).toBeFalsy();
-        done();
-      });
-    });
+  client.on("disconnect", () => {
+    expect(client.connected).toBeFalsy();
+    done();
+  });
+});
