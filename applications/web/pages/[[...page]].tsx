@@ -18,7 +18,6 @@ import { fetchProductsPageContent } from "../util/fetchProductsPageContent";
 import "../components/builder-registry"; // Register custom components
 import { fetchProducts } from "../util/fetchProducts";
 
-
 export const apiKey = process.env.NEXT_PUBLIC_BUILDER_API_KEY!;
 builder.init(apiKey);
 
@@ -68,17 +67,17 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
   context,
 ) => {
   const { params } = context;
-  const urlPath = `/${params?.page ? (params.page as string[]).join('/') : ''}`;
-  const slug = urlPath.split('/').pop()!;
+  const urlPath = `/${params?.page ? (params.page as string[]).join("/") : ""}`;
+  const slug = urlPath.split("/").pop()!;
   const offset = 0;
   const limit = 10;
 
   let result;
-  if (urlPath === '/products') {
+  if (urlPath === "/products") {
     result = await fetchProductsPageContent(urlPath);
-  } else if (urlPath.includes('/post/')) {
+  } else if (urlPath.includes("/post/")) {
     result = await fetchPostContent(urlPath);
-  }  else {
+  } else {
     result = await fetchGeneralPageContent(urlPath, slug, offset, limit);
   }
 
@@ -88,17 +87,18 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
       urlPath,
       page: result.page || null,
       seo: result.seo || {
-        title: 'Philadelphia Screen Printing',
-        description: '',
-        keywords: '',
-        image: 'https://cdn.inksoft.com/philadelphiascreenprinting/Assets/philadelphiascreenprinting-logo.png',
+        title: "Philadelphia Screen Printing",
+        description: "",
+        keywords: "",
+        image:
+          "https://cdn.inksoft.com/philadelphiascreenprinting/Assets/philadelphiascreenprinting-logo.png",
         url: `https://philadelphiascreenprinting.com${urlPath}`,
       },
       productData: result.productData || {
-        Name: 'Default Name',
-        Sku: 'Default Sku',
-        ManufacturerSku: 'Default ManufacturerSku',
-        Manufacturer: 'Default Manufacturer',
+        Name: "Default Name",
+        Sku: "Default Sku",
+        ManufacturerSku: "Default ManufacturerSku",
+        Manufacturer: "Default Manufacturer",
         UnitPrice: 0,
       },
     },
@@ -113,10 +113,10 @@ const Page: React.FC<PageProps> = ({
   pagination,
   urlPath,
   productData = {
-    Name: 'Default Name',
-    Sku: 'Default Sku',
-    ManufacturerSku: 'Default ManufacturerSku',
-    Manufacturer: 'Default Manufacturer',
+    Name: "Default Name",
+    Sku: "Default Sku",
+    ManufacturerSku: "Default ManufacturerSku",
+    Manufacturer: "Default Manufacturer",
     UnitPrice: 0,
   },
   categoryData,

@@ -21,7 +21,8 @@
     "db:lint": "yarn workspace @coyle/database lint",
     "server:test": "yarn workspace @coyle/server-side-tests test",
     "lint": "yarn workspaces run lint",
-    "test": "yarn workspaces run test"
+    "test": "yarn workspaces run test",
+    "types": "yarn workspaces run types"
   },
   "workspaces": {
     "packages": ["applications/*", "packages/*", "tests/*"]

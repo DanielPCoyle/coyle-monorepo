@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { Range } from "react-range";
 
@@ -9,9 +9,9 @@ const PriceRange = ({ min = 0, max = 1000, step = 1, onChange }) => {
   // Handle the change in slider values
   const handleRangeChange = (values) => {
     setValues(values);
-    if(typeof onChange === "function") {
-      onChange(values); 
-    } 
+    if (typeof onChange === "function") {
+      onChange(values);
+    }
   };
 
   return (

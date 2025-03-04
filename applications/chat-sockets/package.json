@@ -16,7 +16,8 @@
     "start": "npx tsx src/index.ts",
     "dev": "nodemon index.ts",
     "lint": "eslint . --ext .ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "types": "tsc --noEmit"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

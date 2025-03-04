@@ -13,12 +13,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  let {
-    color = [],
-    category = [],
-    manufacturer = [],
-    page = 0,
-  } = req.query;
+  let { color = [], category = [], manufacturer = [], page = 0 } = req.query;
 
   const keyword = req.query.keyword || "";
 

@@ -41,19 +41,22 @@ export default async function handler(
 
   try {
     const db = getDB();
-    const result = await db.insert(getAStoreSignUps).values({
-      organizationName,
-      contactPerson,
-      email,
-      phone,
-      website,
-      storeDomain,
-      customDomain: hasCustomDomain,
-      products,
-      orderFulfillment,
-      additionalRequests,
-    }).returning()
-    .execute();
+    const result = await db
+      .insert(getAStoreSignUps)
+      .values({
+        organizationName,
+        contactPerson,
+        email,
+        phone,
+        website,
+        storeDomain,
+        customDomain: hasCustomDomain,
+        products,
+        orderFulfillment,
+        additionalRequests,
+      })
+      .returning()
+      .execute();
 
     res.status(200).json({ message: "Signup Successful", data: result });
   } catch (error) {

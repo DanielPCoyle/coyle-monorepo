@@ -12,10 +12,10 @@ export default [
   pluginReact.configs.flat.recommended,
   {
     rules: {
-      "react/react-in-jsx-scope": "off"
-    }
+      "react/react-in-jsx-scope": "off",
+    },
   },
   {
-    ignores: ["node_modules", "dist", "build", "out", "coverage", ".next"]
-  }
+    ignores: ["node_modules", "dist", "build", "out", "coverage", ".next"],
+  },
 ];

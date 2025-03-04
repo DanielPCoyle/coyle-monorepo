@@ -19,10 +19,10 @@ export const Conversation: React.FC = () => {
       <div ref={contentRef} className="messageContainer">
         <div style={{ width: "90%", margin: "auto" }}>
           {messages
-          .filter((message: MessageType) => !message.parentId)
-          .map((message: MessageType, index: number) => (
-            <Message key={index} {...{ message, username }} index={index} />
-          ))}
+            .filter((message: MessageType) => !message.parentId)
+            .map((message: MessageType, index: number) => (
+              <Message key={index} {...{ message, username }} index={index} />
+            ))}
         </div>
       </div>
     </>

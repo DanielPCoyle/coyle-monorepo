@@ -24,7 +24,11 @@ export default async function handler(
   try {
     const db = getDB();
     // Fetch the user from the database
-    const data = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    const data = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
 
     if (data.length === 0) {
       return res.status(401).json({ error: "Invalid credentials" });

@@ -1,7 +1,6 @@
 import builder from "@builder.io/react";
 import { fetchFacets } from "./fetchFacets";
 
-
 interface SEO {
   title: string | null;
   description: string;

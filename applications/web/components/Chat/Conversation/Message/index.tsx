@@ -33,7 +33,8 @@ export const Message: React.FC<{ message: any; index: number }> = ({
     React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
-  const [showReactionsPicker, setShowReactionsPicker] = useState<boolean>(false);
+  const [showReactionsPicker, setShowReactionsPicker] =
+    useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
     message.reactions || {},
@@ -41,7 +42,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
 
   useEffect(() => {
     socket.on("addReaction", (payload) => {
-      console.log({payload})
+      console.log({ payload });
       if (payload.messageId === message.id) {
         setReactions(payload.reactions);
       }
@@ -55,9 +56,9 @@ export const Message: React.FC<{ message: any; index: number }> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if(username !== message.sender && !message.seen) {
-              socket.emit("seen", message.id);
-            }
+          if (username !== message.sender && !message.seen) {
+            socket.emit("seen", message.id);
+          }
         }
       },
       { threshold: 0.1 },
@@ -99,7 +100,7 @@ export const Message: React.FC<{ message: any; index: number }> = ({
         delete newReactions[email];
       }
       setReactions(newReactions);
-      
+
       socket.emit("addReaction", {
         id,
         messageId: message.id,
@@ -158,9 +159,9 @@ export const Message: React.FC<{ message: any; index: number }> = ({
 
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-            isSender={ message.sender === username}
-            reactions={reactions}
-            removeReactions={removeReactions}
+          isSender={message.sender === username}
+          reactions={reactions}
+          removeReactions={removeReactions}
         />
       )}
 
@@ -194,22 +195,23 @@ export const Message: React.FC<{ message: any; index: number }> = ({
                 {message.replies.map((reply: any, index: number) => (
                   <div key={index}>
                     <MessageContext.Provider
-                    value={{
-                      message:reply,
-                      urlPreview,
-                      username,
-                      setShowReactionsPicker,
-                      setShowReplyModal,
-                      showReplyModal,
-                      addReaction,
-                      reactions,
-                    }}
+                      value={{
+                        message: reply,
+                        urlPreview,
+                        username,
+                        setShowReactionsPicker,
+                        setShowReplyModal,
+                        showReplyModal,
+                        addReaction,
+                        reactions,
+                      }}
                     >
                       <MessageContent />
                     </MessageContext.Provider>
                   </div>
                 ))}
-                </div> )}
+              </div>
+            )}
           </div>
           <hr />
           <div style={{ overflow: "hidden" }}>
