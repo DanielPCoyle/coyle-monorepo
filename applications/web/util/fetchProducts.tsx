@@ -23,7 +23,7 @@ export const fetchProducts = async ({
 
     const queryString = queryParams.toString();
 
-    const response = await fetch(`/api/search?${queryString}`);
+    const response = await fetch(`/api/search/search?${queryString}`);
     const data = await response.json();
     setResults(data);
     setPageNumber(data.page);

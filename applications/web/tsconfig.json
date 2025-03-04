@@ -19,7 +19,8 @@
     "**/*.ts",
     "**/*.tsx",
     "../../packages/database/util/getConversations.ts",
-    "../../packages/database/util/getMessages.1.ts"
+    "../../packages/database/util/getMessages.1.ts",
+    "../../packages/database/src/util/insertGetAStoreSignup.ts"
   ],
   "paths": {
     "@coyle/database/*": ["../../packages/database/*"]

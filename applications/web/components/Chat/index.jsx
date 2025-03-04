@@ -32,7 +32,7 @@ export default function Chat() {
     let controller = new AbortController();
     const signal = controller.signal;
 
-    fetch("/api/getConversations", { signal })
+    fetch("/api/chat/conversations", { signal })
       .then((res) => res.json())
       .then((data) => {
         if (signal.aborted || !data?.length) return;
@@ -81,7 +81,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`/api/getMessages?conversationKey=${id}`)
+    fetch(`/api/chat/messages?conversationKey=${id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
@@ -91,7 +91,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (!currentConversation?.id) return;
-    fetch(`/api/getMessages?conversationKey=${currentConversation.id}`)
+    fetch(`/api/chat/messages?conversationKey=${currentConversation.id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
