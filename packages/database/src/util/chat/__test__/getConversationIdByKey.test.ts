@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getConversationIdByKey, getDB } from "@coyle/database";
 import { conversations as convos } from "@coyle/database/schema";
 import { eq } from "drizzle-orm";
