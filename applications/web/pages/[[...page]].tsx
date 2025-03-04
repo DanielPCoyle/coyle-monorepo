@@ -309,7 +309,7 @@ const Page: React.FC<PageProps> = ({
               loading,
             }}
             model={model}
-            content={page || undefined}
+            content={(page || undefined) as any}
           />
         )}
       </React.Suspense>

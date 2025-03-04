@@ -10,22 +10,17 @@
     "web:lint": "yarn workspace @coyle/web lint",
     "web:test": "yarn workspace @coyle/web test",
     "web:start": "yarn workspace @coyle/web start",
-
     "sockets:start": "yarn workspace @coyle/sockets start",
     "sockets:lint": "yarn workspace @coyle/sockets lint",
     "sockets:test": "yarn workspace @coyle/sockets test",
-    
     "chat:start": "yarn workspace @coyle/chat start",
     "chat:lint": "yarn workspace @coyle/chat lint",
     "chat:test": "yarn workspace @coyle/chat test",
-    
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate",
     "db:lint": "yarn workspace @coyle/database lint",
-    
     "e2e:test": "yarn workspace @coyle/e2e-tests test",
     "e2e:test:lint": "yarn workspace @coyle/e2e-tests lint",
-    
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
     "types": "yarn workspaces run types",
@@ -42,6 +37,7 @@
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0"
+    "@testing-library/react": "^16.2.0",
+    "puppeteer": "^24.3.1"
   }
 }

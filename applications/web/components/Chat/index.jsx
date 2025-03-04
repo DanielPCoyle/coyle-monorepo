@@ -8,8 +8,8 @@ import { ConversationList } from "./ConversationList";
 import { LoginForm } from "./LoginForm";
 
 /* eslint-disable no-undef */
-const currentSite = process.env.NEXT_PUBLIC_CURRENT_SITE;
-const socket = io(currentSite);
+const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
+const socket = io(socketSite);
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
