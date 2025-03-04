@@ -1,0 +1,74 @@
+name: "🚀 Enhancement Request"
+description: "Propose an improvement or new feature"
+title: "[Enhancement]: <Brief title here>"
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: "### 🎯 Thank you for contributing! Please fill in the details below."
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "💡 Enhancement Description"
+      description: "Provide a clear and concise description of the proposed enhancement."
+      placeholder: "Example: Add dark mode support for the dashboard UI."
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "🤔 Why Is This Needed?"
+      description: "Explain why this improvement is beneficial."
+      placeholder: "Example: Dark mode reduces eye strain for users working at night."
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "🚀 Suggested Solution"
+      description: "Describe how this enhancement could be implemented."
+      placeholder: "Example: Use CSS variables to switch between light and dark themes dynamically."
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: "📊 Impact Level"
+      description: "How significant is this enhancement?"
+      options:
+        - "🔴 Critical (Must-have for core functionality)"
+        - "🟠 High (Strongly improves UX or performance)"
+        - "🟡 Medium (Nice to have but not urgent)"
+        - "⚪ Low (Minor improvement or aesthetic change)"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affected_components
+    attributes:
+      label: "🛠 Affected Components"
+      description: "Which part of the project does this enhancement impact?"
+      options:
+        - label: "Frontend UI/UX"
+        - label: "Backend API/Logic"
+        - label: "Database/Storage"
+        - label: "Documentation"
+        - label: "Other"
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: "🔗 Dependencies or Related Issues"
+      description: "Does this enhancement depend on any other issue, PR, or external service?"
+      placeholder: "Example: Depends on #42 (API refactor)."
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "📎 Additional Context"
+      description: "Include any other relevant details, mockups, or screenshots."
+
+  - type: markdown
+    attributes:
+      value: "Thank you for your contribution! 🚀 Your idea will be reviewed soon."
