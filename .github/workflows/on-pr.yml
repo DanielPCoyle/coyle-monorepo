@@ -119,7 +119,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-      uses: actions/checkout@v4  # Ensures your code is available
+        uses: actions/checkout@v4  # Ensures your code is available
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -135,8 +135,9 @@ jobs:
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile  # Ensures package versions are consistent
-        - name: Build Next.js app
-          run: yarn web:build # This ensures a production build exists
+
+      - name: Build Next.js app
+        run: yarn web:build # This ensures a production build exists
 
       - name: Start Next.js server in the background
         run: yarn web:start & # Starts the server in the background
