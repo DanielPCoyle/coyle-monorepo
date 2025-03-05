@@ -12,10 +12,10 @@ let nextProcess: any;
 let browser: puppeteer.Browser;
 
 export async function setup() {
-  logger("Starting PostgreSQL server...");
+  console.log("Starting PostgreSQL server...");
   const container = await startPostgresContainer();
   const connection = container.getConnectionUri();
-  logger(`Started PostgreSQL server at "${connection}"!`);
+  console.log(`Started PostgreSQL server at "${connection}"!`);
 
   const [adminDb] = await createDatabases(connection);
 
@@ -27,41 +27,41 @@ export async function setup() {
   process.env.PORT = "3002";
   process.env.NEXT_PUBLIC_SOCKET_SITE = "http://localhost:3002";
 
-  logger("Migrating database...");
-  logger("Migrated database", await runMigrations());
+  console.log("Migrating database...");
+  console.log("Migrated database", await runMigrations());
 
   // Start Next.js server
-  logger("Starting Next.js server...");
-  // nextProcess = spawn(
-  //   "yarn",
-  //   ["workspace", "@coyle/web", "start", "-p", "3000"],
-  //   { stdio: "ignore", shell: true},
-  // );
-  // nextProcess.unref();
+  console.log("Starting Next.js server...");
+  nextProcess = spawn(
+    "yarn",
+    ["workspace", "@coyle/web", "start", "-p", "3000"],
+    { stdio: "ignore", shell: true},
+  );
+  nextProcess.unref();
 
   // Wait for the server to be available
   await waitOn({ resources: ["http://localhost:3000"] });
 
-  logger("Next.js server is running!");
+  console.log("Next.js server is running!");
 
   // Start Puppeteer
-  logger("Launching Puppeteer...");
+  console.log("Launching Puppeteer...");
   browser = await puppeteer.launch({ headless: true });
 
   return { browser };
 }
 
 export async function teardown() {
-  logger("Stopping Next.js server...");
-  // if (nextProcess) {
-  //   nextProcess.kill();
-  // }
+  console.log("Stopping Next.js server...");
+  if (nextProcess) {
+    nextProcess.kill();
+  }
 
-  logger("Closing Puppeteer...");
+  console.log("Closing Puppeteer...");
   if (browser) {
     await browser.close();
   }
 
-  logger("Closing database connection...");
+  console.log("Closing database connection...");
   await getPool().end();
 }
