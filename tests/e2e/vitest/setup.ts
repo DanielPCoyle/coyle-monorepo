@@ -51,7 +51,7 @@ export async function setup() {
 
   // Start Puppeteer
   console.log("Launching Puppeteer...");
-  browser = await puppeteer.launch({ headless: true });
+  browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
   return { browser };
 }
