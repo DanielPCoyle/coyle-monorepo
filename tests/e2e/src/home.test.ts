@@ -17,20 +17,15 @@ describe("Puppeteer Setup", () => {
     await teardown();
   });
 
-
-
   it("should Load the home page", async () => {
     const content = await page.content();
     expect(content).toContain("Custom Apparel Services");
   });
   it("should have a bulk orders section", async () => {
     const elementExists = await page.waitForSelector(".bulkOrders");
-    
+
     expect(elementExists).not.toBeNull();
   });
-
-
-
 });
 
 console.log("Puppeteer test completed");

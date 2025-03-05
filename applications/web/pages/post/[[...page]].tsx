@@ -6,7 +6,7 @@ import { BuilderContent } from "@builder.io/sdk";
 import DefaultErrorPage from "next/error";
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import  Navigation  from "../../components/layout/Navigation";
+import Navigation from "../../components/layout/Navigation";
 import navData from "../../data/navData.json";
 
 // Replace with your Public API Key
@@ -23,20 +23,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     })
     .toPromise();
- 
-    const blogData = await builder.get("blog", {
-        query:{
-            data:{
-                slug: "/" + ((params?.page as string[])?.join("/") || ""),
-            }
-        }
-    })
+
+  const blogData = await builder.get("blog", {
+    query: {
+      data: {
+        slug: "/" + ((params?.page as string[])?.join("/") || ""),
+      },
+    },
+  });
 
   // Return the page content as props
   return {
     props: {
       page: page || null,
-      blogData
+      blogData,
     },
     // Revalidate the content every 5 seconds
     revalidate: 5,
@@ -55,13 +55,21 @@ export async function getStaticPaths() {
 
   // Generate the static paths for all pages in Builder
   return {
-    paths: pages.map((page) => "/post/"+page.data?.slug).filter(url => url !== '/'),
-    fallback: 'blocking',
+    paths: pages
+      .map((page) => "/post" + page.data?.slug)
+      .filter((url) => url !== "/"),
+    fallback: "blocking",
   };
 }
 
 // Define the Page component
-export default function Page({ page, blogData }: { page: BuilderContent | null, blogData: unknown }) {
+export default function Page({
+  page,
+  blogData,
+}: {
+  page: BuilderContent | null;
+  blogData: unknown;
+}) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -82,7 +90,11 @@ export default function Page({ page, blogData }: { page: BuilderContent | null, 
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent model="page" data={{blogData}} content={page || undefined} />
+      <BuilderComponent
+        model="page"
+        data={{ blogData }}
+        content={page || undefined}
+      />
     </>
   );
 }

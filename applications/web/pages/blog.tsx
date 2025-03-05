@@ -26,7 +26,11 @@ interface PageProps {
 const limit = 6;
 
 // Main Page component
-const Page: React.FC<PageProps> = ({ initialPosts, initialPage, hasMorePosts }) => {
+const Page: React.FC<PageProps> = ({
+  initialPosts,
+  initialPage,
+  hasMorePosts,
+}) => {
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState(initialPage);
   const [hasMore, setHasMore] = useState(hasMorePosts);
@@ -67,12 +71,18 @@ const Page: React.FC<PageProps> = ({ initialPosts, initialPage, hasMorePosts }) 
         <h1>PhilaPrints&apos; Latest Posts</h1>
         <div className="blogList">
           {posts.map((post) => (
-            <Link href={`/post/${post.data.slug}`} key={post.data.slug} className="blogItem">
+            <Link
+              href={`/post/${post.data.slug}`}
+              key={post.data.slug}
+              className="blogItem"
+            >
               <div>
                 <div className="image">
                   <img src={post.data.featuredImage} alt={post.data.title} />
                 </div>
-                <div className="postDate">{moment(post.createdDate).format("MMM D, YYYY")}</div>
+                <div className="postDate">
+                  {moment(post.createdDate).format("MMM D, YYYY")}
+                </div>
                 <h2>{post.data.title}</h2>
               </div>
             </Link>
@@ -82,7 +92,7 @@ const Page: React.FC<PageProps> = ({ initialPosts, initialPage, hasMorePosts }) 
           <button onClick={handlePreviousPage} disabled={page === 1}>
             Newer
           </button>
-          <button onClick={handleNextPage}  disabled={!hasMore}>
+          <button onClick={handleNextPage} disabled={!hasMore}>
             Older
           </button>
         </div>

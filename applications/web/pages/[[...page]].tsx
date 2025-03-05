@@ -6,7 +6,7 @@ import { BuilderContent } from "@builder.io/sdk";
 import DefaultErrorPage from "next/error";
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import  Navigation  from "../components/layout/Navigation";
+import Navigation from "../components/layout/Navigation";
 import navData from "../data/navData.json";
 
 // Replace with your Public API Key
@@ -46,8 +46,8 @@ export async function getStaticPaths() {
 
   // Generate the static paths for all pages in Builder
   return {
-    paths: pages.map((page) => page.data?.url).filter(url => url !== '/'),
-    fallback: 'blocking',
+    paths: pages.map((page) => page.data?.url).filter((url) => url !== "/"),
+    fallback: "blocking",
   };
 }
 

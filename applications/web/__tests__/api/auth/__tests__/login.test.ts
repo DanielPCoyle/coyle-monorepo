@@ -1,4 +1,4 @@
-import handler from "../login"; // Adjust the import path as needed
+import handler from "../../pages/api/auth/login"; // Adjust the import path as needed
 import { createMocks } from "node-mocks-http";
 import { describe, expect, it, vi } from "vitest";
 vi.mock("bcrypt");

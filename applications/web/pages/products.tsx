@@ -12,46 +12,46 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
 // Define a function that fetches the Builder
 // content for a given page
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    // Fetch the builder content for the given page
-    const page = await builder
-        .get("symbol", {
-            query: {
-                id: "bfdb4053842f44da9ab8b65c3aa78bf7",
-            },
-        })
-        .toPromise();
+export const getServerSideProps: GetServerSideProps = async () => {
+  // Fetch the builder content for the given page
+  const page = await builder
+    .get("symbol", {
+      query: {
+        id: "bfdb4053842f44da9ab8b65c3aa78bf7",
+      },
+    })
+    .toPromise();
 
-    // Return the page content as props
-    return {
-        props: {
-            page: page || null,
-        },
-    };
+  // Return the page content as props
+  return {
+    props: {
+      page: page || null,
+    },
+  };
 };
 
 // Define the Page component
 export default function Page({ page }: { page: BuilderContent | null }) {
-    const isPreviewing = useIsPreviewing();
+  const isPreviewing = useIsPreviewing();
 
-    // If the page content is not available
-    // and not in preview mode, show a 404 error page
-    if (!page && !isPreviewing) {
-        return <DefaultErrorPage statusCode={404} />;
-    }
+  // If the page content is not available
+  // and not in preview mode, show a 404 error page
+  if (!page && !isPreviewing) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
-    // If the page content is available, render
-    // the BuilderComponent with the page content
-    return (
-        <>
-            <Head>
-                <title>{page?.data?.title}</title>
-            </Head>
-            {/* Render the Builder page */}
-            <div className="navContainer">
-                <Navigation navData={navData} />
-            </div>
-            <BuilderComponent model="page" content={page || undefined} />
-        </>
-    );
+  // If the page content is available, render
+  // the BuilderComponent with the page content
+  return (
+    <>
+      <Head>
+        <title>{page?.data?.title}</title>
+      </Head>
+      {/* Render the Builder page */}
+      <div className="navContainer">
+        <Navigation navData={navData} />
+      </div>
+      <BuilderComponent model="page" content={page || undefined} />
+    </>
+  );
 }
