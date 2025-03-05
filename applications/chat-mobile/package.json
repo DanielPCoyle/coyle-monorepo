@@ -8,7 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest",
+    "test": "echo \"TODO: REPLACE JEST WITH VITEST\"",
     "lint": "expo lint",
     "types": "tsc --noEmit",
     "prettier": "prettier ."

@@ -9,18 +9,28 @@ describe("Puppeteer Setup", () => {
     const setupData = await setup();
     browser = setupData.browser;
     page = await browser.newPage();
+    await page.goto("http://localhost:3000");
+    await page.waitForSelector("body");
   });
 
   afterAll(async () => {
     await teardown();
   });
 
+
+
   it("should Load the home page", async () => {
-    await page.goto("http://localhost:3000");
-    await page.waitForSelector("body");
     const content = await page.content();
     expect(content).toContain("Custom Apparel Services");
   });
+  it("should have a bulk orders section", async () => {
+    const elementExists = await page.waitForSelector(".bulkOrders");
+    
+    expect(elementExists).not.toBeNull();
+  });
+
+
+
 });
 
 console.log("Puppeteer test completed");
