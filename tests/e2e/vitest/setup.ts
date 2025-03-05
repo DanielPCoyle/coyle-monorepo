@@ -1,4 +1,3 @@
-import { debug } from "debug";
 import { getPool } from "@coyle/database";
 import { createDatabases, runMigrations } from "./utils/database";
 import { startPostgresContainer } from "./utils/docker";
@@ -6,7 +5,6 @@ import { spawn } from "child_process";
 import waitOn from "wait-on";
 import puppeteer from "puppeteer";
 
-const logger = debug("setup");
 
 let nextProcess: any;
 let browser: puppeteer.Browser;
