@@ -16,7 +16,7 @@ describe("Puppeteer Setup", () => {
   });
 
   it("should Load the home page", async () => {
-    await page.goto("http://localhost:3001");
+    await page.goto("http://localhost:3000");
     await page.waitForSelector("body");
     const content = await page.content();
     expect(content).toContain("Custom Apparel Services");

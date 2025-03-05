@@ -32,12 +32,12 @@ export async function setup() {
 
   // Start Next.js server
   logger("Starting Next.js server...");
-  nextProcess = spawn(
-    "yarn",
-    ["workspace", "@coyle/web", "start", "-p", "3000"],
-    { stdio: "ignore", shell: true, detached: true },
-  );
-  nextProcess.unref();
+  // nextProcess = spawn(
+  //   "yarn",
+  //   ["workspace", "@coyle/web", "start", "-p", "3000"],
+  //   { stdio: "ignore", shell: true},
+  // );
+  // nextProcess.unref();
 
   // Wait for the server to be available
   await waitOn({ resources: ["http://localhost:3000"] });
@@ -53,9 +53,9 @@ export async function setup() {
 
 export async function teardown() {
   logger("Stopping Next.js server...");
-  if (nextProcess) {
-    nextProcess.kill();
-  }
+  // if (nextProcess) {
+  //   nextProcess.kill();
+  // }
 
   logger("Closing Puppeteer...");
   if (browser) {
