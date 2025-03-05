@@ -3,10 +3,9 @@ import { createDatabases, runMigrations } from "./utils/database";
 import { startPostgresContainer } from "./utils/docker";
 import { spawn } from "child_process";
 import waitOn from "wait-on";
-import puppeteer from "puppeteer";
+
 
 let nextProcess: any;
-let browser: puppeteer.Browser;
 
 export async function setup() {
   console.log("Starting PostgreSQL server...");
@@ -50,22 +49,12 @@ export async function setup() {
 
   console.log("Next.js server is running!");
 
-  // Start Puppeteer
-  console.log("Launching Puppeteer...");
-  browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
-
-  return { browser };
 }
 
 export async function teardown() {
   console.log("Stopping Next.js server...");
   if (nextProcess) {
     nextProcess.kill();
-  }
-
-  console.log("Closing Puppeteer...");
-  if (browser) {
-    await browser.close();
   }
 
   console.log("Closing database connection...");
