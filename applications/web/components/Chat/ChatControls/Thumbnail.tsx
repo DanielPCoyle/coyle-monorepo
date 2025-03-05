@@ -15,10 +15,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
   setFiles,
 }) => {
   return (
-    <div
-      key={file.name}
-      className="thumbnailContainer"
-    >
+    <div key={file.name} className="thumbnailContainer">
       <img
         src={URL.createObjectURL(file)}
         alt={file.name}
@@ -31,10 +28,8 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
         }}
         className={"closeThumbnail"}
       >
-      <CloseThumbnailIcon />
+        <CloseThumbnailIcon />
       </button>
     </div>
   );
 };
-
-

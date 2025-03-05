@@ -719,8 +719,8 @@ button.closeModal svg {
   overflow-y: auto;
 }
 
-.thumbnailContainer { 
-  position: "relative"; 
+.thumbnailContainer {
+  position: "relative";
   display: "inline-block";
   margin: "5px";
 }
