@@ -33,9 +33,16 @@ export async function setup() {
   nextProcess = spawn(
     "yarn",
     ["workspace", "@coyle/web", "start", "-p", "3000"],
-    { stdio: "ignore", shell: true },
+    { stdio: "inherit", shell: true, detached: true },
   );
-  nextProcess.unref();
+
+  nextProcess.on('error', (err) => {
+    console.error('Failed to start subprocess.', err);
+  });
+
+  nextProcess.on('exit', (code, signal) => {
+    console.log(`Next.js server process exited with code ${code} and signal ${signal}`);
+  });
 
   // Wait for the server to be available
   await waitOn({ resources: ["http://localhost:3000"] });
