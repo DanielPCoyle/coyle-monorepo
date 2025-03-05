@@ -172,9 +172,6 @@ jobs:
       - name: Build Next.js app
         run: yarn web:build
 
-      - name: Start Next.js server in the background
-        run: yarn web:start &
-
       - name: Run Puppeteer tests
         run: yarn e2e
 

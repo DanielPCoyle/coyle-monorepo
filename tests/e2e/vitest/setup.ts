@@ -2,6 +2,7 @@ import { debug } from "debug";
 import { getPool } from "@coyle/database";
 import { createDatabases, runMigrations } from "./utils/database";
 import { startPostgresContainer } from "./utils/docker";
+import { spawn } from "child_process";
 import waitOn from "wait-on";
 import puppeteer from "puppeteer";
 
@@ -28,6 +29,15 @@ export async function setup() {
 
   logger("Migrating database...");
   logger("Migrated database", await runMigrations());
+
+  // Start Next.js server
+  logger("Starting Next.js server...");
+  nextProcess = spawn(
+    "yarn",
+    ["workspace", "@coyle/web", "start", "-p", "3000"],
+    { stdio: "ignore", shell: true, detached: true },
+  );
+  nextProcess.unref();
 
   // Wait for the server to be available
   await waitOn({ resources: ["http://localhost:3000"] });
