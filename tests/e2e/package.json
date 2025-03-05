@@ -8,6 +8,7 @@
     "lint:fix": "yarn lint --fix",
     "run-test": "vitest run",
     "run:watch": "vitest",
+    "test": "echo null",
     "types": "tsc --noEmit",
     "prettier": "prettier --check ."
   },
