@@ -113,4 +113,20 @@ jobs:
 
       - name: Run tests
         run: yarn test
+  e2e:
+    name: End-to-End Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build Next.js app
+        run: yarn web:build # This ensures a production build exists
+
+      - name: Start Next.js server in the background
+        run: yarn web:start & # Starts the server in the background
+
+      - name: Run Puppeteer tests
+        run: yarn e2e
+
+      - name: Stop Next.js server
+        run: pkill -f "next start"
 
