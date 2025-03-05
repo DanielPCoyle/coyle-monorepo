@@ -6,8 +6,8 @@ import { BuilderContent } from "@builder.io/sdk";
 import DefaultErrorPage from "next/error";
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import  Navigation  from "../components/layout/Navigation";
-import navData from "../data/navData.json";
+import  Navigation  from "../../components/layout/Navigation";
+import navData from "../../data/navData.json";
 
 // Replace with your Public API Key
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
@@ -17,17 +17,26 @@ builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   // Fetch the builder content for the given page
   const page = await builder
-    .get("page", {
-      userAttributes: {
-        urlPath: "/" + ((params?.page as string[])?.join("/") || ""),
+    .get("symbol", {
+      query: {
+        id: "7a9ae2a603a24f58971a9f137a337ab8",
       },
     })
     .toPromise();
+ 
+    const blogData = await builder.get("blog", {
+        query:{
+            data:{
+                slug: "/" + ((params?.page as string[])?.join("/") || ""),
+            }
+        }
+    })
 
   // Return the page content as props
   return {
     props: {
       page: page || null,
+      blogData
     },
     // Revalidate the content every 5 seconds
     revalidate: 5,
@@ -38,21 +47,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 // static paths for all pages in Builder
 export async function getStaticPaths() {
   // Get a list of all pages in Builder
-  const pages = await builder.getAll("page", {
+  const pages = await builder.getAll("blog", {
     // We only need the URL field
-    fields: "data.url",
+    fields: "data.slug",
     options: { noTargeting: true },
   });
 
   // Generate the static paths for all pages in Builder
   return {
-    paths: pages.map((page) => page.data?.url).filter(url => url !== '/'),
+    paths: pages.map((page) => "/post/"+page.data?.slug).filter(url => url !== '/'),
     fallback: 'blocking',
   };
 }
 
 // Define the Page component
-export default function Page({ page }: { page: BuilderContent | null }) {
+export default function Page({ page, blogData }: { page: BuilderContent | null, blogData: unknown }) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -73,7 +82,7 @@ export default function Page({ page }: { page: BuilderContent | null }) {
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent model="page" content={page || undefined} />
+      <BuilderComponent model="page" data={{blogData}} content={page || undefined} />
     </>
   );
 }

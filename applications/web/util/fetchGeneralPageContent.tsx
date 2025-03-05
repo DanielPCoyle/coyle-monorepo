@@ -1,5 +1,4 @@
 import builder from "@builder.io/react";
-import { apiKey } from "../pages/[[...page]]";
 
 interface SEO {
   title: string;
@@ -77,7 +76,7 @@ export async function fetchGeneralPageContent(
 
     try {
       const url =
-        `https://cdn.builder.io/api/v3/content/blog?apiKey=${apiKey}&offset=${offset * limit}&limit=${limit}` +
+        `https://cdn.builder.io/api/v3/content/blog?apiKey=${process.env.NEXT_PUBLIC_BUILDER_API_KEY}&offset=${offset * limit}&limit=${limit}` +
         (Boolean(search) &&
           `&query.data.title.$regex=${search}&query.data.title.$options=i`);
       const response = await fetch(url);
