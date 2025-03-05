@@ -5,7 +5,6 @@ import { spawn } from "child_process";
 import waitOn from "wait-on";
 import puppeteer from "puppeteer";
 
-
 let nextProcess: any;
 let browser: puppeteer.Browser;
 
@@ -36,12 +35,14 @@ export async function setup() {
     { stdio: "inherit", shell: true, detached: true },
   );
 
-  nextProcess.on('error', (err) => {
-    console.error('Failed to start subprocess.', err);
+  nextProcess.on("error", (err) => {
+    console.error("Failed to start subprocess.", err);
   });
 
-  nextProcess.on('exit', (code, signal) => {
-    console.log(`Next.js server process exited with code ${code} and signal ${signal}`);
+  nextProcess.on("exit", (code, signal) => {
+    console.log(
+      `Next.js server process exited with code ${code} and signal ${signal}`,
+    );
   });
 
   // Wait for the server to be available
@@ -51,7 +52,7 @@ export async function setup() {
 
   // Start Puppeteer
   console.log("Launching Puppeteer...");
-  browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+  browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox"] });
 
   return { browser };
 }
