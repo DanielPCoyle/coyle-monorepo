@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "lint:fix": "yarn lint --fix",
-    "run": "vitest run",
+    "run-test": "vitest run",
     "run:watch": "vitest",
     "types": "tsc --noEmit",
     "prettier": "prettier --check ."
