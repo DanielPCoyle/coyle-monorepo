@@ -35,7 +35,7 @@ export async function setup() {
   nextProcess = spawn(
     "yarn",
     ["workspace", "@coyle/web", "start", "-p", "3000"],
-    { stdio: "ignore", shell: true},
+    { stdio: "ignore", shell: true },
   );
   nextProcess.unref();
 
