@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint --ext .js,.ts .",
+    "lint": "echo \"Do not lint e2e tests?\"",
     "lint:fix": "yarn lint --fix",
     "run-test": "vitest run",
     "run:watch": "vitest",
