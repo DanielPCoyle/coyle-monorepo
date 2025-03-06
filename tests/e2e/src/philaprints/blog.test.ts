@@ -12,8 +12,8 @@ describe("Blog Page", () => {
     await page.waitForSelector("body");
   });
 
-  it("should Load the blog page", async () => {
-    const content = await page.content();
-    expect(content).toContain("PhilaPrints' Latest Posts");
+  it("should Load the blog page (SSR)", async () => {
+    const h1 = await page.$eval("h1", (el) => el.textContent);
+    expect(h1).toBe("PhilaPrints' Latest Posts");
   });
 });

@@ -13,9 +13,11 @@ describe("Home Page", () => {
     await page.waitForSelector("body");
   });
 
-  it("should Load the home page", async () => {
-    const content = await page.content();
-    expect(content).toContain("Custom Apparel Services");
+  it("should Load the home page and SSR", async () => {
+    // expect the first h2 to be "Custom Apparel Services"
+    const h2 = await page.$eval("h2", (el) => el.textContent);
+    expect(h2).toBe("Custom Apparel Services");
+     
   });
   it("should have a bulk orders section", async () => {
     const elementExists = await page.waitForSelector(".bulkOrders");

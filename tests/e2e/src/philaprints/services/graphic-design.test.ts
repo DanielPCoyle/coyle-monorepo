@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import puppeteer, { Browser, Page } from "puppeteer";
 
-describe("Blog Page", () => {
+describe("Graphic Design Service Page", () => {
   let browser: puppeteer.Browser;
   let page: puppeteer.Page;
 
@@ -12,8 +12,8 @@ describe("Blog Page", () => {
     await page.waitForSelector("body");
   });
 
-  it("should Load the blog page", async () => {
-    const content = await page.content();
-    expect(content).toContain("Graphic Design");
-  });
+  it("should Load the graphic design service page", async () => {
+      const h1 = await page.$eval("h1", (el) => el.textContent);
+      expect(h1).toBe("Graphic Design");
+    });
 });
