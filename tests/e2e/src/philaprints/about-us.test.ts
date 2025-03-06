@@ -7,7 +7,10 @@ describe("About Us Page", () => {
   let page: puppeteer.Page;
 
   beforeAll(async () => {
-    browser = await puppeteer.launch();
+      browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"]
+    });
     page = (await browser.pages())[0] || (await browser.newPage());
     await page.goto("http://localhost:3000/about-us");
     await page.waitForSelector("body");
