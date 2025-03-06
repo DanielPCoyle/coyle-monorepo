@@ -1,6 +1,5 @@
-import { getDB } from "@coyle/database";
-import { getAStoreSignUps } from "@coyle/database/schema";
 import { NextApiRequest, NextApiResponse } from "next";
+import { insertGetAStoreSignup } from "@coyle/database/src/util/insertGetAStoreSignup";
 
 interface SignupRequestBody {
   organizationName: string;
@@ -40,27 +39,22 @@ export default async function handler(
   const hasCustomDomain = customDomain === "yes";
 
   try {
-    const db = getDB();
-    const result = await db
-      .insert(getAStoreSignUps)
-      .values({
-        organizationName,
-        contactPerson,
-        email,
-        phone,
-        website,
-        storeDomain,
-        customDomain: hasCustomDomain,
-        products,
-        orderFulfillment,
-        additionalRequests,
-      })
-      .returning()
-      .execute();
+    const insert = {
+      organizationName,
+      contactPerson,
+      email,
+      phone,
+      website,
+      storeDomain,
+      customDomain: hasCustomDomain,
+      products,
+      orderFulfillment,
+      additionalRequests,
+    };
+    const result = await insertGetAStoreSignup(insert);
 
     res.status(200).json({ message: "Signup Successful", data: result });
   } catch (error) {
-    console.log({ error });
     res.status(500).json({ message: "Database Insertion Error", error });
   }
 }

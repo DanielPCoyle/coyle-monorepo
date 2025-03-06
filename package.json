@@ -19,11 +19,14 @@
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate",
     "db:lint": "yarn workspace @coyle/database lint",
-    "server:test": "yarn workspace @coyle/server-side-tests test",
+    "e2e": "yarn workspace @coyle/e2e-tests run-test",
+    "e2e:lint": "yarn workspace @coyle/e2e-tests lint",
     "lint": "yarn workspaces run lint",
     "test": "yarn workspaces run test",
     "types": "yarn workspaces run types",
-    "prettier": "yarn workspaces run prettier"
+    "prettier": "yarn workspaces run prettier",
+    "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
+    "pre-push": "yarn prettier --write && yarn lint"
   },
   "workspaces": {
     "packages": [
@@ -35,6 +38,10 @@
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0"
+    "@testing-library/react": "^16.2.0",
+    "puppeteer": "^24.3.1"
+  },
+  "devDependencies": {
+    "@types/wait-on": "^5.3.4"
   }
 }

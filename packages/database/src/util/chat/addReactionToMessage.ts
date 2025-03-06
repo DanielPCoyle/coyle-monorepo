@@ -6,7 +6,7 @@ export const addReactionToMessage = async ({ reactions, messageId }) => {
   const db = getDB();
   await db
     .update(messages)
-    // eslint-disable-next-line
-    .set({ reactions: reactions })
+
+    .set({ reactions: reactions } as unknown)
     .where(eq(messages.id, messageId));
 };

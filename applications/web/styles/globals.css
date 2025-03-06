@@ -718,3 +718,26 @@ button.closeModal svg {
   height: 70vh;
   overflow-y: auto;
 }
+
+.thumbnailContainer {
+  position: "relative";
+  display: "inline-block";
+  margin: "5px";
+}
+
+.thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: fill;
+}
+
+.closeThumbnail {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}

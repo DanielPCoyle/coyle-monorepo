@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { addReactionToMessage, getDB } from "@coyle/database";
 import { messages } from "@coyle/database/schema";
 import { eq } from "drizzle-orm";

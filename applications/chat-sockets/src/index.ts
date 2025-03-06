@@ -41,3 +41,15 @@ const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+// Handle server shutdown
+process.on("SIGINT", () => {
+  console.log("Shutting down server...");
+  io.close(() => {
+    console.log("Socket.io server closed");
+    server.close(() => {
+      console.log("HTTP server closed");
+      process.exit(0);
+    });
+  });
+});

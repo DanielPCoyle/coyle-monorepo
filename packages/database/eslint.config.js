@@ -5,19 +5,13 @@ import tseslint from "typescript-eslint";
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { files: ["**/*.{js,mjs,cjs,ts}"] },
-  {
-    overrides: [
-      {
-        files: ["*.test.ts"],
-        rules: {
-          "no-undef": "off",
-          "no-unused-vars": "off",
-          "no-console": "off",
-        },
-      },
-    ],
-  },
   { languageOptions: { globals: globals.browser } },
+  {
+    rules: {
+      "react/react-in-jsx-scope": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
 ];

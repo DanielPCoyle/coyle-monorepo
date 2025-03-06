@@ -7,10 +7,19 @@ interface MessageType {
   id: string;
   text: string;
   user: string;
+  parentId?: string;
+  conversationId: string;
+  sender: string;
+  message: string;
+  createdAt: string;
+  seen: boolean;
+  reactions: Record<string, string[]>;
+  files: any[];
+  replies: any[];
 }
 
 export const Conversation: React.FC = () => {
-  const { messages, username } = useContext(ChatContext);
+  const { messages } = useContext(ChatContext);
   const contentRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -21,7 +30,11 @@ export const Conversation: React.FC = () => {
           {messages
             .filter((message: MessageType) => !message.parentId)
             .map((message: MessageType, index: number) => (
-              <Message key={index} {...{ message, username }} index={index} />
+              <Message
+                key={message.id}
+                index={index}
+                message={message as any}
+              />
             ))}
         </div>
       </div>

@@ -8,6 +8,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const conversations = await getConversations();
-  res.status(200).json(conversations);
+  try {
+    const conversations = await getConversations();
+    res.status(200).json(conversations);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Internal Server Error", message: error.message });
+  }
 }

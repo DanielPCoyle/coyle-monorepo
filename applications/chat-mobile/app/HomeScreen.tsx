@@ -1,17 +1,15 @@
-import React from "react";
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
-import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import React, { useContext } from "react";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export function HomeScreen() {
   const [view, setView] = React.useState("home");
@@ -25,7 +23,7 @@ export function HomeScreen() {
     if (user) {
       navigation.navigate("Conversations");
     }
-  }, [user]);
+  }, [user, navigation]);
 
   const handleWebsiteChange = (text: string) => {
     if (!text.startsWith("https://")) {
@@ -37,7 +35,6 @@ export function HomeScreen() {
 
   const handleSubmit = async () => {
     setUser({ email, website });
-    return;
     try {
       const response = await fetch(`${website}/api/login`, {
         method: "POST",

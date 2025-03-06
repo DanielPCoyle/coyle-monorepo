@@ -1,18 +1,10 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  PanResponder,
-  Alert,
-} from "react-native";
-import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
-import { ViewButtons } from "./ViewButtons";
+import * as ImagePicker from "expo-image-picker";
+import React, { useState } from "react";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SelectedImage } from "./SelectedImage";
 import { styles } from "./styles";
+import { ViewButtons } from "./ViewButtons";
 
 export const TShirtDesigner = () => {
   const [selectedImages, setSelectedImages] = useState({

@@ -1,14 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
+import { AppContext } from "@/context/AppContext";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
-  FlatList,
   ActivityIndicator,
+  FlatList,
   RefreshControl,
   StyleSheet,
 } from "react-native";
-import { useContext } from "react";
-import { AppContext } from "@/context/AppContext";
 import { ConversationItem } from "./ConversationItem";
-import { io } from "socket.io-client";
 
 export const ConversationsScreen = () => {
   const [historicalConversations, setHistoricalConversations] = useState([]);
@@ -16,7 +14,7 @@ export const ConversationsScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { user } = useContext(AppContext);
 
-  const fetchConversations = async () => {
+  const fetchConversations = useCallback(async () => {
     if (!user) return;
     try {
       setLoading(true);
@@ -28,16 +26,16 @@ export const ConversationsScreen = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     fetchConversations();
-  }, []);
+  }, [fetchConversations]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     fetchConversations().then(() => setRefreshing(false));
-  }, []);
+  }, [fetchConversations]);
 
   if (loading) {
     return (
