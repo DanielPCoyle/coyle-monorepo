@@ -7,6 +7,8 @@ import DefaultErrorPage from "next/error";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 import Navigation from "../components/layout/Navigation";
+import Footer from "../components/layout/Footer";
+
 import navData from "../data/navData.json";
 
 // Replace with your Public API Key
@@ -24,10 +26,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
     .toPromise();
 
+    const productsCall = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search`);
+    const products = await productsCall.json();
   // Return the page content as props
   return {
     props: {
       page: page || null,
+      products
     },
     // Revalidate the content every 5 seconds
     revalidate: 5,
@@ -52,7 +57,7 @@ export async function getStaticPaths() {
 }
 
 // Define the Page component
-export default function Page({ page }: { page: BuilderContent | null }) {
+export default function Page({ page, products }: { page: BuilderContent | null, products: unknown[] }) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -73,7 +78,8 @@ export default function Page({ page }: { page: BuilderContent | null }) {
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent model="page" content={page || undefined} />
+      <BuilderComponent data={{products}} model="page" content={page || undefined} />
+      <Footer />
     </>
   );
 }
