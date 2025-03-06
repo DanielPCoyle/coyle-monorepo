@@ -40,7 +40,6 @@ export default function Page({ page }: { page: BuilderContent | null }) {
   const [filters, setFilters] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(0);
 
-
   const toggleManyFilter = (facet, filter) => {
     // Clone the current filters object to avoid direct state mutation
     setPageNumber(0);
@@ -98,16 +97,16 @@ export default function Page({ page }: { page: BuilderContent | null }) {
     previousSearchPage,
   };
 
-   React.useEffect(() => {
-      fetchProducts({
-        filters,
-        pageNumber,
-        setLoading,
-        setResults,
-        setPageNumber,
-        setFilterFacets,
-      });
-    }, [filters, pageNumber]);
+  React.useEffect(() => {
+    fetchProducts({
+      filters,
+      pageNumber,
+      setLoading,
+      setResults,
+      setPageNumber,
+      setFilterFacets,
+    });
+  }, [filters, pageNumber]);
   // If the page content is not available
   // and not in preview mode, show a 404 error page
   if (!page && !isPreviewing) {
@@ -125,13 +124,17 @@ export default function Page({ page }: { page: BuilderContent | null }) {
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent data={{
-        loading,
-        filters,
-        facets: filterFacets,
-        results,
-        functions
-      }} model="page" content={page || undefined} />
+      <BuilderComponent
+        data={{
+          loading,
+          filters,
+          facets: filterFacets,
+          results,
+          functions,
+        }}
+        model="page"
+        content={page || undefined}
+      />
     </>
   );
 }

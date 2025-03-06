@@ -26,13 +26,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
     .toPromise();
 
-    const productsCall = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search`);
-    const products = await productsCall.json();
+  const productsCall = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search`,
+  );
+  const products = await productsCall.json();
   // Return the page content as props
   return {
     props: {
       page: page || null,
-      products
+      products,
     },
     // Revalidate the content every 5 seconds
     revalidate: 5,
@@ -57,7 +59,13 @@ export async function getStaticPaths() {
 }
 
 // Define the Page component
-export default function Page({ page, products }: { page: BuilderContent | null, products: unknown[] }) {
+export default function Page({
+  page,
+  products,
+}: {
+  page: BuilderContent | null;
+  products: unknown[];
+}) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -78,7 +86,11 @@ export default function Page({ page, products }: { page: BuilderContent | null, 
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent data={{products}} model="page" content={page || undefined} />
+      <BuilderComponent
+        data={{ products }}
+        model="page"
+        content={page || undefined}
+      />
       <Footer />
     </>
   );
