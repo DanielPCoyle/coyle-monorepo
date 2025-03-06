@@ -13,7 +13,7 @@ describe("Graphic Design Service Page", () => {
   });
 
   it("should Load the graphic design service page", async () => {
-      const h1 = await page.$eval("h1", (el) => el.textContent);
-      expect(h1).toBe("Graphic Design");
-    });
+    const h1 = await page.$eval("h1", (el) => el.textContent);
+    expect(h1).toBe("Graphic Design");
+  });
 });

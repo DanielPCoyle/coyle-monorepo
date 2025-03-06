@@ -8,7 +8,7 @@ describe("Screen Printing Service Page", () => {
   beforeAll(async () => {
     browser = await puppeteer.launch();
     page = (await browser.pages())[0] || (await browser.newPage());
-    const url = "http://localhost:3000/services/screen-printing"
+    const url = "http://localhost:3000/services/screen-printing";
     await page.goto(url);
     await page.waitForSelector("body");
   });
@@ -19,7 +19,9 @@ describe("Screen Printing Service Page", () => {
   });
 
   it("should have SSR content", async () => {
-    const response = await page.goto("http://localhost:3000/services/screen-printing");
+    const response = await page.goto(
+      "http://localhost:3000/services/screen-printing",
+    );
     const html = await response.text();
     expect(html).toContain("<h1>Screen Printing Services</h1>");
   });

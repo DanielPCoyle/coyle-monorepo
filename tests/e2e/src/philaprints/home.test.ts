@@ -17,7 +17,6 @@ describe("Home Page", () => {
     // expect the first h2 to be "Custom Apparel Services"
     const h2 = await page.$eval("h2", (el) => el.textContent);
     expect(h2).toBe("Custom Apparel Services");
-     
   });
   it("should have a bulk orders section", async () => {
     const elementExists = await page.waitForSelector(".bulkOrders");
