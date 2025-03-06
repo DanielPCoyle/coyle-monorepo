@@ -8,7 +8,7 @@ describe("About Us Page", () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch();
-    page = (await browser.pages())[0] || (await browser.newPage());  
+    page = (await browser.pages())[0] || (await browser.newPage());
     await page.goto("http://localhost:3000/about-us");
     await page.waitForSelector("body");
   });
@@ -17,6 +17,4 @@ describe("About Us Page", () => {
     const content = await page.content();
     expect(content).toContain("Our approach");
   });
-
 });
-

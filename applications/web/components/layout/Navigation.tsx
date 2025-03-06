@@ -96,9 +96,9 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
           >
             <iframe
               src={
-                showCart ?
-                "https://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true" :
-                undefined
+                showCart
+                  ? "https://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true"
+                  : undefined
               }
               style={{
                 width: 1400,

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { createMocks } from "node-mocks-http";
-import handler from "../messages";
+import handler from "@coyle/web/pages/api/chat/messages";
 import { getMessages } from "@coyle/database";
 
 vi.mock("@coyle/database");

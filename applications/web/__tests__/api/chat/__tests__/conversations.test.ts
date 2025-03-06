@@ -1,5 +1,5 @@
 import { createMocks } from "node-mocks-http";
-import handler from "../conversations";
+import handler from "@coyle/web/pages/api/chat/conversations";
 import { getConversations } from "@coyle/database";
 import { describe, it, expect, vi } from "vitest";
 import { NextApiRequest, NextApiResponse } from "next";

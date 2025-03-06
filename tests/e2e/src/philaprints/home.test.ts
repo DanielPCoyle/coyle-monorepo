@@ -8,7 +8,7 @@ describe("Home Page", () => {
 
   beforeAll(async () => {
     browser = await puppeteer.launch();
-    page = (await browser.pages())[0] || (await browser.newPage());  
+    page = (await browser.pages())[0] || (await browser.newPage());
     await page.goto("http://localhost:3000");
     await page.waitForSelector("body");
   });
@@ -27,12 +27,10 @@ describe("Home Page", () => {
     expect(elementExists).not.toBeNull();
   });
 
-
   it("should have a get a store section", async () => {
     const elementExists = await page.waitForSelector(".getAStore");
     expect(elementExists).not.toBeNull();
   });
-
 
   it("should have a brands section", async () => {
     const elementExists = await page.waitForSelector(".brands");
@@ -43,9 +41,6 @@ describe("Home Page", () => {
     const elementExists = await page.waitForSelector(".navContainer");
     expect(elementExists).not.toBeNull();
   });
-  
-
-
 });
 
 console.log("Puppeteer test completed");

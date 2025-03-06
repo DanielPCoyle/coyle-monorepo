@@ -1,5 +1,5 @@
 import { getDB } from "@coyle/database/src/db";
-import handler from "../../pages/api/auth/register";
+import handler from "@coyle/web/pages/api/auth/register";
 import { createMocks } from "node-mocks-http";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 

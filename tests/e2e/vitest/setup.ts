@@ -4,7 +4,6 @@ import { startPostgresContainer } from "./utils/docker";
 import { spawn } from "child_process";
 import waitOn from "wait-on";
 
-
 let nextProcess: any;
 
 export async function setup() {
@@ -48,7 +47,6 @@ export async function setup() {
   await waitOn({ resources: ["http://localhost:3000"] });
 
   console.log("Next.js server is running!");
-
 }
 
 export async function teardown() {
