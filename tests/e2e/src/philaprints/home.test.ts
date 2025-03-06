@@ -9,7 +9,7 @@ describe("Home Page", () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({
       headless: true,
-      args: ["--no-sandbox"]
+      args: ["--no-sandbox"],
     });
     page = (await browser.pages())[0] || (await browser.newPage());
     await page.goto("http://localhost:3000");
