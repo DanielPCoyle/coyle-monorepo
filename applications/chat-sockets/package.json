@@ -5,11 +5,10 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@coyle/database": "*",
-    "@coyle/web": "*",
+    "@coyle/database": "file:coyle-database-v1.0.0.tgz",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "socket.io": "^4.8.1",
+    "socket.io": "^4.8.1",   
     "vitest": "^3.0.7"
   },
   "scripts": {

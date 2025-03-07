@@ -54,11 +54,7 @@ export async function getStaticPaths() {
 }
 
 // Define the Page component
-export default function Page({
-  page,
-}: {
-  page: BuilderContent | null;
-}) {
+export default function Page({ page }: { page: BuilderContent | null }) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -79,10 +75,7 @@ export default function Page({
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent
-        model="page"
-        content={page || undefined}
-      />
+      <BuilderComponent model="page" content={page || undefined} />
       <Footer />
     </>
   );
