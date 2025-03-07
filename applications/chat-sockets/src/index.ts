@@ -2,8 +2,18 @@ import express, { Request, Response } from "express";
 import http from "http";
 import { Server, Socket } from "socket.io";
 import { handleConnection } from "./handleConnection";
+import dotenv from "dotenv";
+import cors from "cors";
+
+dotenv.config();
+const corsOptions = {
+  origin: "*", // Allow all origins, adjust as needed
+  methods: ["GET", "POST"],
+};
 
 const app = express();
+app.use(cors(corsOptions));
+
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
@@ -37,7 +47,7 @@ io.on("connection", (socket: Socket) => {
   handleConnection(socket, io, conversations, peopleOnSite);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
