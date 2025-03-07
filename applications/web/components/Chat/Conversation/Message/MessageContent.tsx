@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { FilePreview } from "./FilePreview";
 import { LinkPreview } from "./LinkPreview";
 import { MessageContext } from "./MessageContext";
+import Image from 'next/image';
 
 export const MessageContent = () => {
   const { message, username, setShowReactionsPicker, setShowReplyModal } =
@@ -19,9 +20,11 @@ export const MessageContent = () => {
             border: "solid 1px black",
           }}
         >
-          <img
+          <Image
             src={"/icon.png"}
             alt="avatar"
+            width={30}
+            height={30}
             style={{
               width: "30px",
               height: "30px",

@@ -10,6 +10,7 @@ import Navigation from "../components/layout/Navigation";
 import Footer from "../components/layout/Footer";
 
 import navData from "../data/navData.json";
+import { fetchProducts } from "../util/fetchProducts";
 
 // Replace with your Public API Key
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
@@ -26,10 +27,23 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
     .toPromise();
 
+    let products = null;
+    await fetchProducts({
+      filters: [],
+      loading:false,
+      setLoading: () => {},
+      setPageNumber: () => {},
+      setFilterFacets: () => {},
+      pageNumber: 0,
+      setResults: (data) => {
+        products = data;
+      },
+    }); 
   // Return the page content as props
   return {
     props: {
       page: page || null,
+      products: products || null,
     },
     // Revalidate the content every 5 seconds
     revalidate: 5,
@@ -54,7 +68,7 @@ export async function getStaticPaths() {
 }
 
 // Define the Page component
-export default function Page({ page }: { page: BuilderContent | null }) {
+export default function Page({ page, products }: { page: BuilderContent | null, products: unknown | null }) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -75,7 +89,7 @@ export default function Page({ page }: { page: BuilderContent | null }) {
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent model="page" content={page || undefined} />
+      <BuilderComponent model="page" data={{products}} content={page || undefined} />
       <Footer />
     </>
   );

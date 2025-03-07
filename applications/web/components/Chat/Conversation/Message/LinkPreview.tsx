@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import Image from 'next/image';
 
 interface Message {
   message: string;
@@ -102,9 +103,11 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
           <div style={{ fontWeight: "bold" }}>{urlPreview.title}</div>
           <div>{urlPreview.description}</div>
           {urlPreview.image && (
-            <img
+            <Image
               src={urlPreview.image}
               alt="preview"
+              width={500}
+              height={300}
               style={{ width: "45%", margin: "auto", borderRadius: "10px" }}
             />
           )}

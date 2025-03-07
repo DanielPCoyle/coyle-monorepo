@@ -1,4 +1,3 @@
-import NProgress from "nprogress";
 
 export const fetchProducts = async ({
   filters,
@@ -10,7 +9,6 @@ export const fetchProducts = async ({
 }) => {
   try {
     setLoading(true);
-    NProgress.start();
     const queryParams = new URLSearchParams(filters);
 
     for (const [key, value] of queryParams.entries()) {
@@ -22,24 +20,23 @@ export const fetchProducts = async ({
     queryParams.append("page", pageNumber.toString());
 
     const queryString = queryParams.toString();
-
-    const response = await fetch(`/api/search/search?${queryString}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search?${queryString}`);
     const data = await response.json();
     setResults(data);
     setPageNumber(data.page);
     if (data?.facets) {
-      console.log("Facets:", data.facets);
       setFilterFacets({
         categories: data.facets.Categories,
         manufacturer: data.facets.Manufacturer,
         color: data.facets["Styles.Color"],
       });
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if(typeof window !== 'undefined'){
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-    NProgress.done();
   } catch (error) {
     console.error("Error fetching products:", error);
   }

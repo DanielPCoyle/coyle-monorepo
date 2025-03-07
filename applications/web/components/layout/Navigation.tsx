@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
+import Image from 'next/image';
+
 interface NavItemType {
   title: string;
   url: string;
@@ -45,9 +47,11 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
         </button>
         <div className="logo">
           <Link href="/">
-            <img
+            <Image
               src="https://cdn.inksoft.com/images/publishers/19502/stores/philadelphiascreenprinting/img/header-logo.png?decache=638658398084130000"
               alt="Logo"
+              width={200}
+              height={80}
             />
           </Link>
         </div>

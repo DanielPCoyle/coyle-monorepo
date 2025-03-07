@@ -43,7 +43,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
   useEffect(() => {
     socket.on("addReaction", (payload) => {
-      console.log({ payload });
       if (payload.messageId === message.id) {
         setReactions(payload.reactions);
       }

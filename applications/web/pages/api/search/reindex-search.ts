@@ -103,9 +103,6 @@ const processRecords = async (): Promise<
   let tooBig = 0;
   extractedProducts = extractedProducts.filter(
     (product: Product, index: number) => {
-      if (index === 0) {
-        console.log("Product:", JSON.stringify(product, null, 2));
-      }
       if (JSON.stringify(product).length < 10000) {
         return true;
       } else {

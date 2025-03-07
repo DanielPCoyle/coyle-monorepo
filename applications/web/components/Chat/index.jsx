@@ -59,7 +59,6 @@ export default function Chat() {
 
   useEffect(() => {
     if (localStorage.getItem("id")) {
-      console.log("ID from localStorage:", localStorage.getItem("id"));
       setId(localStorage.getItem("id"));
     } else {
       const randomString = Math.random().toString(36).substring(7);

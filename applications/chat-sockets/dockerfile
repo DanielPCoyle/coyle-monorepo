@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy package.json, tsconfig.json, and the packed database package
 COPY package.json tsconfig.json coyle-database-v1.0.0.tgz ./
-COPY .env /app/.env
+COPY .env.production /app/.env
 
 # Install dependencies, including the local tarball package
 RUN npm install --legacy-peer-deps
