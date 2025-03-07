@@ -30,7 +30,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     let products = null;
     await fetchProducts({
       filters: [],
-      loading:false,
       setLoading: () => {},
       setPageNumber: () => {},
       setFilterFacets: () => {},

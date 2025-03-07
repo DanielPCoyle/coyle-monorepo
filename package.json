@@ -27,7 +27,7 @@
     "prettier": "yarn workspaces run prettier",
     "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
     "pre-push": "yarn prettier --write && yarn lint",
-    "pack-db" : "./pack-db.sh"
+    "pack-db" : "./scripts/pack-db.sh"
   },
   "workspaces": {
     "packages": [
