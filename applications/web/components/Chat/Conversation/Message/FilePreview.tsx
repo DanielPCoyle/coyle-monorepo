@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ChatContext from "../../ChatContext";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface Message {
   files?: string[];

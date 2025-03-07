@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { FilePreview } from "./FilePreview";
 import { LinkPreview } from "./LinkPreview";
 import { MessageContext } from "./MessageContext";
-import Image from 'next/image';
+import Image from "next/image";
 
 export const MessageContent = () => {
   const { message, username, setShowReactionsPicker, setShowReplyModal } =

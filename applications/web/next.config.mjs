@@ -33,7 +33,7 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "bsoonvbgwrslsigymsmn.supabase.co",
-      }
+      },
     ],
   },
   async rewrites() {

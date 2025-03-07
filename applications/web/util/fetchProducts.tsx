@@ -1,4 +1,3 @@
-
 export const fetchProducts = async ({
   filters,
   setLoading,
@@ -20,7 +19,9 @@ export const fetchProducts = async ({
     queryParams.append("page", pageNumber.toString());
 
     const queryString = queryParams.toString();
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search?${queryString}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search?${queryString}`,
+    );
     const data = await response.json();
     setResults(data);
     setPageNumber(data.page);
@@ -31,7 +32,7 @@ export const fetchProducts = async ({
         color: data.facets["Styles.Color"],
       });
     }
-    if(typeof window !== 'undefined'){
+    if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
     setTimeout(() => {

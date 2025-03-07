@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface Message {
   message: string;

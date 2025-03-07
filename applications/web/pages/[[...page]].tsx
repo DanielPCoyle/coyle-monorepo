@@ -27,17 +27,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     })
     .toPromise();
 
-    let products = null;
-    await fetchProducts({
-      filters: [],
-      setLoading: () => {},
-      setPageNumber: () => {},
-      setFilterFacets: () => {},
-      pageNumber: 0,
-      setResults: (data) => {
-        products = data;
-      },
-    }); 
+  let products = null;
+  await fetchProducts({
+    filters: [],
+    setLoading: () => {},
+    setPageNumber: () => {},
+    setFilterFacets: () => {},
+    pageNumber: 0,
+    setResults: (data) => {
+      products = data;
+    },
+  });
   // Return the page content as props
   return {
     props: {
@@ -67,7 +67,13 @@ export async function getStaticPaths() {
 }
 
 // Define the Page component
-export default function Page({ page, products }: { page: BuilderContent | null, products: unknown | null }) {
+export default function Page({
+  page,
+  products,
+}: {
+  page: BuilderContent | null;
+  products: unknown | null;
+}) {
   // const router = useRouter();
   const isPreviewing = useIsPreviewing();
 
@@ -88,7 +94,11 @@ export default function Page({ page, products }: { page: BuilderContent | null, 
       <div className="navContainer">
         <Navigation navData={navData} />
       </div>
-      <BuilderComponent model="page" data={{products}} content={page || undefined} />
+      <BuilderComponent
+        model="page"
+        data={{ products }}
+        content={page || undefined}
+      />
       <Footer />
     </>
   );

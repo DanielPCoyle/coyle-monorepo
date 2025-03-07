@@ -1,6 +1,6 @@
 import React from "react";
 import { CloseThumbnailIcon } from "./CloseThumbnailIcon";
-import Image from 'next/image';
+import Image from "next/image";
 
 interface ThumbnailProps {
   files: File[];

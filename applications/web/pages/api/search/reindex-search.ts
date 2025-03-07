@@ -101,15 +101,13 @@ const processRecords = async (): Promise<
   }));
 
   let tooBig = 0;
-  extractedProducts = extractedProducts.filter(
-    (product: Product) => {
-      if (JSON.stringify(product).length < 10000) {
-        return true;
-      } else {
-        tooBig++;
-      }
-    },
-  );
+  extractedProducts = extractedProducts.filter((product: Product) => {
+    if (JSON.stringify(product).length < 10000) {
+      return true;
+    } else {
+      tooBig++;
+    }
+  });
 
   try {
     const index = aClient.initIndex("products_index");
