@@ -13,6 +13,7 @@
     "sockets:start": "yarn workspace @coyle/sockets start",
     "sockets:lint": "yarn workspace @coyle/sockets lint",
     "sockets:test": "yarn workspace @coyle/sockets test",
+    "sockets:deploy": "./scripts/deploy-sockets.sh",
     "chat:start": "yarn workspace @coyle/chat start",
     "chat:lint": "yarn workspace @coyle/chat lint",
     "chat:test": "yarn workspace @coyle/chat test",
