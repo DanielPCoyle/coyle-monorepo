@@ -1,0 +1,21 @@
+# Use Node.js 20 as the base image
+FROM node:20-alpine
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json, tsconfig.json, and the packed database package
+COPY package.json tsconfig.json coyle-database-v1.0.0.tgz ./
+COPY .env.production /app/.env
+
+# Install dependencies, including the local tarball package
+RUN npm install --legacy-peer-deps
+
+# Copy the application source code
+COPY src /app/src
+
+# Expose port 3000
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "run", "start"]

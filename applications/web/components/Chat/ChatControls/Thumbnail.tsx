@@ -1,5 +1,6 @@
 import React from "react";
 import { CloseThumbnailIcon } from "./CloseThumbnailIcon";
+import Image from "next/image";
 
 interface ThumbnailProps {
   files: File[];
@@ -16,10 +17,12 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
 }) => {
   return (
     <div key={file.name} className="thumbnailContainer">
-      <img
+      <Image
         src={URL.createObjectURL(file)}
         alt={file.name}
         className="thumbnail"
+        width={100}
+        height={100}
       />
       <button
         onClick={() => {

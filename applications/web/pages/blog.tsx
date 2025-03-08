@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/layout/Footer";
 import Navigation from "../components/layout/Navigation";
 import navData from "../data/navData.json";
+import Image from "next/image";
 
 interface Post {
   data: {
@@ -78,7 +79,12 @@ const Page: React.FC<PageProps> = ({
             >
               <div>
                 <div className="image">
-                  <img src={post.data.featuredImage} alt={post.data.title} />
+                  <Image
+                    src={post.data.featuredImage}
+                    alt={post.data.title}
+                    width={500}
+                    height={300}
+                  />
                 </div>
                 <div className="postDate">
                   {moment(post.createdDate).format("MMM D, YYYY")}

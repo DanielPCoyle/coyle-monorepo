@@ -12,6 +12,5 @@ interface Conversation {
 export async function getConversations(): Promise<Conversation[]> {
   const db = getDB();
   const data: Conversation[] = await db.select().from(conversations);
-  console.log({ data });
   return data;
 }

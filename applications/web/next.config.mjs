@@ -18,6 +18,23 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET,
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.inksoft.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.builder.io",
+      },
+      {
+        protocol: "https",
+        hostname: "bsoonvbgwrslsigymsmn.supabase.co",
+      },
+    ],
   },
   async rewrites() {
     return [
