@@ -156,7 +156,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
       )}
 
-
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
           isSender={message.sender === username}
@@ -191,13 +190,20 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
           <div className="replies">
             <MessageContent />
             {showReactionsPicker && (
-        <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
-      )}
+              <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+            )}
             {message.replies && (
               <div>
                 {message.replies.map((reply: MessageType, index: number) => (
                   <div key={index}>
-                   <SubMessage reply={reply} currentConversation={currentConversation} username={username} email={email} addReaction={addReaction} socket={socket} />
+                    <SubMessage
+                      reply={reply}
+                      currentConversation={currentConversation}
+                      username={username}
+                      email={email}
+                      addReaction={addReaction}
+                      socket={socket}
+                    />
                   </div>
                 ))}
               </div>
@@ -215,8 +221,13 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   );
 };
 
-
-const SubMessage: React.FC<{ reply: MessageType }> = ({ reply, username,socket, email, currentConversation }) => {
+const SubMessage: React.FC<{ reply: MessageType }> = ({
+  reply,
+  username,
+  socket,
+  email,
+  currentConversation,
+}) => {
   const [urlPreview] = useState<string | null>(null);
   const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] =
@@ -226,16 +237,14 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({ reply, username,socket, 
     reply.reactions || {},
   );
 
-
-   useEffect(() => {
-      socket.on("addReaction", (payload) => {
-        console.log({payload,reply})
-        if (payload.messageId === reply.id) {
-          setReactions(payload.reactions);
-        }
-      });
-    }, []);
-
+  useEffect(() => {
+    socket.on("addReaction", (payload) => {
+      console.log({ payload, reply });
+      if (payload.messageId === reply.id) {
+        setReactions(payload.reactions);
+      }
+    });
+  }, []);
 
   const addReaction = (emoji: { emoji: string }) => {
     const newReactions = { ...reactions };
@@ -271,29 +280,31 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({ reply, username,socket, 
     }
   };
 
-  return  <MessageContext.Provider
-  value={{
-    message: reply,
-    urlPreview,
-    username,
-    setShowReactionsPicker,
-    setShowReplyModal,
-    showReplyModal,
-    addReaction,
-    reactions,
-  }}
->
-  <MessageContent />
-  {showReactionsPicker && (
-  <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
-  )}
+  return (
+    <MessageContext.Provider
+      value={{
+        message: reply,
+        urlPreview,
+        username,
+        setShowReactionsPicker,
+        setShowReplyModal,
+        showReplyModal,
+        addReaction,
+        reactions,
+      }}
+    >
+      <MessageContent />
+      {showReactionsPicker && (
+        <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+      )}
 
-{Boolean(reactions) && Object.values(reactions).length > 0 && (
-    <Reactions
-      isSender={reply.sender === username}
-      reactions={reactions}
-      removeReactions={removeReactions}
-    />
-  )}
-</MessageContext.Provider>
-}
+      {Boolean(reactions) && Object.values(reactions).length > 0 && (
+        <Reactions
+          isSender={reply.sender === username}
+          reactions={reactions}
+          removeReactions={removeReactions}
+        />
+      )}
+    </MessageContext.Provider>
+  );
+};
