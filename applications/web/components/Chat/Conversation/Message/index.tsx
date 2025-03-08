@@ -152,7 +152,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       >
         <MessageContent />
       </div>
-
       {showReactionsPicker && (
         <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
       )}
@@ -190,24 +189,21 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
           </div>
           <div className="replies">
             <MessageContent />
+            {showReactionsPicker && (
+              <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+            )}
             {message.replies && (
               <div>
                 {message.replies.map((reply: MessageType, index: number) => (
                   <div key={index}>
-                    <MessageContext.Provider
-                      value={{
-                        message: reply,
-                        urlPreview,
-                        username,
-                        setShowReactionsPicker,
-                        setShowReplyModal,
-                        showReplyModal,
-                        addReaction,
-                        reactions,
-                      }}
-                    >
-                      <MessageContent />
-                    </MessageContext.Provider>
+                    <SubMessage
+                      reply={reply}
+                      currentConversation={currentConversation}
+                      username={username}
+                      email={email}
+                      addReaction={addReaction}
+                      socket={socket}
+                    />
                   </div>
                 ))}
               </div>
@@ -221,6 +217,94 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
           </div>
         </div>
       </Modal>
+    </MessageContext.Provider>
+  );
+};
+
+const SubMessage: React.FC<{ reply: MessageType }> = ({
+  reply,
+  username,
+  socket,
+  email,
+  currentConversation,
+}) => {
+  const [urlPreview] = useState<string | null>(null);
+  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
+  const [showReactionsPicker, setShowReactionsPicker] =
+    useState<boolean>(false);
+  const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
+  const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
+    reply.reactions || {},
+  );
+
+  useEffect(() => {
+    socket.on("addReaction", (payload) => {
+      console.log({ payload, reply });
+      if (payload.messageId === reply.id) {
+        setReactions(payload.reactions);
+      }
+    });
+  }, []);
+
+  const addReaction = (emoji: { emoji: string }) => {
+    const newReactions = { ...reactions };
+    if (!newReactions[email]) {
+      newReactions[email] = [];
+    }
+    newReactions[email].push(emoji.emoji);
+    setReactions(newReactions);
+    socket.emit("addReaction", {
+      id: currentConversation?.id,
+      messageId: reply.id,
+      reactions: newReactions,
+    });
+    setShowReactionsPicker(false);
+  };
+
+  const removeReactions = (emoji: { emoji: string }) => {
+    const newReactions = { ...reactions };
+    if (newReactions[email]) {
+      newReactions[email] = newReactions[email].filter(
+        (e) => e !== emoji.emoji,
+      );
+      if (newReactions[email].length === 0) {
+        delete newReactions[email];
+      }
+      setReactions(newReactions);
+
+      socket.emit("addReaction", {
+        id,
+        messageId: reply.id,
+        reactions: newReactions,
+      });
+    }
+  };
+
+  return (
+    <MessageContext.Provider
+      value={{
+        message: reply,
+        urlPreview,
+        username,
+        setShowReactionsPicker,
+        setShowReplyModal,
+        showReplyModal,
+        addReaction,
+        reactions,
+      }}
+    >
+      <MessageContent />
+      {showReactionsPicker && (
+        <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+      )}
+
+      {Boolean(reactions) && Object.values(reactions).length > 0 && (
+        <Reactions
+          isSender={reply.sender === username}
+          reactions={reactions}
+          removeReactions={removeReactions}
+        />
+      )}
     </MessageContext.Provider>
   );
 };
