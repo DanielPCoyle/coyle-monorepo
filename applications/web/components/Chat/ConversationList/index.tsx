@@ -54,9 +54,7 @@ export const ConversationList: React.FC = () => {
           </g>
         </svg>
       </button>
-      <div
-        className={`conversationList`}
-      >
+      <div className={`conversationList`}>
         <h3>Active Conversations</h3>
         <button
           onClick={toggleDrawer}

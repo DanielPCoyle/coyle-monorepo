@@ -11,7 +11,15 @@ export const Settings = () => {
 
   const handleSave = () => {
     // Logic to save settings
-    console.log("Settings saved", { adminName, email, password, notificationsEnabled, notificationSound, notificationFrequency, status });
+    console.log("Settings saved", {
+      adminName,
+      email,
+      password,
+      notificationsEnabled,
+      notificationSound,
+      notificationFrequency,
+      status,
+    });
   };
 
   return (
@@ -71,10 +79,7 @@ export const Settings = () => {
       </div>
       <div className="formGroup">
         <label>Status</label>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-        >
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="online">Online</option>
           <option value="offline">Offline</option>
         </select>

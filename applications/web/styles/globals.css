@@ -449,6 +449,10 @@ a.chat {
   color: white;
 }
 
+.conversationList h3{
+  margin-top: 15px;
+}
+
 .thumbnails {
   position: absolute;
   top: -110px;
@@ -692,6 +696,7 @@ button.closeModal svg {
 
 .conversationList h3 {
   margin-top: 15px;
+  margin-left: 10px;
 }
 
 .conversationListItem {
@@ -768,6 +773,7 @@ button.closeModal svg {
 
 .sidebarToggle button svg {
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .settingsContainer {
