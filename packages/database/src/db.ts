@@ -27,7 +27,6 @@ export function getPool(): pgPkg.Pool {
       connectionTimeoutMillis: 5000,
       idleTimeoutMillis: 60000,
       allowExitOnIdle: true,
-      poolMode: "transaction",
     });
 
     pool.setMaxListeners(poolLimit + 10);
