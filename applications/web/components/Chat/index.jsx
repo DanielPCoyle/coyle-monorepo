@@ -4,9 +4,9 @@ import { io } from "socket.io-client";
 import { ChatContext } from "./ChatContext";
 import { ChatControls } from "./ChatControls";
 import { Conversation } from "./Conversation";
-import { ConversationList } from "./ConversationList";
+import { ConversationList } from "./AdminSidebar/ConversationList";
 import { LoginForm } from "./LoginForm";
-import { Settings } from "./Settings";
+import { Settings } from "./AdminSidebar/Settings/Settings";
 
 /* eslint-disable no-undef */
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;

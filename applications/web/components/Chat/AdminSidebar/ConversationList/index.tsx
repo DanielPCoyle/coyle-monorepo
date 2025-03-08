@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ChatContext } from "../ChatContext";
+import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
 
 interface Conversation {

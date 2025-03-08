@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"; // Keep this secret and only on the backend
 
 export default async function handler(
   req: NextApiRequest,
@@ -44,9 +44,9 @@ export default async function handler(
 
     // Generate a JWT token
     const token = jwt.sign(
-      { id: user.id, email: user.email },
+      { userId: user.id, email: user.email },
       JWT_SECRET,
-      { expiresIn: "1h" }, // Token expires in 1 hour
+      { expiresIn: "7d" }, // Token valid for 7 days
     );
 
     return res.status(200).json({ token });
