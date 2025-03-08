@@ -55,7 +55,7 @@ export const ConversationList: React.FC = () => {
         </svg>
       </button>
       <div
-        className={`conversationList animate__animated ${isDrawerOpen ? "open animate__slideInLeft" : ""}`}
+        className={`conversationList`}
       >
         <h3>Active Conversations</h3>
         <button
