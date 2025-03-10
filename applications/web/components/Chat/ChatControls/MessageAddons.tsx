@@ -10,7 +10,7 @@ interface MessageAddonsProps {
   setShowEmojiPicker: (show: boolean) => void;
   emojiPickerRef: RefObject<HTMLDivElement>;
   insertEmoji: (emoji: string) => void;
-  typing: { user: string } | null;
+  typing: { name: string } | null;
 }
 
 export const MessageAddons: React.FC<MessageAddonsProps> = ({
@@ -66,7 +66,7 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
       )}
       <div className="isTyping">
         {typing && typing.user !== user ? (
-          <>{typing.user} is typing...</>
+          <>{typing.name} is typing...</>
         ) : (
           <>&nbsp;</>
         )}

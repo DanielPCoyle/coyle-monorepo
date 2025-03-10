@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd chat-sockets/
+sudo docker system prune -a -f
 sudo docker stop chat-sockets && sudo docker rm chat-sockets
 sudo docker build -t chat-sockets .
 sudo docker run --name chat-sockets -d -p 3000:3000 chat-sockets

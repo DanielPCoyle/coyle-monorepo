@@ -5,10 +5,10 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy package.json, package-lock.json, and tsconfig.json
-COPY package.json package-lock.json tsconfig.json ./
+COPY package.json tsconfig.json ./
 COPY coyle-database-v1.0.0.tgz ./
 COPY .env.production /app/.env
-
+RUN rm -rf node_modules
 # Install dependencies, including the local tarball package
 RUN npm install --legacy-peer-deps
 

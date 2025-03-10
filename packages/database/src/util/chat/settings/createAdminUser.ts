@@ -1,7 +1,7 @@
 import { users } from "@coyle/database/schema";
 import { getDB } from "@coyle/database/src/db";
 import bcrypt from "bcrypt";
-import { v4 as uuidv4 } from "uuid";
+import { v4 } from "uuid";
 import jwt from "jsonwebtoken";
 
 const SALT_ROUNDS = 10;
@@ -19,7 +19,7 @@ export const createAdminUser = async ({
   try {
     const db = getDB();
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-    const userId = uuidv4();
+    const userId = v4();
     await db.insert(users).values({
       id: userId,
       email,

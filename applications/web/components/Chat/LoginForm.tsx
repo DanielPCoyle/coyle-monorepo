@@ -25,7 +25,6 @@ export const LoginForm: React.FC = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(">>>>1", { data });
           setUser(data.user);
           setIsLoggedIn(true);
         });
@@ -79,13 +78,13 @@ export const LoginForm: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!showAdminLogin) {
-      if (!user || !email) {
-        alert("Please enter both user and email.");
+      if (!userName || !email) {
+        alert("Please enter both name and email.");
         return;
       }
       setIsLoggedIn(true);
     } else {
-      if (!email || !password) {
+      if (!userName || !password) {
         alert("Please enter both email and password.");
         return;
       }
@@ -102,7 +101,6 @@ export const LoginForm: React.FC = () => {
             alert(data.error);
           } else {
             const jwt = data.token;
-            console.log(">>>>", { jwt });
             localStorage.setItem("jwt", jwt);
             fetch("/api/auth/me", {
               headers: {

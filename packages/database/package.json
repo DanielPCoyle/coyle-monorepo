@@ -6,8 +6,11 @@
   "license": "MIT",
   "dependencies": {
     "@coyle/database": "*",
+    "bcrypt": "^5.1.1",
     "drizzle-orm": "^0.40.0",
-    "pg": "^8.13.3"
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.3",
+    "uuid": "^11.1.0"
   },
   "scripts": {
     "create-migration": "npx drizzle-kit generate --schema=./schema.ts --dialect=postgresql",
