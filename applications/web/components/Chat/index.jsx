@@ -192,7 +192,7 @@ export default function Chat() {
         messages.length > 0 &&
         Boolean(user) &&
         Boolean(user?.role) &&
-        ( user?.role !== "admin" )
+        user?.role !== "admin"
       ) {
         socket.emit("update messages action", {
           id: currentConversation.id,

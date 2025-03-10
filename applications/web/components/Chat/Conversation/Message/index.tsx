@@ -40,7 +40,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
     message.reactions || {},
   );
-  
 
   useEffect(() => {
     socket.on("addReaction", (payload) => {
@@ -238,7 +237,7 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
     reply.reactions || {},
   );
 
-  const {userName} = React.useContext(ChatContext);
+  const { userName } = React.useContext(ChatContext);
 
   useEffect(() => {
     socket.on("addReaction", (payload) => {
