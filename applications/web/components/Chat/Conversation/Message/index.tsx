@@ -30,7 +30,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { username, currentConversation, socket, id, email } =
+  const { user, currentConversation, socket, id, email } =
     React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
@@ -56,7 +56,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (username !== message.sender && !message.seen) {
+          if (user !== message.sender && !message.seen) {
             socket.emit("seen", message.id);
           }
         }
@@ -130,7 +130,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       value={{
         message,
         urlPreview,
-        username,
+        user,
         setShowReactionsPicker,
         setShowReplyModal,
         showReplyModal,
@@ -143,7 +143,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         className="animate__animated animate__zoomIn"
         key={index}
         style={{
-          alignItems: message.sender === username ? "flex-end" : "flex-start",
+          alignItems: message.sender === user ? "flex-end" : "flex-start",
           display: "flex",
           flexDirection: "column",
           marginBottom: "20px",
@@ -158,7 +158,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-          isSender={message.sender === username}
+          isSender={message.sender === user}
           reactions={reactions}
           removeReactions={removeReactions}
         />
@@ -199,7 +199,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
                     <SubMessage
                       reply={reply}
                       currentConversation={currentConversation}
-                      username={username}
+                      user={user}
                       email={email}
                       addReaction={addReaction}
                       socket={socket}
@@ -223,7 +223,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
 const SubMessage: React.FC<{ reply: MessageType }> = ({
   reply,
-  username,
+  user,
   socket,
   email,
   currentConversation,
@@ -285,7 +285,7 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
       value={{
         message: reply,
         urlPreview,
-        username,
+        user,
         setShowReactionsPicker,
         setShowReplyModal,
         showReplyModal,
@@ -300,7 +300,7 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
 
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-          isSender={reply.sender === username}
+          isSender={reply.sender === user}
           reactions={reactions}
           removeReactions={removeReactions}
         />

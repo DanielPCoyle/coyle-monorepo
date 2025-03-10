@@ -1,11 +1,9 @@
-import { users } from "@coyle/database/schema";
-import { getDB } from "@coyle/database/src/db";
 import bcrypt from "bcrypt";
-import { eq } from "drizzle-orm";
 import jwt from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key"; // Keep this secret and only on the backend
+const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Keep this secret and only on the backend
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,19 +20,7 @@ export default async function handler(
   }
 
   try {
-    const db = getDB();
-    // Fetch the user from the database
-    const data = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, email))
-      .limit(1);
-
-    if (data.length === 0) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
-
-    const user = data[0];
+    const user = await getUserByEmail(email);
 
     // Compare the hashed password
     const isMatch = await bcrypt.compare(password, user.passwordHash);
@@ -44,7 +30,7 @@ export default async function handler(
 
     // Generate a JWT token
     const token = jwt.sign(
-      { userId: user.id, email: user.email },
+      { userId: user.id, email: user.email, name: user.name || "blank", role: user.role, status: user.status },
       JWT_SECRET,
       { expiresIn: "7d" }, // Token valid for 7 days
     );
@@ -54,3 +40,5 @@ export default async function handler(
     return res.status(500).json({ error: (error as Error).message });
   }
 }
+
+

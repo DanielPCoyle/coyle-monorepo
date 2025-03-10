@@ -20,7 +20,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
   const {
     currentConversation,
     socket,
-    username,
+    user,
     typing,
     files,
     setFiles,
@@ -113,7 +113,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
         id: currentConversation.id,
         messageId: randomString,
         message: htmlContent,
-        sender: username,
+        sender: user,
         replyId: replyId,
         files: uploadedFiles.filter((url) => url),
       };

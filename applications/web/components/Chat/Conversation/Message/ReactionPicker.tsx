@@ -10,14 +10,14 @@ interface ReactionPickerProps {
 export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   reactionsPickerRef,
 }) => {
-  const { username } = useContext(ChatContext);
+  const { user } = useContext(ChatContext);
   const { message, addReaction } = useContext(MessageContext);
 
   return (
     <div
       className="reactionsPicker"
       style={{
-        textAlign: username === message.sender ? "right" : "left",
+        textAlign: user === message.sender ? "right" : "left",
       }}
     >
       <div

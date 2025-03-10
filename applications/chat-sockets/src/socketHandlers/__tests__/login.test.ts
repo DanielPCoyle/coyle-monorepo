@@ -22,7 +22,7 @@ describe("login handler", () => {
 
     const loginHandler = socket.on.mock.calls[0][1];
     const userData = {
-      username: "testuser",
+      user: "testuser",
       email: "test@example.com",
       id: "user-id",
     };
@@ -31,7 +31,7 @@ describe("login handler", () => {
 
     expect(conversations).toEqual([
       {
-        username: "testuser",
+        user: "testuser",
         email: "test@example.com",
         id: "user-id",
         socketId: "socket-id",

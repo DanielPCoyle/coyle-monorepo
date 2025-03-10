@@ -8,7 +8,7 @@ describe("userTyping", () => {
     const socket = {
       on: vi.fn((event, callback) => {
         if (event === "user typing") {
-          callback({ conversationId: "123", username: "testUser" });
+          callback({ conversationId: "123", user: "testUser" });
         }
       }),
     };
@@ -23,13 +23,13 @@ describe("userTyping", () => {
     expect(socket.on).toHaveBeenCalledWith("user typing", expect.any(Function));
     expect(io.to).toHaveBeenCalledWith("123");
     expect(io.emit).toHaveBeenCalledWith("user typing", {
-      username: "testUser",
+      user: "testUser",
     });
 
     vi.advanceTimersByTime(1000);
 
     expect(io.emit).toHaveBeenCalledWith("user not typing", {
-      username: "testUser",
+      user: "testUser",
     });
   });
 
@@ -37,8 +37,8 @@ describe("userTyping", () => {
     const socket = {
       on: vi.fn((event, callback) => {
         if (event === "user typing") {
-          callback({ conversationId: "123", username: "testUser" });
-          callback({ conversationId: "123", username: "testUser" });
+          callback({ conversationId: "123", user: "testUser" });
+          callback({ conversationId: "123", user: "testUser" });
         }
       }),
     };
@@ -53,19 +53,19 @@ describe("userTyping", () => {
     expect(socket.on).toHaveBeenCalledWith("user typing", expect.any(Function));
     expect(io.to).toHaveBeenCalledWith("123");
     expect(io.emit).toHaveBeenCalledWith("user typing", {
-      username: "testUser",
+      user: "testUser",
     });
 
     vi.advanceTimersByTime(500);
 
     expect(io.emit).not.toHaveBeenCalledWith("user not typing", {
-      username: "testUser",
+      user: "testUser",
     });
 
     vi.advanceTimersByTime(500);
 
     expect(io.emit).toHaveBeenCalledWith("user not typing", {
-      username: "testUser",
+      user: "testUser",
     });
   });
 });

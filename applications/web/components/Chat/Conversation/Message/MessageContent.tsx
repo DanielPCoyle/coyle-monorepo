@@ -6,11 +6,11 @@ import { MessageContext } from "./MessageContext";
 import Image from "next/image";
 
 export const MessageContent = () => {
-  const { message, username, setShowReactionsPicker, setShowReplyModal } =
+  const { message, user, setShowReactionsPicker, setShowReplyModal } =
     useContext(MessageContext);
   return (
     <div
-      className={`messageContent ${message.sender === username ? "sender" : "receiver"}`}
+      className={`messageContent ${message.sender === user ? "sender" : "receiver"}`}
     >
       <div style={{ display: "flex", alignItems: "center" }}>
         <div

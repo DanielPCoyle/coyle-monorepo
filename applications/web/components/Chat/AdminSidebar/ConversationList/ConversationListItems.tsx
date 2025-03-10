@@ -4,7 +4,7 @@ import type { Socket } from "socket.io-client";
 
 interface Conversation {
   id: string;
-  username: string;
+  user: string;
   email: string;
   status: string;
   unSeenMessages: number;
@@ -29,7 +29,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
 }) => {
   const filteredConversations = conversations?.filter(
     (convo) =>
-      convo?.id !== id && convo?.username && convo?.username !== "admin",
+      convo?.id !== id && convo?.user && convo?.user !== "admin",
   );
 
   return filteredConversations?.length ? (
@@ -45,7 +45,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
           }}
         >
           {convo.status}
-          {convo.username} - {convo.email}
+          {convo.user} - {convo.email}
           {convo?.unSeenMessages > 0 && ` (${convo.unSeenMessages})`}
         </div>
       ))}
