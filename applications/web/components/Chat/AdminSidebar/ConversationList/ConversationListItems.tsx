@@ -28,8 +28,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   id,
 }) => {
   const filteredConversations = conversations?.filter(
-    (convo) =>
-      convo?.id !== id && convo?.user && convo?.user !== "admin",
+    (convo) => convo?.id !== id && convo?.user && convo?.user !== "admin",
   );
 
   return filteredConversations?.length ? (

@@ -20,8 +20,9 @@
     "**/*.tsx",
     "../../packages/database/util/getConversations.ts",
     "../../packages/database/util/getMessages.1.ts",
-    "../../packages/database/src/util/insertGetAStoreSignup.ts"
-, "../../packages/database/src/util/chat/getUserByEmail.ts"  ],
+    "../../packages/database/src/util/insertGetAStoreSignup.ts",
+    "../../packages/database/src/util/chat/getUserByEmail.ts"
+  ],
   "paths": {
     "@coyle/database/*": ["../../packages/database/*"]
   },

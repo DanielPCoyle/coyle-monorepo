@@ -3,11 +3,17 @@ import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { ChatContext } from "./ChatContext";
 
 export const LoginForm: React.FC = () => {
-  const { user, userName, setUser, setUserName, email, setEmail, setIsLoggedIn } =
-    useContext(ChatContext);
+  const {
+    user,
+    userName,
+    setUser,
+    setUserName,
+    email,
+    setEmail,
+    setIsLoggedIn,
+  } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
-
 
   React.useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -19,12 +25,12 @@ export const LoginForm: React.FC = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(">>>>1",{data});
+          console.log(">>>>1", { data });
           setUser(data.user);
           setIsLoggedIn(true);
         });
     }
-  },[]);
+  }, []);
 
   const formStyle: React.CSSProperties = {
     position: "absolute",
@@ -96,7 +102,7 @@ export const LoginForm: React.FC = () => {
             alert(data.error);
           } else {
             const jwt = data.token;
-            console.log(">>>>",{jwt});
+            console.log(">>>>", { jwt });
             localStorage.setItem("jwt", jwt);
             fetch("/api/auth/me", {
               headers: {

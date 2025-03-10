@@ -30,7 +30,13 @@ export default async function handler(
 
     // Generate a JWT token
     const token = jwt.sign(
-      { userId: user.id, email: user.email, name: user.name || "blank", role: user.role, status: user.status },
+      {
+        userId: user.id,
+        email: user.email,
+        name: user.name || "blank",
+        role: user.role,
+        status: user.status,
+      },
       JWT_SECRET,
       { expiresIn: "7d" }, // Token valid for 7 days
     );
@@ -40,5 +46,3 @@ export default async function handler(
     return res.status(500).json({ error: (error as Error).message });
   }
 }
-
-
