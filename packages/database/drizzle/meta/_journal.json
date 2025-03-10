@@ -27,6 +27,13 @@
       "when": 1741617485104,
       "tag": "0003_salty_miracleman",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1741617826929,
+      "tag": "0004_brown_blink",
+      "breakpoints": true
     }
   ]
 }

@@ -12,6 +12,7 @@ import {
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey(),
+  name: text("name"),
   email: text("email").notNull(),
   passwordHash: text("password_hash").notNull(),
   isActive: boolean("is_active").notNull(),
