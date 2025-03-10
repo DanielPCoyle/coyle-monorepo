@@ -7,8 +7,8 @@ import { Conversation } from "./Conversation";
 import { ConversationList } from "./AdminSidebar/ConversationList";
 import { LoginForm } from "./LoginForm";
 import { Settings } from "./AdminSidebar/Settings/Settings";
-import useSound from 'use-sound';
-import bubbleSFX from './bubble.mp3';
+import useSound from "use-sound";
+import bubbleSFX from "./bubble.mp3";
 /* eslint-disable no-undef */
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
 const socket = io(socketSite);
@@ -30,7 +30,6 @@ export default function Chat() {
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
   const [play] = useSound(bubbleSFX);
-
 
   useEffect(() => {
     if (!user && user?.role !== "admin") return;
@@ -104,7 +103,7 @@ export default function Chat() {
   }, [currentConversation]);
 
   useEffect(() => {
-    if (currentConversation &&  user &&  user?.role === "admin") {
+    if (currentConversation && user && user?.role === "admin") {
       socket.emit("join", { id: currentConversation.id });
       setMessages([]);
     }
@@ -126,7 +125,7 @@ export default function Chat() {
         conversationId,
         socketId: socket.id,
       };
-      console.log({loginEmitData})
+      console.log({ loginEmitData });
       socket.emit("login", loginEmitData);
 
       setCurrentConversation({
@@ -191,7 +190,9 @@ export default function Chat() {
       if (
         convoId === currentConversation.id &&
         messages.length > 0 &&
-        user.role !== "admin"
+        Boolean(user) &&
+        Boolean(user?.role) &&
+        ( user?.role !== "admin" )
       ) {
         socket.emit("update messages action", {
           id: currentConversation.id,
@@ -219,11 +220,11 @@ export default function Chat() {
     };
   }, [id]);
 
-  useEffect(()=>{
-    if(user?.name){
-      setUserName(user?.name)
+  useEffect(() => {
+    if (user?.name) {
+      setUserName(user?.name);
     }
-  },[user])
+  }, [user]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -251,11 +252,11 @@ export default function Chat() {
   }, [input, currentConversation, user]);
 
   useEffect(() => {
-    console.log(">>>>>>user typing", {typing, user, userName});
+    console.log(">>>>>>user typing", { typing, user, userName });
     socket.on("user typing", (data) => {
       if (
         data.conversationId === currentConversation?.id &&
-       data.name !== userName
+        data.name !== userName
       ) {
         setTyping(data);
       }

@@ -30,7 +30,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { user, currentConversation, socket, id, email } =
+  const { user, userName, currentConversation, socket, id, email } =
     React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
@@ -40,6 +40,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
     message.reactions || {},
   );
+  
 
   useEffect(() => {
     socket.on("addReaction", (payload) => {
@@ -158,7 +159,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-          isSender={message.sender === user}
+          isSender={message.sender === userName}
           reactions={reactions}
           removeReactions={removeReactions}
         />
@@ -237,6 +238,8 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
     reply.reactions || {},
   );
 
+  const {userName} = React.useContext(ChatContext);
+
   useEffect(() => {
     socket.on("addReaction", (payload) => {
       console.log({ payload, reply });
@@ -300,7 +303,7 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
 
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-          isSender={reply.sender === user}
+          isSender={reply.sender === userName}
           reactions={reactions}
           removeReactions={removeReactions}
         />

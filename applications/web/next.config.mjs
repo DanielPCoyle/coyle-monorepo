@@ -55,11 +55,11 @@ const nextConfig = {
       test: /\.(mp3|wav)$/,
       use: [
         {
-          loader: 'file-loader',
+          loader: "file-loader",
           options: {
-            name: '[name].[ext]',
-            outputPath: 'static/media/',
-            publicPath: '/_next/static/media/',
+            name: "[name].[ext]",
+            outputPath: "static/media/",
+            publicPath: "/_next/static/media/",
           },
         },
       ],

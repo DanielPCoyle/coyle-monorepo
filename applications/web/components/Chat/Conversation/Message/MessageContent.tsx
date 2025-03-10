@@ -9,7 +9,7 @@ import Image from "next/image";
 export const MessageContent = () => {
   const { message, setShowReactionsPicker, setShowReplyModal } =
     useContext(MessageContext);
-    const { user, userName } = useContext(ChatContext);
+  const { user, userName } = useContext(ChatContext);
   return (
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
@@ -39,7 +39,9 @@ export const MessageContent = () => {
           className="sender"
           style={{ fontWeight: "bolder", marginLeft: "5px" }}
         >
-          {message.sender === user?.name ? user?.name+"@PhilaPrints" : message.sender}
+          {message.sender === user?.name
+            ? user?.name + "@PhilaPrints"
+            : message.sender}
         </div>
         <small className="time" style={{ marginLeft: "5px" }}>
           ({moment(message.createdAt).format("D MMM hh:mm A")})

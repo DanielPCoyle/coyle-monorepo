@@ -885,10 +885,10 @@ button:hover {
 
 .adminItem {
   display: flex;
-  padding-top:10px;
-  padding-bottom:10px;
-  margin-top:10px;
-  border-bottom:solid 1px white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border-bottom: solid 1px white;
 }
 
 .adminItem button {
@@ -902,19 +902,16 @@ button:hover {
   align-items: center;
 }
 
-
-.statusDropdown{
+.statusDropdown {
   background: transparent;
   color: white;
   border: none !important;
 }
 
-
-.adminDetails{
-  width:200px;
+.adminDetails {
+  width: 200px;
   word-break: break-all;
 }
-.adminActions{
-  display:flex;
+.adminActions {
+  display: flex;
 }
-

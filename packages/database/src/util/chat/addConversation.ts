@@ -13,7 +13,7 @@ export async function addConversation({
   email,
   conversationKey,
 }: AddConversationParams): Promise<void> {
-  try{
+  try {
     const db = getDB();
     const existingData = await db
       .select()
@@ -22,7 +22,7 @@ export async function addConversation({
     if (existingData.length > 0) {
       return;
     }
-    console.log({name, email, conversationKey});
+    console.log({ name, email, conversationKey });
     await db.insert(conversations).values({ name, email, conversationKey });
   } catch (error) {
     console.error("Error adding conversation", error);
