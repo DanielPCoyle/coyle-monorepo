@@ -46,22 +46,212 @@ export const Settings = () => {
         handleSave,
       }}
     >
-    <div className="settingsContainer">
-      {view !== "home" && <div className="settingsNav">
-      <button onClick={() => setView("home")}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
-      </svg>
-      <span>Go Back</span>
+      <div className="settingsContainer">
+        {view !== "home" && (
+          <div className="settingsNav">
+            <button onClick={() => setView("home")}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-arrow-left-circle-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+              </svg>
+              <span>Go Back</span>
+            </button>
+          </div>
+        )}
+        {view === "home" && <SettingsHome />}
+
+        {view === "settings" && (
+          <>
+            <h1>Profile</h1>
+            <div className="formGroup">
+              <label>Admin Name</label>
+              <input
+                type="text"
+                value={adminName}
+                onChange={(e) => setAdminName(e.target.value)}
+              />
+            </div>
+            <div className="formGroup">
+              <label>Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="formGroup">
+              <label>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="formGroup">
+              <label>Notification Sound</label>
+              <input
+                type="text"
+                value={notificationSound}
+                onChange={(e) => setNotificationSound(e.target.value)}
+              />
+            </div>
+            <div className="formGroup">
+              <label>Notification Frequency</label>
+              <select
+                value={notificationFrequency}
+                onChange={(e) => setNotificationFrequency(e.target.value)}
+              >
+                <option value="instant">Instant</option>
+                <option value="hourly">Hourly</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+              </select>
+            </div>
+
+            <button onClick={handleSave}>Save Settings</button>
+          </>
+        )}
+        {view === "adminUsers" && <ChatAdministators />}
+        {view === "addUser" && <AddNewUserScreen />}
+      </div>
+    </SettingsContext.Provider>
+  );
+};
+
+const SettingsHome = () => {
+  const {
+    status,
+    setStatus,
+    notificationsEnabled,
+    setNotificationsEnabled,
+    setView,
+  } = React.useContext(SettingsContext);
+  return (
+    <>
+      <h1>Admin Settings</h1>
+
+      <div className="settingsNav">
+        <button onClick={() => setView("settings")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-person-fill"
+            viewBox="0 0 16 16"
+          >
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+          </svg>{" "}
+          <span>Profile</span>
+        </button>
+        <button onClick={() => setView("adminUsers")}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-people-fill"
+            viewBox="0 0 16 16"
+          >
+            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+          </svg>
+          <span>Chat Administrators</span>
+        </button>
+      </div>
+    </>
+  );
+};
+
+const ChatAdministators = () => {
+  const [admins, setAdmins] = React.useState([]);
+  const { setView } = React.useContext(SettingsContext);
+  React.useEffect(() => {
+    // Fetch chat administrators
+    fetch("/api/chat/settings/admin-users")
+      .then((res) => res.json())
+      .then((data) => {
+        setAdmins(data);
+      });
+  }, []);
+  return (
+    <div>
+      <h1>Chat Administrators</h1>
+      <button onClick={() => setView("addUser")}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          className="bi bi-person-add"
+          viewBox="0 0 16 16"
+        >
+          <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+          <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+        </svg>{" "}
+        <span>Add Admin</span>
       </button>
-      </div> }
-      {view === "home" && <SettingsHome />}
-     
+      <ul className="adminItems">
+        {admins.map((admin) => (
+          <li key={admin.id} className="adminItem">
+            <span>{admin.name}</span>
+            <span>{admin.email}</span>
+            <button onClick={() => handleEdit(admin.id)} className="editButton">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-pencil"
+                viewBox="0 0 16 16"
+              >
+                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+              </svg>
+            </button>
+            <button
+              onClick={() => handleDelete(admin.id)}
+              className="deleteButton"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-trash3"
+                viewBox="0 0 16 16"
+              >
+                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+              </svg>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
+const AddNewUserScreen = () => {
+  const { setView } = React.useContext(SettingsContext);
+  const [adminName, setAdminName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [role, setRole] = React.useState("admin");
+  const handleAddNewUser = () => {
+    // Logic to add new user
+    console.log("Adding new user", {
+      adminName,
+      email,
+      role,
+    });
+  };
 
-      
-      {view === "settings" && <>
-        <h1>Profile</h1>
+  return (
+    <div>
+      <h1>Add Chat Administrator</h1>
       <div className="formGroup">
         <label>Admin Name</label>
         <input
@@ -79,148 +269,14 @@ export const Settings = () => {
         />
       </div>
       <div className="formGroup">
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="formGroup">
-        <label>Notification Sound</label>
-        <input
-          type="text"
-          value={notificationSound}
-          onChange={(e) => setNotificationSound(e.target.value)}
-        />
-      </div>
-      <div className="formGroup">
-        <label>Notification Frequency</label>
-        <select
-          value={notificationFrequency}
-          onChange={(e) => setNotificationFrequency(e.target.value)}
-        >
-          <option value="instant">Instant</option>
-          <option value="hourly">Hourly</option>
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
+        <label>Role</label>
+        <select value={role} onChange={(e) => setRole(e.target.value)}>
+          <option value="admin">Admin</option>
+          <option value="moderator">Moderator</option>
+          <option value="viewer">Viewer</option>
         </select>
       </div>
-     
-      <button onClick={handleSave}>Save Settings</button>
-      </> }
-      {view === "adminUsers" && <ChatAdministators />}
-      {view === "addUser" && <AddNewUserScreen/>}
-    </div>
-    </SettingsContext.Provider>);};
-
-
-
-const SettingsHome = () => {
-  const { status, setStatus, notificationsEnabled, setNotificationsEnabled, setView } = React.useContext(SettingsContext);
-  return <>
-      <h1>Admin Settings</h1>
-    
-      <div className="settingsNav">
-         <button onClick={() => setView("settings")}>
-           
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-          </svg> <span>Profile</span>
-          </button> 
-        <button onClick={() => setView("adminUsers")}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-          </svg>
-            <span>Chat Administrators</span>
-          </button> 
-      </div>
-      </>
-}
-
-const ChatAdministators = () => {
-  const [admins, setAdmins] = React.useState([]);
-  const {setView} = React.useContext(SettingsContext);
-  React.useEffect(() => {
-    // Fetch chat administrators
-    fetch("/api/chat/settings/admin-users")
-      .then((res) => res.json())
-      .then((data) => {
-        setAdmins(data);
-      });
-  }, []);
-  return (
-    <div>
-      <h1>Chat Administrators</h1>
-      <button onClick={()=>setView("addUser")}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
-  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
-  <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
-</svg>  <span>Add Admin</span></button>
-      <ul className="adminItems">
-        {admins.map((admin) => (
-          <li key={admin.id} className="adminItem">
-            <span>{admin.name}</span>
-            <span>{admin.email}</span>
-            <button onClick={() => handleEdit(admin.id)} className="editButton">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-              </svg>
-            </button>
-            <button onClick={() => handleDelete(admin.id)} className="deleteButton">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-              </svg>
-            </button>
-          </li>
-        ))}
-      </ul>
+      <button onClick={handleAddNewUser}>Add Admin</button>
     </div>
   );
-}
-
-const AddNewUserScreen = () => {
-  const {setView} = React.useContext(SettingsContext);
-  const [adminName, setAdminName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [role, setRole] = React.useState("admin");
-  const handleAddNewUser = () => {
-    // Logic to add new user
-    console.log("Adding new user", {
-      adminName,
-      email,
-      role,
-    });
-  }
-  
-  return <div>  
-          <h1>Add Chat Administrator</h1>
-        <div className="formGroup">
-          <label>Admin Name</label>
-          <input
-            type="text"
-            value={adminName}
-            onChange={(e) => setAdminName(e.target.value)}
-          />
-          </div>
-          <div className="formGroup">
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          </div>
-          <div className="formGroup">
-            <label>Role</label>
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="admin">Admin</option>
-              <option value="moderator">Moderator</option>
-              <option value="viewer">Viewer</option>
-            </select>
-          </div>
-          <button onClick={handleAddNewUser}>Add Admin</button>
-      </div>
-}
+};

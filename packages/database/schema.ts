@@ -20,7 +20,9 @@ export const users = pgTable("users", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   lastLogin: timestamp("last_login"),
   status: text("status").notNull().default("offline"), // Default to offline
-  notificationsEnabled: boolean("notifications_enabled").notNull().default(false), // Default to true
+  notificationsEnabled: boolean("notifications_enabled")
+    .notNull()
+    .default(false), // Default to true
 });
 
 export const messages = pgTable("messages", {

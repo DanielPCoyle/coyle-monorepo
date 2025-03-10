@@ -5,10 +5,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 dotenv.config();
 
-async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const conversations = await getConversations();
     res.status(200).json(conversations);

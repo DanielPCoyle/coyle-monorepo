@@ -20,7 +20,11 @@ export function authMiddleware(handler) {
       const decoded = jwt.verify(token, SECRET_KEY);
 
       const db = getDB();
-      const user = await db.select().from(users).where(users.id.eq(decoded.userId)).limit(1);
+      const user = await db
+        .select()
+        .from(users)
+        .where(users.id.eq(decoded.userId))
+        .limit(1);
 
       if (!user.length) {
         return res.status(403).json({ error: "Forbidden" });

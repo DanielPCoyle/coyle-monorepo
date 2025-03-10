@@ -8,7 +8,10 @@ import jwt from "jsonwebtoken";
 const SALT_ROUNDS = 10;
 const SECRET_KEY = process.env.JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
@@ -36,7 +39,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Generate JWT token
     const token = jwt.sign({ userId, email }, SECRET_KEY, { expiresIn: "7d" });
 
-    return res.status(201).json({ message: "User created successfully", token });
+    return res
+      .status(201)
+      .json({ message: "User created successfully", token });
   } catch (error) {
     console.error("Error creating user:", error.message);
     return res.status(500).json({ error: error.message });

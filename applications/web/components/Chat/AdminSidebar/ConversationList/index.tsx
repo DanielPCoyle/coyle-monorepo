@@ -57,23 +57,23 @@ export const ConversationList: React.FC = () => {
         </svg>
       </button>
       <div className="immediateSettigs">
-      <div className="formGroup status">
-        <label>Status</label>
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="online">Online</option>
-          <option value="offline">Offline</option>
-        </select>
+        <div className="formGroup status">
+          <label>Status</label>
+          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+            <option value="online">Online</option>
+            <option value="offline">Offline</option>
+          </select>
+        </div>
+        <div className="formGroup notifications">
+          <label>Notifications {notificationsEnabled ? "On" : "Off"}</label>
+          <input
+            type="checkbox"
+            checked={notificationsEnabled}
+            onChange={(e) => setNotificationsEnabled(e.target.checked)}
+          />
+        </div>
       </div>
-      <div className="formGroup notifications">
-        <label>Notifications {notificationsEnabled ? "On" : "Off"}</label>
-        <input
-          type="checkbox"
-          checked={notificationsEnabled}
-          onChange={(e) => setNotificationsEnabled(e.target.checked)}
-        />
-      </div>
-      </div>
-      <hr/>
+      <hr />
       <div className={`conversationList`}>
         <h3>Active Conversations</h3>
         <button
