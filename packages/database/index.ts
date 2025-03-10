@@ -9,3 +9,4 @@ export { getMessages } from "./src/util/chat/getMessages";
 export { insertMessage } from "./src/util/chat/insertMessage";
 export { setMessageSeen } from "./src/util/chat/setMessageSeen";
 export { getAdminUsers } from "./src/util/chat/settings/getAdminUsers";
+export { createAdminUser } from "./src/util/chat/settings/createAdminUser";

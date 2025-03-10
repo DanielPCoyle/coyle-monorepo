@@ -170,7 +170,7 @@ const SettingsHome = () => {
 
 const ChatAdministators = () => {
   const [admins, setAdmins] = React.useState([]);
-  const { setView } = React.useContext(SettingsContext);
+  const { setView,view } = React.useContext(SettingsContext);
   React.useEffect(() => {
     // Fetch chat administrators
     fetch("/api/chat/settings/admin-users")
@@ -178,7 +178,7 @@ const ChatAdministators = () => {
       .then((data) => {
         setAdmins(data);
       });
-  }, []);
+  }, [view]);
   return (
     <div>
       <h1>Chat Administrators</h1>
@@ -242,11 +242,19 @@ const AddNewUserScreen = () => {
   const [role, setRole] = React.useState("admin");
   const handleAddNewUser = () => {
     // Logic to add new user
-    console.log("Adding new user", {
-      adminName,
-      email,
-      role,
-    });
+    fetch("/api/auth/register", {
+      method: "POST",
+      body: JSON.stringify({
+        name: adminName,
+        email,
+        role,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("User added", data);
+        // setView("adminUsers");
+      });
   };
 
   return (
