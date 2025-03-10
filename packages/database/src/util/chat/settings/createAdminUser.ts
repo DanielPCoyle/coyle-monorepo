@@ -7,22 +7,32 @@ import jwt from "jsonwebtoken";
 const SALT_ROUNDS = 10;
 const SECRET_KEY = process.env.JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
-export const createAdminUser = async ({email,password,name}:{email: string, password: string, name: string}) => {
-    try{
+export const createAdminUser = async ({
+  email,
+  password,
+  name,
+}: {
+  email: string;
+  password: string;
+  name: string;
+}) => {
+  try {
     const db = getDB();
-      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-      const userId = uuidv4();
-      await db.insert(users).values({
-        id: userId,
-        email,
-        passwordHash: hashedPassword,
-        isActive: false,
-        role: "user",
-      });
-      const token = jwt.sign({ userId, email, name }, SECRET_KEY, { expiresIn: "7d" });
-      return token;
-    } catch (error) {
-        console.error("Error creating user:", error.message);
-        return null
-    }
-}
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+    const userId = uuidv4();
+    await db.insert(users).values({
+      id: userId,
+      email,
+      passwordHash: hashedPassword,
+      isActive: false,
+      role: "user",
+    });
+    const token = jwt.sign({ userId, email, name }, SECRET_KEY, {
+      expiresIn: "7d",
+    });
+    return token;
+  } catch (error) {
+    console.error("Error creating user:", error.message);
+    return null;
+  }
+};

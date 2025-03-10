@@ -6,12 +6,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  console.log(req.method)
+  console.log(req.method);
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  
   const { name, email } = JSON.parse(req.body);
 
   if (!email || !name) {
@@ -20,8 +19,8 @@ export default async function handler(
 
   try {
     const password = Math.random().toString(36).slice(-8);
-    const token = await createAdminUser({email, password, name});
-    if(token){
+    const token = await createAdminUser({ email, password, name });
+    if (token) {
       await sendWelcomeEmail(name, email, password);
       return res
         .status(201)
@@ -29,10 +28,8 @@ export default async function handler(
     } else {
       return res.status(500).json({ error: "Error creating user" });
     }
-    
   } catch (error) {
     console.error("Error creating user:", error.message);
     return res.status(500).json({ error: error.message });
   }
 }
-

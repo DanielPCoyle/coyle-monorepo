@@ -170,7 +170,7 @@ const SettingsHome = () => {
 
 const ChatAdministators = () => {
   const [admins, setAdmins] = React.useState([]);
-  const { setView,view } = React.useContext(SettingsContext);
+  const { setView, view } = React.useContext(SettingsContext);
   React.useEffect(() => {
     // Fetch chat administrators
     fetch("/api/chat/settings/admin-users")
