@@ -20,6 +20,13 @@
       "when": 1741037927003,
       "tag": "0002_zippy_iron_monger",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741617485104,
+      "tag": "0003_salty_miracleman",
+      "breakpoints": true
     }
   ]
 }

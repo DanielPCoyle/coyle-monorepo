@@ -18,6 +18,8 @@ export const ConversationList: React.FC = () => {
   } = useContext(ChatContext);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [status, setStatus] = useState("online");
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
@@ -54,6 +56,24 @@ export const ConversationList: React.FC = () => {
           </g>
         </svg>
       </button>
+      <div className="immediateSettigs">
+      <div className="formGroup status">
+        <label>Status</label>
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <option value="online">Online</option>
+          <option value="offline">Offline</option>
+        </select>
+      </div>
+      <div className="formGroup notifications">
+        <label>Notifications {notificationsEnabled ? "On" : "Off"}</label>
+        <input
+          type="checkbox"
+          checked={notificationsEnabled}
+          onChange={(e) => setNotificationsEnabled(e.target.checked)}
+        />
+      </div>
+      </div>
+      <hr/>
       <div className={`conversationList`}>
         <h3>Active Conversations</h3>
         <button

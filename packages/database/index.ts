@@ -8,3 +8,4 @@ export { getConversations } from "./src/util/chat/getConversations";
 export { getMessages } from "./src/util/chat/getMessages";
 export { insertMessage } from "./src/util/chat/insertMessage";
 export { setMessageSeen } from "./src/util/chat/setMessageSeen";
+export { getAdminUsers } from "./src/util/chat/settings/getAdminUsers";

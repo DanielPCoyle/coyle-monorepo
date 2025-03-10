@@ -852,3 +852,50 @@ button:hover {
 .settingsNav button span{
   padding-left:5px;
 }
+
+
+.immediateSettigs{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .8em;
+}
+
+.immediateSettigs .formGroup.status{
+  width:60%;
+  margin-right:5px;
+  margin-left:5px;
+}
+
+.immediateSettigs .formGroup.notifications{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right:10px;
+}
+
+.immediateSettigs .formGroup.notifications input[type="checkbox"]{
+  /* make bigger */
+  transform: scale(2);
+}
+
+.adminItems{
+  padding:0;
+}
+
+.adminItem{
+  display:flex;
+}
+
+.adminItem button{
+  background-color: transparent;
+  padding:0;
+  margin-left:15px;
+  display: flex;
+  align-items: center;
+  color: white;
+  border: none;
+  align-items: center;
+}
