@@ -1,10 +1,11 @@
 import { getAdminUsers } from "@coyle/database";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
+import { authMiddleware } from "../../../../middlewares/auth";
 
 dotenv.config();
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
@@ -13,3 +14,6 @@ export default async function handler(
     res.status(200).json(users);
   }
 }
+
+
+export default authMiddleware(handler);

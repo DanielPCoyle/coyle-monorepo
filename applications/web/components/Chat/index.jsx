@@ -30,13 +30,20 @@ export default function Chat() {
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
   const [play] = useSound(bubbleSFX);
+  const [token, setToken] = useState(null);
+  
 
   useEffect(() => {
-    if (!user && user?.role !== "admin") return;
+    if (!user && user?.role !== "admin" || !token) return;
     let controller = new AbortController();
     const signal = controller.signal;
 
-    fetch("/api/chat/conversations", { signal })
+    fetch("/api/chat/conversations", {
+      signal,
+      headers: {
+      Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (signal.aborted || !data?.length) return;
@@ -59,7 +66,11 @@ export default function Chat() {
     return () => {
       controller.abort();
     };
-  }, [user]);
+  }, [user, token]);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("jwt"));
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("id")) {
@@ -124,8 +135,9 @@ export default function Chat() {
         email,
         conversationId,
         socketId: socket.id,
+        isAdmin: user?.role === "admin",
       };
-      console.log({ loginEmitData });
+      console.log({ user, loginEmitData });
       socket.emit("login", loginEmitData);
 
       setCurrentConversation({
@@ -252,7 +264,6 @@ export default function Chat() {
   }, [input, currentConversation, user]);
 
   useEffect(() => {
-    console.log(">>>>>>user typing", { typing, user, userName });
     socket.on("user typing", (data) => {
       if (
         data.conversationId === currentConversation?.id &&

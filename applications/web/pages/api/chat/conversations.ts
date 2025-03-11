@@ -16,5 +16,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-// export default authMiddleware(handler);
-export default handler;
+export default authMiddleware(handler);

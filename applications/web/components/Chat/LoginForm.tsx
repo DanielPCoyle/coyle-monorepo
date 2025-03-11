@@ -84,7 +84,7 @@ export const LoginForm: React.FC = () => {
       }
       setIsLoggedIn(true);
     } else {
-      if (!userName || !password) {
+      if (!email || !password) {
         alert("Please enter both email and password.");
         return;
       }
@@ -109,6 +109,7 @@ export const LoginForm: React.FC = () => {
             })
               .then((res) => res.json())
               .then((data) => {
+                data.user.token = jwt;
                 setUser(data.user);
                 setIsLoggedIn(true);
               });

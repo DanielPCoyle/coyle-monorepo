@@ -2,8 +2,9 @@ import { users } from "@coyle/database/schema";
 import { getDB } from "@coyle/database/src/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
+import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
 
-const SECRET_KEY = process.env.JWT_SECRET || "your-secret-key"; // Replace with a secure key
+const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
 export function authMiddleware(handler) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
@@ -18,15 +19,8 @@ export function authMiddleware(handler) {
     try {
       // Verify the token
       const decoded = jwt.verify(token, SECRET_KEY);
-
-      const db = getDB();
-      const user = await db
-        .select()
-        .from(users)
-        .where(users.id.eq(decoded.userId))
-        .limit(1);
-
-      if (!user.length) {
+      const user = await getUserByEmail(decoded.email);
+      if (!user) {
         return res.status(403).json({ error: "Forbidden" });
       }
 

@@ -34,6 +34,13 @@
       "when": 1741617826929,
       "tag": "0004_brown_blink",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1741639147367,
+      "tag": "0005_abnormal_gauntlet",
+      "breakpoints": true
     }
   ]
 }
