@@ -130,8 +130,7 @@ export const ConversationList: React.FC = () => {
                 self: (Conversation | null)[],
               ) =>
                 convo && index === self.findIndex((c) => c?.id === convo?.id),
-            )
-          }
+            )}
           id={id}
         />
         <div className="historicConversations">

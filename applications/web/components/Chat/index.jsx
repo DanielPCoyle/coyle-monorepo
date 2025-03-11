@@ -121,7 +121,7 @@ export default function Chat() {
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
-      console.log("A",{conversations});
+      console.log("A", { conversations });
       setConversations(conversations); // Admin sees all
     });
   }, [currentConversation, user]);
@@ -147,7 +147,7 @@ export default function Chat() {
         recipient: "admin",
       });
 
-      if(user?.role === "admin") return;
+      if (user?.role === "admin") return;
       fetch("/api/auth/guest-token", {
         method: "POST",
         headers: {

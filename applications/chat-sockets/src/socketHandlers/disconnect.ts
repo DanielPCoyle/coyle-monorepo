@@ -14,7 +14,7 @@ export const disconnect = ({ socket, io, peopleOnSite, conversations }) =>
       const newConversations = conversations.filter(
         (user) => user?.id !== conversation.id,
       );
-      console.log({newConversations})
-      io.emit("conversations", newConversations); 
+      console.log({ newConversations });
+      io.emit("conversations", newConversations);
     }
   });
