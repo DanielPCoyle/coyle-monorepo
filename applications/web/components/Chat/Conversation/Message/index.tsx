@@ -33,12 +33,10 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   const {
     user,
     userName,
-    currentConversation,
     socket,
     id,
     email,
     conversations,
-    // setConversations,
   } = React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
@@ -69,7 +67,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
             const nConversations = [...conversations];
             const index = nConversations.findIndex((c) => {
               console.log({ c });
-              return c?.id === currentConversation.id;
+              return c?.id === id;
             });
             if(nConversations[index]) {
             nConversations[index].unSeenMessages -= 1;
@@ -100,7 +98,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     newReactions[email].push(emoji.emoji);
     setReactions(newReactions);
     socket.emit("addReaction", {
-      id: currentConversation?.id,
+      id: id,
       messageId: message.id,
       reactions: newReactions,
     });
@@ -215,7 +213,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
                   <div key={index}>
                     <SubMessage
                       reply={reply}
-                      currentConversation={currentConversation}
                       user={user}
                       email={email}
                       addReaction={addReaction}
@@ -243,10 +240,10 @@ const SubMessage: React.FC<{
   user: string;
   socket: any;
   email: string;
-  currentConversation: any;
   addReaction: any;
-}> = ({ reply, user, socket, email, currentConversation }) => {
+}> = ({ reply, user, socket, email }) => {
   const [urlPreview] = useState<string | null>(null);
+  const { id } = React.useContext(ChatContext);
   const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] =
     useState<boolean>(false);
@@ -274,7 +271,7 @@ const SubMessage: React.FC<{
     newReactions[email].push(emoji.emoji);
     setReactions(newReactions);
     socket.emit("addReaction", {
-      id: currentConversation?.id,
+      id: id,
       messageId: reply.id,
       reactions: newReactions,
     });

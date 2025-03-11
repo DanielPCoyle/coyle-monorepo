@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import type { Socket } from "socket.io-client";
+import { ChatContext } from "../../ChatContext";
 
 interface Conversation {
   id: string;
@@ -13,30 +14,26 @@ interface Conversation {
 interface ConversationListItemsProps {
   conversations: Conversation[];
   socket: Socket;
-  currentConversation: Conversation | null;
-  setCurrentConversation: (conversation: Conversation) => void;
   toggleDrawer: () => void;
-  id: string;
 }
 
 export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   conversations,
   socket,
-  currentConversation,
-  setCurrentConversation,
   toggleDrawer,
-  id,
 }) => {
   
+  const { setId, id } = React.useContext(ChatContext);
+
   return conversations?.length ? (
     <>
       {conversations?.map((convo, i) => (
         <div
-          className={`conversationListItem ${currentConversation?.id === convo.id ? "active" : ""}`}
+          className={`conversationListItem ${id === convo.id ? "active" : ""}`}
           key={i}
           onClick={() => {
-            socket.emit("leave", { id: currentConversation?.id });
-            setCurrentConversation(convo);
+            socket.emit("leave", { id: id });
+            setId(convo.conversationKey);
             toggleDrawer();
           }}
         >

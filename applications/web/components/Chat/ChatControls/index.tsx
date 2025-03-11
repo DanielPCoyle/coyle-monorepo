@@ -18,7 +18,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
   const {
-    currentConversation,
+    id,
     socket,
     user,
     userName,
@@ -102,7 +102,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     const htmlContent = stateToHTML(contentState);
     const randomString = Math.random().toString(36).substring(7);
 
-    if (currentConversation) {
+    if (id) {
       let uploadedFiles = [];
 
       if (files.length > 0) {
@@ -111,7 +111,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
       }
 
       const message = {
-        id: currentConversation?.conversationKey || currentConversation?.id,
+        id: id,
         messageId: randomString,
         message: htmlContent,
         sender: user?.name || userName,

@@ -25,6 +25,9 @@ export default async function handler(
 
   try {
     const decoded = jwt.verify(token, secret) as DecodedToken;
+    if(decoded?.role !== "admin"){
+      res.status(200).json({ user: decoded });
+    }
     const user = await getUserByEmail(decoded?.email);
     res.status(200).json({ user: user });
   } catch (error) {

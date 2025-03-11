@@ -16,8 +16,6 @@ const socket = io(socketSite);
 export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
-  const [currentConversation, setCurrentConversation] = useState(null);
-  const [historicConversations, setHistoricConversations] = useState([]);
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
@@ -34,7 +32,7 @@ export default function Chat() {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
-    if ((!user && user?.role !== "admin") || !token) return;
+    if ((!user || user?.role !== "admin") || !token) return;
     let controller = new AbortController();
     const signal = controller.signal;
 
@@ -47,7 +45,7 @@ export default function Chat() {
       .then((res) => res.json())
       .then((data) => {
         if (signal.aborted || !data?.length) return;
-        setHistoricConversations(
+        setConversations(
           data?.map((convo) => {
             convo.user = convo.name;
             convo.id = convo.conversationKey;
@@ -78,106 +76,59 @@ export default function Chat() {
     } else {
       const randomString = Math.random().toString(36).substring(7);
       setId(randomString);
-      localStorage.setItem("id", randomString);
     }
-
-    if (localStorage.getItem("isLoggedIn") === "true") {
-      setIsLoggedIn(true);
-      setWindowWidth(window.innerWidth);
-      setUserName(localStorage.getItem("userName") || "");
-      setEmail(localStorage.getItem("email") || "");
-      setCurrentConversation(
-        JSON.parse(localStorage.getItem("currentConversation")) || null,
-      );
-    }
-    setWindowWidth(window.innerWidth);
   }, []);
 
 
 
   useEffect(() => {
-    if (!currentConversation?.id) return;
-    fetch(`/api/chat/messages?conversationKey=${currentConversation?.conversationKey || currentConversation.id}`)
+    if (!id) return;
+    fetch(`/api/chat/messages?conversationKey=${id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
         setMessages(sortedMessages);
       });
-  }, [currentConversation]);
+  }, [id]);
 
   useEffect(() => {
-    if (currentConversation && user && user?.role === "admin") {
-      socket.emit("join", { id: currentConversation.conversationKey || currentConversation.id });
+      socket.emit("join", { id });
       setMessages([]);
-    }
-  }, [currentConversation, user]);
+  }, [id, user]);
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
       if(user?.role !== "admin") return
-      console.log("A", { conversations });
       setConversations(conversations); // Admin sees all
     });
-  }, [currentConversation, user]);
+  }, [user]);
 
-  useEffect(() => {
-    if (isLoggedIn && !init) {
-      const conversationKey = `${id}`;
-      const loginEmitData = {
-        id,
-        userName: user?.name || userName,
-        email,
-        conversationKey,
-        socketId: socket.id,
-        isAdmin: user?.role === "admin",
-      };
-      socket.emit("login", loginEmitData);
+  // useEffect(() => {
+  //   if (isLoggedIn && !init) {
+  //     const conversationKey = `${id}`;
+  //     const loginEmitData = {
+  //       id,
+  //       userName: user?.name || userName,
+  //       email,
+  //       conversationKey,
+  //       socketId: socket.id,
+  //       isAdmin: user?.role === "admin",
+  //     };
+  //     socket.emit("login", loginEmitData);
 
-      setCurrentConversation({
-        id,
-        user,
-        email,
-        conversationKey,
-        recipient: "admin",
-      });
+  //     setCurrentConversation({
+  //       id,
+  //       user,
+  //       email,
+  //       conversationKey,
+  //       recipient: "admin",
+  //     });
 
-      if (user?.role === "admin") return;
-      fetch("/api/auth/guest-token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, name: userName, email }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data?.token) {
-            setToken(data.token);
-            localStorage.setItem("jwt", data.token);
-          }
-        })
-        .catch((err) => {
-          console.error("Error fetching guest token:", err);
-        });
-
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("userName", loginEmitData.userName);
-      localStorage.setItem("email", email);
-      localStorage.setItem(
-        "currentConversation",
-        JSON.stringify({
-          id,
-          user,
-          email,
-          conversationKey,
-          recipient: "Admin",
-        }),
-      );
-      setInit(true);
-    } else {
-      localStorage.setItem("isLoggedIn", "false");
-    }
-  }, [isLoggedIn, user, email, id, init]);
+  //     if (user?.role === "admin") return;
+     
+  //     setInit(true);
+  //   } 
+  // }, [isLoggedIn, user, email, id, init]);
 
   useEffect(() => {
     socket.on("chat message", (message) => {
@@ -210,17 +161,17 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    if (!currentConversation?.id) return;
+    if (typeof id === "undefined") return;
     socket.on("update messages request", (convoId) => {
       if (
-        convoId === currentConversation.id &&
+        convoId === id &&
         messages.length > 0 &&
         Boolean(user) &&
         Boolean(user?.role) &&
         user?.role !== "admin"
       ) {
         socket.emit("update messages action", {
-          id: currentConversation.id,
+          id: id,
           messages,
         });
       }
@@ -228,16 +179,11 @@ export default function Chat() {
 
     if (user && user?.role !== "admin") return;
     socket.on("update messages result", ({ convoId, messages }) => {
-      if (convoId === currentConversation.id) {
+      if (convoId === id) {
         setMessages(messages);
       }
     });
-  }, [currentConversation, messages, user]);
-
-  // useEffect(() => {
-  //   if (user.toLocaleLowerCase() === "admin") return;
-  //   localStorage.setItem("messages", JSON.stringify(messages));
-  // }, [messages, currentConversation, user]);
+  }, [id, messages, user]);
 
   useEffect(() => {
     return () => {
@@ -263,11 +209,11 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    if (!currentConversation) return;
+    if (!id) return;
     const handleTyping = () => {
       console.log("TYPING",userName)
       socket.emit("user typing", {
-        conversationKey: currentConversation?.conversationKey || currentConversation.id,
+        conversationKey: id,
         userName,
       });
     };
@@ -275,12 +221,12 @@ export default function Chat() {
     if (input.length > 0) {
       handleTyping();
     }
-  }, [input, currentConversation, userName]);
+  }, [input, id, userName]);
 
   useEffect(() => {
     socket.on("user typing", (data) => {
       if (
-        data.conversationKey === (currentConversation?.conversationKey || currentConversation?.id ) &&
+        data.conversationKey === id &&
         data.name !== userName
       ) {
         setTyping(data);
@@ -289,13 +235,13 @@ export default function Chat() {
 
     socket.on("user not typing", (data) => {
       if (
-        data.conversationKey === currentConversation?.id &&
+        data.conversationKey === id &&
         data.user !== user
       ) {
         setTyping(null);
       }
     });
-  }, [currentConversation, user]);
+  }, [id, user]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -307,10 +253,8 @@ export default function Chat() {
     <ChatContext.Provider
       value={{
         conversations,
-        currentConversation,
         email,
         files,
-        historicConversations,
         id,
         input,
         messages,
@@ -318,9 +262,9 @@ export default function Chat() {
         typing,
         user,
         userName,
+        setToken,
         setModalSource,
         setModalIndex,
-        setCurrentConversation,
         setEmail,
         setFiles,
         setInput,
@@ -329,6 +273,8 @@ export default function Chat() {
         setUser,
         setUserName,
         setConversations,
+        setId,
+        setTyping,
       }}
     >
       {!isLoggedIn ? (

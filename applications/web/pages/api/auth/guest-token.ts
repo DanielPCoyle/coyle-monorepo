@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 
-const SECRET_KEY = process.env.JWT_SECRET || "your-secret-key"; // Replace with a secure key
+const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,6 +21,7 @@ export default async function handler(
     const token = jwt.sign({ email, name, conversationKey }, SECRET_KEY, {
       expiresIn: "7d",
     });
+    
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Error creating user:", error.message);

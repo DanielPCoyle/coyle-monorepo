@@ -10,11 +10,8 @@ interface Conversation {
 export const ConversationList: React.FC = () => {
   const {
     conversations,
-    currentConversation,
-    setCurrentConversation,
     socket,
     id,
-    historicConversations,
     user,
   } = useContext(ChatContext);
 
@@ -112,20 +109,14 @@ export const ConversationList: React.FC = () => {
         <ConversationListItems
           socket={socket}
           toggleDrawer={toggleDrawer}
-          setCurrentConversation={setCurrentConversation}
-          currentConversation={currentConversation}
           conversations={conversations.filter(c=>c.isActive)}
-          id={id}
         />
         <div className="historicConversations">
           <h3>Historic Conversations</h3>
           <ConversationListItems
             socket={socket}
             toggleDrawer={toggleDrawer}
-            setCurrentConversation={setCurrentConversation}
-            currentConversation={currentConversation}
             conversations={conversations.filter(c=>!c.isActive)}
-            id={id}
           />
         </div>
       </div>
