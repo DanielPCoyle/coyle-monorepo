@@ -1,5 +1,6 @@
 import { getDB } from "@coyle/database";
-import { conversations } from "@coyle/database/schema";
+import { conversations, messages } from "@coyle/database/schema";
+import { eq, count, and } from "drizzle-orm";
 
 interface Conversation {
   id: number;
@@ -7,10 +8,27 @@ interface Conversation {
   name: string;
   email: string;
   createdAt: Date;
-  unSeenMessages?: number;
+  unSeenMessages: number;
 }
+
 export async function getConversations(): Promise<Conversation[]> {
   const db = getDB();
-  const data: Conversation[] = await db.select().from(conversations);
+
+  const data = await db
+    .select({
+      id: conversations.id,
+      conversationKey: conversations.conversationKey,
+      name: conversations.name,
+      email: conversations.email,
+      createdAt: conversations.createdAt,
+      unSeenMessages: count(messages.id).as("unSeenMessages"),
+    })
+    .from(conversations)
+    .leftJoin(
+      messages,
+      and(eq(messages.conversationId, conversations.id), eq(messages.seen, false))
+    )
+    .groupBy(conversations.id);
+
   return data;
 }

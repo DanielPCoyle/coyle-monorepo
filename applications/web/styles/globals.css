@@ -485,6 +485,8 @@ a.chat {
   border: none;
   cursor: pointer;
   font-size: 18px;
+  padding:0;
+  text-shadow: #000000 0px 0px 10px;
 }
 
 .reactionsEmojiPicker.main {
@@ -577,7 +579,14 @@ a.chat {
   background-color: transparent;
   border: none;
   color: white;
+  padding: 0;
+  text-shadow: #000000 0px 0px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+
 
 .replyModal {
   overflow-y: hidden !important;
@@ -589,7 +598,7 @@ a.chat {
 }
 
 .replyModal .messageContent {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   width: 350px;
 }
 
@@ -914,4 +923,9 @@ button:hover {
 }
 .adminActions {
   display: flex;
+}
+
+
+.chatFlex{
+  background-color: rgb(22, 22, 22) !important;
 }

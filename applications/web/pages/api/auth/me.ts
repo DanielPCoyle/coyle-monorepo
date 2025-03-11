@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
+import { DecodedToken } from "../../../types";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 
@@ -23,7 +24,7 @@ export default async function handler(
   }
 
   try {
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(token, secret) as DecodedToken;
     const user = await getUserByEmail(decoded?.email);
     res.status(200).json({ user: user });
   } catch (error) {

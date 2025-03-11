@@ -1,8 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
+import type { DecodedToken } from "../types";
+
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
+
+declare module "next" {
+  interface NextApiRequest {
+    user?: any;
+  }
+}
 
 export function authMiddleware(handler) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,7 +24,7 @@ export function authMiddleware(handler) {
 
     try {
       // Verify the token
-      const decoded = jwt.verify(token, SECRET_KEY);
+      const decoded = jwt.verify(token, SECRET_KEY) as DecodedToken;
       const user = await getUserByEmail(decoded.email);
       if (!user) {
         return res.status(403).json({ error: "Forbidden" });

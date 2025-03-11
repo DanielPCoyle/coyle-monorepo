@@ -30,7 +30,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { user, userName, currentConversation, socket, id, email } =
+  const { user, userName, currentConversation, socket, id, email, conversations, setConversations } =
     React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
@@ -56,8 +56,17 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (user !== message.sender && !message.seen) {
+          if (userName !== message.sender && !message.seen) {
             socket.emit("seen", message.id);
+            const nConversations = [...conversations];
+            const index = nConversations.findIndex(
+              (c) => {
+                console.log({c})
+               return c.id === currentConversation.id
+              }
+            );
+            nConversations[index].unSeenMessages -= 1;
+            setConversations(nConversations);
           }
         }
       },
@@ -221,18 +230,12 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   );
 };
 
-const SubMessage: React.FC<{ reply: MessageType }> = ({
+const SubMessage: React.FC<{ reply: MessageType; user: string; socket: any; email: string; currentConversation: any, addReaction:any }> = ({
   reply,
   user,
   socket,
   email,
   currentConversation,
-}: {
-  reply: MessageType;
-  user: string;
-  socket: any;
-  email: string;
-  currentConversation: any;
 }) => {
   const [urlPreview] = useState<string | null>(null);
   const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
@@ -281,7 +284,6 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
       setReactions(newReactions);
 
       socket.emit("addReaction", {
-        id,
         messageId: reply.id,
         reactions: newReactions,
       });

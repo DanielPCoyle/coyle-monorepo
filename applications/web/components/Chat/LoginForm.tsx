@@ -3,8 +3,14 @@ import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { ChatContext } from "./ChatContext";
 
 export const LoginForm: React.FC = () => {
-  const { userName, setUser, setUserName, email, setEmail, setIsLoggedIn } =
-    useContext(ChatContext);
+  const {
+    userName,
+    setUser,
+    setUserName,
+    email,
+    setEmail,
+    setIsLoggedIn,
+  } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
 
