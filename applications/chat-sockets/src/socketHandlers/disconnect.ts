@@ -10,7 +10,11 @@ export const disconnect = ({ socket, io, peopleOnSite, conversations }) =>
       (user) => user?.socketId === socket.id,
     );
     if (conversationIndex >= 0) {
-      delete conversations[conversationIndex];
-      io.emit("conversations", conversations); // Update clients
+      const conversation = conversations[conversationIndex];
+      const newConversations = conversations.filter(
+        (user) => user?.id !== conversation.id,
+      );
+      console.log({newConversations})
+      io.emit("conversations", newConversations); 
     }
   });

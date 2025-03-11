@@ -38,7 +38,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     id,
     email,
     conversations,
-    setConversations,
+    // setConversations,
   } = React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
@@ -72,7 +72,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
               return c?.id === currentConversation.id;
             });
             nConversations[index].unSeenMessages -= 1;
-            setConversations(nConversations);
+            // setConversations(nConversations);
           }
         }
       },

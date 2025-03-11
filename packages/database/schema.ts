@@ -44,6 +44,7 @@ export const conversations = pgTable("conversations", {
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
   isAdmin: boolean("is_admin").notNull().default(false),
+  isActive: boolean("is_active").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

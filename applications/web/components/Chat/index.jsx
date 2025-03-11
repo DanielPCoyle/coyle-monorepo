@@ -121,7 +121,7 @@ export default function Chat() {
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
-      console.log(conversations);
+      console.log("A",{conversations});
       setConversations(conversations); // Admin sees all
     });
   }, [currentConversation, user]);
@@ -131,13 +131,12 @@ export default function Chat() {
       const conversationId = `${id}`;
       const loginEmitData = {
         id,
-        userName,
+        userName: user?.name || userName,
         email,
         conversationId,
         socketId: socket.id,
         isAdmin: user?.role === "admin",
       };
-      console.log({ user, loginEmitData });
       socket.emit("login", loginEmitData);
 
       setCurrentConversation({

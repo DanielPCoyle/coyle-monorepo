@@ -41,6 +41,13 @@
       "when": 1741639147367,
       "tag": "0005_abnormal_gauntlet",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741722403095,
+      "tag": "0006_solid_gargoyle",
+      "breakpoints": true
     }
   ]
 }
