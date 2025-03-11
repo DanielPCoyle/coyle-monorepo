@@ -12,6 +12,7 @@ export const LoginForm: React.FC = () => {
     setEmail,
     setIsLoggedIn,
     setToken,
+    setNotificationsEnabled,
   } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
@@ -30,6 +31,7 @@ export const LoginForm: React.FC = () => {
           setUser(data.user);
           setUserName(data.user.name);
           setEmail(data.user.email);
+          setNotificationsEnabled(data.user.notificationsEnabled);
           setIsLoggedIn(true);
         });
     }

@@ -8,29 +8,24 @@ interface Conversation {
 }
 
 export const ConversationList: React.FC = () => {
-  const { conversations, socket, id, user, admins } = useContext(ChatContext);
+  const { conversations, socket, id, user, admins, status,setStatus, notificationsEnabled, setNotificationsEnabled } = useContext(ChatContext);
   const [showHistoric, setShowHistoric] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [status, setStatus] = useState(user?.status);
-  const [notificationsEnabled, setNotificationsEnabled] = useState(
-    user?.notificationsEnabled,
-  );
+
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
   React.useEffect(() => {
-    console.log("updateStatus", { status, id });
     socket.emit("updateStatus", { status, id: user?.id });
   }, [status]);
 
   React.useEffect(() => {
-    if (status !== user?.notificationsEnabled) {
+    console.log("notificationsEnabled", notificationsEnabled);
       socket.emit("updateNotificationsEnabled", {
         notificationsEnabled,
         id: user?.id,
       });
-    }
   }, [notificationsEnabled]);
 
   return (
@@ -80,12 +75,12 @@ export const ConversationList: React.FC = () => {
         <div className="formGroup notifications">
           <label>
             Sound{" "}
-            {notificationsEnabled || user.notificationsEnabled ? "On" : "Off"}
+            {notificationsEnabled  ? "On" : "Off"}
           </label>
           <input
             type="checkbox"
-            checked={notificationsEnabled || user.notificationsEnabled}
-            onChange={(e) => setNotificationsEnabled(e.target.checked)}
+            checked={notificationsEnabled}
+            onChange={(e) => setNotificationsEnabled(!notificationsEnabled)}
           />
         </div>
       </div>
@@ -126,7 +121,7 @@ export const ConversationList: React.FC = () => {
         />
         <div className="historicConversations">
           <h3 onClick={() => setShowHistoric(!showHistoric)}>
-            Historic Conversations
+            Historic Conversations ( {conversations.filter((c) => !c.isActive).length} )
           </h3>
           {showHistoric && (
             <div style={{ overflow: "hidden" }}>

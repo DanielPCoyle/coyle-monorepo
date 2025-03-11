@@ -32,6 +32,8 @@ export default function Chat() {
   const [init, setInit] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(user?.status);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   useEffect(() => {
     if (!user || user?.role !== "admin" || !token) return;
@@ -154,11 +156,14 @@ export default function Chat() {
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
-        play();
+        console.log({notificationsEnabled})
+        if(notificationsEnabled){
+          play();
+        }
         return uniqueMessages;
       });
     });
-  }, []);
+  }, [notificationsEnabled]);
 
   useEffect(() => {
     if (typeof id === "undefined") return;
@@ -258,6 +263,7 @@ export default function Chat() {
         user,
         userName,
         loading,
+        status,setStatus, notificationsEnabled, setNotificationsEnabled,
         setToken,
         setModalSource,
         setModalIndex,

@@ -12,4 +12,5 @@ export { setMessageSeen } from "./src/util/chat/setMessageSeen";
 export { getAdminUsers } from "./src/util/chat/settings/getAdminUsers";
 export { createAdminUser } from "./src/util/chat/settings/createAdminUser";
 export { updateUserStatus } from "./src/util/chat/updateUserStatus";
+export { updateUserNotificationsEnabled } from "./src/util/chat/updateUserNotificationsEnabled";
 export { getUsersOnline } from "./src/util/chat/getUsersOnline";
