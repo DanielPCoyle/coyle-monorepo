@@ -148,6 +148,7 @@ export default function Chat() {
         recipient: "admin",
       });
 
+      if(user?.role === "admin") return;
       fetch("/api/auth/guest-token", {
         method: "POST",
         headers: {
