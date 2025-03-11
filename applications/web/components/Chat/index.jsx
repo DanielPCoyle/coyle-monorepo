@@ -156,14 +156,18 @@ export default function Chat() {
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
-        console.log({ notificationsEnabled });
-        if (notificationsEnabled) {
-          play();
-        }
+       
         return uniqueMessages;
       });
     });
-  }, [notificationsEnabled]);
+  }, []);
+
+
+React.useEffect(() => {
+    if (notificationsEnabled) {
+      play();
+    }
+  }, [messages, notificationsEnabled]);
 
   useEffect(() => {
     if (typeof id === "undefined") return;

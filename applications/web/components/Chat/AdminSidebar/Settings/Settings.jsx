@@ -120,15 +120,6 @@ export const Settings = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            {/* <div className="formGroup">
-              <label>Notification Sound</label>
-              <input
-                type="text"
-                value={notificationSound}
-                onChange={(e) => setNotificationSound(e.target.value)}
-              />
-            </div> */}
-
             <button onClick={handleSave}>Save Settings</button>
           </>
         )}
