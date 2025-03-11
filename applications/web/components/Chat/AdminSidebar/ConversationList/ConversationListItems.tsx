@@ -36,9 +36,13 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
             toggleDrawer();
           }}
         >
-          {convo.isActive && <div className="activeDot">&nbsp;</div>} 
-          <div>{convo.name} - {convo.email}</div>
-          <div>&nbsp; {convo?.unSeenMessages > 0 && ` (${convo.unSeenMessages})`}</div>
+          {convo.isActive && <div className="activeDot">&nbsp;</div>}
+          <div>
+            {convo.name} - {convo.email}
+          </div>
+          <div>
+            &nbsp; {convo?.unSeenMessages > 0 && ` (${convo.unSeenMessages})`}
+          </div>
         </div>
       ))}
     </>

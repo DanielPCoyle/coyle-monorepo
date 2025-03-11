@@ -31,6 +31,7 @@ export default function Chat() {
   const [token, setToken] = useState(null);
   const [init, setInit] = useState(false);
   const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user || user?.role !== "admin" || !token) return;
@@ -83,11 +84,14 @@ export default function Chat() {
 
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
     fetch(`/api/chat/messages?conversationKey=${id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
         setMessages(sortedMessages);
+        setLoading(false);
+
       });
   }, [id]);
 
@@ -124,7 +128,6 @@ export default function Chat() {
   }, [isLoggedIn, user, email, id, init]);
 
   useEffect(() => {
-
     socket.on("adminsOnline", (adminUsers) => {
       setAdmins(adminUsers);
     });
@@ -255,6 +258,7 @@ export default function Chat() {
         typing,
         user,
         userName,
+        loading,
         setToken,
         setModalSource,
         setModalIndex,

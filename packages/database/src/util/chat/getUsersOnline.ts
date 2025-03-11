@@ -8,7 +8,7 @@ export const getUsersOnline = async () => {
     const data = await db
       .select()
       .from(users)
-      .where(eq(users.status, 'online'))
+      .where(eq(users.status, "online"));
     return data;
   } catch (error) {
     console.log(error);
