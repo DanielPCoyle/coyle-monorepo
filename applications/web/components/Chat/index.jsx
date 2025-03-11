@@ -156,8 +156,8 @@ export default function Chat() {
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
-        console.log({notificationsEnabled})
-        if(notificationsEnabled){
+        console.log({ notificationsEnabled });
+        if (notificationsEnabled) {
           play();
         }
         return uniqueMessages;
@@ -263,7 +263,10 @@ export default function Chat() {
         user,
         userName,
         loading,
-        status,setStatus, notificationsEnabled, setNotificationsEnabled,
+        status,
+        setStatus,
+        notificationsEnabled,
+        setNotificationsEnabled,
         setToken,
         setModalSource,
         setModalIndex,

@@ -8,7 +8,17 @@ interface Conversation {
 }
 
 export const ConversationList: React.FC = () => {
-  const { conversations, socket, id, user, admins, status,setStatus, notificationsEnabled, setNotificationsEnabled } = useContext(ChatContext);
+  const {
+    conversations,
+    socket,
+    id,
+    user,
+    admins,
+    status,
+    setStatus,
+    notificationsEnabled,
+    setNotificationsEnabled,
+  } = useContext(ChatContext);
   const [showHistoric, setShowHistoric] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -22,10 +32,10 @@ export const ConversationList: React.FC = () => {
 
   React.useEffect(() => {
     console.log("notificationsEnabled", notificationsEnabled);
-      socket.emit("updateNotificationsEnabled", {
-        notificationsEnabled,
-        id: user?.id,
-      });
+    socket.emit("updateNotificationsEnabled", {
+      notificationsEnabled,
+      id: user?.id,
+    });
   }, [notificationsEnabled]);
 
   return (
@@ -73,10 +83,7 @@ export const ConversationList: React.FC = () => {
           </select>
         </div>
         <div className="formGroup notifications">
-          <label>
-            Sound{" "}
-            {notificationsEnabled  ? "On" : "Off"}
-          </label>
+          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
           <input
             type="checkbox"
             checked={notificationsEnabled}
@@ -121,7 +128,8 @@ export const ConversationList: React.FC = () => {
         />
         <div className="historicConversations">
           <h3 onClick={() => setShowHistoric(!showHistoric)}>
-            Historic Conversations ( {conversations.filter((c) => !c.isActive).length} )
+            Historic Conversations ({" "}
+            {conversations.filter((c) => !c.isActive).length} )
           </h3>
           {showHistoric && (
             <div style={{ overflow: "hidden" }}>

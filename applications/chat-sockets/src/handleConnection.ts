@@ -8,7 +8,11 @@ import { login } from "./socketHandlers/login";
 import { seen } from "./socketHandlers/seen";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction";
 import { userTyping } from "./socketHandlers/userTyping";
-import { updateUserStatus, getUsersOnline, updateUserNotificationsEnabled } from "@coyle/database";
+import {
+  updateUserStatus,
+  getUsersOnline,
+  updateUserNotificationsEnabled,
+} from "@coyle/database";
 interface PersonOnSite {
   socketId: string;
   [key: string]: string | number | boolean;
@@ -40,10 +44,13 @@ export function handleConnection(
     io.emit("adminsOnline", onlineUsers);
   });
 
-  socket.on("updateNotificationsEnabled", async ({ notificationsEnabled, id }) => {
-    console.log({ notificationsEnabled, id });
-    await updateUserNotificationsEnabled({ notificationsEnabled, id });
-  });
+  socket.on(
+    "updateNotificationsEnabled",
+    async ({ notificationsEnabled, id }) => {
+      console.log({ notificationsEnabled, id });
+      await updateUserNotificationsEnabled({ notificationsEnabled, id });
+    },
+  );
 }
 
 export default handleConnection;
