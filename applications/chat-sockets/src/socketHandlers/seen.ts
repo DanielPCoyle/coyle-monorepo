@@ -1,6 +1,6 @@
 import { setMessageSeen } from "@coyle/database";
 
-export const seen = ({ socket, io, conversations }) =>
+export const seen = ({ socket }) =>
   socket.on("seen", async (messageId: number) => {
     try {
       await setMessageSeen(messageId);

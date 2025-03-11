@@ -3,7 +3,7 @@ import { getConversationIdByKey, insertMessage } from "@coyle/database";
 export const chatMessage = ({ socket, io }) =>
   socket.on(
     "chat message",
-    async ({ id, message, sender, files, replyId, isAdmin }) => {
+    async ({ id, message, sender, files, replyId }) => {
       try {
         console.log("CHAT MESSAGE", { id });
         const conversationId = await getConversationIdByKey(id);
