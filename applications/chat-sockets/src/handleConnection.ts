@@ -1,13 +1,13 @@
 import { Server, Socket } from "socket.io";
-import { addReaction } from "./socketHandlers/addReaction.js";
-import { chatMessage } from "./socketHandlers/chatMessage.js";
-import { disconnect } from "./socketHandlers/disconnect.js";
-import { join } from "./socketHandlers/join.js";
-import { leave } from "./socketHandlers/leave.js";
-import { login } from "./socketHandlers/login.js";
-import { seen } from "./socketHandlers/seen.js";
-import { updateMessageAction } from "./socketHandlers/updateMessageAction.js";
-import { userTyping } from "./socketHandlers/userTyping.js";
+import { addReaction } from "./socketHandlers/addReaction";
+import { chatMessage } from "./socketHandlers/chatMessage";
+import { disconnect } from "./socketHandlers/disconnect";
+import { join } from "./socketHandlers/join";
+import { leave } from "./socketHandlers/leave";
+import { login } from "./socketHandlers/login";
+import { seen } from "./socketHandlers/seen";
+import { updateMessageAction } from "./socketHandlers/updateMessageAction";
+import { userTyping } from "./socketHandlers/userTyping";
 
 interface PersonOnSite {
   socketId: string;
