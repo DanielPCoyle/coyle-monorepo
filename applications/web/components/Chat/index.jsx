@@ -32,7 +32,7 @@ export default function Chat() {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
-    if ((!user || user?.role !== "admin") || !token) return;
+    if (!user || user?.role !== "admin" || !token) return;
     let controller = new AbortController();
     const signal = controller.signal;
 
@@ -76,10 +76,9 @@ export default function Chat() {
     } else {
       const randomString = Math.random().toString(36).substring(7);
       setId(randomString);
+      localStorage.setItem("id", randomString);
     }
   }, []);
-
-
 
   useEffect(() => {
     if (!id) return;
@@ -92,43 +91,36 @@ export default function Chat() {
   }, [id]);
 
   useEffect(() => {
-      socket.emit("join", { id });
-      setMessages([]);
+    socket.emit("join", { id });
+    setMessages([]);
   }, [id, user]);
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
-      if(user?.role !== "admin") return
+      if (user?.role !== "admin") return;
       setConversations(conversations); // Admin sees all
     });
   }, [user]);
 
-  // useEffect(() => {
-  //   if (isLoggedIn && !init) {
-  //     const conversationKey = `${id}`;
-  //     const loginEmitData = {
-  //       id,
-  //       userName: user?.name || userName,
-  //       email,
-  //       conversationKey,
-  //       socketId: socket.id,
-  //       isAdmin: user?.role === "admin",
-  //     };
-  //     socket.emit("login", loginEmitData);
+  useEffect(() => {
+    if (isLoggedIn && !init) {
+      const conversationKey = `${id}`;
+      const loginEmitData = {
+        id,
+        userName,
+        email,
+        conversationKey,
+        socketId: socket.id,
+        isAdmin: user?.role === "admin",
+      };
+      console.log({loginEmitData})
+      socket.emit("login", loginEmitData);
 
-  //     setCurrentConversation({
-  //       id,
-  //       user,
-  //       email,
-  //       conversationKey,
-  //       recipient: "admin",
-  //     });
+      if (user?.role === "admin") return;
 
-  //     if (user?.role === "admin") return;
-     
-  //     setInit(true);
-  //   } 
-  // }, [isLoggedIn, user, email, id, init]);
+      setInit(true);
+    }
+  }, [isLoggedIn, user, email, id, init]);
 
   useEffect(() => {
     socket.on("chat message", (message) => {
@@ -211,7 +203,7 @@ export default function Chat() {
   useEffect(() => {
     if (!id) return;
     const handleTyping = () => {
-      console.log("TYPING",userName)
+      console.log("TYPING", userName,id);
       socket.emit("user typing", {
         conversationKey: id,
         userName,
@@ -225,19 +217,13 @@ export default function Chat() {
 
   useEffect(() => {
     socket.on("user typing", (data) => {
-      if (
-        data.conversationKey === id &&
-        data.name !== userName
-      ) {
+      if (data.conversationKey === id && data.name !== userName) {
         setTyping(data);
       }
     });
 
     socket.on("user not typing", (data) => {
-      if (
-        data.conversationKey === id &&
-        data.user !== user
-      ) {
+      if (data.conversationKey === id && data.user !== user) {
         setTyping(null);
       }
     });

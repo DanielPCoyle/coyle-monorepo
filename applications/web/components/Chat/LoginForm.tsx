@@ -3,8 +3,16 @@ import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { ChatContext } from "./ChatContext";
 
 export const LoginForm: React.FC = () => {
-  const { id, userName, setUser, setUserName, email, setEmail, setIsLoggedIn, setToken } =
-    useContext(ChatContext);
+  const {
+    id,
+    userName,
+    setUser,
+    setUserName,
+    email,
+    setEmail,
+    setIsLoggedIn,
+    setToken,
+  } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
 
@@ -18,7 +26,7 @@ export const LoginForm: React.FC = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(">>>>>>",data.user)
+          console.log(">>>>>>", data.user);
           setUser(data.user);
           setUserName(data.user.name);
           setEmail(data.user.email);
@@ -78,25 +86,24 @@ export const LoginForm: React.FC = () => {
         alert("Please enter both name and email.");
         return;
       }
-       fetch("/api/auth/guest-token", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ conversationKey:id, name: userName, email }),
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                if (data?.token) {
-                  setToken(data.token);
-                  localStorage.setItem("jwt", data.token);
-                  setIsLoggedIn(true);
-                }
-              })
-              .catch((err) => {
-                console.error("Error fetching guest token:", err);
-              });
-      
+      fetch("/api/auth/guest-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ conversationKey: id, name: userName, email }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.token) {
+            setToken(data.token);
+            localStorage.setItem("jwt", data.token);
+            setIsLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching guest token:", err);
+        });
     } else {
       if (!email || !password) {
         alert("Please enter both email and password.");

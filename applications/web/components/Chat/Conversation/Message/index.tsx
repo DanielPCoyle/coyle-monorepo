@@ -30,14 +30,8 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const {
-    user,
-    userName,
-    socket,
-    id,
-    email,
-    conversations,
-  } = React.useContext(ChatContext);
+  const { user, userName, socket, id, email, conversations } =
+    React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] =
@@ -69,9 +63,9 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
               console.log({ c });
               return c?.id === id;
             });
-            if(nConversations[index]) {
-            nConversations[index].unSeenMessages -= 1;
-            // setConversations(nConversations);
+            if (nConversations[index]) {
+              nConversations[index].unSeenMessages -= 1;
+              // setConversations(nConversations);
             }
           }
         }

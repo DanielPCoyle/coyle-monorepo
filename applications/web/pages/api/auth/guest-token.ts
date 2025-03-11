@@ -21,7 +21,7 @@ export default async function handler(
     const token = jwt.sign({ email, name, conversationKey }, SECRET_KEY, {
       expiresIn: "7d",
     });
-    
+
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Error creating user:", error.message);

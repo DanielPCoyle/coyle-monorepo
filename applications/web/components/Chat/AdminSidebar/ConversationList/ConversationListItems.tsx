@@ -22,14 +22,13 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   socket,
   toggleDrawer,
 }) => {
-  
   const { setId, id } = React.useContext(ChatContext);
 
   return conversations?.length ? (
     <>
       {conversations?.map((convo, i) => (
         <div
-          className={`conversationListItem ${id === convo.id ? "active" : ""}`}
+          className={`conversationListItem ${id === convo.conversationKey ? "active" : ""}`}
           key={i}
           onClick={() => {
             socket.emit("leave", { id: id });

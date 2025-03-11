@@ -1,4 +1,8 @@
-import {  getConversationIdByKey, updateConversationIsActive, getConversations  } from "@coyle/database";
+import {
+  getConversationIdByKey,
+  updateConversationIsActive,
+  getConversations,
+} from "@coyle/database";
 
 export const disconnect = ({ socket, io, peopleOnSite, conversations }) =>
   socket.on("disconnect", async () => {

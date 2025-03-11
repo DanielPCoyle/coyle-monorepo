@@ -17,16 +17,8 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
-  const {
-    id,
-    socket,
-    user,
-    userName,
-    typing,
-    files,
-    setFiles,
-    setInput,
-  } = useContext(ChatContext);
+  const { id, socket, user, userName, typing, files, setFiles, setInput } =
+    useContext(ChatContext);
 
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
@@ -117,7 +109,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
         sender: user?.name || userName,
         replyId: replyId,
         files: uploadedFiles.filter((url) => url),
-        isAdmin:user?.role === "admin"
+        isAdmin: user?.role === "admin",
       };
 
       socket.emit("chat message", message);

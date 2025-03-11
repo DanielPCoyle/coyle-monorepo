@@ -6,6 +6,8 @@ interface AddConversationParams {
   name: string;
   email: string;
   conversationKey: string;
+  isAdmin:boolean;
+  isActive:boolean;
 }
 
 export async function addConversation({
