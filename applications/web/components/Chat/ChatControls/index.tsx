@@ -17,7 +17,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
-  const { id, socket, user, userName, typing, files, setFiles, setInput } =
+  const { id, socket, user, userName, typing, files, setFiles, setInput, admins } =
     useContext(ChatContext);
 
   const [editorState, setEditorState] = useState(() =>
@@ -136,6 +136,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
 
   return (
     <>
+    {!Boolean(admins?.length) && <div className="noAdmins">We're not in at the moment but leave a message and we will get back to you as soon as possible :)</div> }
       <div className="inputContainer">
         {files.length > 0 && (
           <div className="thumbnails">

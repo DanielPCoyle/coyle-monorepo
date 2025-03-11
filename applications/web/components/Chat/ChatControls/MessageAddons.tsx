@@ -65,7 +65,7 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
         </div>
       )}
       <div className="isTyping">
-        {Boolean(typing) ? <>{typing?.name} is typing...</> : <>&nbsp;</>}
+        {typing ? <>{typing?.name} is typing...</> : <>&nbsp;</>}
       </div>
     </div>
   );

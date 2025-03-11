@@ -8,7 +8,7 @@ import { login } from "./socketHandlers/login";
 import { seen } from "./socketHandlers/seen";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction";
 import { userTyping } from "./socketHandlers/userTyping";
-
+import {updateUserStatus,getUsersOnline} from "@coyle/database"
 interface PersonOnSite {
   socketId: string;
   [key: string]: string | number | boolean;
@@ -33,6 +33,12 @@ export function handleConnection(
   userTyping({ socket, io, typingTimeout });
   seen({ socket, io, conversations });
   disconnect({ socket, io, peopleOnSite, conversations });
+
+  socket.on("updateStatus", async ({ status,id }) => {
+    await updateUserStatus({ status,id });
+    const onlineUsers = await getUsersOnline();
+    io.emit("adminsOnline", onlineUsers);
+  })
 }
 
 export default handleConnection;

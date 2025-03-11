@@ -30,6 +30,7 @@ export default function Chat() {
   const [play] = useSound(bubbleSFX);
   const [token, setToken] = useState(null);
   const [init, setInit] = useState(false);
+  const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
     if (!user || user?.role !== "admin" || !token) return;
@@ -123,6 +124,11 @@ export default function Chat() {
   }, [isLoggedIn, user, email, id, init]);
 
   useEffect(() => {
+
+    socket.on("adminsOnline", (adminUsers) => {
+      setAdmins(adminUsers);
+    });
+
     socket.on("chat message", (message) => {
       setMessages((prev) => {
         const newMessages = [...prev];
@@ -238,6 +244,7 @@ export default function Chat() {
   return (
     <ChatContext.Provider
       value={{
+        admins,
         conversations,
         email,
         files,

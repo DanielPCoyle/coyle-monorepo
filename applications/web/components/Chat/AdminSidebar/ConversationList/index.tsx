@@ -8,14 +8,26 @@ interface Conversation {
 }
 
 export const ConversationList: React.FC = () => {
-  const { conversations, socket, id, user } = useContext(ChatContext);
-
+  const { conversations, socket, id, user, admins } = useContext(ChatContext);
+  const [showHistoric, setShowHistoric] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [status, setStatus] = useState("online");
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [status, setStatus] = useState(user?.status);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(user?.notificationsEnabled);
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
+
+
+  React.useEffect(()=>{
+    console.log("updateStatus",{status,id})
+      socket.emit("updateStatus", { status,id:user?.id });
+  },[status])
+
+    React.useEffect(()=>{
+      if(status !== user?.notificationsEnabled){
+        socket.emit("updateNotificationsEnabled", { notificationsEnabled, id:user?.id });
+      }
+    },[notificationsEnabled])
 
   return (
     <>
@@ -63,7 +75,7 @@ export const ConversationList: React.FC = () => {
         </div>
         <div className="formGroup notifications">
           <label>
-            Notifications {user.notificationsEnabled ? "On" : "Off"}
+            Sound {notificationsEnabled || user.notificationsEnabled ? "On" : "Off"}
           </label>
           <input
             type="checkbox"
@@ -74,7 +86,6 @@ export const ConversationList: React.FC = () => {
       </div>
       <hr />
       <div className={`conversationList`}>
-        <h3>Active Conversations</h3>
         <button
           onClick={toggleDrawer}
           style={{
@@ -101,18 +112,31 @@ export const ConversationList: React.FC = () => {
           </svg>
         </button>
         {/* <pre>{JSON.stringify(conversations,null,2)}</pre> */}
+        <h3>Active Conversations</h3>
+
         <ConversationListItems
           socket={socket}
           toggleDrawer={toggleDrawer}
           conversations={conversations.filter((c) => c.isActive)}
         />
         <div className="historicConversations">
-          <h3>Historic Conversations</h3>
-          <ConversationListItems
-            socket={socket}
-            toggleDrawer={toggleDrawer}
-            conversations={conversations.filter((c) => !c.isActive)}
-          />
+          <h3 onClick={()=>setShowHistoric(!showHistoric)}>Historic Conversations</h3>
+          {showHistoric &&
+          <div style={{overflow:"hidden"}}>
+          <div className="animate__animated animate__slideInDown animate__faster">
+            <ConversationListItems
+              socket={socket}
+              toggleDrawer={toggleDrawer}
+              conversations={conversations.filter((c) => !c.isActive)}
+            />
+            </div>
+          </div>}
+          <h3>Admins Online</h3>
+            <ConversationListItems
+                          socket={socket}
+                          toggleDrawer={toggleDrawer}
+                          conversations={admins}
+                        />
         </div>
       </div>
     </>

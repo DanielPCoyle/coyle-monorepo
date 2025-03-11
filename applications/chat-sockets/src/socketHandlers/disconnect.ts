@@ -1,9 +1,6 @@
-import {
-  updateConversationIsActive,
-  getConversations,
-} from "@coyle/database";
+import { updateConversationIsActive, getConversations } from "@coyle/database";
 
-export const disconnect = ({ socket, io,  conversations }) =>
+export const disconnect = ({ socket, io, conversations }) =>
   socket.on("disconnect", async () => {
     const conversation = conversations.find((c) => c.socketId === socket.id);
     if (conversation) {

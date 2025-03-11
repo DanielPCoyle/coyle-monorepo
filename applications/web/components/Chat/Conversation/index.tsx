@@ -24,7 +24,7 @@ export const Conversation: React.FC = () => {
 
   return (
     <>
-      <ThreeJsBackground />
+      {/* <ThreeJsBackground /> */}
       <div ref={contentRef} className="messageContainer">
         <div style={{ width: "90%", margin: "auto" }}>
           {messages
