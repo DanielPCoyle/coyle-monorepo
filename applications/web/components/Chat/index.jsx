@@ -31,17 +31,16 @@ export default function Chat() {
   const [modalIndex, setModalIndex] = useState(null);
   const [play] = useSound(bubbleSFX);
   const [token, setToken] = useState(null);
-  
 
   useEffect(() => {
-    if (!user && user?.role !== "admin" || !token) return;
+    if ((!user && user?.role !== "admin") || !token) return;
     let controller = new AbortController();
     const signal = controller.signal;
 
     fetch("/api/chat/conversations", {
       signal,
       headers: {
-      Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
