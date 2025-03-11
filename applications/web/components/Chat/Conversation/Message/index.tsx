@@ -69,7 +69,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
             const nConversations = [...conversations];
             const index = nConversations.findIndex((c) => {
               console.log({ c });
-              return c.id === currentConversation.id;
+              return c?.id === currentConversation.id;
             });
             nConversations[index].unSeenMessages -= 1;
             setConversations(nConversations);

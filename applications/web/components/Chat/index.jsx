@@ -148,6 +148,24 @@ export default function Chat() {
         recipient: "admin",
       });
 
+      fetch("/api/auth/guest-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, name:userName, email }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.token) {
+          setToken(data.token);
+          localStorage.setItem("jwt", data.token);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching guest token:", err);
+        });
+
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userName", userName);
       localStorage.setItem("email", email);

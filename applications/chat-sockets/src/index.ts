@@ -17,7 +17,9 @@ app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow all origins, adjust as needed
+    origin: [
+      process.env.CLIENT_ORIGIN
+    ], 
     methods: ["GET", "POST"],
   },
 });
