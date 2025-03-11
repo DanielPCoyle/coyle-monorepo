@@ -1,8 +1,10 @@
 import { getConversationIdByKey, insertMessage } from "@coyle/database";
 
-export const chatMessage = ({ socket, io, conversations }) =>
-  socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
+export const chatMessage = ({ socket, io }) =>
+  socket.on("chat message", async ({ id, message, sender, files, replyId, isAdmin }) => {
     try {
+
+      console.log("CHAT MESSAGE",{id})
       const conversationId = await getConversationIdByKey(id);
       const formattedMessage = message.replace(/\n/g, "<br/>");
 
@@ -17,6 +19,7 @@ export const chatMessage = ({ socket, io, conversations }) =>
 
       const data = await insertMessage(insert);
 
+      console.log("ID>>>>>",{id})
       io.to(id).emit("chat message", {
         sender,
         message: formattedMessage,
@@ -25,7 +28,6 @@ export const chatMessage = ({ socket, io, conversations }) =>
         files,
       });
 
-      io.emit("conversations", conversations); // Update clients
     } catch (error) {
       console.log({ error });
     }

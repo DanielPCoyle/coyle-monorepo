@@ -8,7 +8,7 @@ describe("userTyping", () => {
     const socket = {
       on: vi.fn((event, callback) => {
         if (event === "user typing") {
-          callback({ conversationId: "123", user: "testUser" });
+          callback({ conversationKey: "123", user: "testUser" });
         }
       }),
     };
@@ -37,8 +37,8 @@ describe("userTyping", () => {
     const socket = {
       on: vi.fn((event, callback) => {
         if (event === "user typing") {
-          callback({ conversationId: "123", user: "testUser" });
-          callback({ conversationId: "123", user: "testUser" });
+          callback({ conversationKey: "123", user: "testUser" });
+          callback({ conversationKey: "123", user: "testUser" });
         }
       }),
     };

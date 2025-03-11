@@ -1,8 +1,16 @@
-import { addConversation } from "@coyle/database";
+import { addConversation, getConversations, getConversationIdByKey, updateConversationIsActive  } from "@coyle/database";
+
 export const login = ({ socket, io, conversations }) =>
-  socket.on("login", ({ userName, email, id, isAdmin }) => {
+  socket.on("login", async ({ userName, email, id, isAdmin }) => {
     conversations.push({ user: userName, email, id, socketId: socket.id });
-    io.emit("conversations", conversations);
     socket.join(id);
-    addConversation({ name: userName, email, conversationKey: id, isAdmin });
+
+    const existingConversation = await getConversationIdByKey(id);
+    if (existingConversation) {
+      await updateConversationIsActive(id, true);
+    } else{
+      await addConversation({ name: userName, email, conversationKey: id, isAdmin, isActive:true });
+    }
+    const allConversations = await getConversations();
+    io.emit("conversations", allConversations);
   });

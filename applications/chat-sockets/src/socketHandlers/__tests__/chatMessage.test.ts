@@ -25,16 +25,16 @@ describe("chatMessage handler", () => {
   });
 
   it("should handle chat message event and emit messages correctly", async () => {
-    const id = "conversationId";
+    const id = "conversationKey";
     const message = "Hello\nWorld";
     const sender = "user1";
     const files = ["file1.png"];
     const replyId = "replyId";
     const formattedMessage = "Hello<br/>World";
-    const conversationId = "conv123";
+    const conversationKey = "conv123";
     const data = { id: "msg123" };
 
-    (getConversationIdByKey as vi.Mock).mockResolvedValue(conversationId);
+    (getConversationIdByKey as vi.Mock).mockResolvedValue(conversationKey);
     (insertMessage as vi.Mock).mockResolvedValue(data);
 
     chatMessage({ socket, io, conversations });
@@ -46,7 +46,7 @@ describe("chatMessage handler", () => {
     expect(insertMessage).toHaveBeenCalledWith({
       sender,
       message: formattedMessage,
-      conversationId,
+      conversationKey,
       parentId: replyId,
       files,
       seen: false,

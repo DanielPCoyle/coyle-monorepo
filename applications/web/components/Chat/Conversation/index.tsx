@@ -8,7 +8,7 @@ interface MessageType {
   text: string;
   user: string;
   parentId?: string;
-  conversationId: string;
+  conversationKey: string;
   sender: string;
   message: string;
   createdAt: string;

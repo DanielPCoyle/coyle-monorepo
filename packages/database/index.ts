@@ -4,6 +4,7 @@ export { eq, explainAnalyze, getDB, getPool } from "./src/db";
 export { addConversation } from "./src/util/chat/addConversation";
 export { addReactionToMessage } from "./src/util/chat/addReactionToMessage";
 export { getConversationIdByKey } from "./src/util/chat/getConversationIdByKey";
+export { updateConversationIsActive } from "./src/util/chat/updateConversationIsActive";
 export { getConversations } from "./src/util/chat/getConversations";
 export { getMessages } from "./src/util/chat/getMessages";
 export { insertMessage } from "./src/util/chat/insertMessage";

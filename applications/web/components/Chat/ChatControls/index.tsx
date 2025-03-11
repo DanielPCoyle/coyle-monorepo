@@ -111,12 +111,13 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
       }
 
       const message = {
-        id: currentConversation.id,
+        id: currentConversation?.conversationKey || currentConversation?.id,
         messageId: randomString,
         message: htmlContent,
         sender: user?.name || userName,
         replyId: replyId,
         files: uploadedFiles.filter((url) => url),
+        isAdmin:user?.role === "admin"
       };
 
       socket.emit("chat message", message);

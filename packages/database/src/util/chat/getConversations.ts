@@ -21,6 +21,7 @@ export async function getConversations(): Promise<Conversation[]> {
       name: conversations.name,
       email: conversations.email,
       createdAt: conversations.createdAt,
+      isActive: conversations.isActive,
       unSeenMessages: count(messages.id).as("unSeenMessages"),
     })
     .from(conversations)

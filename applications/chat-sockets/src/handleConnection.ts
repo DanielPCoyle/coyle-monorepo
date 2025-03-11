@@ -27,7 +27,7 @@ export function handleConnection(
   login({ socket, io, conversations });
   join({ socket, io });
   leave({ socket });
-  chatMessage({ socket, io, conversations });
+  chatMessage({ socket, io });
   addReaction({ socket, io });
   updateMessageAction({ socket, io });
   userTyping({ socket, io, typingTimeout });

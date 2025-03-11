@@ -27,11 +27,8 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   toggleDrawer,
   id,
 }) => {
-  const filteredConversations = conversations?.filter(
-    (convo) => convo?.id !== id && convo?.user && convo?.user !== "admin",
-  );
-
-  return filteredConversations?.length ? (
+  
+  return conversations?.length ? (
     <>
       {conversations?.map((convo, i) => (
         <div

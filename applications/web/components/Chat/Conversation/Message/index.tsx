@@ -71,8 +71,10 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
               console.log({ c });
               return c?.id === currentConversation.id;
             });
+            if(nConversations[index]) {
             nConversations[index].unSeenMessages -= 1;
             // setConversations(nConversations);
+            }
           }
         }
       },

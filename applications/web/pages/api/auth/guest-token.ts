@@ -11,14 +11,14 @@ export default async function handler(
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { name, email, conversationId } = req.body;
+  const { name, email, conversationKey } = req.body;
 
   if (!email || !name) {
     return res.status(400).json({ error: "Email and name are required" });
   }
 
   try {
-    const token = jwt.sign({ email, name, conversationId }, SECRET_KEY, {
+    const token = jwt.sign({ email, name, conversationKey }, SECRET_KEY, {
       expiresIn: "7d",
     });
     return res.status(200).json({ token });

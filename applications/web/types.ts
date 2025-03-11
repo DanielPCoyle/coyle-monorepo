@@ -1,7 +1,7 @@
 export type { NextApiRequest, NextApiResponse } from "next";
 export interface Message {
   id: number;
-  conversationId: number;
+  conversationKey: number;
   sender: string;
   message: string;
   createdAt: string;

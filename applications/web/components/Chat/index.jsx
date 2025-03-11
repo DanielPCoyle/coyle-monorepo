@@ -31,6 +31,7 @@ export default function Chat() {
   const [modalIndex, setModalIndex] = useState(null);
   const [play] = useSound(bubbleSFX);
   const [token, setToken] = useState(null);
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
     if ((!user && user?.role !== "admin") || !token) return;
@@ -92,19 +93,11 @@ export default function Chat() {
     setWindowWidth(window.innerWidth);
   }, []);
 
-  useEffect(() => {
-    if (!id) return;
-    fetch(`/api/chat/messages?conversationKey=${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const sortedMessages = data.sort((a, b) => a.id - b.id);
-        setMessages(sortedMessages);
-      });
-  }, [id]);
+
 
   useEffect(() => {
     if (!currentConversation?.id) return;
-    fetch(`/api/chat/messages?conversationKey=${currentConversation.id}`)
+    fetch(`/api/chat/messages?conversationKey=${currentConversation?.conversationKey || currentConversation.id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
@@ -114,26 +107,27 @@ export default function Chat() {
 
   useEffect(() => {
     if (currentConversation && user && user?.role === "admin") {
-      socket.emit("join", { id: currentConversation.id });
+      socket.emit("join", { id: currentConversation.conversationKey || currentConversation.id });
       setMessages([]);
     }
   }, [currentConversation, user]);
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
+      if(user?.role !== "admin") return
       console.log("A", { conversations });
       setConversations(conversations); // Admin sees all
     });
   }, [currentConversation, user]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      const conversationId = `${id}`;
+    if (isLoggedIn && !init) {
+      const conversationKey = `${id}`;
       const loginEmitData = {
         id,
         userName: user?.name || userName,
         email,
-        conversationId,
+        conversationKey,
         socketId: socket.id,
         isAdmin: user?.role === "admin",
       };
@@ -143,7 +137,7 @@ export default function Chat() {
         id,
         user,
         email,
-        conversationId,
+        conversationKey,
         recipient: "admin",
       });
 
@@ -167,7 +161,7 @@ export default function Chat() {
         });
 
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("userName", userName);
+      localStorage.setItem("userName", loginEmitData.userName);
       localStorage.setItem("email", email);
       localStorage.setItem(
         "currentConversation",
@@ -175,14 +169,15 @@ export default function Chat() {
           id,
           user,
           email,
-          conversationId,
+          conversationKey,
           recipient: "Admin",
         }),
       );
+      setInit(true);
     } else {
       localStorage.setItem("isLoggedIn", "false");
     }
-  }, [isLoggedIn, user, email, id]);
+  }, [isLoggedIn, user, email, id, init]);
 
   useEffect(() => {
     socket.on("chat message", (message) => {
@@ -270,8 +265,9 @@ export default function Chat() {
   useEffect(() => {
     if (!currentConversation) return;
     const handleTyping = () => {
+      console.log("TYPING",userName)
       socket.emit("user typing", {
-        conversationId: currentConversation.id,
+        conversationKey: currentConversation?.conversationKey || currentConversation.id,
         userName,
       });
     };
@@ -279,12 +275,12 @@ export default function Chat() {
     if (input.length > 0) {
       handleTyping();
     }
-  }, [input, currentConversation, user]);
+  }, [input, currentConversation, userName]);
 
   useEffect(() => {
     socket.on("user typing", (data) => {
       if (
-        data.conversationId === currentConversation?.id &&
+        data.conversationKey === (currentConversation?.conversationKey || currentConversation?.id ) &&
         data.name !== userName
       ) {
         setTyping(data);
@@ -293,7 +289,7 @@ export default function Chat() {
 
     socket.on("user not typing", (data) => {
       if (
-        data.conversationId === currentConversation?.id &&
+        data.conversationKey === currentConversation?.id &&
         data.user !== user
       ) {
         setTyping(null);

@@ -114,23 +114,7 @@ export const ConversationList: React.FC = () => {
           toggleDrawer={toggleDrawer}
           setCurrentConversation={setCurrentConversation}
           currentConversation={currentConversation}
-          conversations={conversations
-            .map((convo: Conversation) => {
-              if (!convo?.id) return null;
-              const historicRecord = historicConversations.find(
-                (historic: Conversation) => historic.id === convo.id,
-              );
-              convo.unSeenMessages = historicRecord?.unSeenMessages || 0;
-              return convo;
-            })
-            .filter(
-              (
-                convo: Conversation | null,
-                index: number,
-                self: (Conversation | null)[],
-              ) =>
-                convo && index === self.findIndex((c) => c?.id === convo?.id),
-            )}
+          conversations={conversations.filter(c=>c.isActive)}
           id={id}
         />
         <div className="historicConversations">
@@ -140,10 +124,7 @@ export const ConversationList: React.FC = () => {
             toggleDrawer={toggleDrawer}
             setCurrentConversation={setCurrentConversation}
             currentConversation={currentConversation}
-            conversations={historicConversations.filter(
-              (convo: Conversation) =>
-                !conversations.some((c: Conversation) => c?.id === convo?.id),
-            )}
+            conversations={conversations.filter(c=>!c.isActive)}
             id={id}
           />
         </div>
