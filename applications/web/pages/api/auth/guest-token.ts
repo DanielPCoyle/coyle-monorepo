@@ -18,8 +18,8 @@ export default async function handler(
   }
 
   try {
-    const token = jwt.sign({  email, name, conversationId }, SECRET_KEY, {
-        expiresIn: "7d",
+    const token = jwt.sign({ email, name, conversationId }, SECRET_KEY, {
+      expiresIn: "7d",
     });
     return res.status(200).json({ token });
   } catch (error) {

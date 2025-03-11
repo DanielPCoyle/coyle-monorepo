@@ -153,13 +153,13 @@ export default function Chat() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id, name:userName, email }),
+        body: JSON.stringify({ id, name: userName, email }),
       })
         .then((res) => res.json())
         .then((data) => {
           if (data?.token) {
-          setToken(data.token);
-          localStorage.setItem("jwt", data.token);
+            setToken(data.token);
+            localStorage.setItem("jwt", data.token);
           }
         })
         .catch((err) => {
