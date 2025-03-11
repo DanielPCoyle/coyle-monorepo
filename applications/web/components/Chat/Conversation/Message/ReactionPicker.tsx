@@ -10,7 +10,7 @@ interface ReactionPickerProps {
 export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   reactionsPickerRef,
 }) => {
-  const { user, userName } = useContext(ChatContext);
+  const { userName } = useContext(ChatContext);
   const { message, addReaction } = useContext(MessageContext);
 
   return (

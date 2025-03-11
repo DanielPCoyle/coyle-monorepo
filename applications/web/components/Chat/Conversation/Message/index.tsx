@@ -227,6 +227,12 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
   socket,
   email,
   currentConversation,
+}:{
+  reply: MessageType;
+  user: string;
+  socket: any;
+  email: string;
+  currentConversation: any;
 }) => {
   const [urlPreview] = useState<string | null>(null);
   const reactionsPickerRef = useRef<HTMLDivElement | null>(null);

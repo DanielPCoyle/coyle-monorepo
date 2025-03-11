@@ -27,6 +27,6 @@ export default async function handler(
     const user = await getUserByEmail(decoded?.email);
     res.status(200).json({ user: user });
   } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
+    res.status(401).json({ message: "Invalid token", error: error.message });
   }
 }

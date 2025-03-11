@@ -4,7 +4,6 @@ import { ChatContext } from "./ChatContext";
 
 export const LoginForm: React.FC = () => {
   const {
-    user,
     userName,
     setUser,
     setUserName,

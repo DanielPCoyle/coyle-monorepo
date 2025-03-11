@@ -141,10 +141,6 @@ export const Settings = () => {
 
 const SettingsHome = () => {
   const {
-    status,
-    setStatus,
-    notificationsEnabled,
-    setNotificationsEnabled,
     setView,
   } = React.useContext(SettingsContext);
   return (
@@ -186,6 +182,18 @@ const SettingsHome = () => {
 const ChatAdministators = () => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
+
+  const handleEdit = (id) => {
+    // Logic to edit admin
+    console.log("Edit admin", id);
+  }
+
+  const handleDelete = (id) => {
+    // Logic to delete admin
+    console.log("Delete admin", id);
+  }
+
+
   React.useEffect(() => {
     // Fetch chat administrators
     fetch("/api/chat/settings/admin-users", {
@@ -252,7 +260,6 @@ const ChatAdministators = () => {
 };
 
 const AddNewUserScreen = () => {
-  const { setView } = React.useContext(SettingsContext);
   const [adminName, setAdminName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState("admin");

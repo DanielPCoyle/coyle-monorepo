@@ -62,7 +62,7 @@ export const ConversationList: React.FC = () => {
           <label>Status</label>
           <select
             className="statusDropdown"
-            value={user.status}
+            value={status || user?.status}
             onChange={(e) => setStatus(e.target.value)}
           >
             <option value="online">Online</option>
@@ -75,7 +75,7 @@ export const ConversationList: React.FC = () => {
           </label>
           <input
             type="checkbox"
-            checked={user.notificationsEnabled}
+            checked={notificationsEnabled || user.notificationsEnabled}
             onChange={(e) => setNotificationsEnabled(e.target.checked)}
           />
         </div>

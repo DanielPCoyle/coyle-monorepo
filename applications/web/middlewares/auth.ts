@@ -1,5 +1,3 @@
-import { users } from "@coyle/database/schema";
-import { getDB } from "@coyle/database/src/db";
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
@@ -29,7 +27,7 @@ export function authMiddleware(handler) {
 
       return handler(req, res);
     } catch (error) {
-      return res.status(401).json({ error: "Invalid or expired token" });
+      return res.status(401).json({ error: "Invalid or expired token", message: error.message });
     }
   };
 }
