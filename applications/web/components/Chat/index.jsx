@@ -91,7 +91,6 @@ export default function Chat() {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
         setMessages(sortedMessages);
         setLoading(false);
-
       });
   }, [id]);
 
