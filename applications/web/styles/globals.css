@@ -485,7 +485,7 @@ a.chat {
   border: none;
   cursor: pointer;
   font-size: 18px;
-  padding:0;
+  padding: 0;
   text-shadow: #000000 0px 0px 10px;
 }
 
@@ -585,8 +585,6 @@ a.chat {
   justify-content: center;
   align-items: center;
 }
-
-
 
 .replyModal {
   overflow-y: hidden !important;
@@ -925,7 +923,6 @@ button:hover {
   display: flex;
 }
 
-
-.chatFlex{
+.chatFlex {
   background-color: rgb(22, 22, 22) !important;
 }

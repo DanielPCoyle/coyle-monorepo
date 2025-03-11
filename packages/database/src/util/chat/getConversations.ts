@@ -26,7 +26,10 @@ export async function getConversations(): Promise<Conversation[]> {
     .from(conversations)
     .leftJoin(
       messages,
-      and(eq(messages.conversationId, conversations.id), eq(messages.seen, false))
+      and(
+        eq(messages.conversationId, conversations.id),
+        eq(messages.seen, false),
+      ),
     )
     .groupBy(conversations.id);
 

@@ -67,8 +67,8 @@ export const MessageContent = () => {
         onClick={() => {
           setShowReplyModal(true);
         }}
-        className="showReply" 
-        >
+        className="showReply"
+      >
         <ReplySvg /> {message?.replies?.length > 0 && message.replies.length}
       </button>
     </div>

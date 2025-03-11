@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
 import type { DecodedToken } from "../types";
 
-
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
 declare module "next" {
