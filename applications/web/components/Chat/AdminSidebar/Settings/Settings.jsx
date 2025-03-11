@@ -140,9 +140,7 @@ export const Settings = () => {
 };
 
 const SettingsHome = () => {
-  const {
-    setView,
-  } = React.useContext(SettingsContext);
+  const { setView } = React.useContext(SettingsContext);
   return (
     <>
       <h1>Admin Settings</h1>
@@ -186,13 +184,12 @@ const ChatAdministators = () => {
   const handleEdit = (id) => {
     // Logic to edit admin
     console.log("Edit admin", id);
-  }
+  };
 
   const handleDelete = (id) => {
     // Logic to delete admin
     console.log("Delete admin", id);
-  }
-
+  };
 
   React.useEffect(() => {
     // Fetch chat administrators

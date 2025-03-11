@@ -27,7 +27,9 @@ export function authMiddleware(handler) {
 
       return handler(req, res);
     } catch (error) {
-      return res.status(401).json({ error: "Invalid or expired token", message: error.message });
+      return res
+        .status(401)
+        .json({ error: "Invalid or expired token", message: error.message });
     }
   };
 }

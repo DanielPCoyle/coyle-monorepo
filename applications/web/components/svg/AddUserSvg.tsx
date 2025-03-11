@@ -12,5 +12,4 @@ export const AddUserSvg = () => (
   </svg>
 );
 
-
 export default AddUserSvg;

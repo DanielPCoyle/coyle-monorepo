@@ -227,7 +227,7 @@ const SubMessage: React.FC<{ reply: MessageType }> = ({
   socket,
   email,
   currentConversation,
-}:{
+}: {
   reply: MessageType;
   user: string;
   socket: any;
