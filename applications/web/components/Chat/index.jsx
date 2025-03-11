@@ -113,7 +113,7 @@ export default function Chat() {
         socketId: socket.id,
         isAdmin: user?.role === "admin",
       };
-      console.log({loginEmitData})
+      console.log({ loginEmitData });
       socket.emit("login", loginEmitData);
 
       if (user?.role === "admin") return;
@@ -203,7 +203,6 @@ export default function Chat() {
   useEffect(() => {
     if (!id) return;
     const handleTyping = () => {
-      console.log("TYPING", userName,id);
       socket.emit("user typing", {
         conversationKey: id,
         userName,
@@ -217,13 +216,14 @@ export default function Chat() {
 
   useEffect(() => {
     socket.on("user typing", (data) => {
-      if (data.conversationKey === id && data.name !== userName) {
+      console.log("TYPING DATA", data);
+      if (data.name !== userName) {
         setTyping(data);
       }
     });
 
     socket.on("user not typing", (data) => {
-      if (data.conversationKey === id && data.user !== user) {
+      if (data.user !== userName) {
         setTyping(null);
       }
     });
