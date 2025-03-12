@@ -7,6 +7,5 @@ export const disconnect = ({ socket, io, conversations }) =>
       await updateConversationIsActive(conversation.id, false);
       const allConversations = await getConversations();
       io.emit("conversations", allConversations);
-      console.log(allConversations);
     }
   });
