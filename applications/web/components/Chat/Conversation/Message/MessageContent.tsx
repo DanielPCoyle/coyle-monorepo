@@ -8,14 +8,13 @@ import { ReplySvg } from "../../../svg/ReplySvg";
 import Image from "next/image";
 
 export const MessageContent = () => {
-  const { message, setShowReactionsPicker, setShowReplyModal, seen } =
+  const { message, setShowReactionsPicker, setShowReplyModal } =
     useContext(MessageContext);
   const { user, userName } = useContext(ChatContext);
   return (
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
     >
-
       <div style={{ display: "flex", alignItems: "center" }}>
         <div
           className="senderAvatar"

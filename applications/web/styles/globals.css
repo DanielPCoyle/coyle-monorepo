@@ -934,7 +934,7 @@ button:hover {
   margin-right: 10px;
 }
 
-.activeDot.offline{
+.activeDot.offline {
   background-color: red;
 }
 
@@ -972,20 +972,19 @@ button:hover {
   }
 }
 
-
-.newMessage{
-  background:red;
+.newMessage {
+  background: red;
   text-align: center;
   color: wheat;
-  padding:5px;
+  padding: 5px;
   border-radius: 10px;
-  right:0;
+  right: 0;
 }
 
-.hide{
-  display:none;
+.hide {
+  display: none;
 }
 
-.historicConversations h3{
+.historicConversations h3 {
   cursor: pointer;
 }

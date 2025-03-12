@@ -30,7 +30,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { user, userName, socket, id, email, conversations } =
+  const { user, userName, socket, id, email } =
     React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
@@ -60,7 +60,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
           if (userName !== message.sender && !message.seen) {
             socket.emit("seen", message.id);
             setTimeout(() => {
-            setSeen(false);
+              setSeen(false);
             }, 1000);
           }
         }
