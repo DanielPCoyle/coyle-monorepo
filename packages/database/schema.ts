@@ -1,4 +1,4 @@
-import { type InferSelectModel } from "drizzle-orm"
+import { type InferSelectModel } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -11,7 +11,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export type User = InferSelectModel<typeof users>
+export type User = InferSelectModel<typeof users>;
 export const users = pgTable("users", {
   id: uuid("id").primaryKey(),
   name: text("name"),
@@ -41,7 +41,7 @@ export const messages = pgTable("messages", {
   files: jsonb("files"),
 });
 
-export type Conversation = InferSelectModel<typeof conversations>
+export type Conversation = InferSelectModel<typeof conversations>;
 export const conversations = pgTable("conversations", {
   id: serial("id").primaryKey(),
   conversationKey: varchar("conversation_key", { length: 255 }).notNull(),
