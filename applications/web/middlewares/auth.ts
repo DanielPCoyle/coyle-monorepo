@@ -24,7 +24,6 @@ export function authMiddleware(handler) {
     try {
       // Verify the token
       const decoded = jwt.verify(token, SECRET_KEY) as DecodedToken;
-      console.log("decoded", decoded);
       const user = await getUserByEmail(decoded.email);
       if (!user) {
         return res.status(403).json({ error: "Forbidden" });

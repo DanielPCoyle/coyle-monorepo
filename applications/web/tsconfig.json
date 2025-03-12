@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
   },
   "include": [
     "next-env.d.ts",
@@ -23,8 +23,5 @@
     "../../packages/database/src/util/insertGetAStoreSignup.ts",
     "../../packages/database/src/util/chat/getUserByEmail.ts"
   ],
-  "paths": {
-    "@coyle/database/*": ["../../packages/database/*"]
-  },
   "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
 }
