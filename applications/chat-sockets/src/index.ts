@@ -34,7 +34,6 @@ interface Conversation {
   messages: string[];
 }
 
-
 const conversations: Conversation[] = [];
 
 // Handle WebSocket connections
