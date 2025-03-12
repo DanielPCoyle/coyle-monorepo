@@ -19,6 +19,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export const ChatControls = ({ replyId }: { replyId: number }) => {
   const {
     id,
+    token,
     socket,
     user,
     userName,
@@ -117,11 +118,23 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
         message: htmlContent,
         sender: user?.name || userName,
         replyId: replyId,
+        email: user?.email,
         files: uploadedFiles.filter((url) => url),
         isAdmin: user?.role === "admin",
       };
 
       socket.emit("chat message", message);
+
+      if(!Boolean(admins?.length > 0)) {
+        await fetch("/api/chat/send-message-as-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({message}),
+        });
+      }
       setEditorState(EditorState.createEmpty());
       setFiles([]); // Clear uploaded files after sending the message
     }

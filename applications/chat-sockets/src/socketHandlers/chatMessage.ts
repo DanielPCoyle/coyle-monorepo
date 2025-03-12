@@ -18,7 +18,6 @@ export const chatMessage = ({ socket, io }) =>
 
       const data = await insertMessage(insert);
 
-      console.log("ID>>>>>", { id });
       io.to(id).emit("chat message", {
         sender,
         message: formattedMessage,
@@ -26,6 +25,8 @@ export const chatMessage = ({ socket, io }) =>
         parentId: replyId,
         files,
       });
+
+      
     } catch (error) {
       console.log({ error });
     }
