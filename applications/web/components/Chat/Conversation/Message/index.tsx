@@ -30,8 +30,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { user, userName, socket, id, email } =
-    React.useContext(ChatContext);
+  const { user, userName, socket, id, email } = React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] =
