@@ -174,7 +174,7 @@ export const LoginForm: React.FC = () => {
       )}
       <div>
         <label>
-          Email
+          Email:
           <input
             type="email"
             value={email}
