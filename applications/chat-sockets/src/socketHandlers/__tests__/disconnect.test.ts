@@ -6,7 +6,6 @@ import {
   getConversationBySocketId,
 } from "@coyle/database";
 
-
 vi.mock("@coyle/database", () => ({
   getConversationBySocketId: vi.fn(),
   updateConversationIsActive: vi.fn(),
@@ -33,7 +32,6 @@ describe("disconnect handler", () => {
     getConversationBySocketId.mockResolvedValue(mockConversation);
     updateConversationIsActive.mockResolvedValue(undefined);
     getConversations.mockResolvedValue([{ id: "conv123", isActive: false }]);
-    
 
     disconnect({ socket, io });
     const callback = socket.on.mock.calls[0][1];
@@ -42,7 +40,9 @@ describe("disconnect handler", () => {
 
     expect(getConversationBySocketId).toHaveBeenCalledWith("socket123");
     expect(updateConversationIsActive).toHaveBeenCalledWith("user123", false);
-    expect(io.emit).toHaveBeenCalledWith("conversations", [{ id: "conv123", isActive: false }]);
+    expect(io.emit).toHaveBeenCalledWith("conversations", [
+      { id: "conv123", isActive: false },
+    ]);
   });
 
   it("should do nothing if no conversation is found", async () => {
@@ -59,16 +59,23 @@ describe("disconnect handler", () => {
   });
 
   it("should handle errors gracefully", async () => {
-    vi.mocked(getConversationBySocketId).mockRejectedValue(new Error("Database error"));
+    vi.mocked(getConversationBySocketId).mockRejectedValue(
+      new Error("Database error"),
+    );
 
-    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     disconnect({ socket, io });
     const callback = socket.on.mock.calls[0][1];
 
     await callback();
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Error disconnecting", new Error("Database error"));
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Error disconnecting",
+      new Error("Database error"),
+    );
 
     consoleErrorSpy.mockRestore();
   });

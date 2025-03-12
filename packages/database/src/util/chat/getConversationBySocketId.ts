@@ -10,7 +10,7 @@ export const getConversationBySocketId = async (socketId) => {
       .select()
       .from(convos)
       .where(eq(convos.socketId, socketId));
-    
+
     return conversation[0];
   } catch (error) {
     console.log("Error getting conversation id by key", error);

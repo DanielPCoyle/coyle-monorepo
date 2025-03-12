@@ -1,4 +1,8 @@
-import { getConversationIdByKey, insertMessage, getConversations } from "@coyle/database";
+import {
+  getConversationIdByKey,
+  insertMessage,
+  getConversations,
+} from "@coyle/database";
 import { chatMessage } from "../chatMessage";
 
 vi.mock("@coyle/database");

@@ -23,7 +23,7 @@ export const users = pgTable("users", {
   status: text("status").notNull().default("offline"),
   notificationsEnabled: boolean("notifications_enabled")
     .notNull()
-    .default(false), 
+    .default(false),
   socketId: text("socket_id"),
 });
 

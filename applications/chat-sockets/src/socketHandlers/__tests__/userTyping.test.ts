@@ -39,7 +39,9 @@ describe("userTyping", () => {
     vi.advanceTimersByTime(1000);
 
     expect(io.to).toHaveBeenCalledWith("room1");
-    expect(emitMock).toHaveBeenCalledWith("user not typing", { userName: "Alice" });
+    expect(emitMock).toHaveBeenCalledWith("user not typing", {
+      userName: "Alice",
+    });
   });
 
   test("should reset the timeout if user keeps typing", async () => {
@@ -53,9 +55,13 @@ describe("userTyping", () => {
     callback({ conversationKey: "room1", userName: "Alice" });
 
     vi.advanceTimersByTime(500); // Should not trigger yet
-    expect(emitMock).not.toHaveBeenCalledWith("user not typing", { userName: "Alice" });
+    expect(emitMock).not.toHaveBeenCalledWith("user not typing", {
+      userName: "Alice",
+    });
 
     vi.advanceTimersByTime(500); // Now it should trigger
-    expect(emitMock).toHaveBeenCalledWith("user not typing", { userName: "Alice" });
+    expect(emitMock).toHaveBeenCalledWith("user not typing", {
+      userName: "Alice",
+    });
   });
 });

@@ -3,7 +3,7 @@ import { conversations } from "../../../schema";
 import { eq } from "drizzle-orm";
 
 export async function updateConversationSocketId(
-  id:number,
+  id: number,
   socketId: string,
 ): Promise<void> {
   try {
