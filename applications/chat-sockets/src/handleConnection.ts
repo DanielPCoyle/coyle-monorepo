@@ -35,7 +35,7 @@ export function handleConnection(
   addReaction({ socket, io });
   updateMessageAction({ socket, io });
   userTyping({ socket, io, typingTimeout });
-  seen({ socket, io, conversations });
+  seen({ socket, io });
   disconnect({ socket, io, peopleOnSite, conversations });
 
   socket.on("updateStatus", async ({ status, id }) => {
@@ -47,7 +47,6 @@ export function handleConnection(
   socket.on(
     "updateNotificationsEnabled",
     async ({ notificationsEnabled, id }) => {
-      console.log({ notificationsEnabled, id });
       await updateUserNotificationsEnabled({ notificationsEnabled, id });
     },
   );

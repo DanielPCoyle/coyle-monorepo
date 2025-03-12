@@ -58,15 +58,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         if (entry.isIntersecting) {
           if (userName !== message.sender && !message.seen) {
             socket.emit("seen", message.id);
-            const nConversations = [...conversations];
-            const index = nConversations.findIndex((c) => {
-              console.log({ c });
-              return c?.id === id;
-            });
-            if (nConversations[index]) {
-              nConversations[index].unSeenMessages -= 1;
-              // setConversations(nConversations);
-            }
           }
         }
       },

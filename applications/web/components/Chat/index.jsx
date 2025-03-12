@@ -103,8 +103,9 @@ export default function Chat() {
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
+      console.log({ conversations });
       if (user?.role !== "admin") return;
-      setConversations(conversations); // Admin sees all
+      setConversations(conversations);
     });
   }, [user]);
 
