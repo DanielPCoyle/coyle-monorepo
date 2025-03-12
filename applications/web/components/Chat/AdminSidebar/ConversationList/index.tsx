@@ -118,12 +118,12 @@ export const ConversationList: React.FC = () => {
         <ConversationListItems
           socket={socket}
           toggleDrawer={toggleDrawer}
-          conversations={conversations.filter((c) => c.isActive)}
+          conversations={conversations.filter((c) => c?.isActive)}
         />
         <div className="historicConversations">
           <h3 onClick={() => setShowHistoric(!showHistoric)}>
             Inactive Conversations ({" "}
-            {conversations.filter((c) => !c.isActive).length} )
+            {conversations.filter((c) => !c?.isActive)?.length} )
           </h3>
           {showHistoric && (
             <div style={{ overflow: "hidden" }}>
@@ -131,7 +131,7 @@ export const ConversationList: React.FC = () => {
                 <ConversationListItems
                   socket={socket}
                   toggleDrawer={toggleDrawer}
-                  conversations={conversations.filter((c) => !c.isActive)}
+                  conversations={conversations.filter((c) => !c?.isActive)}
                 />
               </div>
             </div>
