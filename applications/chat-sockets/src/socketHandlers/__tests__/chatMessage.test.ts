@@ -1,7 +1,9 @@
-import { getConversationIdByKey, insertMessage } from "@coyle/database";
-import { Server, Socket } from "socket.io";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { chatMessage } from "../chatMessage.js";
+import {
+  getConversationIdByKey,
+  insertMessage,
+  getConversations,
+} from "@coyle/database";
+import { chatMessage } from "../chatMessage";
 
 vi.mock("@coyle/database");
 
@@ -21,23 +23,24 @@ describe("chatMessage handler", () => {
       emit: vi.fn(),
     } as unknown as Server;
 
-    conversations = [];
+    conversations = [{ id: "conv123", lastMessage: "Test message" }];
   });
 
   it("should handle chat message event and emit messages correctly", async () => {
-    const id = "conversationId";
+    const id = "conversationKey";
     const message = "Hello\nWorld";
     const sender = "user1";
     const files = ["file1.png"];
     const replyId = "replyId";
     const formattedMessage = "Hello<br/>World";
-    const conversationId = "conv123";
+    const conversationKey = "conv123";
     const data = { id: "msg123" };
 
-    (getConversationIdByKey as vi.Mock).mockResolvedValue(conversationId);
+    (getConversationIdByKey as vi.Mock).mockResolvedValue(conversationKey);
     (insertMessage as vi.Mock).mockResolvedValue(data);
+    (getConversations as vi.Mock).mockResolvedValue(conversations); // ✅ Mock this function
 
-    chatMessage({ socket, io, conversations });
+    chatMessage({ socket, io });
 
     const chatMessageHandler = (socket.on as vi.Mock).mock.calls[0][1];
     await chatMessageHandler({ id, message, sender, files, replyId });
@@ -46,7 +49,7 @@ describe("chatMessage handler", () => {
     expect(insertMessage).toHaveBeenCalledWith({
       sender,
       message: formattedMessage,
-      conversationId,
+      conversationId: conversationKey,
       parentId: replyId,
       files,
       seen: false,
@@ -61,7 +64,7 @@ describe("chatMessage handler", () => {
       files,
     });
 
-    expect(io.emit).toHaveBeenCalledWith("conversations", conversations);
+    expect(io.emit).toHaveBeenCalledWith("conversations", conversations); // ✅ Now matches expected output
   });
 
   it("should log error if an exception occurs", async () => {
@@ -70,7 +73,7 @@ describe("chatMessage handler", () => {
 
     (getConversationIdByKey as vi.Mock).mockRejectedValue(error);
 
-    chatMessage({ socket, io, conversations });
+    chatMessage({ socket, io });
 
     const chatMessageHandler = (socket.on as vi.Mock).mock.calls[0][1];
     await chatMessageHandler({

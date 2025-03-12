@@ -30,13 +30,13 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { username, currentConversation, socket, id, email } =
-    React.useContext(ChatContext);
+  const { user, userName, socket, id, email } = React.useContext(ChatContext);
 
   const [urlPreview] = useState<string | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] =
     useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
+  const [seen, setSeen] = useState<boolean>(message.seen || false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
     message.reactions || {},
   );
@@ -56,8 +56,11 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          if (username !== message.sender && !message.seen) {
+          if (userName !== message.sender && !message.seen) {
             socket.emit("seen", message.id);
+            setTimeout(() => {
+              setSeen(false);
+            }, 1000);
           }
         }
       },
@@ -83,7 +86,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     newReactions[email].push(emoji.emoji);
     setReactions(newReactions);
     socket.emit("addReaction", {
-      id: currentConversation?.id,
+      id: id,
       messageId: message.id,
       reactions: newReactions,
     });
@@ -130,12 +133,13 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       value={{
         message,
         urlPreview,
-        username,
+        user,
         setShowReactionsPicker,
         setShowReplyModal,
         showReplyModal,
         addReaction,
         reactions,
+        seen,
       }}
     >
       <div
@@ -143,7 +147,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         className="animate__animated animate__zoomIn"
         key={index}
         style={{
-          alignItems: message.sender === username ? "flex-end" : "flex-start",
+          alignItems: message.sender === user ? "flex-end" : "flex-start",
           display: "flex",
           flexDirection: "column",
           marginBottom: "20px",
@@ -152,14 +156,13 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       >
         <MessageContent />
       </div>
-
       {showReactionsPicker && (
         <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
       )}
 
       {Boolean(reactions) && Object.values(reactions).length > 0 && (
         <Reactions
-          isSender={message.sender === username}
+          isSender={message.sender === userName}
           reactions={reactions}
           removeReactions={removeReactions}
         />
@@ -190,24 +193,20 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
           </div>
           <div className="replies">
             <MessageContent />
+            {showReactionsPicker && (
+              <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+            )}
             {message.replies && (
               <div>
                 {message.replies.map((reply: MessageType, index: number) => (
                   <div key={index}>
-                    <MessageContext.Provider
-                      value={{
-                        message: reply,
-                        urlPreview,
-                        username,
-                        setShowReactionsPicker,
-                        setShowReplyModal,
-                        showReplyModal,
-                        addReaction,
-                        reactions,
-                      }}
-                    >
-                      <MessageContent />
-                    </MessageContext.Provider>
+                    <SubMessage
+                      reply={reply}
+                      user={user}
+                      email={email}
+                      addReaction={addReaction}
+                      socket={socket}
+                    />
                   </div>
                 ))}
               </div>
@@ -221,6 +220,96 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
           </div>
         </div>
       </Modal>
+    </MessageContext.Provider>
+  );
+};
+
+const SubMessage: React.FC<{
+  reply: MessageType;
+  user: string;
+  socket: any;
+  email: string;
+  addReaction: any;
+}> = ({ reply, user, socket, email }) => {
+  const [urlPreview] = useState<string | null>(null);
+  const { id } = React.useContext(ChatContext);
+  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
+  const [showReactionsPicker, setShowReactionsPicker] =
+    useState<boolean>(false);
+  const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
+  const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
+    reply.reactions || {},
+  );
+
+  const { userName } = React.useContext(ChatContext);
+
+  useEffect(() => {
+    socket.on("addReaction", (payload) => {
+      console.log({ payload, reply });
+      if (payload.messageId === reply.id) {
+        setReactions(payload.reactions);
+      }
+    });
+  }, []);
+
+  const addReaction = (emoji: { emoji: string }) => {
+    const newReactions = { ...reactions };
+    if (!newReactions[email]) {
+      newReactions[email] = [];
+    }
+    newReactions[email].push(emoji.emoji);
+    setReactions(newReactions);
+    socket.emit("addReaction", {
+      id: id,
+      messageId: reply.id,
+      reactions: newReactions,
+    });
+    setShowReactionsPicker(false);
+  };
+
+  const removeReactions = (emoji: { emoji: string }) => {
+    const newReactions = { ...reactions };
+    if (newReactions[email]) {
+      newReactions[email] = newReactions[email].filter(
+        (e) => e !== emoji.emoji,
+      );
+      if (newReactions[email].length === 0) {
+        delete newReactions[email];
+      }
+      setReactions(newReactions);
+
+      socket.emit("addReaction", {
+        messageId: reply.id,
+        reactions: newReactions,
+      });
+    }
+  };
+
+  return (
+    <MessageContext.Provider
+      value={{
+        message: reply,
+        urlPreview,
+        user,
+        setShowReactionsPicker,
+        setShowReplyModal,
+        showReplyModal,
+        addReaction,
+        reactions,
+      }}
+    >
+      <MessageContent />
+      {showReactionsPicker && (
+        <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+      )}
+
+      {Boolean(reactions) && Object.values(reactions).length > 0 && (
+        <Reactions
+          isSender={reply.sender === userName}
+          reactions={reactions}
+          removeReactions={removeReactions}
+        />
+      )}
     </MessageContext.Provider>
   );
 };

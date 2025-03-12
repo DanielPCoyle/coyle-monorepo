@@ -47,6 +47,7 @@ nav * {
 nav .logo img {
   width: 100%;
   max-width: 200px;
+  height: auto;
 }
 
 .menu-toggle {
@@ -437,16 +438,18 @@ a.chat {
 
 .chatInputArea {
   background-color: rgb(22, 22, 22) !important;
-  padding-left: 5px;
-  padding-right: 5px;
   padding-bottom: 5px;
   height: 30vh;
 }
 
 .conversationList {
-  width: 20vw;
+  width: 17vw;
   background: rgb(22, 22, 22) !important;
   color: white;
+}
+
+.conversationList h3 {
+  margin-top: 15px;
 }
 
 .thumbnails {
@@ -481,6 +484,8 @@ a.chat {
   border: none;
   cursor: pointer;
   font-size: 18px;
+  padding: 0;
+  text-shadow: #000000 0px 0px 10px;
 }
 
 .reactionsEmojiPicker.main {
@@ -569,10 +574,15 @@ a.chat {
   position: absolute;
   width: 30px;
   margin-left: 25px;
-  margin-top: 2px;
+  margin-top: -2px;
   background-color: transparent;
   border: none;
   color: white;
+  padding: 0;
+  text-shadow: #000000 0px 0px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .replyModal {
@@ -585,7 +595,7 @@ a.chat {
 }
 
 .replyModal .messageContent {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   width: 350px;
 }
 
@@ -692,12 +702,13 @@ button.closeModal svg {
 
 .conversationList h3 {
   margin-top: 15px;
+  margin-left: 10px;
 }
 
 .conversationListItem {
   display: flex;
-  justify-content: space-between;
   padding: 10px;
+  align-items: center;
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   font-size: 0.9em;
@@ -739,5 +750,241 @@ button.closeModal svg {
   color: white;
   border: none;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.sidebarToggle {
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+}
+
+.sidebar {
+  background: #161616;
+  min-width: 300px;
+  color: white;
+}
+
+.sidebarToggle button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  padding: 10px;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebarToggle button svg {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.settingsContainer {
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settingsContainer h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="email"],
+.formGroup input[type="password"],
+.formGroup input[type="range"],
+.formGroup select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.formGroup input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+button {
+  background-color: #007aff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005bb5;
+}
+
+.settingsContainer {
+  padding: 15px;
+}
+
+.settingsNav button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.8em;
+  align-items: center;
+  border-bottom: dotted 4px #ccc;
+  padding: 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 0;
+}
+
+.settingsNav button span {
+  padding-left: 5px;
+}
+
+.immediateSettigs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+.immediateSettigs .formGroup.status {
+  width: 60%;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.immediateSettigs .formGroup.notifications {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.immediateSettigs .formGroup.notifications input[type="checkbox"] {
+  /* make bigger */
+  transform: scale(2);
+}
+
+.adminItems {
+  padding: 0;
+}
+
+.adminItem {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  border-bottom: solid 1px white;
+}
+
+.adminItem button {
+  background-color: transparent;
+  padding: 0;
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  color: white;
+  border: none;
+  align-items: center;
+}
+
+.statusDropdown {
+  background: transparent;
+  color: white;
+  border: none !important;
+}
+
+.adminDetails {
+  width: 200px;
+  word-break: break-all;
+}
+.adminActions {
+  display: flex;
+}
+
+.chatFlex {
+  background-color: rgb(22, 22, 22) !important;
+}
+
+.activeDot {
+  background-color: #007aff;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+}
+
+.activeDot.offline {
+  background-color: red;
+}
+
+.noAdmins {
+  margin-top: -30px;
+  background-color: #547292;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: #000000 0px 0px 5px;
+  position: relative;
+  z-index: 99;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  color: white;
+}
+
+.loadingIcon {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.newMessage {
+  background: red;
+  text-align: center;
+  color: wheat;
+  padding: 5px;
+  border-radius: 10px;
+  right: 0;
+}
+
+.hide {
+  display: none;
+}
+
+.historicConversations h3 {
   cursor: pointer;
 }

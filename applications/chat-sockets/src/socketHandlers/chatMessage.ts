@@ -1,6 +1,10 @@
-import { getConversationIdByKey, insertMessage } from "@coyle/database";
+import {
+  getConversationIdByKey,
+  insertMessage,
+  getConversations,
+} from "@coyle/database";
 
-export const chatMessage = ({ socket, io, conversations }) =>
+export const chatMessage = ({ socket, io }) =>
   socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
     try {
       const conversationId = await getConversationIdByKey(id);
@@ -25,7 +29,8 @@ export const chatMessage = ({ socket, io, conversations }) =>
         files,
       });
 
-      io.emit("conversations", conversations); // Update clients
+      const conversations = await getConversations();
+      io.emit("conversations", conversations);
     } catch (error) {
       console.log({ error });
     }

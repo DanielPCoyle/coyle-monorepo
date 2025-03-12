@@ -1,48 +1,76 @@
-import { addConversation } from "@coyle/database";
-import { describe, expect, it, vi } from "vitest";
+import { describe, it, vi, expect, beforeEach } from "vitest";
 import { login } from "../login";
+import {
+  addConversation,
+  getConversations,
+  getConversationIdByKey,
+  updateConversationIsActive,
+} from "@coyle/database";
 
 vi.mock("@coyle/database", () => ({
   addConversation: vi.fn(),
+  getConversations: vi.fn(),
+  getConversationIdByKey: vi.fn(),
+  updateConversationIsActive: vi.fn(),
+  updateConversationSocketId: vi.fn(),
 }));
 
-describe("login handler", () => {
-  it("should add a conversation and emit the updated conversations", () => {
-    const socket = {
-      on: vi.fn(),
-      id: "socket-id",
-      join: vi.fn(),
-    };
-    const io = {
-      emit: vi.fn(),
-    };
-    const conversations = [];
+describe("login function", () => {
+  let socket, io;
 
-    login({ socket, io, conversations });
+  beforeEach(() => {
+    socket = { on: vi.fn(), join: vi.fn() };
+    io = { emit: vi.fn() };
+  });
+
+  it("should join the socket room and activate an existing conversation", async () => {
+    const mockUser = {
+      userName: "Test User",
+      email: "test@example.com",
+      id: "123",
+      isAdmin: false,
+    };
+    const mockConversations = [{ id: "123", name: "Test User" }];
+
+    getConversationIdByKey.mockResolvedValue("123");
+    getConversations.mockResolvedValue(mockConversations);
+
+    login({ socket, io });
 
     const loginHandler = socket.on.mock.calls[0][1];
-    const userData = {
-      username: "testuser",
-      email: "test@example.com",
-      id: "user-id",
+    await loginHandler(mockUser);
+
+    expect(socket.join).toHaveBeenCalledWith("123");
+    expect(updateConversationIsActive).toHaveBeenCalledWith("123", true);
+    expect(io.emit).toHaveBeenCalledWith("conversations", mockConversations);
+  });
+
+  it("should add a new conversation if one does not exist", async () => {
+    const mockUser = {
+      userName: "New User",
+      email: "new@example.com",
+      id: "456",
+      isAdmin: true,
     };
+    const mockConversations = [{ id: "456", name: "New User" }];
 
-    loginHandler(userData);
+    getConversationIdByKey.mockResolvedValue(null);
+    getConversations.mockResolvedValue(mockConversations);
+    addConversation.mockResolvedValue();
 
-    expect(conversations).toEqual([
-      {
-        username: "testuser",
-        email: "test@example.com",
-        id: "user-id",
-        socketId: "socket-id",
-      },
-    ]);
-    expect(io.emit).toHaveBeenCalledWith("conversations", conversations);
-    expect(socket.join).toHaveBeenCalledWith("user-id");
+    login({ socket, io });
+
+    const loginHandler = socket.on.mock.calls[0][1];
+    await loginHandler(mockUser);
+
+    expect(socket.join).toHaveBeenCalledWith("456");
     expect(addConversation).toHaveBeenCalledWith({
-      name: "testuser",
-      email: "test@example.com",
-      conversationKey: "user-id",
+      name: "New User",
+      email: "new@example.com",
+      conversationKey: "456",
+      isAdmin: true,
+      isActive: true,
     });
+    expect(io.emit).toHaveBeenCalledWith("conversations", mockConversations);
   });
 });

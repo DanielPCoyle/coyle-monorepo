@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Allow all origins, adjust as needed
+    origin: [process.env.CLIENT_ORIGIN],
     methods: ["GET", "POST"],
   },
 });
@@ -28,23 +28,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Socket.io server is running");
 });
 
-interface Conversation {
-  id: string;
-  participants: string[];
-  messages: string[];
-}
-
-interface Person {
-  socketId: string;
-  [key: string]: string | number | boolean;
-}
-
-const conversations: Conversation[] = [];
-const peopleOnSite: Person[] = [];
-
 // Handle WebSocket connections
 io.on("connection", (socket: Socket) => {
-  handleConnection(socket, io, conversations, peopleOnSite);
+  handleConnection(socket, io);
 });
 
 const PORT = process.env.PORT || 3000;

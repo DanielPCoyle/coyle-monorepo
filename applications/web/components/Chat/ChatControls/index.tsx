@@ -18,13 +18,16 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
   const {
-    currentConversation,
+    id,
+    token,
     socket,
-    username,
+    user,
+    userName,
     typing,
     files,
     setFiles,
     setInput,
+    admins,
   } = useContext(ChatContext);
 
   const [editorState, setEditorState] = useState(() =>
@@ -101,7 +104,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     const htmlContent = stateToHTML(contentState);
     const randomString = Math.random().toString(36).substring(7);
 
-    if (currentConversation) {
+    if (id) {
       let uploadedFiles = [];
 
       if (files.length > 0) {
@@ -110,15 +113,28 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
       }
 
       const message = {
-        id: currentConversation.id,
+        id: id,
         messageId: randomString,
         message: htmlContent,
-        sender: username,
+        sender: user?.name || userName,
         replyId: replyId,
+        email: user?.email,
         files: uploadedFiles.filter((url) => url),
+        isAdmin: user?.role === "admin",
       };
 
       socket.emit("chat message", message);
+
+      if (!(admins?.length > 0)) {
+        await fetch("/api/chat/send-message-as-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ message }),
+        });
+      }
       setEditorState(EditorState.createEmpty());
       setFiles([]); // Clear uploaded files after sending the message
     }
@@ -142,6 +158,12 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
 
   return (
     <>
+      {!admins?.length && (
+        <div className="noAdmins">
+          We&apos;re not in at the moment but leave a message and we will get
+          back to you as soon as possible :)
+        </div>
+      )}
       <div className="inputContainer">
         {files.length > 0 && (
           <div className="thumbnails">

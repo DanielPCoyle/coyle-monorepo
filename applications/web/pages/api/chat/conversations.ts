@@ -1,13 +1,11 @@
 import { getConversations } from "@coyle/database";
+import { authMiddleware } from "../../../middlewares/auth";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 
 dotenv.config();
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const conversations = await getConversations();
     res.status(200).json(conversations);
@@ -17,3 +15,5 @@ export default async function handler(
       .json({ error: "Internal Server Error", message: error.message });
   }
 }
+
+export default authMiddleware(handler);

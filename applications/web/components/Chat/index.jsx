@@ -4,8 +4,10 @@ import { io } from "socket.io-client";
 import { ChatContext } from "./ChatContext";
 import { ChatControls } from "./ChatControls";
 import { Conversation } from "./Conversation";
-import { ConversationList } from "./ConversationList";
 import { LoginForm } from "./LoginForm";
+import useSound from "use-sound";
+import bubbleSFX from "./bubble.mp3";
+import { SideBar } from "./AdminSidebar/SideBar";
 
 /* eslint-disable no-undef */
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
@@ -14,11 +16,10 @@ const socket = io(socketSite);
 export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
-  const [currentConversation, setCurrentConversation] = useState(null);
-  const [historicConversations, setHistoricConversations] = useState([]);
   const [input, setInput] = useState("");
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [id, setId] = useState("");
   const [windowWidth, setWindowWidth] = useState(null);
@@ -26,19 +27,31 @@ export default function Chat() {
   const [files, setFiles] = React.useState([]);
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
+  const [play] = useSound(bubbleSFX);
+  const [token, setToken] = useState(null);
+  const [init, setInit] = useState(false);
+  const [admins, setAdmins] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(user?.status);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   useEffect(() => {
-    if (!username && username !== "admin") return;
+    if (!user || user?.role !== "admin" || !token) return;
     let controller = new AbortController();
     const signal = controller.signal;
 
-    fetch("/api/chat/conversations", { signal })
+    fetch("/api/chat/conversations", {
+      signal,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (signal.aborted || !data?.length) return;
-        setHistoricConversations(
+        setConversations(
           data?.map((convo) => {
-            convo.username = convo.name;
+            convo.user = convo.name;
             convo.id = convo.conversationKey;
             return convo;
           }),
@@ -55,7 +68,11 @@ export default function Chat() {
     return () => {
       controller.abort();
     };
-  }, [username]);
+  }, [user, token]);
+
+  useEffect(() => {
+    setToken(localStorage.getItem("jwt"));
+  }, []);
 
   useEffect(() => {
     if (localStorage.getItem("id")) {
@@ -65,91 +82,58 @@ export default function Chat() {
       setId(randomString);
       localStorage.setItem("id", randomString);
     }
-
-    if (localStorage.getItem("isLoggedIn") === "true") {
-      setIsLoggedIn(true);
-      setWindowWidth(window.innerWidth);
-      setUsername(localStorage.getItem("username") || "");
-      setEmail(localStorage.getItem("email") || "");
-      setCurrentConversation(
-        JSON.parse(localStorage.getItem("currentConversation")) || null,
-      );
-    }
-    setWindowWidth(window.innerWidth);
   }, []);
 
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
     fetch(`/api/chat/messages?conversationKey=${id}`)
       .then((res) => res.json())
       .then((data) => {
         const sortedMessages = data.sort((a, b) => a.id - b.id);
         setMessages(sortedMessages);
+        setLoading(false);
       });
   }, [id]);
 
   useEffect(() => {
-    if (!currentConversation?.id) return;
-    fetch(`/api/chat/messages?conversationKey=${currentConversation.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const sortedMessages = data.sort((a, b) => a.id - b.id);
-        setMessages(sortedMessages);
-      });
-  }, [currentConversation]);
-
-  useEffect(() => {
-    if (currentConversation && username.toLocaleLowerCase() === "admin") {
-      socket.emit("join", { id: currentConversation.id });
-      setMessages([]);
-    }
-  }, [currentConversation, username]);
+    socket.emit("join", { id });
+    setMessages([]);
+  }, [id, user]);
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
-      setConversations(conversations); // Admin sees all
+      console.log({ conversations });
+      if (user?.role !== "admin") return;
+      setConversations(conversations);
     });
-  }, [currentConversation, username]);
+  }, [user]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      const conversationId = `${id}`;
+    if (isLoggedIn && !init) {
+      const conversationKey = `${id}`;
       const loginEmitData = {
         id,
-        username,
+        userName,
         email,
-        conversationId,
+        conversationKey,
         socketId: socket.id,
+        isAdmin: user?.role === "admin",
       };
+      console.log({ loginEmitData });
       socket.emit("login", loginEmitData);
 
-      setCurrentConversation({
-        id,
-        username,
-        email,
-        conversationId,
-        recipient: "admin",
-      });
+      if (user?.role === "admin") return;
 
-      localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("username", username);
-      localStorage.setItem("email", email);
-      localStorage.setItem(
-        "currentConversation",
-        JSON.stringify({
-          id,
-          username,
-          email,
-          conversationId,
-          recipient: "Admin",
-        }),
-      );
-    } else {
-      localStorage.setItem("isLoggedIn", "false");
+      setInit(true);
     }
-  }, [isLoggedIn, username, email, id]);
+  }, [isLoggedIn, user, email, id, init]);
 
   useEffect(() => {
+    socket.on("adminsOnline", (adminUsers) => {
+      setAdmins(adminUsers);
+    });
+
     socket.on("chat message", (message) => {
       setMessages((prev) => {
         const newMessages = [...prev];
@@ -173,44 +157,54 @@ export default function Chat() {
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
+
         return uniqueMessages;
       });
     });
   }, []);
 
+  React.useEffect(() => {
+    if (notificationsEnabled) {
+      play();
+    }
+  }, [messages, notificationsEnabled]);
+
   useEffect(() => {
-    if (!currentConversation?.id) return;
+    if (typeof id === "undefined") return;
     socket.on("update messages request", (convoId) => {
       if (
-        convoId === currentConversation.id &&
+        convoId === id &&
         messages.length > 0 &&
-        username.toLocaleLowerCase() !== "admin"
+        Boolean(user) &&
+        Boolean(user?.role) &&
+        user?.role !== "admin"
       ) {
         socket.emit("update messages action", {
-          id: currentConversation.id,
+          id: id,
           messages,
         });
       }
     });
 
-    if (username.toLocaleLowerCase() !== "admin") return;
+    if (user && user?.role !== "admin") return;
     socket.on("update messages result", ({ convoId, messages }) => {
-      if (convoId === currentConversation.id) {
+      if (convoId === id) {
         setMessages(messages);
       }
     });
-  }, [currentConversation, messages, username]);
-
-  useEffect(() => {
-    if (username.toLocaleLowerCase() === "admin") return;
-    localStorage.setItem("messages", JSON.stringify(messages));
-  }, [messages, currentConversation, username]);
+  }, [id, messages, user]);
 
   useEffect(() => {
     return () => {
       socket.emit("logout", { id: localStorage.getItem("id") });
     };
   }, [id]);
+
+  useEffect(() => {
+    if (user?.name) {
+      setUserName(user?.name);
+    }
+  }, [user]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -224,38 +218,33 @@ export default function Chat() {
   }, []);
 
   useEffect(() => {
-    if (!currentConversation) return;
+    if (!id) return;
     const handleTyping = () => {
       socket.emit("user typing", {
-        conversationId: currentConversation.id,
-        username,
+        conversationKey: id,
+        userName,
       });
     };
 
     if (input.length > 0) {
       handleTyping();
     }
-  }, [input, currentConversation, username]);
+  }, [input, id, userName]);
 
   useEffect(() => {
     socket.on("user typing", (data) => {
-      if (
-        data.conversationId === currentConversation?.id &&
-        data.username !== username
-      ) {
+      console.log("TYPING DATA", data);
+      if (data.name !== userName) {
         setTyping(data);
       }
     });
 
     socket.on("user not typing", (data) => {
-      if (
-        data.conversationId === currentConversation?.id &&
-        data.username !== username
-      ) {
+      if (data.user !== userName) {
         setTyping(null);
       }
     });
-  }, [currentConversation, username]);
+  }, [id, user]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -266,37 +255,47 @@ export default function Chat() {
   return (
     <ChatContext.Provider
       value={{
+        admins,
         conversations,
-        currentConversation,
         email,
         files,
-        historicConversations,
         id,
         input,
+        loading,
         messages,
-        socket,
-        typing,
-        username,
-        setModalSource,
-        setModalIndex,
-        setCurrentConversation,
+        notificationsEnabled,
+        setConversations,
         setEmail,
         setFiles,
+        setId,
         setInput,
         setIsLoggedIn,
         setMessages,
-        setUsername,
+        setModalIndex,
+        setModalSource,
+        setNotificationsEnabled,
+        setStatus,
+        setToken,
+        setTyping,
+        setUser,
+        setUserName,
+        socket,
+        status,
+        typing,
+        user,
+        userName,
       }}
     >
       {!isLoggedIn ? (
         <LoginForm
+          setUserName={setUserName}
           setIsLoggedIn={setIsLoggedIn}
-          setUsername={setUsername}
+          setUser={setUser}
           setEmail={setEmail}
         />
       ) : (
         <div className="animate__animated animate__fadeIn chatFlex">
-          {username === "admin" && <ConversationList />}
+          {user && user?.role === "admin" && <SideBar />}
           <div className="chatStack">
             <div className="messages">
               <Conversation />

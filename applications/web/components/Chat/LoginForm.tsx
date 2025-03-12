@@ -3,10 +3,39 @@ import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { ChatContext } from "./ChatContext";
 
 export const LoginForm: React.FC = () => {
-  const { username, setUsername, email, setEmail, setIsLoggedIn } =
-    useContext(ChatContext);
+  const {
+    id,
+    userName,
+    setUser,
+    setUserName,
+    email,
+    setEmail,
+    setIsLoggedIn,
+    setToken,
+    setNotificationsEnabled,
+  } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      fetch("/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(">>>>>>", data.user);
+          setUser(data.user);
+          setUserName(data.user.name);
+          setEmail(data.user.email);
+          setNotificationsEnabled(data.user.notificationsEnabled);
+          setIsLoggedIn(true);
+        });
+    }
+  }, []);
 
   const formStyle: React.CSSProperties = {
     position: "absolute",
@@ -55,11 +84,28 @@ export const LoginForm: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!showAdminLogin) {
-      if (!username || !email) {
-        alert("Please enter both username and email.");
+      if (!userName || !email) {
+        alert("Please enter both name and email.");
         return;
       }
-      setIsLoggedIn(true);
+      fetch("/api/auth/guest-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ conversationKey: id, name: userName, email }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data?.token) {
+            setToken(data.token);
+            localStorage.setItem("jwt", data.token);
+            setIsLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching guest token:", err);
+        });
     } else {
       if (!email || !password) {
         alert("Please enter both email and password.");
@@ -77,8 +123,19 @@ export const LoginForm: React.FC = () => {
           if (data.error) {
             alert(data.error);
           } else {
-            setUsername("admin");
-            setIsLoggedIn(true);
+            const jwt = data.token;
+            localStorage.setItem("jwt", jwt);
+            fetch("/api/auth/me", {
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                data.user.token = jwt;
+                setUser(data.user);
+                setIsLoggedIn(true);
+              });
           }
         });
     }
@@ -105,9 +162,9 @@ export const LoginForm: React.FC = () => {
             Name:
             <input
               type="text"
-              value={username}
+              value={userName}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setUsername(e.target.value)
+                setUserName(e.target.value)
               }
               style={inputStyle}
               required

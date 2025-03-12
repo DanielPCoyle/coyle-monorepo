@@ -1,67 +1,46 @@
-import { setMessageSeen } from "@coyle/database";
-import { describe, expect, it, vi } from "vitest";
+import { setMessageSeen, getConversations } from "@coyle/database";
+import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { seen } from "../seen.js";
 
-// Mock the module at the top
+// Mock the database module
 vi.mock("@coyle/database", () => ({
-  setMessageSeen: vi.fn(),
+  setMessageSeen: vi.fn().mockResolvedValue(undefined),
+  getConversations: vi.fn().mockResolvedValue([]),
 }));
 
+// Utility to ensure all async operations resolve before assertions
+const flushPromises = () => new Promise(setImmediate);
+
 describe("seen socket handler", () => {
-  it("should log an error if setMessageSeen throws", async () => {
-    const socket = {
+  let socket, io, conversations, consoleLog;
+
+  beforeEach(() => {
+    socket = {
       on: vi.fn((event, callback) => {
         if (event === "seen") {
-          callback(1); // Simulate the event being triggered
+          callback(1); // Simulate the event being triggered with message ID 1
         }
       }),
     };
-    const io = { emit: vi.fn() };
-    const conversations = [{ id: 1, message: "Hello" }];
-    const consoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
-
-    // Ensure the function actually throws
-    setMessageSeen.mockRejectedValueOnce(new Error("Test error"));
-
-    // Call the function
-    seen({ socket, io, conversations });
-
-    // Ensure the callback runs asynchronously
-    await new Promise((resolve) => setImmediate(resolve));
-
-    // Assertions
-    expect(socket.on).toHaveBeenCalledWith("seen", expect.any(Function));
-    expect(setMessageSeen).toHaveBeenCalledWith(1);
-    expect(io.emit).not.toHaveBeenCalled();
-    expect(consoleLog).toHaveBeenCalledWith(
-      "ERROR UPDATING SEEN RECORD",
-      expect.any(Error),
-    );
-
-    // Cleanup
-    consoleLog.mockRestore();
+    io = { emit: vi.fn() };
+    conversations = [{ id: 1, message: "Hello" }];
+    consoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
   });
-});
-describe("seen socket handler", () => {
-  it("should call setMessageSeen and emit conversations on success", async () => {
-    const socket = {
-      on: vi.fn((event, callback) => {
-        if (event === "seen") {
-          callback(1); // Simulate the event being triggered
-        }
-      }),
-    };
-    const io = { emit: vi.fn() };
-    const conversations = [{ id: 1, message: "Hello" }];
 
-    // Ensure the function resolves successfully
-    setMessageSeen.mockResolvedValueOnce(undefined);
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("should call setMessageSeen and emit conversations on success", async () => {
+    // Mock a successful update
+    (setMessageSeen as jest.Mock).mockResolvedValueOnce(undefined);
+    (getConversations as jest.Mock).mockResolvedValueOnce(conversations);
 
     // Call the function
-    seen({ socket, io, conversations });
+    seen({ socket, io });
 
-    // Ensure the callback runs asynchronously
-    await new Promise((resolve) => setImmediate(resolve));
+    // Ensure all promises resolve
+    await flushPromises();
 
     // Assertions
     expect(socket.on).toHaveBeenCalledWith("seen", expect.any(Function));
@@ -70,25 +49,16 @@ describe("seen socket handler", () => {
   });
 
   it("should log an error if setMessageSeen throws", async () => {
-    const socket = {
-      on: vi.fn((event, callback) => {
-        if (event === "seen") {
-          callback(1); // Simulate the event being triggered
-        }
-      }),
-    };
-    const io = { emit: vi.fn() };
-    const conversations = [{ id: 1, message: "Hello" }];
-    const consoleLog = vi.spyOn(console, "log").mockImplementation(() => {});
-
-    // Ensure the function actually throws
-    setMessageSeen.mockRejectedValueOnce(new Error("Test error"));
+    // Mock an error
+    (setMessageSeen as jest.Mock).mockRejectedValueOnce(
+      new Error("Test error"),
+    );
 
     // Call the function
-    seen({ socket, io, conversations });
+    seen({ socket, io });
 
-    // Ensure the callback runs asynchronously
-    await new Promise((resolve) => setImmediate(resolve));
+    // Ensure all promises resolve
+    await flushPromises();
 
     // Assertions
     expect(socket.on).toHaveBeenCalledWith("seen", expect.any(Function));
@@ -98,8 +68,5 @@ describe("seen socket handler", () => {
       "ERROR UPDATING SEEN RECORD",
       expect.any(Error),
     );
-
-    // Cleanup
-    consoleLog.mockRestore();
   });
 });

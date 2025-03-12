@@ -1,26 +1,36 @@
 import React, { useContext, useState } from "react";
-import { ChatContext } from "../ChatContext";
+import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
-
-interface Conversation {
-  id: string;
-  unSeenMessages?: number;
-}
 
 export const ConversationList: React.FC = () => {
   const {
     conversations,
-    currentConversation,
-    setCurrentConversation,
     socket,
-    id,
-    historicConversations,
+    user,
+    admins,
+    status,
+    setStatus,
+    notificationsEnabled,
+    setNotificationsEnabled,
   } = useContext(ChatContext);
-
+  const [showHistoric, setShowHistoric] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
+
+  React.useEffect(() => {
+    socket.emit("updateStatus", { status, id: user?.id });
+  }, [status]);
+
+  React.useEffect(() => {
+    console.log("notificationsEnabled", notificationsEnabled);
+    socket.emit("updateNotificationsEnabled", {
+      notificationsEnabled,
+      id: user?.id,
+    });
+  }, [notificationsEnabled]);
 
   return (
     <>
@@ -54,10 +64,29 @@ export const ConversationList: React.FC = () => {
           </g>
         </svg>
       </button>
-      <div
-        className={`conversationList animate__animated ${isDrawerOpen ? "open animate__slideInLeft" : ""}`}
-      >
-        <h3>Active Conversations</h3>
+      <div className="immediateSettigs">
+        <div className="formGroup status">
+          <label>Status</label>
+          <select
+            className="statusDropdown"
+            value={status || user?.status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="online">Online</option>
+            <option value="offline">Offline</option>
+          </select>
+        </div>
+        <div className="formGroup notifications">
+          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
+          <input
+            type="checkbox"
+            checked={notificationsEnabled}
+            onChange={() => setNotificationsEnabled(!notificationsEnabled)}
+          />
+        </div>
+      </div>
+      <hr />
+      <div className={`conversationList`}>
         <button
           onClick={toggleDrawer}
           style={{
@@ -83,42 +112,35 @@ export const ConversationList: React.FC = () => {
             <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
           </svg>
         </button>
+        {/* <pre>{JSON.stringify(conversations,null,2)}</pre> */}
+        <h3>Active Conversations</h3>
+
         <ConversationListItems
           socket={socket}
           toggleDrawer={toggleDrawer}
-          setCurrentConversation={setCurrentConversation}
-          currentConversation={currentConversation}
-          conversations={conversations
-            .map((convo: Conversation) => {
-              if (!convo?.id) return null;
-              const historicRecord = historicConversations.find(
-                (historic: Conversation) => historic.id === convo.id,
-              );
-              convo.unSeenMessages = historicRecord?.unSeenMessages || 0;
-              return convo;
-            })
-            .filter(
-              (
-                convo: Conversation | null,
-                index: number,
-                self: (Conversation | null)[],
-              ) =>
-                convo && index === self.findIndex((c) => c?.id === convo?.id),
-            )}
-          id={id}
+          conversations={conversations.filter((c) => c.isActive)}
         />
         <div className="historicConversations">
-          <h3>Historic Conversations</h3>
+          <h3 onClick={() => setShowHistoric(!showHistoric)}>
+            Inactive Conversations ({" "}
+            {conversations.filter((c) => !c.isActive).length} )
+          </h3>
+          {showHistoric && (
+            <div style={{ overflow: "hidden" }}>
+              <div className="animate__animated animate__slideInDown animate__faster">
+                <ConversationListItems
+                  socket={socket}
+                  toggleDrawer={toggleDrawer}
+                  conversations={conversations.filter((c) => !c.isActive)}
+                />
+              </div>
+            </div>
+          )}
+          <h3>Admins Online</h3>
           <ConversationListItems
             socket={socket}
             toggleDrawer={toggleDrawer}
-            setCurrentConversation={setCurrentConversation}
-            currentConversation={currentConversation}
-            conversations={historicConversations.filter(
-              (convo: Conversation) =>
-                !conversations.some((c: Conversation) => c?.id === convo?.id),
-            )}
-            id={id}
+            conversations={admins}
           />
         </div>
       </div>

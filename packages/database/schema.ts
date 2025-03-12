@@ -1,3 +1,4 @@
+import { type InferSelectModel } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -10,8 +11,10 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
+export type User = InferSelectModel<typeof users>;
 export const users = pgTable("users", {
   id: uuid("id").primaryKey(),
+  name: text("name"),
   email: text("email").notNull(),
   passwordHash: text("password_hash").notNull(),
   isActive: boolean("is_active").notNull(),
@@ -19,6 +22,11 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   lastLogin: timestamp("last_login"),
+  status: text("status").notNull().default("offline"),
+  notificationsEnabled: boolean("notifications_enabled")
+    .notNull()
+    .default(false),
+  socketId: text("socket_id"),
 });
 
 export const messages = pgTable("messages", {
@@ -33,12 +41,16 @@ export const messages = pgTable("messages", {
   files: jsonb("files"),
 });
 
+export type Conversation = InferSelectModel<typeof conversations>;
 export const conversations = pgTable("conversations", {
   id: serial("id").primaryKey(),
   conversationKey: varchar("conversation_key", { length: 255 }).notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 255 }).notNull(),
+  isAdmin: boolean("is_admin").notNull().default(false),
+  isActive: boolean("is_active").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  socketId: text("socket_id"),
 });
 
 export const knowledge = pgTable("knowledge", {

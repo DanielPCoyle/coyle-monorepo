@@ -2,10 +2,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "./",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "preserve",
+    "moduleResolution": "bundler",
     "target": "ESNext",
     "esModuleInterop": true,
     "skipLibCheck": true
-  }
+  },
+  "exclude": ["**/*.test.ts", "**/__tests__/*"]
 }

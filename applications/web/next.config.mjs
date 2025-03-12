@@ -19,6 +19,8 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET,
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    NEXT_PUBLIC_EMAIL: process.env.NEXT_PUBLIC_EMAIL,
+    NEXT_PUBLIC_EMAIL_APP_PASSWORD: process.env.NEXT_PUBLIC_EMAIL_APP_PASSWORD,
   },
   images: {
     remotePatterns: [
@@ -34,6 +36,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "bsoonvbgwrslsigymsmn.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "qsiqcduxfmdzxqqsupte.supabase.co",
+      },
     ],
   },
   async rewrites() {
@@ -43,6 +49,22 @@ const nextConfig = {
         destination: "https://cdn.inksoft.com/get_a_store/:path*", // Proxy to external URL
       },
     ];
+  },
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.(mp3|wav)$/,
+      use: [
+        {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+            outputPath: "static/media/",
+            publicPath: "/_next/static/media/",
+          },
+        },
+      ],
+    });
+    return config;
   },
 };
 

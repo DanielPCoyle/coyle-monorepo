@@ -1,7 +1,7 @@
 export type { NextApiRequest, NextApiResponse } from "next";
 export interface Message {
   id: number;
-  conversationId: number;
+  conversationKey: number;
   sender: string;
   message: string;
   createdAt: string;
@@ -10,4 +10,11 @@ export interface Message {
   parentId: number | null;
   files: any[];
   replies: any[];
+}
+
+export interface DecodedToken {
+  email: string;
+  iat: number;
+  exp: number;
+  role: string;
 }

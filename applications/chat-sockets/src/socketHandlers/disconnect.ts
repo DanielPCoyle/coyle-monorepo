@@ -1,16 +1,19 @@
-export const disconnect = ({ socket, io, peopleOnSite, conversations }) =>
-  socket.on("disconnect", () => {
-    const userIndex = peopleOnSite.findIndex(
-      (user) => user?.socketId === socket.id,
-    );
-    if (userIndex >= 0) {
-      delete peopleOnSite[userIndex];
-    }
-    const conversationIndex = conversations.findIndex(
-      (user) => user?.socketId === socket.id,
-    );
-    if (conversationIndex >= 0) {
-      delete conversations[conversationIndex];
-      io.emit("conversations", conversations); // Update clients
+import {
+  updateConversationIsActive,
+  getConversations,
+  getConversationBySocketId,
+} from "@coyle/database";
+
+export const disconnect = ({ socket, io }) =>
+  socket.on("disconnect", async () => {
+    try {
+      const conversation = await getConversationBySocketId(socket.id);
+      if (conversation) {
+        await updateConversationIsActive(conversation.conversationKey, false);
+        const allConversations = await getConversations();
+        io.emit("conversations", allConversations);
+      }
+    } catch (error) {
+      console.error("Error disconnecting", error);
     }
   });

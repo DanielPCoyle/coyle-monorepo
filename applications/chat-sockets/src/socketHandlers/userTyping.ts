@@ -1,9 +1,9 @@
 export const userTyping = ({ socket, io, typingTimeout }) =>
-  socket.on("user typing", ({ conversationId, username }) => {
-    io.to(conversationId).emit("user typing", { username });
+  socket.on("user typing", ({ conversationKey, userName }) => {
+    io.to(conversationKey).emit("user typing", { name: userName });
     if (typingTimeout) clearTimeout(typingTimeout);
 
     typingTimeout = setTimeout(() => {
-      io.to(conversationId).emit("user not typing", { username });
+      io.to(conversationKey).emit("user not typing", { userName });
     }, 1000);
   });
