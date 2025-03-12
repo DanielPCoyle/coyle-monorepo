@@ -439,7 +439,6 @@ a.chat {
 .chatInputArea {
   background-color: rgb(22, 22, 22) !important;
   padding-bottom: 5px;
-  height: 30vh;
 }
 
 .conversationList {
@@ -987,4 +986,47 @@ button:hover {
 
 .historicConversations h3 {
   cursor: pointer;
+}
+
+
+.chatCaddy {
+  background-color:rgb(22, 22, 22) !important;
+  position: fixed;
+  bottom: 6vh;
+  right: 5vw;
+  width: 500px;
+  padding-bottom: 0px;
+  border-left: dotted 2px white;
+  box-shadow: 0 0 10px white;
+  height: 90vh;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+.chatCaddy .chatFlex{
+  height:100% !important;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+.chatCaddy .chatFlex .messages{
+  height: 73% !important;
+}
+
+.showChat{
+  position:fixed;
+  bottom:0;
+  right:3vw;
+  bottom:3vh;
+}
+
+.showChat button{
+  border-radius: 100%;
+  padding:0;
+  width:60px;
+  height:60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

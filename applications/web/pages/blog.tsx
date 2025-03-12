@@ -7,6 +7,7 @@ import Footer from "../components/layout/Footer";
 import Navigation from "../components/layout/Navigation";
 import navData from "../data/navData.json";
 import Image from "next/image";
+import ChatCaddy from "../components/Chat/ChatCaddy";
 
 interface Post {
   data: {
@@ -103,6 +104,8 @@ const Page: React.FC<PageProps> = ({
           </button>
         </div>
       </div>
+      <ChatCaddy />
+      
       <Footer />
     </>
   );
