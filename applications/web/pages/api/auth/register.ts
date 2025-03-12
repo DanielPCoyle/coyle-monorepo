@@ -19,7 +19,7 @@ export default async function handler(
 
   try {
     const password = Math.random().toString(36).slice(-8);
-    const token = await createAdminUser({ email, password, name , role });
+    const token = await createAdminUser({ email, password, name, role });
     if (token) {
       await sendWelcomeEmail(name, email, password);
       return res

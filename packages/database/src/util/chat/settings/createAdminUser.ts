@@ -11,7 +11,7 @@ export const createAdminUser = async ({
   email,
   password,
   name,
-  role
+  role,
 }: {
   email: string;
   password: string;
