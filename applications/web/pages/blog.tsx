@@ -105,7 +105,7 @@ const Page: React.FC<PageProps> = ({
         </div>
       </div>
       <ChatCaddy />
-      
+
       <Footer />
     </>
   );

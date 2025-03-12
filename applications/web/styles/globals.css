@@ -988,9 +988,8 @@ button:hover {
   cursor: pointer;
 }
 
-
 .chatCaddy {
-  background-color:rgb(22, 22, 22) !important;
+  background-color: rgb(22, 22, 22) !important;
   position: fixed;
   bottom: 6vh;
   right: 5vw;
@@ -1003,29 +1002,28 @@ button:hover {
   overflow: hidden;
 }
 
-
-.chatCaddy .chatFlex{
-  height:100% !important;
-  padding-left:10px;
-  padding-right:10px;
+.chatCaddy .chatFlex {
+  height: 100% !important;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.chatCaddy .chatFlex .messages{
+.chatCaddy .chatFlex .messages {
   height: 73% !important;
 }
 
-.showChat{
-  position:fixed;
-  bottom:0;
-  right:3vw;
-  bottom:3vh;
+.showChat {
+  position: fixed;
+  bottom: 0;
+  right: 3vw;
+  bottom: 3vh;
 }
 
-.showChat button{
+.showChat button {
   border-radius: 100%;
-  padding:0;
-  width:60px;
-  height:60px;
+  padding: 0;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;

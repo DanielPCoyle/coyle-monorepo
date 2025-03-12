@@ -13,7 +13,6 @@ import navData from "../data/navData.json";
 import { fetchProducts } from "../util/fetchProducts";
 import { ChatCaddy } from "../components/Chat/ChatCaddy";
 
-
 // Replace with your Public API Key
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);
 
@@ -107,6 +106,3 @@ export default function Page({
     </>
   );
 }
-
-
-
