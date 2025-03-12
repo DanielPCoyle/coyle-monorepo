@@ -11,7 +11,7 @@ export default async function handler(
     return res.status(405).json({ error: "Method Not Allowed" });
   }
 
-  const { name, email } = JSON.parse(req.body);
+  const { name, email, role } = JSON.parse(req.body);
 
   if (!email || !name) {
     return res.status(400).json({ error: "Email and name are required" });
@@ -19,7 +19,7 @@ export default async function handler(
 
   try {
     const password = Math.random().toString(36).slice(-8);
-    const token = await createAdminUser({ email, password, name });
+    const token = await createAdminUser({ email, password, name , role });
     if (token) {
       await sendWelcomeEmail(name, email, password);
       return res

@@ -11,10 +11,12 @@ export const createAdminUser = async ({
   email,
   password,
   name,
+  role
 }: {
   email: string;
   password: string;
   name: string;
+  role: string;
 }) => {
   try {
     const db = getDB();
@@ -25,7 +27,7 @@ export const createAdminUser = async ({
       email,
       passwordHash: hashedPassword,
       isActive: false,
-      role: "user",
+      role: role || "admin",
     });
     const token = jwt.sign({ userId, email, name }, SECRET_KEY, {
       expiresIn: "7d",

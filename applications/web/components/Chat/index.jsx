@@ -156,14 +156,13 @@ export default function Chat() {
             index === self.findIndex((m) => m.id === msg.id),
         );
         uniqueMessages.sort((a, b) => a.id - b.id);
-       
+
         return uniqueMessages;
       });
     });
   }, []);
 
-
-React.useEffect(() => {
+  React.useEffect(() => {
     if (notificationsEnabled) {
       play();
     }
@@ -261,29 +260,29 @@ React.useEffect(() => {
         files,
         id,
         input,
-        messages,
-        socket,
-        typing,
-        user,
-        userName,
         loading,
-        status,
-        setStatus,
+        messages,
         notificationsEnabled,
-        setNotificationsEnabled,
-        setToken,
-        setModalSource,
-        setModalIndex,
+        setConversations,
         setEmail,
         setFiles,
+        setId,
         setInput,
         setIsLoggedIn,
         setMessages,
+        setModalIndex,
+        setModalSource,
+        setNotificationsEnabled,
+        setStatus,
+        setToken,
+        setTyping,
         setUser,
         setUserName,
-        setConversations,
-        setId,
-        setTyping,
+        socket,
+        status,
+        typing,
+        user,
+        userName,
       }}
     >
       {!isLoggedIn ? (

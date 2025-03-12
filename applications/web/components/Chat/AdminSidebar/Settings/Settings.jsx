@@ -21,10 +21,7 @@ export const Settings = () => {
       adminName,
       email,
       password,
-      notificationsEnabled,
-      notificationSound,
       notificationFrequency,
-      status,
     });
   };
 
@@ -251,6 +248,7 @@ const AddNewUserScreen = () => {
   const [adminName, setAdminName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState("admin");
+  const { setView } = React.useContext(SettingsContext);
   const handleAddNewUser = () => {
     // Logic to add new user
     fetch("/api/auth/register", {
@@ -263,8 +261,7 @@ const AddNewUserScreen = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("User added", data);
-        // setView("adminUsers");
+        setView("adminUsers");
       });
   };
 
