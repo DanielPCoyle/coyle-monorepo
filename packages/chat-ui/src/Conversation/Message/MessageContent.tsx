@@ -5,12 +5,12 @@ import { LinkPreview } from "./LinkPreview";
 import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
 import { ReplySvg } from "../../../svg/ReplySvg";
-import Image from "next/image";
 
 export const MessageContent = () => {
   const { message, setShowReactionsPicker, setShowReplyModal } =
     useContext(MessageContext);
   const { user, userName } = useContext(ChatContext);
+
   return (
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
@@ -23,7 +23,7 @@ export const MessageContent = () => {
             border: "solid 1px black",
           }}
         >
-          <Image
+          <img
             src={"/icon.png"}
             alt="avatar"
             width={30}
@@ -54,7 +54,6 @@ export const MessageContent = () => {
         dangerouslySetInnerHTML={{ __html: message.message }}
       />
       <LinkPreview message={message} />
-
       <button
         onClick={() => {
           setShowReactionsPicker(true);
@@ -74,3 +73,5 @@ export const MessageContent = () => {
     </div>
   );
 };
+
+export default MessageContent;

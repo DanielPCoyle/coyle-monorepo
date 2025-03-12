@@ -13,7 +13,7 @@ import { SideBar } from "./AdminSidebar/SideBar";
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
 const socket = io(socketSite);
 
-export default function Chat() {
+export const Chat =() => {
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [input, setInput] = useState("");
@@ -344,3 +344,5 @@ export default function Chat() {
     </ChatContext.Provider>
   );
 }
+
+export default Chat;

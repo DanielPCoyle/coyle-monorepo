@@ -1,5 +1,5 @@
 import React from "react";
-import Chat from "../../pages/chat";
+import Chat from "./Chat";
 
 export const ChatCaddy = () => {
   const [open, setOpen] = React.useState(false);
