@@ -5,7 +5,8 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Copy package.json, package-lock.json, and tsconfig.json
-COPY package.json tsconfig.json ./
+COPY tsconfig.json ./
+COPY production.package.json ./package.json
 COPY coyle-database-v1.0.0.tgz ./
 COPY .env.production /app/.env
 RUN rm -rf node_modules
