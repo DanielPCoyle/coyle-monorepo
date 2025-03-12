@@ -25,8 +25,6 @@ export const chatMessage = ({ socket, io }) =>
         parentId: replyId,
         files,
       });
-
-      
     } catch (error) {
       console.log({ error });
     }

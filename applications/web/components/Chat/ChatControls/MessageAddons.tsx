@@ -20,7 +20,6 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
   insertEmoji,
   typing,
 }) => {
-
   return (
     <div
       style={{

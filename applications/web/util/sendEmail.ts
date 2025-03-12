@@ -1,8 +1,16 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
-export async function sendEmail({to, subject, text} : {to: string, subject: string, text: string}) {
+export async function sendEmail({
+  to,
+  subject,
+  text,
+}: {
+  to: string;
+  subject: string;
+  text: string;
+}) {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
       user: process.env.NEXT_PUBLIC_EMAIL,
       pass: process.env.NEXT_PUBLIC_EMAIL_APP_PASSWORD,
@@ -13,7 +21,7 @@ export async function sendEmail({to, subject, text} : {to: string, subject: stri
     from: process.env.NEXT_PUBLIC_EMAIL,
     to,
     subject,
-    html:text,
+    html: text,
   };
 
   try {

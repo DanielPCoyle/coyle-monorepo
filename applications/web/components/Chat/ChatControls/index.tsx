@@ -125,14 +125,14 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
 
       socket.emit("chat message", message);
 
-      if(!(admins?.length > 0)) {
+      if (!(admins?.length > 0)) {
         await fetch("/api/chat/send-message-as-email", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({message}),
+          body: JSON.stringify({ message }),
         });
       }
       setEditorState(EditorState.createEmpty());
@@ -160,8 +160,8 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     <>
       {!admins?.length && (
         <div className="noAdmins">
-          We&apos;re not in at the moment but leave a message and we will get back to
-          you as soon as possible :)
+          We&apos;re not in at the moment but leave a message and we will get
+          back to you as soon as possible :)
         </div>
       )}
       <div className="inputContainer">
