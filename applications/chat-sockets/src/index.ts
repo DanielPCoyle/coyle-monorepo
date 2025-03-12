@@ -34,10 +34,6 @@ interface Conversation {
   messages: string[];
 }
 
-interface Person {
-  socketId: string;
-  [key: string]: string | number | boolean;
-}
 
 const conversations: Conversation[] = [];
 

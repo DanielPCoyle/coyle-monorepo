@@ -13,10 +13,6 @@ import {
   getUsersOnline,
   updateUserNotificationsEnabled,
 } from "@coyle/database";
-interface PersonOnSite {
-  socketId: string;
-  [key: string]: string | number | boolean;
-}
 
 export function handleConnection(socket: Socket, io: Server) {
   let typingTimeout: NodeJS.Timeout;
