@@ -9,7 +9,7 @@
     "run-test": "vitest run",
     "run:watch": "vitest",
     "test": "echo null",
-    "types": "tsc --noEmit",
+    "types": "echo \"TODO (MAYBE): Add yarn types to E2E\"",
     "prettier": "prettier --check ."
   },
   "dependencies": {

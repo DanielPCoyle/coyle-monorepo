@@ -1,5 +1,6 @@
 import { getDB } from "../../../";
 import { users } from "../../../schema";
+import type { User } from "../../../schema";
 import { eq } from "drizzle-orm";
 
 export async function updateUserNotificationsEnabled({
@@ -10,7 +11,7 @@ export async function updateUserNotificationsEnabled({
     const db = getDB();
     await db
       .update(users)
-      .set({ notificationsEnabled: notificationsEnabled })
+      .set({ notificationsEnabled: notificationsEnabled } as User)
       .where(eq(users.id, id));
   } catch (error) {
     console.error("Error adding conversation", error);

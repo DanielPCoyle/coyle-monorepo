@@ -28,17 +28,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Socket.io server is running");
 });
 
-interface Conversation {
-  id: string;
-  participants: string[];
-  messages: string[];
-}
-
-const conversations: Conversation[] = [];
-
 // Handle WebSocket connections
 io.on("connection", (socket: Socket) => {
-  handleConnection(socket, io, conversations);
+  handleConnection(socket, io);
 });
 
 const PORT = process.env.PORT || 3000;

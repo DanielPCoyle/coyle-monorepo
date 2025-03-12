@@ -7,7 +7,7 @@ import { eq, count, and } from "drizzle-orm";
 vi.mock("@coyle/database");
 
 describe("getConversations", () => {
-  let mockDB: any;
+  let mockDB: unknown;
 
   beforeEach(() => {
     vi.resetAllMocks();

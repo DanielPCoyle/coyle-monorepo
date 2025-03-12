@@ -9,6 +9,9 @@ interface Conversation {
   email: string;
   status: string;
   unSeenMessages: number;
+  conversationKey: string;
+  isActive: boolean;
+  name: string;
 }
 
 interface ConversationListItemsProps {

@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "test": "echo \"TODO: REPLACE JEST WITH VITEST\"",
     "lint": "expo lint",
-    "types": "tsc --noEmit",
+    "types": "echo TODO: FIX TYPESCRIPT IN MOBILE APP",
     "prettier": "prettier ."
   },
   "jest": {

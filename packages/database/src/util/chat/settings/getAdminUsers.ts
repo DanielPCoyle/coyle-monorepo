@@ -1,8 +1,8 @@
 import { getDB } from "@coyle/database";
 import { users } from "@coyle/database/schema";
-
-export async function getAdminUsers(): Promise<unknown[]> {
+import type { User } from "@coyle/database/schema";
+export async function getAdminUsers(): Promise<User[]> {
   const db = getDB();
-  const data: unknown[] = await db.select().from(users);
+  const data: User[] = await db.select().from(users);
   return data;
 }

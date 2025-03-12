@@ -7,8 +7,6 @@ import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
 vi.mock("jsonwebtoken");
 vi.mock("@coyle/database/src/util/chat/getUserByEmail");
 
-const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key";
-
 describe("authMiddleware", () => {
   const handler = vi.fn((req, res) =>
     res.status(200).json({ message: "success" }),
