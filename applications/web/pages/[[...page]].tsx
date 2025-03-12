@@ -11,7 +11,7 @@ import Footer from "../components/layout/Footer";
 
 import navData from "../data/navData.json";
 import { fetchProducts } from "../util/fetchProducts";
-import { ChatCaddy } from "../components/Chat/ChatCaddy";
+import {ChatCaddy}  from "@coyle/chat-ui/src/ChatCaddy";
 
 // Replace with your Public API Key
 builder.init(process.env.NEXT_PUBLIC_BUILDER_API_KEY!);

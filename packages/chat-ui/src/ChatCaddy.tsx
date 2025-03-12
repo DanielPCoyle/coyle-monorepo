@@ -1,8 +1,10 @@
-import React from "react";
+"use client"
+
+import React, { useState } from "react";
 import Chat from "./Chat";
 
 export const ChatCaddy = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   return (
     <div className="chatCaddyContainer">
       {open && (

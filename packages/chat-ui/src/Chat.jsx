@@ -5,8 +5,8 @@ import { ChatContext } from "./ChatContext";
 import { ChatControls } from "./ChatControls";
 import { Conversation } from "./Conversation";
 import { LoginForm } from "./LoginForm";
-import useSound from "use-sound";
-import bubbleSFX from "./bubble.mp3";
+// import useSound from "use-sound";
+// import bubbleSFX from "./bubble.mp3";
 import { SideBar } from "./AdminSidebar/SideBar";
 
 /* eslint-disable no-undef */
@@ -27,7 +27,7 @@ export const Chat =() => {
   const [files, setFiles] = React.useState([]);
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
-  const [play] = useSound(bubbleSFX);
+  // const [play] = useSound(bubbleSFX);
   const [token, setToken] = useState(null);
   const [init, setInit] = useState(false);
   const [admins, setAdmins] = useState([]);
@@ -171,7 +171,7 @@ export const Chat =() => {
 
   React.useEffect(() => {
     if (notificationsEnabled) {
-      play();
+      // play();
     }
   }, [messages, notificationsEnabled]);
 

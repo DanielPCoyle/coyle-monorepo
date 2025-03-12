@@ -1,1 +1,2 @@
-export {ChatCaddy} from './ChatCaddy';
+import {ChatCaddy} from './ChatCaddy';
+export default ChatCaddy;
