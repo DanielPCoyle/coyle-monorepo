@@ -89,12 +89,12 @@ export default function Chat() {
     setLoading(true);
     fetch(`/api/chat/messages?conversationKey=${id}`, {
       headers: {
-      Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data?.length){
+        if (data?.length) {
           const sortedMessages = data.sort((a, b) => a.id - b.id);
           setMessages(sortedMessages);
         }
