@@ -12,3 +12,4 @@ rsync -av --progress -e "ssh -i ./philaprints.pem" ./applications/chat-sockets u
 rm ./applications/chat-sockets/production.package.json
 # SSH into the server and handle the deployment
 ssh -i "philaprints.pem" ubuntu@ec2-44-223-25-160.compute-1.amazonaws.com 'bash ./chat-sockets/deploy.sh'
+ssh -i "philaprints.pem" ubuntu@ec2-44-223-25-160.compute-1.amazonaws.com 'rm -rf /home/ubuntu/chat-sockets'
