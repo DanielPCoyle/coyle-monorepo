@@ -40,11 +40,10 @@ interface Person {
 }
 
 const conversations: Conversation[] = [];
-const peopleOnSite: Person[] = [];
 
 // Handle WebSocket connections
 io.on("connection", (socket: Socket) => {
-  handleConnection(socket, io, conversations, peopleOnSite);
+  handleConnection(socket, io, conversations);
 });
 
 const PORT = process.env.PORT || 3000;

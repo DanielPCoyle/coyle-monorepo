@@ -21,14 +21,10 @@ interface PersonOnSite {
 export function handleConnection(
   socket: Socket,
   io: Server,
-  conversations: unknown[],
-  peopleOnSite: PersonOnSite[],
 ) {
-  peopleOnSite.push({ socketId: socket.id });
-  io.emit("peopleOnSite", peopleOnSite);
   let typingTimeout: NodeJS.Timeout;
 
-  login({ socket, io, conversations });
+  login({ socket, io });
   join({ socket, io });
   leave({ socket });
   chatMessage({ socket, io });
@@ -36,9 +32,10 @@ export function handleConnection(
   updateMessageAction({ socket, io });
   userTyping({ socket, io, typingTimeout });
   seen({ socket, io });
-  disconnect({ socket, io, peopleOnSite, conversations });
+  disconnect({ socket, io });
 
   socket.on("updateStatus", async ({ status, id }) => {
+    if(!status) return;
     await updateUserStatus({ status, id });
     const onlineUsers = await getUsersOnline();
     io.emit("adminsOnline", onlineUsers);

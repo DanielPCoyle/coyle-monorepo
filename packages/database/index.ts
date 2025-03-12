@@ -14,3 +14,5 @@ export { createAdminUser } from "./src/util/chat/settings/createAdminUser";
 export { updateUserStatus } from "./src/util/chat/updateUserStatus";
 export { updateUserNotificationsEnabled } from "./src/util/chat/updateUserNotificationsEnabled";
 export { getUsersOnline } from "./src/util/chat/getUsersOnline";
+export { updateConversationSocketId } from "./src/util/chat/updateConversationSocketId";
+export { getConversationBySocketId } from "./src/util/chat/getConversationBySocketId";

@@ -20,10 +20,11 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   lastLogin: timestamp("last_login"),
-  status: text("status").notNull().default("offline"), // Default to offline
+  status: text("status").notNull().default("offline"),
   notificationsEnabled: boolean("notifications_enabled")
     .notNull()
-    .default(false), // Default to true
+    .default(false), 
+  socketId: text("socket_id"),
 });
 
 export const messages = pgTable("messages", {
@@ -46,6 +47,7 @@ export const conversations = pgTable("conversations", {
   isAdmin: boolean("is_admin").notNull().default(false),
   isActive: boolean("is_active").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  socketId: text("socket_id"),
 });
 
 export const knowledge = pgTable("knowledge", {

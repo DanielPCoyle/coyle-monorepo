@@ -1,11 +1,16 @@
-import { updateConversationIsActive, getConversations } from "@coyle/database";
+import { updateConversationIsActive, getConversations, getConversationBySocketId } from "@coyle/database";
 
-export const disconnect = ({ socket, io, conversations }) =>
+export const disconnect = ({ socket, io }) =>
   socket.on("disconnect", async () => {
-    const conversation = conversations.find((c) => c.socketId === socket.id);
+    try{
+    const conversation = await getConversationBySocketId(socket.id);
+    console.log({socket:socket.id,conversation})
     if (conversation) {
-      await updateConversationIsActive(conversation.id, false);
+      await updateConversationIsActive(conversation.conversationKey, false);
       const allConversations = await getConversations();
       io.emit("conversations", allConversations);
     }
-  });
+  } catch (error) {
+    console.error("Error disconnecting", error);
+  }
+});

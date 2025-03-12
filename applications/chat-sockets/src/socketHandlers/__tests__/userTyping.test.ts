@@ -1,71 +1,62 @@
-import { describe, expect, it, vi } from "vitest";
-import { userTyping } from "../userTyping.js";
-
-vi.useFakeTimers();
+import { vi, describe, test, expect, beforeEach, afterEach } from "vitest";
+import { userTyping } from "../userTyping"; // Adjust the path as necessary
 
 describe("userTyping", () => {
-  it('should emit "user typing" event and "user not typing" event after timeout', () => {
-    const socket = {
-      on: vi.fn((event, callback) => {
-        if (event === "user typing") {
-          callback({ conversationKey: "123", user: "testUser" });
-        }
-      }),
-    };
-    const io = {
-      to: vi.fn().mockReturnThis(),
-      emit: vi.fn(),
-    };
-    let typingTimeout;
+  let socket, io, typingTimeout, onMock, emitMock;
 
+  beforeEach(() => {
+    emitMock = vi.fn();
+    onMock = vi.fn();
+    io = { to: vi.fn(() => ({ emit: emitMock })) };
+    socket = { on: onMock };
+    typingTimeout = null;
+  });
+
+  afterEach(() => {
+    vi.clearAllTimers();
+    vi.restoreAllMocks();
+  });
+
+  test("should emit 'user typing' event when user starts typing", () => {
     userTyping({ socket, io, typingTimeout });
 
-    expect(socket.on).toHaveBeenCalledWith("user typing", expect.any(Function));
-    expect(io.to).toHaveBeenCalledWith("123");
-    expect(io.emit).toHaveBeenCalledWith("user typing", {
-      user: "testUser",
-    });
+    // Simulate the event listener being called
+    const callback = onMock.mock.calls[0][1];
+    callback({ conversationKey: "room1", userName: "Alice" });
 
+    expect(io.to).toHaveBeenCalledWith("room1");
+    expect(emitMock).toHaveBeenCalledWith("user typing", { name: "Alice" });
+  });
+
+  test("should emit 'user not typing' after timeout", async () => {
+    vi.useFakeTimers();
+    userTyping({ socket, io, typingTimeout });
+
+    const callback = onMock.mock.calls[0][1];
+    callback({ conversationKey: "room1", userName: "Alice" });
+
+    // Fast-forward time
     vi.advanceTimersByTime(1000);
 
-    expect(io.emit).toHaveBeenCalledWith("user not typing", {
-      user: "testUser",
-    });
+    expect(io.to).toHaveBeenCalledWith("room1");
+    expect(emitMock).toHaveBeenCalledWith("user not typing", { userName: "Alice" });
   });
 
-  it("should clear existing timeout if user types again before timeout", () => {
-    const socket = {
-      on: vi.fn((event, callback) => {
-        if (event === "user typing") {
-          callback({ conversationKey: "123", user: "testUser" });
-          callback({ conversationKey: "123", user: "testUser" });
-        }
-      }),
-    };
-    const io = {
-      to: vi.fn().mockReturnThis(),
-      emit: vi.fn(),
-    };
-    let typingTimeout;
-
+  test("should reset the timeout if user keeps typing", async () => {
+    vi.useFakeTimers();
     userTyping({ socket, io, typingTimeout });
 
-    expect(socket.on).toHaveBeenCalledWith("user typing", expect.any(Function));
-    expect(io.to).toHaveBeenCalledWith("123");
-    expect(io.emit).toHaveBeenCalledWith("user typing", {
-      user: "testUser",
-    });
+    const callback = onMock.mock.calls[0][1];
+    callback({ conversationKey: "room1", userName: "Alice" });
 
     vi.advanceTimersByTime(500);
+    callback({ conversationKey: "room1", userName: "Alice" });
 
-    expect(io.emit).not.toHaveBeenCalledWith("user not typing", {
-      user: "testUser",
-    });
+    vi.advanceTimersByTime(500); // Should not trigger yet
+    expect(emitMock).not.toHaveBeenCalledWith("user not typing", { userName: "Alice" });
 
-    vi.advanceTimersByTime(500);
-
-    expect(io.emit).toHaveBeenCalledWith("user not typing", {
-      user: "testUser",
-    });
+    vi.advanceTimersByTime(500); // Now it should trigger
+    expect(emitMock).toHaveBeenCalledWith("user not typing", { userName: "Alice" });
   });
 });
+```
