@@ -1,61 +1,85 @@
-import { describe, it, expect, vi } from 'vitest';
-import { createMocks } from 'node-mocks-http';
-import handler from '../../../../pages/api/auth/register';
-import { createAdminUser } from '@coyle/database';
-import { sendWelcomeEmail } from '../../../../util/chat/sendWelcomeEmail';
+import { describe, it, expect, vi } from "vitest";
+import { createMocks } from "node-mocks-http";
+import handler from "../../../../pages/api/auth/register";
+import { createAdminUser } from "@coyle/database";
+import { sendWelcomeEmail } from "../../../../util/chat/sendWelcomeEmail";
 
-vi.mock('@coyle/database', () => ({ createAdminUser: vi.fn() }));
-vi.mock('../../../../util/chat/sendWelcomeEmail', () => ({ sendWelcomeEmail: vi.fn() }));
+vi.mock("@coyle/database", () => ({ createAdminUser: vi.fn() }));
+vi.mock("../../../../util/chat/sendWelcomeEmail", () => ({
+  sendWelcomeEmail: vi.fn(),
+}));
 
-describe('POST /api/auth/register', () => {
-  it('should create a new user and send a welcome email', async () => {
+describe("POST /api/auth/register", () => {
+  it("should create a new user and send a welcome email", async () => {
     const { req, res } = createMocks({
-      method: 'POST',
-      body: JSON.stringify({ name: 'John Doe', email: 'john@example.com', role: 'admin' }),
+      method: "POST",
+      body: JSON.stringify({
+        name: "John Doe",
+        email: "john@example.com",
+        role: "admin",
+      }),
     });
 
-    createAdminUser.mockResolvedValue('mocked-token');
+    createAdminUser.mockResolvedValue("mocked-token");
 
     await handler(req, res);
 
     expect(res._getStatusCode()).toBe(201);
-    expect(res._getJSONData()).toEqual({ message: 'User created successfully', token: 'mocked-token' });
-    expect(createAdminUser).toHaveBeenCalledWith({ email: 'john@example.com', password: expect.any(String), name: 'John Doe', role: 'admin' });
-    expect(sendWelcomeEmail).toHaveBeenCalledWith('John Doe', 'john@example.com', expect.any(String));
+    expect(res._getJSONData()).toEqual({
+      message: "User created successfully",
+      token: "mocked-token",
+    });
+    expect(createAdminUser).toHaveBeenCalledWith({
+      email: "john@example.com",
+      password: expect.any(String),
+      name: "John Doe",
+      role: "admin",
+    });
+    expect(sendWelcomeEmail).toHaveBeenCalledWith(
+      "John Doe",
+      "john@example.com",
+      expect.any(String),
+    );
   });
 
-  it('should return 400 if email or name is missing', async () => {
+  it("should return 400 if email or name is missing", async () => {
     const { req, res } = createMocks({
-      method: 'POST',
-      body: JSON.stringify({ email: 'john@example.com' }),
+      method: "POST",
+      body: JSON.stringify({ email: "john@example.com" }),
     });
 
     await handler(req, res);
 
     expect(res._getStatusCode()).toBe(400);
-    expect(res._getJSONData()).toEqual({ error: 'Email and name are required' });
+    expect(res._getJSONData()).toEqual({
+      error: "Email and name are required",
+    });
   });
 
-  it('should return 405 if method is not POST', async () => {
-    const { req, res } = createMocks({ method: 'GET' });
+  it("should return 405 if method is not POST", async () => {
+    const { req, res } = createMocks({ method: "GET" });
 
     await handler(req, res);
 
     expect(res._getStatusCode()).toBe(405);
-    expect(res._getJSONData()).toEqual({ error: 'Method Not Allowed' });
+    expect(res._getJSONData()).toEqual({ error: "Method Not Allowed" });
   });
 
-  it('should return 500 if there is an error creating the user', async () => {
+  it("should return 500 if there is an error creating the user", async () => {
     const { req, res } = createMocks({
-      method: 'POST',
-      body: JSON.stringify({ name: 'John Doe', email: 'john@example.com', role: 'admin' }),
+      method: "POST",
+      body: JSON.stringify({
+        name: "John Doe",
+        email: "john@example.com",
+        role: "admin",
+      }),
     });
 
-    createAdminUser.mockRejectedValue(new Error('Database error'));
+    createAdminUser.mockRejectedValue(new Error("Database error"));
 
     await handler(req, res);
 
     expect(res._getStatusCode()).toBe(500);
-    expect(res._getJSONData()).toEqual({ error: 'Database error' });
+    expect(res._getJSONData()).toEqual({ error: "Database error" });
   });
 });

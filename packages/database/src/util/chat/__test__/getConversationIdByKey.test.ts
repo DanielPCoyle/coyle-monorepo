@@ -31,7 +31,9 @@ describe("getConversationIdByKey", () => {
 
     expect(mockDB.select).toHaveBeenCalled();
     expect(mockDB.from).toHaveBeenCalledWith(convos);
-    expect(mockDB.where).toHaveBeenCalledWith(eq(convos.conversationKey, mockKey));
+    expect(mockDB.where).toHaveBeenCalledWith(
+      eq(convos.conversationKey, mockKey),
+    );
     expect(conversationId).toBe("conversation123");
   });
 
@@ -42,7 +44,9 @@ describe("getConversationIdByKey", () => {
 
     const conversationId = await getConversationIdByKey(mockKey);
 
-    expect(mockDB.where).toHaveBeenCalledWith(eq(convos.conversationKey, mockKey));
+    expect(mockDB.where).toHaveBeenCalledWith(
+      eq(convos.conversationKey, mockKey),
+    );
     expect(conversationId).toBe(false);
   });
 
@@ -56,7 +60,7 @@ describe("getConversationIdByKey", () => {
 
     expect(consoleSpy).toHaveBeenCalledWith(
       "Error getting conversation id by key",
-      expect.any(Error)
+      expect.any(Error),
     );
     expect(conversationId).toBe(false);
 

@@ -9,7 +9,7 @@ export const getConversationIdByKey = async (key) => {
       .select()
       .from(convos)
       .where(eq(convos.conversationKey, key));
-      if(!conversation[0]) return false;
+    if (!conversation[0]) return false;
     const conversationId = conversation[0]?.id;
     return conversationId;
   } catch (error) {

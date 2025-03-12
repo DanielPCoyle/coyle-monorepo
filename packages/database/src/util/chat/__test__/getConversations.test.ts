@@ -61,7 +61,10 @@ describe("getConversations", () => {
     expect(mockDB.from).toHaveBeenCalledWith(conversations);
     expect(mockDB.leftJoin).toHaveBeenCalledWith(
       messages,
-      and(eq(messages.conversationId, conversations.id), eq(messages.seen, false))
+      and(
+        eq(messages.conversationId, conversations.id),
+        eq(messages.seen, false),
+      ),
     );
     expect(mockDB.groupBy).toHaveBeenCalledWith(conversations.id);
     expect(result).toEqual(mockConversations);

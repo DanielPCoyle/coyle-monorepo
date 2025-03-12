@@ -11,31 +11,32 @@ vi.mock("jsonwebtoken");
 
 // Mock authentication middleware behavior
 vi.mock("../../../../middlewares/auth", () => ({
-  authMiddleware: (fn: any) => async (req: NextApiRequest, res: NextApiResponse) => {
-    const authHeader = req.headers.authorization;
+  authMiddleware:
+    (fn: any) => async (req: NextApiRequest, res: NextApiResponse) => {
+      const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ error: "Unauthorized" });
-    }
-
-    const token = authHeader.split(" ")[1];
-
-    try {
-      const decoded = jwt.verify(token, "your-secret-key");
-      const user = await getUserByEmail(decoded.email);
-
-      if (!user || user.length === 0) {
-        return res.status(403).json({ error: "Forbidden" });
+      if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({ error: "Unauthorized" });
       }
 
-      req.user = user[0];
-      return fn(req, res);
-    } catch (error) {
-      return res
-        .status(401)
-        .json({ error: "Invalid or expired token", message: error.message });
-    }
-  },
+      const token = authHeader.split(" ")[1];
+
+      try {
+        const decoded = jwt.verify(token, "your-secret-key");
+        const user = await getUserByEmail(decoded.email);
+
+        if (!user || user.length === 0) {
+          return res.status(403).json({ error: "Forbidden" });
+        }
+
+        req.user = user[0];
+        return fn(req, res);
+      } catch (error) {
+        return res
+          .status(401)
+          .json({ error: "Invalid or expired token", message: error.message });
+      }
+    },
 }));
 
 describe("/api/chat/conversations API Endpoint", () => {
@@ -51,7 +52,9 @@ describe("/api/chat/conversations API Endpoint", () => {
 
     (getConversations as vi.Mock).mockResolvedValue(mockConversations);
     (jwt.verify as vi.Mock).mockReturnValue({ email: "test@example.com" });
-    (getUserByEmail as vi.Mock).mockResolvedValue([{ id: 1, email: "test@example.com" }]);
+    (getUserByEmail as vi.Mock).mockResolvedValue([
+      { id: 1, email: "test@example.com" },
+    ]);
 
     const { req, res } = createMocks({
       method: "GET",
@@ -77,9 +80,13 @@ describe("/api/chat/conversations API Endpoint", () => {
   });
 
   it("should return 500 if there is a database error", async () => {
-    (getConversations as vi.Mock).mockRejectedValue(new Error("Database error"));
+    (getConversations as vi.Mock).mockRejectedValue(
+      new Error("Database error"),
+    );
     (jwt.verify as vi.Mock).mockReturnValue({ email: "test@example.com" });
-    (getUserByEmail as vi.Mock).mockResolvedValue([{ id: 1, email: "test@example.com" }]);
+    (getUserByEmail as vi.Mock).mockResolvedValue([
+      { id: 1, email: "test@example.com" },
+    ]);
 
     const { req, res } = createMocks({
       method: "GET",
