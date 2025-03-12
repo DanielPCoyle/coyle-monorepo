@@ -12,6 +12,7 @@ vi.mock("@coyle/database", () => ({
   getConversations: vi.fn(),
   getConversationIdByKey: vi.fn(),
   updateConversationIsActive: vi.fn(),
+  updateConversationSocketId: vi.fn(),
 }));
 
 describe("login function", () => {
@@ -23,14 +24,19 @@ describe("login function", () => {
   });
 
   it("should join the socket room and activate an existing conversation", async () => {
-    const mockUser = { userName: "Test User", email: "test@example.com", id: "123", isAdmin: false };
+    const mockUser = {
+      userName: "Test User",
+      email: "test@example.com",
+      id: "123",
+      isAdmin: false,
+    };
     const mockConversations = [{ id: "123", name: "Test User" }];
-    
+
     getConversationIdByKey.mockResolvedValue("123");
     getConversations.mockResolvedValue(mockConversations);
 
     login({ socket, io });
-    
+
     const loginHandler = socket.on.mock.calls[0][1];
     await loginHandler(mockUser);
 
@@ -40,15 +46,20 @@ describe("login function", () => {
   });
 
   it("should add a new conversation if one does not exist", async () => {
-    const mockUser = { userName: "New User", email: "new@example.com", id: "456", isAdmin: true };
+    const mockUser = {
+      userName: "New User",
+      email: "new@example.com",
+      id: "456",
+      isAdmin: true,
+    };
     const mockConversations = [{ id: "456", name: "New User" }];
-    
+
     getConversationIdByKey.mockResolvedValue(null);
     getConversations.mockResolvedValue(mockConversations);
     addConversation.mockResolvedValue();
 
     login({ socket, io });
-    
+
     const loginHandler = socket.on.mock.calls[0][1];
     await loginHandler(mockUser);
 

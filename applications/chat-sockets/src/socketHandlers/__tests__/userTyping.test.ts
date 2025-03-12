@@ -59,4 +59,3 @@ describe("userTyping", () => {
     expect(emitMock).toHaveBeenCalledWith("user not typing", { userName: "Alice" });
   });
 });
-```

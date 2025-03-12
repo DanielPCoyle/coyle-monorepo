@@ -50,7 +50,9 @@ describe("seen socket handler", () => {
 
   it("should log an error if setMessageSeen throws", async () => {
     // Mock an error
-    (setMessageSeen as jest.Mock).mockRejectedValueOnce(new Error("Test error"));
+    (setMessageSeen as jest.Mock).mockRejectedValueOnce(
+      new Error("Test error"),
+    );
 
     // Call the function
     seen({ socket, io });

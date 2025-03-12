@@ -18,10 +18,7 @@ interface PersonOnSite {
   [key: string]: string | number | boolean;
 }
 
-export function handleConnection(
-  socket: Socket,
-  io: Server,
-) {
+export function handleConnection(socket: Socket, io: Server) {
   let typingTimeout: NodeJS.Timeout;
 
   login({ socket, io });
@@ -35,7 +32,7 @@ export function handleConnection(
   disconnect({ socket, io });
 
   socket.on("updateStatus", async ({ status, id }) => {
-    if(!status) return;
+    if (!status) return;
     await updateUserStatus({ status, id });
     const onlineUsers = await getUsersOnline();
     io.emit("adminsOnline", onlineUsers);
