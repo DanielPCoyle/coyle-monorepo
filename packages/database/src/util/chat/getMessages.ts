@@ -8,6 +8,7 @@ interface Message {
   parentId: number | null;
   replies?: Message[];
 }
+
 export async function getMessages(conversationKey: string): Promise<Message[]> {
   const db = getDB();
 

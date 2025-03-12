@@ -87,11 +87,17 @@ export default function Chat() {
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    fetch(`/api/chat/messages?conversationKey=${id}`)
+    fetch(`/api/chat/messages?conversationKey=${id}`, {
+      headers: {
+      Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        const sortedMessages = data.sort((a, b) => a.id - b.id);
-        setMessages(sortedMessages);
+        if(data?.length){
+          const sortedMessages = data.sort((a, b) => a.id - b.id);
+          setMessages(sortedMessages);
+        }
         setLoading(false);
       });
   }, [id]);
