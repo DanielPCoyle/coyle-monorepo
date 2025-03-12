@@ -122,7 +122,7 @@ export const ConversationList: React.FC = () => {
         />
         <div className="historicConversations">
           <h3 onClick={() => setShowHistoric(!showHistoric)}>
-            Historic Conversations ({" "}
+            Inactive Conversations ({" "}
             {conversations.filter((c) => !c.isActive).length} )
           </h3>
           {showHistoric && (

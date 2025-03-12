@@ -37,6 +37,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   const [showReactionsPicker, setShowReactionsPicker] =
     useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
+  const [seen, setSeen] = useState<boolean>(message.seen || false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(
     message.reactions || {},
   );
@@ -58,6 +59,9 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         if (entry.isIntersecting) {
           if (userName !== message.sender && !message.seen) {
             socket.emit("seen", message.id);
+            setTimeout(() => {
+            setSeen(false);
+            }, 1000);
           }
         }
       },
@@ -136,6 +140,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         showReplyModal,
         addReaction,
         reactions,
+        seen,
       }}
     >
       <div
