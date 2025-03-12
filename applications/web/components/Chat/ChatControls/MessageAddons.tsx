@@ -1,8 +1,7 @@
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import React, { RefObject, useContext } from "react";
+import React, { RefObject } from "react";
 import { ImageSvg } from "../../svg/ImageSvg";
-import { ChatContext } from "../ChatContext";
 
 interface MessageAddonsProps {
   handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -21,7 +20,6 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
   insertEmoji,
   typing,
 }) => {
-  const { user } = useContext(ChatContext);
 
   return (
     <div

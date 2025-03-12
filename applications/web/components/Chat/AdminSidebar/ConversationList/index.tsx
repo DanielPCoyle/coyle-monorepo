@@ -2,16 +2,10 @@ import React, { useContext, useState } from "react";
 import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
 
-interface Conversation {
-  id: string;
-  unSeenMessages?: number;
-}
-
 export const ConversationList: React.FC = () => {
   const {
     conversations,
     socket,
-    id,
     user,
     admins,
     status,
@@ -87,7 +81,7 @@ export const ConversationList: React.FC = () => {
           <input
             type="checkbox"
             checked={notificationsEnabled}
-            onChange={(e) => setNotificationsEnabled(!notificationsEnabled)}
+            onChange={() => setNotificationsEnabled(!notificationsEnabled)}
           />
         </div>
       </div>

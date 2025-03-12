@@ -12,6 +12,7 @@ export const getConversationIdByKey = async (key) => {
     const conversationId = conversation[0]?.id;
     return conversationId;
   } catch (error) {
+    console.log("Error getting conversation id by key", error);
     return false;
   }
 };

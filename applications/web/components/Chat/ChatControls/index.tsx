@@ -125,7 +125,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
 
       socket.emit("chat message", message);
 
-      if(!Boolean(admins?.length > 0)) {
+      if(!(admins?.length > 0)) {
         await fetch("/api/chat/send-message-as-email", {
           method: "POST",
           headers: {
@@ -160,7 +160,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     <>
       {!admins?.length && (
         <div className="noAdmins">
-          We're not in at the moment but leave a message and we will get back to
+          We&apos;re not in at the moment but leave a message and we will get back to
           you as soon as possible :)
         </div>
       )}

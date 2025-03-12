@@ -260,7 +260,7 @@ const AddNewUserScreen = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then(() => {
         setView("adminUsers");
       });
   };
