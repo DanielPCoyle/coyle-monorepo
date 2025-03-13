@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import ChatContext from "../../ChatContext";
-import Image from "next/image";
 
 interface Message {
   files?: string[];
@@ -17,7 +16,7 @@ export const FilePreview: React.FC<FilePreviewProps> = ({ message }) => {
     Boolean(message?.files?.length) && (
       <div className="filePreview">
         {message?.files?.map((file, index) => (
-          <Image
+          <img
             src={file}
             key={index}
             alt="file"

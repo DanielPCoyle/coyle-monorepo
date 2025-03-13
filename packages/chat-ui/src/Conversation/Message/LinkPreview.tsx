@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import axios from "axios";
-import Image from "next/image";
 
 interface Message {
   message: string;
@@ -90,7 +88,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
 
   return (
     Boolean(urlPreview && hasLink) && (
-      <Link href={urlPreview.url} target="_blank" style={{ color: "blue" }}>
+      <a href={urlPreview.url} target="_blank" style={{ color: "blue" }}>
         <div
           className="urlPreview"
           style={{
@@ -103,7 +101,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
           <div style={{ fontWeight: "bold" }}>{urlPreview.title}</div>
           <div>{urlPreview.description}</div>
           {urlPreview.image && (
-            <Image
+            <img
               src={urlPreview.image}
               alt="preview"
               width={500}
@@ -113,7 +111,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
           )}
           <div className="small">Link: {urlPreview.url}</div>
         </div>
-      </Link>
+      </a>
     )
   );
 };

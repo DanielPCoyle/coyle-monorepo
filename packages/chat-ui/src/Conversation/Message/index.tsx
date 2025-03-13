@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import { ChatControls } from "../../ChatControls";
 
-import type { Message as MessageType } from "../../../../types";
+import type { Message as MessageType } from "../../../types";
 import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
 import { MessageContext } from "./MessageContext";

@@ -1,12 +1,12 @@
 import React from "react";
 import { CloseThumbnailIcon } from "./CloseThumbnailIcon";
-import Image from "next/image";
 
 interface ThumbnailProps {
   files: File[];
   file: File;
   index: number;
   setFiles: (files: File[]) => void;
+  children?: React.ReactNode;
 }
 
 export const Thumbnail: React.FC<ThumbnailProps> = ({
@@ -14,10 +14,11 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
   file,
   index,
   setFiles,
+  children,
 }) => {
   return (
     <div key={file.name} className="thumbnailContainer">
-      <Image
+      <img
         src={URL.createObjectURL(file)}
         alt={file.name}
         className="thumbnail"
@@ -33,6 +34,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
       >
         <CloseThumbnailIcon />
       </button>
+      {children}
     </div>
   );
 };
