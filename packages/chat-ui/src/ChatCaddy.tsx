@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Chat from "./Chat";
 
 export const ChatCaddy = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // State to toggle chat window
   return (
     <div className="chatCaddyContainer">
       {open && (
