@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ThreeDotsIcon } from "../../../svg/ThreeDotsIcon";
 
 interface Message {
   message: string;
@@ -49,19 +50,9 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
 
   if (loading) {
     return (
-      <div style={{ overflow: "hidden" }}>
-        <div className="animate__animated animate__fadeInLeft animate__infinite">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 24 24"
-            height="200px"
-            width="200px"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path>
-          </svg>
+      <div data-testid="loading-indicator" style={{ overflow: "hidden" }}>
+        <div className="animate__animated animate__fadeInLeft animate__infinite" data-testid="loading-state">
+          <ThreeDotsIcon />
         </div>
       </div>
     );
@@ -71,8 +62,9 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
     const videoId = urlPreview.url.includes("youtu.be")
       ? urlPreview.url.split("/").pop()
       : new URL(urlPreview.url).searchParams.get("v");
+
     return (
-      <div style={{ marginTop: "10px" }}>
+      <div data-testid="youtube-preview" style={{ marginTop: "10px" }}>
         <iframe
           width="100%"
           height="315"
@@ -88,9 +80,15 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
 
   return (
     Boolean(urlPreview && hasLink) && (
-      <a href={urlPreview.url} target="_blank" style={{ color: "blue" }}>
+      <a
+        href={urlPreview.url}
+        target="_blank"
+        style={{ color: "blue" }}
+        data-testid="url-preview-link"
+      >
         <div
           className="urlPreview"
+          data-testid="url-preview-container"
           style={{
             marginTop: "10px",
             border: "1px solid #ccc",
@@ -98,8 +96,10 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
             padding: "10px",
           }}
         >
-          <div style={{ fontWeight: "bold" }}>{urlPreview.title}</div>
-          <div>{urlPreview.description}</div>
+          <div style={{ fontWeight: "bold" }} data-testid="url-preview-title">
+            {urlPreview.title}
+          </div>
+          <div data-testid="url-preview-description">{urlPreview.description}</div>
           {urlPreview.image && (
             <img
               src={urlPreview.image}
@@ -107,9 +107,12 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
               width={500}
               height={300}
               style={{ width: "45%", margin: "auto", borderRadius: "10px" }}
+              data-testid="url-preview-image"
             />
           )}
-          <div className="small">Link: {urlPreview.url}</div>
+          <div className="small" data-testid="url-preview-url">
+            Link: {urlPreview.url}
+          </div>
         </div>
       </a>
     )

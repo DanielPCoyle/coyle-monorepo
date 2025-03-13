@@ -7,7 +7,7 @@ import { Conversation } from "./Conversation";
 import { LoginForm } from "./LoginForm";
 // import useSound from "use-sound";
 // import bubbleSFX from "./bubble.mp3";
-import { SideBar } from "./AdminSidebar/SideBar";
+import { SideBar } from "./AdminSidebar";
 
 /* eslint-disable no-undef */
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;

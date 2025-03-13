@@ -27,7 +27,6 @@ export const LoginForm: React.FC = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(">>>>>>", data.user);
           setUser(data.user);
           setUserName(data.user.name);
           setEmail(data.user.email);
@@ -37,49 +36,7 @@ export const LoginForm: React.FC = () => {
     }
   }, []);
 
-  const formStyle: React.CSSProperties = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-    backgroundColor: "#fff",
-    width: "300px",
-    textAlign: "center",
-    zIndex: 1,
-  };
-
-  const inputStyle: React.CSSProperties = {
-    width: "100%",
-    padding: "10px",
-    margin: "10px 0",
-    boxSizing: "border-box",
-  };
-
-  const buttonStyle: React.CSSProperties = {
-    width: "100%",
-    padding: "10px",
-    backgroundColor: "#007BFF",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  };
-
-  const iconContainer: React.CSSProperties = {
-    backgroundColor: "#000",
-    borderRadius: "50%",
-    padding: "20px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "15px auto",
-    width: 150,
-    height: 150,
-  };
+  
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -142,13 +99,13 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <form style={formStyle} onSubmit={handleSubmit}>
+    <form className="formStyle" onSubmit={handleSubmit}>
       <p>
         Want to chat with PhilaPrints?
         <br />
         Enter your name and email.
       </p>
-      <div style={iconContainer}>
+      <div className="iconContainer">
         <DotLottieReact
           style={{ width: "auto", height: "auto", transform: "scale(2)" }}
           src="https://lottie.host/1ae6808e-3519-498e-a1bf-f85a9dec2b3b/COxuVY2DPb.lottie"
@@ -166,7 +123,7 @@ export const LoginForm: React.FC = () => {
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setUserName(e.target.value)
               }
-              style={inputStyle}
+              className="inputStyle"
               required
             />
           </label>
@@ -181,7 +138,7 @@ export const LoginForm: React.FC = () => {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setEmail(e.target.value)
             }
-            style={inputStyle}
+            className="inputStyle"
             required
           />
         </label>
@@ -196,13 +153,13 @@ export const LoginForm: React.FC = () => {
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
-              style={inputStyle}
+              ClassName="inputStyle"
               required
             />
           </label>
         </div>
       )}
-      <button type="submit" style={buttonStyle}>
+      <button type="submit" className="buttonStyle">
         Chat Now
       </button>
       <div style={{ marginTop: "20px" }}>

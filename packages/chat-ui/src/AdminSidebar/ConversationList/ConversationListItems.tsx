@@ -31,6 +31,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
     <>
       {conversations?.map((convo, i) => (
         <div
+          data-testid="conversation-list-items"
           className={`conversationListItem ${id === convo.conversationKey ? "active" : ""}`}
           key={i}
           onClick={() => {
