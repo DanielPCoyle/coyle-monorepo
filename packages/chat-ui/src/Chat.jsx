@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import { ChatContext } from "./ChatContext";
 import { ChatControls } from "./ChatControls";
 import { Conversation } from "./Conversation";
-import { LoginForm } from "./LoginForm";
+import { LoginForm } from "./Auth/LoginForm";
 // import useSound from "use-sound";
 // import bubbleSFX from "./bubble.mp3";
 import { SideBar } from "./AdminSidebar";

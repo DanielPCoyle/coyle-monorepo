@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ThreeDotsIcon } from "../../../svg/ThreeDotsIcon";
+import { ThreeDotsIcon } from "../../../assets/svg/ThreeDotsIcon";
 
 interface Message {
   message: string;

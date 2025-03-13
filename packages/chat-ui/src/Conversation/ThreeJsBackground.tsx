@@ -50,7 +50,7 @@ export const ThreeJsBackground: React.FC = () => {
 
   return (
     <div
-    data-testid="threejs-container"
+      data-testid="threejs-container"
       ref={mountRef}
       style={{
         position: "absolute",

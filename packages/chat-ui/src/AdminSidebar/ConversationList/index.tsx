@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
-import { MenuIcon } from "../../../svg/MenuIcon";
-import { CloseIcon } from "../../../svg/CloseIcon";
+import { MenuIcon } from "../../../assets/svg/MenuIcon";
+import { CloseIcon } from "../../../assets/svg/CloseIcon";
 
 export const ConversationList: React.FC = () => {
   const {

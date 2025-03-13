@@ -1,6 +1,6 @@
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { ChatContext } from "./ChatContext";
+import { ChatContext } from "../ChatContext";
 
 export const LoginForm: React.FC = () => {
   const {
@@ -153,7 +153,7 @@ export const LoginForm: React.FC = () => {
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
-              ClassName="inputStyle"
+              className="inputStyle"
               required
             />
           </label>

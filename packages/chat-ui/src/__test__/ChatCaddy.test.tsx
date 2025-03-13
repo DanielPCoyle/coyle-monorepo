@@ -10,11 +10,11 @@ vi.mock("../Chat", () => ({
 }));
 
 // Mock SVG Icons
-vi.mock("../../svg/ChatIcon", () => ({
+vi.mock("../../assets/svg/ChatIcon", () => ({
   ChatIcon: () => <svg data-testid="chat-icon" />,
 }));
 
-vi.mock("../../svg/CloseIcon", () => ({
+vi.mock("../../assets/svg/CloseIcon", () => ({
   CloseIcon: () => <svg data-testid="close-icon" />,
 }));
 

@@ -10,7 +10,9 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "test": "vitest"
+    "test": "vitest run",
+    "lint": "eslint src --ext .ts,.tsx",
+    "prettier": "prettier --write src/**/*.{ts,tsx}"
   },
   "dependencies": {
     "@babel/preset-react": "^7.26.3",

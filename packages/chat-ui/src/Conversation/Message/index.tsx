@@ -7,9 +7,9 @@ import { MessageContext } from "./MessageContext";
 import { ReactionPicker } from "./Reactions/ReactionPicker";
 import { Reactions } from "./Reactions/Reactions";
 import { ReplyModal } from "./ReplyModal/ReplyModal";
-import { useMessageReactions } from "./hooks/useMessageReactions";
-import { useMessageSeen } from "./hooks/useMessageSeen";
-import { useOutsideClick } from "./hooks/useOutsideClick";
+import { useMessageReactions } from "../../hooks/useMessageReactions";
+import { useMessageSeen } from "../../hooks/useMessageSeen";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 Modal.setAppElement("#__next"); // TODO: Fix this so its not hardcoded or dependent on nextjs
 

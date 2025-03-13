@@ -1,7 +1,7 @@
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import React, { RefObject } from "react";
-import { ImageSvg } from "../../svg/ImageSvg";
+import { ImageSvg } from "../../assets/svg/ImageSvg";
 
 interface MessageAddonsProps {
   handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;

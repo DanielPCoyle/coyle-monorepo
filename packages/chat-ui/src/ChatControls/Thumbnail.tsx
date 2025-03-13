@@ -1,21 +1,15 @@
 import React from "react";
-import { CloseThumbnailIcon } from "../../svg/CloseThumbnailIcon";
+import { CloseThumbnailIcon } from "../../assets/svg/CloseThumbnailIcon";
 
 interface ThumbnailProps {
   files: File[];
   file: File;
   index: number;
-  setFiles: (files: File[]) => void;
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
   children?: React.ReactNode;
 }
 
-export const Thumbnail: React.FC<ThumbnailProps> = ({
-  files,
-  file,
-  index,
-  setFiles,
-  children,
-}) => {
+export const Thumbnail = ({ files, file, index, setFiles, children }: ThumbnailProps) => {
   return (
     <div key={file.name} className="thumbnailContainer">
       <img
@@ -30,7 +24,7 @@ export const Thumbnail: React.FC<ThumbnailProps> = ({
           const newFiles = files.filter((_, i) => i !== index);
           setFiles(newFiles);
         }}
-        className={"closeThumbnail"}
+        className="closeThumbnail"
       >
         <CloseThumbnailIcon />
       </button>

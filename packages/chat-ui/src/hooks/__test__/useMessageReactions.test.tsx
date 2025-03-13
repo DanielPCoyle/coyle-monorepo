@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { useMessageReactions } from "../useMessageReactions";
-import { ChatContext } from "../../../../ChatContext";
+import { ChatContext } from "../../ChatContext";
 import { vi } from "vitest";
 import { ReactNode } from "react";
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ConversationList } from "./ConversationList";
-import { Settings } from "./Settings/Settings";
-import { CogSvg } from "../../svg/CogSvg";
-import { BackArrow } from "../../svg/BackArrow";
+import { Settings } from "./Settings";
+import { CogSvg } from "../../assets/svg/CogSvg";
+import { BackArrow } from "../../assets/svg/BackArrow";
 export const SideBar = () => {
   const [view, setView] = useState("conversations");
   return (
@@ -21,7 +21,7 @@ export const SideBar = () => {
               className="animate__animated animate__slideInUp"
               onClick={() => setView("conversations")}
             >
-             <BackArrow />
+              <BackArrow />
             </button>
           )}
         </div>

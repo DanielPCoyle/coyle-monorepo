@@ -3,7 +3,7 @@ import { Editor, EditorState, Modifier, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import "draft-js/dist/Draft.css";
 import { useContext, useEffect, useRef, useState } from "react";
-import { SendSvg } from "../../svg/SendSvg";
+import { SendSvg } from "../../assets/svg/SendSvg";
 import { ChatContext } from "../ChatContext";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";

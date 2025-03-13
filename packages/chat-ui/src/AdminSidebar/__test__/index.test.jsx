@@ -6,11 +6,11 @@ import '@testing-library/jest-dom';
 
 // Mock the imported components
 vi.mock('../ConversationList', () => ({ ConversationList: () => <div>ConversationList</div> }));
-vi.mock('../Settings/Settings', () => ({ Settings: () => <div>Settings</div> }));
+vi.mock('../Settings/index', () => ({ Settings: () => <div>Settings</div> }));
 
 // Mock the SVG components
-vi.mock('../../../svg/CogSvg', () => ({ CogSvg: () => <div>CogSvg</div> }));
-vi.mock('../../../svg/BackArrow', () => ({ BackArrow: () => <div>BackArrow</div> }));
+vi.mock('../../../assets/svg/CogSvg', () => ({ CogSvg: () => <div>CogSvg</div> }));
+vi.mock('../../../assets/svg/BackArrow', () => ({ BackArrow: () => <div>BackArrow</div> }));
 
 describe('SideBar', () => {
   it('should render ConversationList by default', () => {

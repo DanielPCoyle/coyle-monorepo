@@ -4,7 +4,7 @@ import { FilePreview } from "./FilePreview";
 import { LinkPreview } from "./LinkPreview";
 import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
-import { ReplySvg } from "../../../svg/ReplySvg";
+import { ReplySvg } from "../../../assets/svg/ReplySvg";
 
 export const MessageContent = () => {
   const { message, setShowReactionsPicker, setShowReplyModal } =

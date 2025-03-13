@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
-import { ChatContext } from "../../../ChatContext";
-import type { Message as MessageType } from "../../../../types";
+import { ChatContext } from "../ChatContext";
+import type { Message as MessageType } from "../../types";
 
 export const useMessageSeen = (message: MessageType) => {
   const { socket, userName } = React.useContext(ChatContext);
@@ -11,18 +11,19 @@ export const useMessageSeen = (message: MessageType) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && userName !== message.sender && !seen) { // Ensure we only emit once
+        if (entry.isIntersecting && userName !== message.sender && !seen) {
+          // Ensure we only emit once
           socket.emit("seen", message.id);
           setSeen(true); // Ensure state updates and prevents multiple emits
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
-  
+
     if (messageRef.current) {
       observer.observe(messageRef.current);
     }
-  
+
     return () => {
       if (messageRef.current) {
         observer.unobserve(messageRef.current);
@@ -30,8 +31,6 @@ export const useMessageSeen = (message: MessageType) => {
       observer.disconnect(); // Clean up observer instance
     };
   }, [socket, seen]); // Depend on `seen` to prevent re-emitting
-  
-  
 
   return { seen, messageRef };
 };

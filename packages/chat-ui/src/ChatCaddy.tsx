@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Chat from "./Chat";
-import { ChatIcon } from "../svg/ChatIcon";
-import { CloseIcon } from "../svg/CloseIcon";
+import { ChatIcon } from "../assets/svg/ChatIcon";
+import { CloseIcon } from "../assets/svg/CloseIcon";
 
 export const ChatCaddy = () => {
   const [open, setOpen] = useState(false); // State to toggle chat window
