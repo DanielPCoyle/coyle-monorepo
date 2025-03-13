@@ -1072,3 +1072,11 @@ button:hover {
   width: 150px;
   height: 150px;
 }
+
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+}

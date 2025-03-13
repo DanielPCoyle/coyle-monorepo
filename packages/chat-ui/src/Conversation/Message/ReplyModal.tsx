@@ -1,12 +1,26 @@
 import React from "react";
 import Modal from "react-modal";
-import { customStyles } from ".";
 import type { Message as MessageType } from "../../../types";
 import { ChatControls } from "../../ChatControls";
 import MessageContent from "./MessageContent";
 import { ReactionPicker } from "./ReactionPicker";
 import { SubMessage } from "./SubMessage";
+ 
 
+const customStyles = {
+  overlay: {
+    insert: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+  },
+  content: {
+    background: "black",
+    borderRadius: "10px",
+    border: "none",
+    width: "50%",
+    height: "100%",
+    margin: "auto",
+  },
+};
 export const ReplyModal: React.FC = ({
   showReplyModal, setShowReplyModal, message, showReactionsPicker, reactionsPickerRef, addReaction, user, email, socket,
 }) => {

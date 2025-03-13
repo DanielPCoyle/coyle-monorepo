@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
-
 import type { Message as MessageType } from "../../../types";
 import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
@@ -11,27 +10,13 @@ import { ReplyModal } from "./ReplyModal";
 
 Modal.setAppElement("#__next");
 
-export const customStyles = {
-  overlay: {
-    insert: 1,
-    backgroundColor: "rgba(0,0,0,0.6)",
-  },
-  content: {
-    background: "black",
-    borderRadius: "10px",
-    border: "none",
-    width: "50%",
-    height: "100%",
-    margin: "auto",
-  },
-};
+
 
 export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
   const { user, userName, socket, id, email } = React.useContext(ChatContext);
-
   const [urlPreview] = useState<string | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] =
     useState<boolean>(false);
@@ -144,15 +129,12 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
     >
       <div
         ref={messageRef}
-        className="animate__animated animate__zoomIn"
-        key={index}
+        className="animate__animated animate__zoomIn messageContainer"
         style={{
           alignItems: message.sender === user ? "flex-end" : "flex-start",
-          display: "flex",
-          flexDirection: "column",
-          marginBottom: "20px",
-          position: "relative",
         }}
+        key={index}
+        
       >
         <MessageContent />
       </div>
