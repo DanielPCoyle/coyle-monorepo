@@ -22,18 +22,28 @@ export const useMessageReactions = (message: MessageType) => {
   }, []);
 
   const addReaction = (emoji: { emoji: string }) => {
-    const newReactions = { ...reactions };
-    if (!newReactions[email]) {
-      newReactions[email] = [];
-    }
-    newReactions[email].push(emoji.emoji);
-    setReactions(newReactions);
-    socket.emit("addReaction", {
-      id,
-      messageId: message.id,
-      reactions: newReactions,
+    setReactions((prevReactions) => {
+      const newReactions = { ...prevReactions };
+  
+      if (!newReactions[email]) {
+        newReactions[email] = [];
+      }
+  
+      // Prevent duplicate reactions by checking if it already exists
+      if (!newReactions[email].includes(emoji.emoji)) {
+        newReactions[email].push(emoji.emoji);
+      }
+  
+      socket.emit("addReaction", {
+        id,
+        messageId: message.id,
+        reactions: newReactions,
+      });
+  
+      return newReactions;
     });
   };
+  
 
   const removeReactions = (emoji: { emoji: string }) => {
     const newReactions = { ...reactions };

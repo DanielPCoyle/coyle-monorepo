@@ -1,9 +1,9 @@
 import React from "react";
 import Modal from "react-modal";
-import type { Message as MessageType } from "../../../types";
-import { ChatControls } from "../../ChatControls";
-import MessageContent from "./MessageContent";
-import { ReactionPicker } from "./ReactionPicker";
+import type { Message as MessageType } from "../../../../types";
+import { ChatControls } from "../../../ChatControls";
+import MessageContent from "../MessageContent";
+import { ReactionPicker } from "../Reactions/ReactionPicker";
 import { SubMessage } from "./SubMessage";
  
 

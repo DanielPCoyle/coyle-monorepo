@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { SubMessage } from "../SubMessage";
+import { SubMessage } from "../ReplyModal/SubMessage";
 import { ChatContext } from "../../../ChatContext";
 import { vi } from "vitest";
 import "@testing-library/jest-dom"; // Ensure Jest DOM matchers are available

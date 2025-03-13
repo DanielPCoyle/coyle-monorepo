@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { vi } from "vitest";
-import { Reactions } from "../Reactions";
+import { Reactions } from "../Reactions/Reactions";
 import { ChatContext } from "../../../ChatContext";
 import "@testing-library/jest-dom";
 

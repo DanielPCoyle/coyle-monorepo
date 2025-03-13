@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import type { Message as MessageType } from "../../../types";
-import ChatContext from "../../ChatContext";
-import MessageContent from "./MessageContent";
-import MessageContext from "./MessageContext";
-import { ReactionPicker } from "./ReactionPicker";
-import { Reactions } from "./Reactions";
+import type { Message as MessageType } from "../../../../types";
+import ChatContext from "../../../ChatContext";
+import MessageContent from "../MessageContent";
+import MessageContext from "../MessageContext";
+import { ReactionPicker } from "../Reactions/ReactionPicker";
+import { Reactions } from "../Reactions/Reactions";
 
 export const SubMessage: React.FC<{
   reply: MessageType;

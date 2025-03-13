@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import ChatContext from "../../ChatContext";
+import ChatContext from "../../../ChatContext";
 
 interface ReactionsProps {
   isSender: boolean;

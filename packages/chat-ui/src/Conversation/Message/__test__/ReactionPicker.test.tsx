@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { vi } from "vitest";
-import { ReactionPicker } from "../ReactionPicker";
+import { ReactionPicker } from "../Reactions/ReactionPicker";
 import { ChatContext } from "../../../ChatContext";
 import { MessageContext } from "../MessageContext";
 import { createRef } from "react";

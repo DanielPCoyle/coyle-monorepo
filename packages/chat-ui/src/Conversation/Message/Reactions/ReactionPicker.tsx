@@ -1,7 +1,7 @@
 import EmojiPicker from "emoji-picker-react";
 import React, { RefObject, useContext } from "react";
-import { ChatContext } from "../../ChatContext";
-import { MessageContext } from "./MessageContext";
+import { ChatContext } from "../../../ChatContext";
+import { MessageContext } from "../MessageContext";
 
 interface ReactionPickerProps {
   reactionsPickerRef: RefObject<HTMLDivElement>;
