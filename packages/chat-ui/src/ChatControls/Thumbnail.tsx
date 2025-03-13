@@ -1,5 +1,5 @@
 import React from "react";
-import { CloseThumbnailIcon } from "./CloseThumbnailIcon";
+import { CloseThumbnailIcon } from "../../svg/CloseThumbnailIcon";
 
 interface ThumbnailProps {
   files: File[];

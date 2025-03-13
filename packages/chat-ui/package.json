@@ -9,11 +9,14 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w"
+    "start": "rollup -c -w",
+    "test": "vitest"
   },
   "dependencies": {
     "@babel/preset-react": "^7.26.3",
     "@lottiefiles/dotlottie-react": "^0.13.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "animate.css": "^4.1.1",
     "framer-motion": "^12.5.0",
     "socket.io-client": "^4.8.1",
@@ -37,10 +40,13 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@rollup/plugin-url": "^8.0.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "rollup": "^4.35.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
   }
 }
