@@ -14,35 +14,32 @@ export const FormattingBar: React.FC<FormattingBarProps> = ({
   toggleBlockType,
 }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        marginTop: "10px",
-      }}
-    >
+    <div style={{ display: "flex", justifyContent: "start", alignItems: "center", marginTop: "10px" }}>
       <button
         onClick={() => toggleInlineStyle("BOLD")}
         className="formatButton"
+        data-testid="bold-button"
       >
         <BoldSvg />
       </button>
       <button
         onClick={() => toggleInlineStyle("ITALIC")}
         className="formatButton"
+        data-testid="italic-button"
       >
         <ItalicSvg />
       </button>
       <button
         onClick={() => toggleInlineStyle("STRIKETHROUGH")}
         className="formatButton"
+        data-testid="strikethrough-button"
       >
         <StrikeThroughSvg />
       </button>
       <button
         onClick={() => toggleBlockType("unordered-list-item")}
         className="formatButton"
+        data-testid="unorderedlist-button"
       >
         <UnorderedListSvg />
       </button>

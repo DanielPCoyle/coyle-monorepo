@@ -28,14 +28,19 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
         alignItems: "center",
         marginTop: "10px",
       }}
+      data-testid="message-addons-container"
     >
-      <label style={{ marginLeft: "10px", cursor: "pointer" }}>
+      <label
+        style={{ marginLeft: "10px", cursor: "pointer" }}
+        data-testid="file-upload-label"
+      >
         <input
           type="file"
           onChange={handleFileUpload}
           style={{ display: "none" }}
+          data-testid="file-upload-input"
         />
-        <ImageSvg />
+        <ImageSvg data-testid="image-icon" />
       </label>
       <button
         onClick={() => setShowEmojiPicker(!showEmojiPicker)}
@@ -45,6 +50,7 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
           border: "none",
           fontSize: "30px",
         }}
+        data-testid="emoji-toggle-button"
       >
         🙂
       </button>
@@ -57,11 +63,12 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
             left: "10px",
             zIndex: 100,
           }}
+          data-testid="emoji-picker"
         >
           <Picker data={data} onEmojiSelect={insertEmoji} />
         </div>
       )}
-      <div className="isTyping">
+      <div className="isTyping" data-testid="typing-indicator">
         {typing ? <>{typing?.name} is typing...</> : <>&nbsp;</>}
       </div>
     </div>
