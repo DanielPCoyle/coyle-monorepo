@@ -11,7 +11,7 @@ import { useMessageReactions } from "./hooks/useMessageReactions";
 import { useMessageSeen } from "./hooks/useMessageSeen";
 import { useOutsideClick } from "./hooks/useOutsideClick";
 
-Modal.setAppElement("#__next");
+Modal.setAppElement("#__next"); // TODO: Fix this so its not hardcoded or dependent on nextjs
 
 export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
