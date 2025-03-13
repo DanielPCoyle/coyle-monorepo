@@ -10,8 +10,6 @@ import { ReplyModal } from "./ReplyModal";
 
 Modal.setAppElement("#__next");
 
-
-
 export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,

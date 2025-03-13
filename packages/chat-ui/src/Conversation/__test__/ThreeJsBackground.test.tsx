@@ -2,6 +2,7 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { vi } from "vitest";
 import { ThreeJsBackground } from "../ThreeJsBackground";
 import * as THREE from "three";
+import "@testing-library/jest-dom";
 
 // Mock Three.js WebGLRenderer globally
 vi.mock("three", async (importOriginal) => {
