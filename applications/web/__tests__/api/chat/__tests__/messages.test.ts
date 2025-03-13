@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
-import handler from '../../../../pages/api/chat/messages';
+import handler from "../../../../pages/api/chat/messages";
 import { getMessages } from "@coyle/database";
 import jwt from "jsonwebtoken";
 
@@ -13,7 +13,6 @@ vi.mock("jsonwebtoken", () => ({
   },
   verify: vi.fn(),
 }));
-
 
 describe("API Handler - getMessages", () => {
   let req, res;
@@ -42,8 +41,11 @@ describe("API Handler - getMessages", () => {
   test("should return 403 if user role is not admin and conversationKey does not match", async () => {
     req.headers.authorization = "Bearer validToken";
     req.query.conversationKey = "12345";
-    jwt.verify.mockImplementation(() => ({ role: "user", conversationKey: "67890" }));
-    
+    jwt.verify.mockImplementation(() => ({
+      role: "user",
+      conversationKey: "67890",
+    }));
+
     await handler(req, res);
     expect(res.status).toHaveBeenCalledWith(403);
     expect(res.json).toHaveBeenCalledWith({ error: "Forbidden" });
@@ -53,7 +55,9 @@ describe("API Handler - getMessages", () => {
     req.headers.authorization = "Bearer validToken";
     req.query.conversationKey = "12345";
     jwt.verify.mockImplementation(() => ({ role: "admin" }));
-    getMessages.mockImplementation(() => Promise.resolve([{ id: 1, text: "Hello" }]));
+    getMessages.mockImplementation(() =>
+      Promise.resolve([{ id: 1, text: "Hello" }]),
+    );
 
     await handler(req, res);
     expect(getMessages).toHaveBeenCalledWith("12345");
@@ -64,8 +68,13 @@ describe("API Handler - getMessages", () => {
   test("should return messages if conversationKey matches", async () => {
     req.headers.authorization = "Bearer validToken";
     req.query.conversationKey = "12345";
-    jwt.verify.mockImplementation(() => ({ role: "user", conversationKey: "12345" }));
-    getMessages.mockImplementation(() => Promise.resolve([{ id: 1, text: "Hello" }]));
+    jwt.verify.mockImplementation(() => ({
+      role: "user",
+      conversationKey: "12345",
+    }));
+    getMessages.mockImplementation(() =>
+      Promise.resolve([{ id: 1, text: "Hello" }]),
+    );
 
     await handler(req, res);
     expect(getMessages).toHaveBeenCalledWith("12345");
