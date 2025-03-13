@@ -91,7 +91,6 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
       return null;
     }
 
-    // Get public URL
     const { data: publicURLData } = supabase.storage
       .from("messages")
       .getPublicUrl(filePath);

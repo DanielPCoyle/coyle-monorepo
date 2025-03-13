@@ -14,7 +14,7 @@ export const FilePreview: React.FC<FilePreviewProps> = ({ message }) => {
 
   return (
     Boolean(message?.files?.length) && (
-      <div className="filePreview">
+      <div className="filePreview" data-testid="file-preview">
         {message?.files?.map((file, index) => (
           <img
             src={file}
@@ -23,6 +23,7 @@ export const FilePreview: React.FC<FilePreviewProps> = ({ message }) => {
             width={200}
             height={200}
             style={{ width: 200, borderRadius: 10 }}
+            data-testid="file-preview-image"
             onClick={() => {
               setModalSource(message?.files || []);
               setModalIndex(index);

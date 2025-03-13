@@ -41,3 +41,5 @@ export const Reactions: React.FC<ReactionsProps> = ({
     </div>
   );
 };
+
+export default Reactions;

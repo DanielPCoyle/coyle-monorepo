@@ -16,6 +16,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   return (
     <div
       className="reactionsPicker"
+      data-testid="reaction-picker-container"
       style={{
         textAlign: userName === message.sender ? "right" : "left",
       }}
@@ -23,11 +24,14 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
       <div
         className="animate__animated animate__slideInUp"
         ref={reactionsPickerRef}
+        data-testid="emoji-picker-container"
       >
+        <div className="emojiPicker" data-testid="emoji-picker">
         <EmojiPicker
           reactionsDefaultOpen={true}
           onReactionClick={addReaction}
         />
+        </div>
       </div>
     </div>
   );
