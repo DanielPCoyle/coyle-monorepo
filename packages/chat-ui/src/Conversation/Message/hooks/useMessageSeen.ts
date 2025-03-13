@@ -11,26 +11,27 @@ export const useMessageSeen = (message: MessageType) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && userName !== message.sender && !message.seen) {
+        if (entry.isIntersecting && userName !== message.sender && !seen) { // Ensure we only emit once
           socket.emit("seen", message.id);
-          setTimeout(() => {
-            setSeen(false);
-          }, 1000);
+          setSeen(true); // Ensure state updates and prevents multiple emits
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
-
+  
     if (messageRef.current) {
       observer.observe(messageRef.current);
     }
-
+  
     return () => {
       if (messageRef.current) {
         observer.unobserve(messageRef.current);
       }
+      observer.disconnect(); // Clean up observer instance
     };
-  }, [socket]);
+  }, [socket, seen]); // Depend on `seen` to prevent re-emitting
+  
+  
 
   return { seen, messageRef };
 };
