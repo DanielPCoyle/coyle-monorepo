@@ -6,7 +6,7 @@ export const AdminLogin = ({
   setEmail,
   password,
   setPassword,
-}: AdminLoginProps ) => (
+}: AdminLoginProps) => (
   <>
     <div>
       <label>
