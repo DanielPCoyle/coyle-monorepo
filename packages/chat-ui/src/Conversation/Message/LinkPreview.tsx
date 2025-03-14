@@ -1,22 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ThreeDotsIcon } from "../../../assets/svg/ThreeDotsIcon";
-
-interface Message {
-  message: string;
-}
-
-interface UrlPreview {
-  url: string;
-  type?: string;
-  title?: string;
-  description?: string;
-  image?: string;
-}
-
-interface LinkPreviewProps {
-  message: Message;
-}
+import { LinkPreviewProps, UrlPreview } from "../../../types";
 
 export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
   const hasLink = message?.message?.includes("http");

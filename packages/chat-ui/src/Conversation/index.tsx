@@ -3,21 +3,7 @@ import { ChatContext } from "../ChatContext";
 import { Message } from "./Message";
 import { ThreeJsBackground } from "./ThreeJsBackground";
 import { LoadingIcon } from "../../assets/svg/LoadingIcon";
-
-interface MessageType {
-  id: string;
-  text: string;
-  user: string;
-  parentId?: string;
-  conversationKey: string;
-  sender: string;
-  message: string;
-  createdAt: string;
-  seen: boolean;
-  reactions: Record<string, string[]>;
-  files: string[];
-  replies: MessageType[];
-}
+import { MessageType } from "../../types";
 
 export const Conversation: React.FC = () => {
   const { messages, loading } = useContext(ChatContext);

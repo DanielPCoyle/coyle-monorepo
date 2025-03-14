@@ -1,13 +1,6 @@
 import React from "react";
 import { CloseThumbnailIcon } from "../../assets/svg/CloseThumbnailIcon";
-
-interface ThumbnailProps {
-  files: File[];
-  file: File;
-  index: number;
-  setFiles: React.Dispatch<React.SetStateAction<File[]>>;
-  children?: React.ReactNode;
-}
+import { ThumbnailProps } from "../../types";
 
 export const Thumbnail = ({
   files,

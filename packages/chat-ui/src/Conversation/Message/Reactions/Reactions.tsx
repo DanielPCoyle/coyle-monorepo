@@ -1,11 +1,6 @@
 import React, { useContext } from "react";
 import ChatContext from "../../../ChatContext";
-
-interface ReactionsProps {
-  isSender: boolean;
-  reactions: { [key: string]: string[] };
-  removeReactions: (reactions: { emoji: string }) => void;
-}
+import { ReactionsProps } from "../../../../types";
 
 export const Reactions: React.FC<ReactionsProps> = ({
   isSender,

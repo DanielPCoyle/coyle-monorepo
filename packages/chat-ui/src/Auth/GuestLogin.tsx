@@ -1,11 +1,12 @@
 import React, { ChangeEvent } from "react";
+import { GuestLoginProps } from "../../types";
 
-export const GuestLogin = ({ userName, setUserName, email, setEmail }: {
-  userName: string;
-  setUserName: (userName: string) => void;
-  email: string;
-  setEmail: (email: string) => void;
-}) => (
+export const GuestLogin = ({
+  userName,
+  setUserName,
+  email,
+  setEmail,
+}: GuestLoginProps) => (
   <>
     <div>
       <label>

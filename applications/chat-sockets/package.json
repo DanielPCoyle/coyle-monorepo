@@ -15,7 +15,7 @@
   "scripts": {
     "start": "npx tsx src/index.ts",
     "dev": "nodemon index.ts",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts --ignore-pattern 'coverage/*'",
     "test": "vitest run",
     "types": "tsc --noEmit",
     "prettier": "prettier --check ."

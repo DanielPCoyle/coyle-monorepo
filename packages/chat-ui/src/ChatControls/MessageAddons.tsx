@@ -1,16 +1,8 @@
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import React, { RefObject } from "react";
+import React from "react";
 import { ImageSvg } from "../../assets/svg/ImageSvg";
-
-interface MessageAddonsProps {
-  handleFileUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  showEmojiPicker: boolean;
-  setShowEmojiPicker: (show: boolean) => void;
-  emojiPickerRef: RefObject<HTMLDivElement>;
-  insertEmoji: (emoji: string) => void;
-  typing: { name: string } | null;
-}
+import { MessageAddonsProps } from "../../types";
 
 export const MessageAddons: React.FC<MessageAddonsProps> = ({
   handleFileUpload,

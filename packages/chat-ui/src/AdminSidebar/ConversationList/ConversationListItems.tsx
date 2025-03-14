@@ -1,24 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
-import type { Socket } from "socket.io-client";
 import { ChatContext } from "../../ChatContext";
-
-interface Conversation {
-  id: string;
-  user: string;
-  email: string;
-  status: string;
-  unSeenMessages: number;
-  conversationKey: string;
-  isActive: boolean;
-  name: string;
-}
-
-interface ConversationListItemsProps {
-  conversations: Conversation[];
-  socket: Socket;
-  toggleDrawer: () => void;
-}
+import { ConversationListItemsProps } from "../../../types";
 
 export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   conversations,

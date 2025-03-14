@@ -3,11 +3,7 @@ import { BoldSvg } from "../../assets/svg/BoldSvg";
 import { ItalicSvg } from "../../assets/svg/ItalicSvg";
 import { StrikeThroughSvg } from "../../assets/svg/StrikeThroughSvg";
 import { UnorderedListSvg } from "../../assets/svg/UnorderedListSvg";
-
-interface FormattingBarProps {
-  toggleInlineStyle: (style: string) => void;
-  toggleBlockType: (type: string) => void;
-}
+import { FormattingBarProps } from "../../types";
 
 export const FormattingBar: React.FC<FormattingBarProps> = ({
   toggleInlineStyle,

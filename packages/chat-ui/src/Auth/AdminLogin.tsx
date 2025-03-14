@@ -1,11 +1,12 @@
 import React, { ChangeEvent } from "react";
+import { AdminLoginProps } from "../../types";
 
-export const AdminLogin = ({ email, setEmail, password, setPassword }: {
-  email: string;
-  setEmail: (email: string) => void;
-  password: string;
-  setPassword: (password: string) => void;
-}) => (
+export const AdminLogin = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
+}: AdminLoginProps ) => (
   <>
     <div>
       <label>
