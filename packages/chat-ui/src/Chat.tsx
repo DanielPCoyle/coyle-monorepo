@@ -8,6 +8,7 @@ import { LoginForm } from "./Auth/LoginForm";
 // import useSound from "use-sound";
 // import bubbleSFX from "./bubble.mp3";
 import { SideBar } from "./AdminSidebar";
+import { LightBox } from "./LightBox";
 
 /* eslint-disable no-undef */
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
@@ -311,32 +312,12 @@ export const Chat =() => {
       )}
 
       {modalSource?.length > 0 && (
-        <div className="modal">
-          <div className="modalContent">
-            <img
-              src={modalSource[modalIndex]}
-              alt="file"
-              style={{ width: "100%", borderRadius: 10 }}
-            />
-            <button
-              onClick={() => {
-                setModalSource(null);
-              }}
-              style={{
-                position: "fixed",
-                top: "5px",
-                right: "5px",
-                background: "red",
-                color: "white",
-                border: "none",
-                borderRadius: "50%",
-                cursor: "pointer",
-              }}
-            >
-              X
-            </button>
-          </div>
-        </div>
+        <LightBox {...{
+          setModalSource,
+          modalSource,
+          modalIndex,
+          
+        }} />
       )}
     </ChatContext.Provider>
   );
