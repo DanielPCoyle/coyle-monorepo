@@ -4,10 +4,10 @@ import { ChatContext } from "../ChatContext";
 import { AdminLogin } from "./AdminLogin";
 import { GuestLogin } from "./GuestLogin";
 import { useAuth } from "../hooks/useAuth";
-import { getAndSetUser } from "../hooks/getAndSetUser";
+
 export const LoginForm: React.FC = () => {
-  const {getAndSetUser} = useAuth();
-  const { id, userName, setUserName, email, setEmail, setToken, token, setIsLoggedIn, loggedIn } = useContext(ChatContext);
+  const { getAndSetUser } = useAuth();
+  const { id, userName, setUserName, email, setEmail, setToken, setIsLoggedIn } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
 
@@ -15,7 +15,7 @@ export const LoginForm: React.FC = () => {
     e.preventDefault();
     const endpoint = showAdminLogin ? "/api/auth/login" : "/api/auth/guest-token";
     const payload = showAdminLogin ? { email, password } : { conversationKey: id, name: userName, email };
-    
+
     fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -36,21 +36,43 @@ export const LoginForm: React.FC = () => {
       .catch((err) => console.error("Error fetching token:", err));
   };
 
-
   return (
-    <form className="formStyle" onSubmit={handleSubmit}>
-      <p>Want to chat with PhilaPrints? <br /> Enter your name and email.</p>
-      <div className="iconContainer">
-        <DotLottieReact style={{ width: "auto", height: "auto", transform: "scale(2)" }}
-          src="https://lottie.host/1ae6808e-3519-498e-a1bf-f85a9dec2b3b/COxuVY2DPb.lottie" loop autoplay />
+    <form className="formStyle" onSubmit={handleSubmit} data-testid="login-form">
+      <p data-testid="login-message">Want to chat with PhilaPrints? <br /> Enter your name and email.</p>
+      <div className="iconContainer" data-testid="lottie-container">
+        <DotLottieReact 
+          style={{ width: "auto", height: "auto", transform: "scale(2)" }}
+          src="https://lottie.host/1ae6808e-3519-498e-a1bf-f85a9dec2b3b/COxuVY2DPb.lottie" 
+          loop 
+          autoplay 
+        />
       </div>
       {showAdminLogin ? (
-        <AdminLogin email={email} setEmail={setEmail} password={password} setPassword={setPassword} handleSubmit={handleSubmit} />
+        <div data-testid="admin-login">
+        <AdminLogin 
+          email={email} 
+          setEmail={setEmail} 
+          password={password} 
+          setPassword={setPassword} 
+          handleSubmit={handleSubmit} 
+        />
+        </div>
       ) : (
-        <GuestLogin userName={userName} setUserName={setUserName} email={email} setEmail={setEmail} handleSubmit={handleSubmit} />
+        <div data-testid="guest-login">
+        <GuestLogin 
+          userName={userName} 
+          setUserName={setUserName} 
+          email={email} 
+          setEmail={setEmail} 
+          handleSubmit={handleSubmit} 
+        />
+        </div>
       )}
       <div style={{ marginTop: "20px" }}>
-        <small onClick={() => setShowAdminLogin(!showAdminLogin)}>
+        <small 
+          onClick={() => setShowAdminLogin(!showAdminLogin)} 
+          data-testid="toggle-login-mode"
+        >
           {showAdminLogin ? "Customer Login" : "Admin Login"}
         </small>
       </div>

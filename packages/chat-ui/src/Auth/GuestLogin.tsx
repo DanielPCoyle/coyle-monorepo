@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 
-export const GuestLogin = ({ userName, setUserName, email, setEmail, handleSubmit }: any) => (
+export const GuestLogin = ({ userName, setUserName, email, setEmail }: any) => (
   <>
     <div>
       <label>
