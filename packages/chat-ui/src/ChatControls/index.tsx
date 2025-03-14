@@ -164,7 +164,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
         </div>
       )}
       <div className="inputContainer">
-        {files.length > 0 && (
+        {files?.length > 0 && (
           <div className="thumbnails">
             {files.map((file: File, index: number) => (
               <Thumbnail

@@ -19,13 +19,13 @@ interface LinkPreviewProps {
 }
 
 export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
-  const hasLink = message.message.includes("http");
+  const hasLink = message?.message?.includes("http");
   const [loading, setLoading] = useState<boolean>(hasLink);
   const [urlPreview, setUrlPreview] = useState<UrlPreview | null>(null);
 
   useEffect(() => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
-    const urls = message.message.match(urlRegex);
+    const urls = message?.message?.match(urlRegex);
 
     if (urls && urls.length > 0) {
       const url = urls[0];

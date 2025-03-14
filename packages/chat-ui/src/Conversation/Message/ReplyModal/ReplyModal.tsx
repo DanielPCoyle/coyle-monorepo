@@ -4,10 +4,11 @@ import type { Message as MessageType } from "../../../../types";
 import { ChatControls } from "../../../ChatControls";
 import MessageContent from "../MessageContent";
 import { ReactionPicker } from "../Reactions/ReactionPicker";
-import { SubMessage } from "./SubMessage";
+import { SubMessage } from "./SubMessage/SubMessage";
 import {MessageContext} from "../MessageContext";
 import { useContext } from "react";
 import { ChatContext } from "../../../ChatContext";
+import { CloseIcon } from "../../../../assets/svg/CloseIcon";
 const customStyles = {
   overlay: {
     insert: 1,
@@ -39,23 +40,19 @@ export const ReplyModal: React.FC = () => {
         <h3>Replying to...</h3>
         <button
           className="closeModal"
+          role="button"
+          data-testid="close-modal"
           onClick={() => setShowReplyModal(false)}
         >
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 512 512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M405 136.798L375.202 107 256 226.202 136.798 107 107 136.798 226.202 256 107 375.202 136.798 405 256 285.798 375.202 405 405 375.202 285.798 256z"></path>
-          </svg>
+          <CloseIcon />
         </button>
       </div>
       <div className="replies">
         <MessageContent />
         {showReactionsPicker && (
+          <div data-testid="reaction-picker">
           <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
+          </div>
         )}
         {message.replies && (
           <div>
