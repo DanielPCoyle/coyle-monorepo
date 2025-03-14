@@ -126,7 +126,6 @@ export const Chat =() => {
         socketId: socket.id,
         isAdmin: user?.role === "admin",
       };
-      console.log({ loginEmitData });
       socket.emit("login", loginEmitData);
 
       if (user?.role === "admin") return;

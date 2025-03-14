@@ -34,6 +34,11 @@ interface ChatContextType {
   setFiles: (files: any[]) => void;
   setInput: (input: string) => void;
   input: string;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  setModalSource: (source: string[]) => void;
+  setModalIndex: (index: number) => void;
+
 }
 
 export const ChatContext = createContext<ChatContextType | null>(null);

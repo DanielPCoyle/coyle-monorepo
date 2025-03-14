@@ -5,8 +5,9 @@ import { ChatControls } from "../../../ChatControls";
 import MessageContent from "../MessageContent";
 import { ReactionPicker } from "../Reactions/ReactionPicker";
 import { SubMessage } from "./SubMessage";
- 
-
+import {MessageContext} from "../MessageContext";
+import { useContext } from "react";
+import { ChatContext } from "../../../ChatContext";
 const customStyles = {
   overlay: {
     insert: 1,
@@ -21,9 +22,13 @@ const customStyles = {
     margin: "auto",
   },
 };
-export const ReplyModal: React.FC = ({
-  showReplyModal, setShowReplyModal, message, showReactionsPicker, reactionsPickerRef, addReaction, user, email, socket,
-}) => {
+export const ReplyModal: React.FC = () => {
+  const {
+    showReplyModal, setShowReplyModal, message, showReactionsPicker, reactionsPickerRef, addReaction
+  } = useContext(MessageContext);
+
+  const {user, email, socket} = useContext(ChatContext);
+  
   return <Modal
     isOpen={showReplyModal}
     style={customStyles}
