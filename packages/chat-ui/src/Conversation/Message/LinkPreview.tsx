@@ -81,8 +81,10 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
   return (
     Boolean(urlPreview && hasLink) && (
       <a
+      
         href={urlPreview.url}
         target="_blank"
+        rel="noreferrer"
         style={{ color: "blue" }}
         data-testid="url-preview-link"
       >

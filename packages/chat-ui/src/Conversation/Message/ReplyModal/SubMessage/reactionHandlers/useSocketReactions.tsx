@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 export const useSocketReactions = (socket, reply, setReactions) => {
-    if(typeof socket === 'undefined' || !Boolean(socket?.on)) {
+    if(typeof socket === 'undefined') {
         return;
     }
     useEffect(() => {

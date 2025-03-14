@@ -1,3 +1,4 @@
+import React from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Editor, EditorState, Modifier, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";

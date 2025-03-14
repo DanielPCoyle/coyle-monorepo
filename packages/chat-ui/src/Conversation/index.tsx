@@ -15,8 +15,8 @@ interface MessageType {
   createdAt: string;
   seen: boolean;
   reactions: Record<string, string[]>;
-  files: any[];
-  replies: any[];
+  files: string[];
+  replies: MessageType[];
 }
 
 export const Conversation: React.FC = () => {
@@ -45,7 +45,7 @@ export const Conversation: React.FC = () => {
               <Message
                 key={message.id}
                 index={index}
-                message={message as any}
+                message={message as MessageType}
               />
             ))}
         </div>

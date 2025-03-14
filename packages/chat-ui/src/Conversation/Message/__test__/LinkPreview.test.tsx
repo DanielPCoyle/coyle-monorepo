@@ -3,7 +3,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import axios from "axios";
 import { LinkPreview } from "../LinkPreview";
 import React from "react";
-import { ThreeDotsIcon } from "../../../../svg/ThreeDotsIcon";
 import "@testing-library/jest-dom";
 import axios from "axios";
 

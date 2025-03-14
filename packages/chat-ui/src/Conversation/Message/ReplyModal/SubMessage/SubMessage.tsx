@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import type { Message as MessageType } from "../../../../../types";
 import ChatContext from "../../../../ChatContext";
 import MessageContent from "../../MessageContent";
@@ -8,11 +8,11 @@ import { Reactions } from "../../Reactions/Reactions";
 import { handleRemoveReaction } from "./reactionHandlers/handleRemoveReaction";
 import { handleAddReaction } from "./reactionHandlers/handleAddReaction";
 import { useSocketReactions } from "./reactionHandlers/useSocketReactions";
-
+import type { Socket } from "socket.io-client";
 export const SubMessage: React.FC<{
   reply: MessageType;
   user: string;
-  socket: any;
+  socket:Socket;
   email: string;
 }> = ({ reply, user, socket, email }) => {
   const [urlPreview] = useState<string | null>(null);

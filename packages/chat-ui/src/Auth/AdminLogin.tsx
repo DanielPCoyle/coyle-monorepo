@@ -1,6 +1,11 @@
 import React, { ChangeEvent } from "react";
 
-export const AdminLogin = ({ email, setEmail, password, setPassword }: any) => (
+export const AdminLogin = ({ email, setEmail, password, setPassword }: {
+  email: string;
+  setEmail: (email: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+}) => (
   <>
     <div>
       <label>

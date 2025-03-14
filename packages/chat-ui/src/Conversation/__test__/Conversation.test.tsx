@@ -1,10 +1,9 @@
+import React from "react";
+
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { Conversation } from "../";
 import { ChatContext } from "../../ChatContext";
-import { ThreeJsBackground } from "../ThreeJsBackground";
-import { Message } from "../Message";
-import { LoadingIcon } from "../../../assets/svg/LoadingIcon";
 import "@testing-library/jest-dom";
 
 vi.mock("../ThreeJsBackground", () => ({
