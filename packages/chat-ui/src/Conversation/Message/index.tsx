@@ -11,7 +11,7 @@ import { useMessageReactions } from "../../hooks/useMessageReactions";
 import { useMessageSeen } from "../../hooks/useMessageSeen";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 
-Modal.setAppElement("#__next"); // TODO: Fix this so its not hardcoded or dependent on nextjs
+Modal.setAppElement("#__next"); // TODO: Fix this so it's not hardcoded or dependent on Next.js
 
 export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
@@ -45,25 +45,40 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         className="animate__animated animate__zoomIn messageContainer"
         style={{ alignItems: message.sender === user ? "flex-end" : "flex-start" }}
         key={index}
+        data-testid={`message-${index}`}
       >
-        <MessageContent />
+        <div data-testid={`message-content-${index}`}>
+        <MessageContent  />
+        </div>
       </div>
 
-      {showReactionsPicker && <ReactionPicker reactionsPickerRef={reactionsPickerRef} />}
+      {showReactionsPicker && (
+        <div data-testid={`reaction-picker-${index}`} >
+        <ReactionPicker 
+          reactionsPickerRef={reactionsPickerRef} 
+          
+        />
+        </div>
+      )}
 
       {Object.values(reactions).length > 0 && (
+        <div data-testid={`reactions-${index}`}>
         <Reactions
           isSender={message.sender === user}
           reactions={reactions}
           removeReactions={removeReactions}
         />
+        </div>
       )}
 
-      <ReplyModal
-        showReplyModal={showReplyModal}
-        setShowReplyModal={setShowReplyModal}
-        message={message}
-      />
+      <div data-testid={`reply-modal-${index}`}>
+            <ReplyModal
+              showReplyModal={showReplyModal}
+              setShowReplyModal={setShowReplyModal}
+              message={message}
+              
+            />
+      </div>
     </MessageContext.Provider>
   );
 };

@@ -109,7 +109,6 @@ export const Chat =() => {
 
   useEffect(() => {
     socket.on("conversations", (conversations) => {
-      console.log({ conversations });
       if (user?.role !== "admin") return;
       setConversations(conversations);
     });
@@ -238,7 +237,6 @@ export const Chat =() => {
 
   useEffect(() => {
     socket.on("user typing", (data) => {
-      console.log("TYPING DATA", data);
       if (data.name !== userName) {
         setTyping(data);
       }

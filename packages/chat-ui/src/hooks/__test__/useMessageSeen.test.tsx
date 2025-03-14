@@ -100,23 +100,5 @@ describe("useMessageSeen", () => {
     expect(mockSocket.emit).not.toHaveBeenCalled();
   });
   
-
-  it.skip("should clean up observer on unmount", () => {
-    const unobserveMock = vi.fn();
-    
-    global.IntersectionObserver = class {
-      observe = vi.fn();
-      unobserve = unobserveMock;
-      disconnect = vi.fn();
-      constructor() {}
-    } as any;
-  
-    const { unmount } = renderHook(() => useMessageSeen(mockMessage), { wrapper });
-  
-    unmount();
-  
-    expect(unobserveMock).toHaveBeenCalled();
-  });
-  
   
 });

@@ -6,6 +6,7 @@ export const AddNewUserScreen = () => {
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState("admin");
   const { setView } = React.useContext(SettingsContext);
+
   const handleAddNewUser = () => {
     // Logic to add new user
     fetch("/api/auth/register", {
@@ -23,31 +24,44 @@ export const AddNewUserScreen = () => {
   };
 
   return (
-    <div>
-      <h1>Add Chat Administrator</h1>
-      <div className="formGroup">
-        <label>Admin Name</label>
+    <div data-testid="add-user-screen">
+      <h1 data-testid="title">Add Chat Administrator</h1>
+      <div className="formGroup" data-testid="admin-name-group">
+        <label htmlFor="adminName">Admin Name</label>
         <input
+          id="adminName"
           type="text"
           value={adminName}
-          onChange={(e) => setAdminName(e.target.value)} />
+          onChange={(e) => setAdminName(e.target.value)}
+          data-testid="admin-name-input"
+        />
       </div>
-      <div className="formGroup">
-        <label>Email</label>
+      <div className="formGroup" data-testid="email-group">
+        <label htmlFor="email">Email</label>
         <input
+          id="email"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)} />
+          onChange={(e) => setEmail(e.target.value)}
+          data-testid="email-input"
+        />
       </div>
-      <div className="formGroup">
-        <label>Role</label>
-        <select value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="admin">Admin</option>
-          <option value="moderator">Moderator</option>
-          <option value="viewer">Viewer</option>
+      <div className="formGroup" data-testid="role-group">
+        <label htmlFor="role">Role</label>
+        <select
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          data-testid="role-select"
+        >
+          <option value="admin" data-testid="role-option-admin">Admin</option>
+          <option value="moderator" data-testid="role-option-moderator">Moderator</option>
+          <option value="viewer" data-testid="role-option-viewer">Viewer</option>
         </select>
       </div>
-      <button onClick={handleAddNewUser}>Add Admin</button>
+      <button onClick={handleAddNewUser} data-testid="add-user-button">
+        Add Admin
+      </button>
     </div>
   );
 };
