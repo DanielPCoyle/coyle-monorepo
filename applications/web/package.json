@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --fix",
+    "lint": "eslint . --fix --ignore-pattern 'public/dist/*'",
     "test": "vitest run",
     "types": "tsc --noEmit",
     "prettier": "prettier --check ."
