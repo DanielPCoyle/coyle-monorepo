@@ -2,7 +2,7 @@ import {
   updateConversationIsActive,
   getConversations,
   getConversationBySocketId,
-} from "@coyle/database";
+} from "@coyle/chat-db";
 
 export const disconnect = ({ socket, io }) =>
   socket.on("disconnect", async () => {

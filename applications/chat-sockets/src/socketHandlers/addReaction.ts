@@ -1,4 +1,4 @@
-import { addReactionToMessage } from "@coyle/database";
+import { addReactionToMessage } from "@coyle/chat-db";
 
 export const addReaction = ({ socket, io }) =>
   socket.on("addReaction", async ({ id, messageId, reactions }) => {

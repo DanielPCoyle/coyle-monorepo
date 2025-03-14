@@ -1,5 +1,5 @@
-import { setMessageSeen } from "@coyle/database";
-import { getConversations } from "@coyle/database";
+import { setMessageSeen } from "@coyle/chat-db";
+import { getConversations } from "@coyle/chat-db";
 
 export const seen = ({ socket, io }) =>
   socket.on("seen", async (messageId: number) => {

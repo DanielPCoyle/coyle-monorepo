@@ -1,4 +1,4 @@
-import { getMessages } from "@coyle/database";
+import { getMessages } from "@coyle/chat-db";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";

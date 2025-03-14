@@ -2,10 +2,10 @@ import {
   getConversationIdByKey,
   insertMessage,
   getConversations,
-} from "@coyle/database";
+} from "@coyle/chat-db";
 import { chatMessage } from "../chatMessage";
 
-vi.mock("@coyle/database");
+vi.mock("@coyle/chat-db");
 
 describe("chatMessage handler", () => {
   let socket: Socket;

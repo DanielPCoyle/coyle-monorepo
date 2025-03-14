@@ -1,9 +1,9 @@
-import { setMessageSeen, getConversations } from "@coyle/database";
+import { setMessageSeen, getConversations } from "@coyle/chat-db";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { seen } from "../seen.js";
 
 // Mock the database module
-vi.mock("@coyle/database", () => ({
+vi.mock("@coyle/chat-db", () => ({
   setMessageSeen: vi.fn().mockResolvedValue(undefined),
   getConversations: vi.fn().mockResolvedValue([]),
 }));

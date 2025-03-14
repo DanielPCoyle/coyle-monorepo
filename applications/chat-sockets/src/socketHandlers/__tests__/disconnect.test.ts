@@ -4,9 +4,9 @@ import {
   updateConversationIsActive,
   getConversations,
   getConversationBySocketId,
-} from "@coyle/database";
+} from "@coyle/chat-db";
 
-vi.mock("@coyle/database", () => ({
+vi.mock("@coyle/chat-db", () => ({
   getConversationBySocketId: vi.fn(),
   updateConversationIsActive: vi.fn(),
   getConversations: vi.fn(),

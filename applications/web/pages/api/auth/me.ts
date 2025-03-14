@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
+import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 import { DecodedToken } from "../../../types";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;

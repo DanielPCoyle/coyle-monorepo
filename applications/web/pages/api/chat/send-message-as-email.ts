@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getAdminUsers } from "@coyle/database";
+import { getAdminUsers } from "@coyle/chat-db";
 import { sendEmail } from "../../../util/sendEmail";
 
 export default async function handler(

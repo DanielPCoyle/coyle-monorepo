@@ -1,18 +1,3 @@
 export { sql } from "drizzle-orm";
 export * as schema from "./schema";
 export { eq, explainAnalyze, getDB, getPool } from "./src/db";
-export { addConversation } from "./src/chat/addConversation";
-export { addReactionToMessage } from "./src/chat/addReactionToMessage";
-export { getConversationIdByKey } from "./src/chat/getConversationIdByKey";
-export { updateConversationIsActive } from "./src/chat/updateConversationIsActive";
-export { getConversations } from "./src/chat/getConversations";
-export { getMessages } from "./src/chat/getMessages";
-export { insertMessage } from "./src/chat/insertMessage";
-export { setMessageSeen } from "./src/chat/setMessageSeen";
-export { getAdminUsers } from "./src/chat/settings/getAdminUsers";
-export { createAdminUser } from "./src/chat/settings/createAdminUser";
-export { updateUserStatus } from "./src/chat/updateUserStatus";
-export { updateUserNotificationsEnabled } from "./src/chat/updateUserNotificationsEnabled";
-export { getUsersOnline } from "./src/chat/getUsersOnline";
-export { updateConversationSocketId } from "./src/chat/updateConversationSocketId";
-export { getConversationBySocketId } from "./src/chat/getConversationBySocketId";

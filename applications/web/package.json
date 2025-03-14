@@ -15,7 +15,7 @@
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
     "@builder.io/react": "^5.0.11",
-    "@coyle/database": "*",
+    "@coyle/chat-db": "*",
     "@coyle/chat-ui": "*",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",

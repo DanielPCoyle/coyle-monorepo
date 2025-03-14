@@ -4,7 +4,7 @@ import {
   getConversationIdByKey,
   updateConversationIsActive,
   updateConversationSocketId,
-} from "@coyle/database";
+} from "@coyle/chat-db";
 
 export const login = ({ socket, io }) =>
   socket.on("login", async ({ userName, email, id, isAdmin }) => {

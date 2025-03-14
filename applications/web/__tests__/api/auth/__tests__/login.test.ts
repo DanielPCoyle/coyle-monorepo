@@ -3,7 +3,7 @@ import { createMocks } from "node-mocks-http";
 import { describe, expect, it, vi } from "vitest";
 vi.mock("bcrypt");
 vi.mock("jsonwebtoken");
-vi.mock("@coyle/database/db");
+vi.mock("@coyle/chat-db/db");
 
 describe("/api/auth/login", () => {
   it("should return 405 if method is not POST", async () => {

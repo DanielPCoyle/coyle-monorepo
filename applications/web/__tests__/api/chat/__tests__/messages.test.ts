@@ -1,9 +1,9 @@
 import { describe, test, expect, vi, beforeEach, afterEach } from "vitest";
 import handler from "../../../../pages/api/chat/messages";
-import { getMessages } from "@coyle/database";
+import { getMessages } from "@coyle/chat-db";
 import jwt from "jsonwebtoken";
 
-vi.mock("@coyle/database", () => ({
+vi.mock("@coyle/chat-db", () => ({
   getMessages: vi.fn(),
 }));
 

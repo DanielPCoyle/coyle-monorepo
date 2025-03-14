@@ -1,10 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
 import { createMocks } from "node-mocks-http";
 import handler from "../../../../pages/api/auth/register";
-import { createAdminUser } from "@coyle/database";
+import { createAdminUser } from "@coyle/chat-db";
 import { sendWelcomeEmail } from "../../../../util/chat/sendWelcomeEmail";
 
-vi.mock("@coyle/database", () => ({ createAdminUser: vi.fn() }));
+vi.mock("@coyle/chat-db", () => ({ createAdminUser: vi.fn() }));
 vi.mock("../../../../util/chat/sendWelcomeEmail", () => ({
   sendWelcomeEmail: vi.fn(),
 }));

@@ -1,0 +1,43 @@
+{
+  "name": "@coyle/chat-db",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@coyle/chat-db": "*",
+    "bcrypt": "^5.1.1",
+    "drizzle-orm": "^0.40.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.3",
+    "uuid": "^11.1.0"
+  },
+  "scripts": {
+    "create-migration": "npx drizzle-kit generate --schema=./schema.ts --dialect=postgresql",
+    "migrate": "npx drizzle-kit migrate",
+    "test": "vitest run",
+    "lint": "eslint . --fix",
+    "types": "tsc --noEmit",
+    "prettier": "prettier --check ."
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "babel-loader": "^10.0.0",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.5.3",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.26.0",
+    "vitest": "^0.34.1"
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
+    }
+  }
+}

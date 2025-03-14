@@ -1,0 +1,67 @@
+{
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1740610043174,
+      "tag": "0000_bent_true_believers",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1740685538887,
+      "tag": "0001_confused_hannibal_king",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741037927003,
+      "tag": "0002_zippy_iron_monger",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741617485104,
+      "tag": "0003_salty_miracleman",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1741617826929,
+      "tag": "0004_brown_blink",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1741639147367,
+      "tag": "0005_abnormal_gauntlet",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741722403095,
+      "tag": "0006_solid_gargoyle",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1741789013985,
+      "tag": "0007_dapper_thor",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1741790257187,
+      "tag": "0008_boring_ultragirl",
+      "breakpoints": true
+    }
+  ]
+}

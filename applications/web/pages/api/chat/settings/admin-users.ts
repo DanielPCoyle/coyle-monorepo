@@ -1,4 +1,4 @@
-import { getAdminUsers } from "@coyle/database";
+import { getAdminUsers } from "@coyle/chat-db";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "../../../../middlewares/auth";

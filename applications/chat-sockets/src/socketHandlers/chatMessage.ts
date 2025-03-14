@@ -2,7 +2,7 @@ import {
   getConversationIdByKey,
   insertMessage,
   getConversations,
-} from "@coyle/database";
+} from "@coyle/chat-db";
 
 export const chatMessage = ({ socket, io }) =>
   socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
