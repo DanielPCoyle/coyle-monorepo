@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-export const useSocketReactions = (socket, reply, setReactions) => {
+import type { Socket } from "socket.io-client";
+export const useSocketReactions = (socket:Socket, reply, setReactions) => {
     if(typeof socket === 'undefined') {
         return;
     }
@@ -9,8 +10,7 @@ export const useSocketReactions = (socket, reply, setReactions) => {
                 setReactions(payload.reactions);
             }
         };
-
-        socket.on("addReaction", handleReactionUpdate);
+            socket.on("addReaction", handleReactionUpdate);
 
         return () => {
             socket.off("addReaction", handleReactionUpdate);

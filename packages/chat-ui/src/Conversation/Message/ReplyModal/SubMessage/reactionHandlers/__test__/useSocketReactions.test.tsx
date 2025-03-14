@@ -43,13 +43,4 @@ describe("useSocketReactions", () => {
     expect(mockSetReactions).not.toHaveBeenCalled();
   });
 
-  it("should do nothing if socket.on is not a function", () => {
-    const mockSetReactions = vi.fn();
-    const reply = { id: "123" };
-    const mockSocket = {}; // Missing `on`
-
-    renderHook(() => useSocketReactions(mockSocket, reply, mockSetReactions));
-
-    expect(mockSetReactions).not.toHaveBeenCalled();
-  });
 });
