@@ -28,7 +28,7 @@ export const Conversation: React.FC = () => {
       <div className="loading">
         <div>
           <div className="loadingIcon" data-testid="loading-icon">
-          <LoadingIcon />
+            <LoadingIcon />
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@ export const Conversation: React.FC = () => {
   return (
     <>
       <ThreeJsBackground />
-      <div ref={contentRef} className="messageContainer" >
+      <div ref={contentRef} className="messageContainer">
         <div style={{ width: "90%", margin: "auto" }}>
           {messages
             .filter((message: MessageType) => !message.parentId)
@@ -53,6 +53,3 @@ export const Conversation: React.FC = () => {
     </>
   );
 };
-
-
-

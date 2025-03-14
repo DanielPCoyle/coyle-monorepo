@@ -8,9 +8,12 @@ export const AdminLogin = ({ email, setEmail, password, setPassword }: any) => (
         <input
           type="email"
           value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
           className="inputStyle"
-          required />
+          required
+        />
       </label>
     </div>
     <div>
@@ -19,9 +22,12 @@ export const AdminLogin = ({ email, setEmail, password, setPassword }: any) => (
         <input
           type="password"
           value={password}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
           className="inputStyle"
-          required />
+          required
+        />
       </label>
     </div>
     <button type="submit" className="buttonStyle">

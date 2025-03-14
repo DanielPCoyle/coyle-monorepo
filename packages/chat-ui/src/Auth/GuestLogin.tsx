@@ -8,9 +8,12 @@ export const GuestLogin = ({ userName, setUserName, email, setEmail }: any) => (
         <input
           type="text"
           value={userName}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setUserName(e.target.value)
+          }
           className="inputStyle"
-          required />
+          required
+        />
       </label>
     </div>
     <div>
@@ -19,9 +22,12 @@ export const GuestLogin = ({ userName, setUserName, email, setEmail }: any) => (
         <input
           type="email"
           value={email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
           className="inputStyle"
-          required />
+          required
+        />
       </label>
     </div>
     <button type="submit" className="buttonStyle">

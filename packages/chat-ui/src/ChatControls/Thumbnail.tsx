@@ -9,7 +9,13 @@ interface ThumbnailProps {
   children?: React.ReactNode;
 }
 
-export const Thumbnail = ({ files, file, index, setFiles, children }: ThumbnailProps) => {
+export const Thumbnail = ({
+  files,
+  file,
+  index,
+  setFiles,
+  children,
+}: ThumbnailProps) => {
   return (
     <div key={file.name} className="thumbnailContainer">
       <img

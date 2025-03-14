@@ -2,8 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import ChatContext from "../ChatContext";
 
 export const useAuth = () => {
-  
-  const { setUser, setUserName, setEmail, setIsLoggedIn, setNotificationsEnabled} = useContext(ChatContext);
+  const {
+    setUser,
+    setUserName,
+    setEmail,
+    setIsLoggedIn,
+    setNotificationsEnabled,
+  } = useContext(ChatContext);
   const [token, setToken] = useState(null);
   const getAndSetUser = async (jwtToken: string) => {
     try {
@@ -28,16 +33,16 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("jwt")){
+    if (localStorage.getItem("jwt")) {
       setToken(localStorage.getItem("jwt") || "");
     }
-  },[])
-  
+  }, []);
+
   useEffect(() => {
     if (token) {
       getAndSetUser(token);
     }
-  }, [getAndSetUser,token]);
+  }, [getAndSetUser, token]);
 
   return { getAndSetUser };
 };

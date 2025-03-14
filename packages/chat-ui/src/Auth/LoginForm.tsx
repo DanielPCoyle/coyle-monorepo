@@ -7,14 +7,26 @@ import { useAuth } from "../hooks/useAuth";
 
 export const LoginForm: React.FC = () => {
   const { getAndSetUser } = useAuth();
-  const { id, userName, setUserName, email, setEmail, setToken, setIsLoggedIn } = useContext(ChatContext);
+  const {
+    id,
+    userName,
+    setUserName,
+    email,
+    setEmail,
+    setToken,
+    setIsLoggedIn,
+  } = useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const endpoint = showAdminLogin ? "/api/auth/login" : "/api/auth/guest-token";
-    const payload = showAdminLogin ? { email, password } : { conversationKey: id, name: userName, email };
+    const endpoint = showAdminLogin
+      ? "/api/auth/login"
+      : "/api/auth/guest-token";
+    const payload = showAdminLogin
+      ? { email, password }
+      : { conversationKey: id, name: userName, email };
 
     fetch(endpoint, {
       method: "POST",
@@ -37,40 +49,46 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <form className="formStyle" onSubmit={handleSubmit} data-testid="login-form">
-      <p data-testid="login-message">Want to chat with PhilaPrints? <br /> Enter your name and email.</p>
+    <form
+      className="formStyle"
+      onSubmit={handleSubmit}
+      data-testid="login-form"
+    >
+      <p data-testid="login-message">
+        Want to chat with PhilaPrints? <br /> Enter your name and email.
+      </p>
       <div className="iconContainer" data-testid="lottie-container">
-        <DotLottieReact 
+        <DotLottieReact
           style={{ width: "auto", height: "auto", transform: "scale(2)" }}
-          src="https://lottie.host/1ae6808e-3519-498e-a1bf-f85a9dec2b3b/COxuVY2DPb.lottie" 
-          loop 
-          autoplay 
+          src="https://lottie.host/1ae6808e-3519-498e-a1bf-f85a9dec2b3b/COxuVY2DPb.lottie"
+          loop
+          autoplay
         />
       </div>
       {showAdminLogin ? (
         <div data-testid="admin-login">
-        <AdminLogin 
-          email={email} 
-          setEmail={setEmail} 
-          password={password} 
-          setPassword={setPassword} 
-          handleSubmit={handleSubmit} 
-        />
+          <AdminLogin
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            handleSubmit={handleSubmit}
+          />
         </div>
       ) : (
         <div data-testid="guest-login">
-        <GuestLogin 
-          userName={userName} 
-          setUserName={setUserName} 
-          email={email} 
-          setEmail={setEmail} 
-          handleSubmit={handleSubmit} 
-        />
+          <GuestLogin
+            userName={userName}
+            setUserName={setUserName}
+            email={email}
+            setEmail={setEmail}
+            handleSubmit={handleSubmit}
+          />
         </div>
       )}
       <div style={{ marginTop: "20px" }}>
-        <small 
-          onClick={() => setShowAdminLogin(!showAdminLogin)} 
+        <small
+          onClick={() => setShowAdminLogin(!showAdminLogin)}
           data-testid="toggle-login-mode"
         >
           {showAdminLogin ? "Customer Login" : "Admin Login"}
