@@ -1,6 +1,6 @@
-import { getDB } from "../../../";
-import { conversations } from "../../../schema";
-import type { Conversation } from "../../../schema";
+import { getDB } from "../..";
+import { conversations } from "../../schema";
+import type { Conversation } from "../../schema";
 import { eq } from "drizzle-orm";
 
 export async function updateConversationIsActive(

@@ -1,4 +1,12 @@
-export const handleSocketEvents = (socket, user, id, setMessages, setAdmins, setTyping, setConversations) => {
+export const handleSocketEvents = (
+  socket,
+  user,
+  id,
+  setMessages,
+  setAdmins,
+  setTyping,
+  setConversations,
+) => {
   socket.on("conversations", (conversations) => {
     if (user?.role === "admin") setConversations(conversations);
   });
@@ -6,7 +14,7 @@ export const handleSocketEvents = (socket, user, id, setMessages, setAdmins, set
   socket.on("chat message", (message) => {
     setMessages((prev) => {
       const newMessages = [...prev, message].filter(
-        (msg, index, self) => index === self.findIndex((m) => m.id === msg.id)
+        (msg, index, self) => index === self.findIndex((m) => m.id === msg.id),
       );
       return newMessages.sort((a, b) => a.id - b.id);
     });

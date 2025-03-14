@@ -12,7 +12,7 @@ export const fetchConversations = async (token, setConversations, user) => {
           ...convo,
           user: convo.name,
           id: convo.conversationKey,
-        }))
+        })),
       );
     }
   } catch (err) {

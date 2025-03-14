@@ -1,21 +1,23 @@
 import React from "react";
 import AddUserSvg from "../../../assets/svg/AddUserSvg";
-import { PencilIcon } from "../../../assets/svg/PencilIcon";
-import { TrashCanIcon } from "../../../assets/svg/TrashCanIcon";
 import SettingsContext from "./SettingsContext";
+import { AdminItem } from "./AdminItem";
 
 export const ChatAdministators = () => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
-
+  const [selected, setSelected] = React.useState(null);
   const handleEdit = (id) => {
-    // Logic to edit admin
     console.log("Edit admin", id);
+    setSelected(id);
+    setView("editUser");
+    // TODO: Handle Edit Admin, add edit screen
   };
 
   const handleDelete = (id) => {
-    // Logic to delete admin
     console.log("Delete admin", id);
+    setSelected(id);
+    // TODO: Handle Delete Admin
   };
 
   React.useEffect(() => {
@@ -30,6 +32,7 @@ export const ChatAdministators = () => {
         setAdmins(data);
       });
   }, [view]);
+
   return (
     <div>
       <h1>Chat Administrators</h1>
@@ -39,26 +42,7 @@ export const ChatAdministators = () => {
       <ul className="adminItems">
         {Boolean(admins?.map) &&
           admins?.map((admin) => (
-            <li key={admin.id} className="adminItem">
-              <div className="adminDetails">
-                <div>{admin.name}</div>
-                <div>{admin.email}</div>
-              </div>
-              <div className="adminActions">
-                <button
-                  onClick={() => handleEdit(admin.id)}
-                  className="editButton"
-                >
-                  <PencilIcon />
-                </button>
-                <button
-                  onClick={() => handleDelete(admin.id)}
-                  className="deleteButton"
-                >
-                  <TrashCanIcon />
-                </button>
-              </div>
-            </li>
+            <AdminItem  {...{admin, handleDelete, handleEdit}} />
           ))}
       </ul>
     </div>

@@ -1,6 +1,6 @@
-import { getDB } from "../../../";
-import { users } from "../../../schema";
-import type { User } from "../../../schema";
+import { getDB } from "../..";
+import { users } from "../../schema";
+import type { User } from "../../schema";
 import { eq } from "drizzle-orm";
 
 export async function updateUserStatus({ id, status }): Promise<void> {

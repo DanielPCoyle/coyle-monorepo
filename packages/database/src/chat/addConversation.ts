@@ -1,5 +1,5 @@
-import { getDB } from "../../../";
-import { conversations } from "../../../schema";
+import { getDB } from "../..";
+import { conversations } from "../../schema";
 import { eq } from "drizzle-orm";
 
 interface AddConversationParams {

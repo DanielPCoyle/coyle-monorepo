@@ -1,1 +1,1 @@
-describe.skip("Message Component TODO: Replace react-modal", () => {})
+describe.skip("Message Component", () => {}) // TODO: Replace react-modal
