@@ -3,7 +3,6 @@ import { describe, it, vi, beforeEach } from "vitest";
 import { ReplyModal } from "../ReplyModal";
 import { MessageContext } from "../../MessageContext";
 import { ChatContext } from "../../../../ChatContext";
-import { CloseIcon } from "../../../../../assets/svg/CloseIcon";
 import Modal from "react-modal";
 import dotenv from "dotenv";
 import "@testing-library/jest-dom";

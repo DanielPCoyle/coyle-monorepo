@@ -37,7 +37,7 @@ export const Chat =() => {
 
   useEffect(() => {
     if (!user || user?.role !== "admin" || !token) return;
-    let controller = new AbortController();
+    const controller = new AbortController();
     const signal = controller.signal;
 
     fetch("/api/chat/conversations", {
