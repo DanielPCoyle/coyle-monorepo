@@ -11,7 +11,6 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-
 export const getAStoreSignUps = pgTable("get_a_store_signups", {
   id: serial("id").primaryKey(),
   organizationName: text("organization_name").notNull(),

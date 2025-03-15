@@ -58,5 +58,3 @@ export const knowledge = pgTable("knowledge", {
   content: text("content").notNull(),
   embedding: text("embedding").notNull(),
 });
-
-
