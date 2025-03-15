@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { NextApiRequest, NextApiResponse } from "next";
 import handler from "../get-a-store-signup";
-import { insertGetAStoreSignup } from "@coyle/chat-db/src/util/insertGetAStoreSignup";
+import { insertGetAStoreSignup } from "@coyle/database/src/util/insertGetAStoreSignup";
 
-vi.mock("@coyle/chat-db/src/util/insertGetAStoreSignup");
+vi.mock("@coyle/database/src/util/insertGetAStoreSignup");
 
 describe("POST /api/philprints/get-a-store-signup", () => {
   it("should return 405 if method is not POST", async () => {

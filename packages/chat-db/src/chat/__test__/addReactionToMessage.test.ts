@@ -3,7 +3,7 @@ import { messages } from "@coyle/chat-db/schema";
 import { eq } from "drizzle-orm";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../../../db", () => ({
+vi.mock("../../db", () => ({
   getDB: vi.fn(),
 }));
 

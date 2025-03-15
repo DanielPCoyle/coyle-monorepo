@@ -2,7 +2,7 @@ import { addConversation, getDB } from "@coyle/chat-db";
 import { conversations } from "@coyle/chat-db/schema";
 import { beforeEach, describe, expect, it, Mock, vi } from "vitest";
 
-vi.mock("../../../db", () => ({
+vi.mock("../../db", () => ({
   getDB: vi.fn(),
 }));
 

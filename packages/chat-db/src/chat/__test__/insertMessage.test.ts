@@ -2,7 +2,7 @@ import { getDB, insertMessage } from "@coyle/chat-db";
 import { messages } from "@coyle/chat-db/schema";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../../../db", () => ({
+vi.mock("../../db", () => ({
   getDB: vi.fn(),
 }));
 

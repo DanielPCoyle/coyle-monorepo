@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { insertGetAStoreSignup } from "@coyle/chat-db/src/util/insertGetAStoreSignup";
+import { insertGetAStoreSignup } from "@coyle/database/src/util/insertGetAStoreSignup";
 
 interface SignupRequestBody {
   organizationName: string;

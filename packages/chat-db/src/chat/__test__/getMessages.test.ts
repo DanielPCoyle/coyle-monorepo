@@ -1,7 +1,7 @@
 import { getDB, getMessages } from "@coyle/chat-db";
 import { describe, expect, it, vi } from "vitest";
 
-vi.mock("../../../db", () => ({
+vi.mock("../../db", () => ({
   getDB: vi.fn(),
 }));
 
