@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import {LightBox} from "../LightBox";
+import { LightBox } from "../LightBox";
 import { CloseIcon } from "../../assets/svg/CloseIcon";
 import "@testing-library/jest-dom";
 
@@ -19,7 +19,7 @@ describe("LightBox Component", () => {
         setModalSource={mockSetModalSource}
         modalSource={modalSource}
         modalIndex={modalIndex}
-      />
+      />,
     );
 
     const image = screen.getByAltText("file");
@@ -33,7 +33,7 @@ describe("LightBox Component", () => {
         setModalSource={mockSetModalSource}
         modalSource={modalSource}
         modalIndex={modalIndex}
-      />
+      />,
     );
 
     const closeButton = screen.getByRole("button");
