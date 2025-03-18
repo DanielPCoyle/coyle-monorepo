@@ -1,14 +1,8 @@
-import { type InferSelectModel } from "drizzle-orm";
 import {
   boolean,
-  integer,
-  jsonb,
   pgTable,
   serial,
   text,
-  timestamp,
-  uuid,
-  varchar,
 } from "drizzle-orm/pg-core";
 
 export const getAStoreSignUps = pgTable("get_a_store_signups", {

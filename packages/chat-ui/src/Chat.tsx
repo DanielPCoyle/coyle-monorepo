@@ -83,6 +83,7 @@ export const Chat = () => {
         setNotificationsEnabled,
         setUser,
         setUserName,
+        setToken,
         socket,
         typing,
         user,

@@ -41,8 +41,8 @@ export const ChatAdministators = () => {
       </button>
       <ul className="adminItems">
         {Boolean(admins?.map) &&
-          admins?.map((admin) => (
-            <AdminItem  {...{admin, handleDelete, handleEdit}} />
+          admins?.map((admin,i) => (
+            <AdminItem key={"admin_item_"+i}  {...{admin, handleDelete, selected, handleEdit}} />
           ))}
       </ul>
     </div>

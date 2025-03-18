@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { CloseIcon } from "../assets/svg/CloseIcon";
+
 
 export const LightBox = ({
   setModalSource, modalSource, modalIndex,
@@ -29,3 +31,10 @@ export const LightBox = ({
       </button>
     </div>
   </div>;
+
+
+LightBox.propTypes = {
+  setModalSource: PropTypes.func.isRequired,
+  modalSource: PropTypes.array.isRequired,
+  modalIndex: PropTypes.number.isRequired,
+};

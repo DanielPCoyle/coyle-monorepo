@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { PencilIcon } from "../../../assets/svg/PencilIcon";
 import { TrashCanIcon } from "../../../assets/svg/TrashCanIcon";
 
@@ -26,5 +27,15 @@ export const AdminItem = ({ admin, handleDelete, handleEdit }) => {
         </button>
       </div>
     </li>
-  );
+  )
+};
+
+AdminItem.propTypes = {
+  admin: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
 };
