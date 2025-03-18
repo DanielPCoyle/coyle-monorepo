@@ -31,7 +31,7 @@ export const SideBar = () => {
             <CogSvg />
           </button>
         </div>
-        {view === "conversations" ? <ConversationList /> : <Settings />}
+        {view === "conversations" ? <ConversationList setShowMenu={setShowMenu} /> : <Settings />}
       </div>
     </>
   );

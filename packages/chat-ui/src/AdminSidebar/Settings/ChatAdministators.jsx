@@ -3,12 +3,10 @@ import AddUserSvg from "../../../assets/svg/AddUserSvg";
 import SettingsContext from "./SettingsContext";
 import { AdminItem } from "./AdminItem";
 
-export const ChatAdministators = () => {
+export const ChatAdministators = ({selected,setSelected}) => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
-  const [selected, setSelected] = React.useState(null);
   const handleEdit = (id) => {
-    console.log("Edit admin", id);
     setSelected(id);
     setView("editUser");
     // TODO: Handle Edit Admin, add edit screen

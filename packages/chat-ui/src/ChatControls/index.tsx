@@ -1,5 +1,4 @@
 import React from "react";
-import { createClient } from "@supabase/supabase-js";
 import { Editor, EditorState, Modifier, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import "draft-js/dist/Draft.css";
@@ -9,15 +8,10 @@ import { ChatContext } from "../ChatContext";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
 import { Thumbnail } from "./Thumbnail";
+import { uploadFileToSupabase } from "./uploadFileToSupabase";
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.error("Missing env variables for Supabase");
-    return;
-  }
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  
 
   const {
     id,
@@ -78,27 +72,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     setEditorState(RichUtils.toggleBlockType(editorState, blockType));
   };
 
-  const uploadFileToSupabase = async (file) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const filePath = `public/${uniqueSuffix}-${file.name}`;
-    const { error } = await supabase.storage
-      .from("messages") // Replace with your bucket name
-      .upload(filePath, file, {
-        cacheControl: "3600",
-        upsert: false,
-      });
-
-    if (error) {
-      console.error("Error uploading file:", error);
-      return null;
-    }
-
-    const { data: publicURLData } = supabase.storage
-      .from("messages")
-      .getPublicUrl(filePath);
-
-    return publicURLData.publicUrl;
-  };
+  
 
   const sendMessage = async () => {
     const contentState = editorState.getCurrentContent();

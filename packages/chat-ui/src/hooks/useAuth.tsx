@@ -28,12 +28,16 @@ export const useAuth = () => {
       setId(data.user.conversationKey);
       setIsLoggedIn(true);
 
-      socket.emit("login", {
-        userName: data.user.name,
-        email: data.user.email,
-        id: data.user.conversationKey,
-        isAdmin: false,
-      });
+      
+
+      if(data.user.role !== "admin"){
+        socket.emit("login", {
+          userName: data.user.name,
+          email: data.user.email,
+          id: data.user.conversationKey,
+          isAdmin: false,
+        });
+      }
       if (token !== jwtToken) {
         setToken(jwtToken);
       }

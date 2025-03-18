@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
+
 import PropTypes from "prop-types";
 import { PencilIcon } from "../../../assets/svg/PencilIcon";
 import { TrashCanIcon } from "../../../assets/svg/TrashCanIcon";
-
+import { ChatContext } from "../../ChatContext";
 export const AdminItem = ({ admin, handleDelete, handleEdit }) => {
+  const {user }  = useContext(ChatContext);
   return (
     <li key={admin.id} className="adminItem" data-testid={`admin-item-${admin.id}`}>
       <div className="adminDetails" data-testid={`admin-details-${admin.id}`}>
@@ -18,13 +20,13 @@ export const AdminItem = ({ admin, handleDelete, handleEdit }) => {
         >
           <PencilIcon />
         </button>
-        <button
+        {admin.id !== user.id && <button
           onClick={() => handleDelete(admin.id)}
           className="deleteButton"
           data-testid={`delete-button-${admin.id}`}
         >
           <TrashCanIcon />
-        </button>
+        </button> }
       </div>
     </li>
   )

@@ -1,0 +1,16 @@
+import { getAdminUser } from "@coyle/chat-db";
+import dotenv from "dotenv";
+import { NextApiRequest, NextApiResponse } from "next";
+import { authMiddleware } from "../../../../middlewares/auth";
+
+dotenv.config();
+
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === "GET") {
+    const id = req.query.id as string;
+    const users = await getAdminUser(id);
+    res.status(200).json(users[0]);
+  }
+}
+
+export default authMiddleware(handler);

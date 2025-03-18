@@ -27,6 +27,7 @@ export const users = pgTable("users", {
     .notNull()
     .default(false),
   socketId: text("socket_id"),
+  avatarUrl: text("avatar_url"),
 });
 
 export const messages = pgTable("messages", {

@@ -6,7 +6,7 @@ import { ConversationListItemsProps } from "../../../types";
 export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   conversations,
   socket,
-  toggleDrawer,
+  setShowMenu,
 }) => {
   const { setId, id, user, status } = React.useContext(ChatContext);
 
@@ -20,7 +20,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
           onClick={() => {
             socket.emit("leave", { id: id });
             setId(convo.conversationKey);
-            toggleDrawer();
+            setShowMenu(false);
           }}
         >
           {user.email === convo.email ? (

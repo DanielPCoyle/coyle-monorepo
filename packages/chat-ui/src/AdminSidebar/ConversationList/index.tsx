@@ -4,7 +4,7 @@ import { ConversationListItems } from "./ConversationListItems";
 import { MenuIcon } from "../../../assets/svg/MenuIcon";
 import { CloseIcon } from "../../../assets/svg/CloseIcon";
 
-export const ConversationList: React.FC = () => {
+export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null}) => {
   const {
     conversations,
     socket,
@@ -65,14 +65,15 @@ export const ConversationList: React.FC = () => {
 
         <ConversationListItems
           socket={socket}
-          toggleDrawer={toggleDrawer}
+          setShowMenu={setShowMenu}
+          
           conversations={conversations.filter((c) => c?.isActive)}
         />
 
 <h3>Admins Online</h3>
           <ConversationListItems
             socket={socket}
-            toggleDrawer={toggleDrawer}
+            setShowMenu={setShowMenu}
             conversations={admins}
           />
 
@@ -96,7 +97,7 @@ export const ConversationList: React.FC = () => {
               >
                 <ConversationListItems
                   socket={socket}
-                  toggleDrawer={toggleDrawer}
+                  setShowMenu={setShowMenu}
                   conversations={conversations.filter((c) => !c?.isActive)}
                 />
               </div>

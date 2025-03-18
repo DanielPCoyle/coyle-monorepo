@@ -16,7 +16,7 @@ interface Conversation {
 export interface ConversationListItemsProps {
   conversations: Conversation[];
   socket: Socket;
-  toggleDrawer: () => void;
+  setShowMenu: () => void;
 }
 
 export interface AdminLoginProps {

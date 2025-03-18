@@ -488,6 +488,36 @@ li.adminItem {
   margin-left: auto;
 }
 
+.avatarUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatarPreview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.avatarInput {
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+
+ul.adminItems {
+  padding: 0;
+}
+
+hr{
+  width: 100%;
+}
 
 }
 

@@ -10,6 +10,8 @@ export { getMessages } from "./src/chat/getMessages";
 export { insertMessage } from "./src/chat/insertMessage";
 export { setMessageSeen } from "./src/chat/setMessageSeen";
 export { getAdminUsers } from "./src/chat/settings/getAdminUsers";
+export { getAdminUser } from "./src/chat/settings/getAdminUser";
+
 export { createAdminUser } from "./src/chat/settings/createAdminUser";
 export { updateUserStatus } from "./src/chat/updateUserStatus";
 export { updateUserNotificationsEnabled } from "./src/chat/updateUserNotificationsEnabled";
@@ -17,3 +19,4 @@ export { getUsersOnline } from "./src/chat/getUsersOnline";
 export { updateConversationSocketId } from "./src/chat/updateConversationSocketId";
 export { getConversationBySocketId } from "./src/chat/getConversationBySocketId";
 export { deleteUser } from "./src/chat/deleteUser";
+export {updateUser } from "./src/chat/settings/updateUser";
