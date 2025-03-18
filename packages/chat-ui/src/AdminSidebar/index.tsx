@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { ConversationList } from "./ConversationList";
 import { Settings } from "./Settings";
 import { CogSvg } from "../../assets/svg/CogSvg";
-import { BackArrow } from "../../assets/svg/BackArrow";
 import { MenuIcon } from "../../assets/svg/MenuIcon";
 import { CloseIcon } from "../../assets/svg/CloseIcon";
 import { ChatIcon } from "../../assets/svg/ChatIcon";
+
 export const SideBar = () => {
   const [view, setView] = useState("conversations");
   const [showMenu, setShowMenu] = useState(false);

@@ -1,7 +1,6 @@
 import React, { useContext, useRef } from "react";
 import { ChatContext } from "../ChatContext";
 import { Message } from "./Message";
-import { ThreeJsBackground } from "./ThreeJsBackground";
 import { LoadingIcon } from "../../assets/svg/LoadingIcon";
 import { MessageType } from "../../types";
 

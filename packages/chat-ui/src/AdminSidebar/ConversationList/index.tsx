@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
-import { MenuIcon } from "../../../assets/svg/MenuIcon";
-import { CloseIcon } from "../../../assets/svg/CloseIcon";
 
 export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null}) => {
   const {
@@ -16,11 +14,6 @@ export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null
     setNotificationsEnabled,
   } = useContext(ChatContext);
   const [showHistoric, setShowHistoric] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen);
-  };
 
   React.useEffect(() => {
     socket.emit("updateStatus", { status, id: user?.id });

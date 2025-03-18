@@ -3,10 +3,10 @@ import AddUserSvg from "../../../assets/svg/AddUserSvg";
 import SettingsContext from "./SettingsContext";
 import { AdminItem } from "./AdminItem";
 
-export const ChatAdministators = ({selected,setSelected}) => {
+export const ChatAdministators = ({setSelected}: {setSelected: (id)=>null}) => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
-  const handleEdit = (id) => {
+  const handleEdit = (id:string) => {
     setSelected(id);
     setView("editUser");
     // TODO: Handle Edit Admin, add edit screen
@@ -51,7 +51,7 @@ export const ChatAdministators = ({selected,setSelected}) => {
       <ul className="adminItems">
         {Boolean(admins?.map) &&
           admins?.map((admin,i) => (
-            <AdminItem key={"admin_item_"+i}  {...{admin, handleDelete, selected, handleEdit}} />
+            <AdminItem key={"admin_item_"+i}  {...{admin, handleDelete, handleEdit}} />
           ))}
       </ul>
     </div>

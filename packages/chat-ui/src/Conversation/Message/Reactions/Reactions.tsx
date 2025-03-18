@@ -3,7 +3,6 @@ import ChatContext from "../../../ChatContext";
 import { ReactionsProps } from "../../../../types";
 
 export const Reactions: React.FC<ReactionsProps> = ({
-  isSender,
   reactions,
   removeReactions,
 }) => {

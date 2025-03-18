@@ -8,7 +8,7 @@ import { SettingsHome } from "./SettingsHome";
 import { BackArrow } from "../../../assets/svg/BackArrow";
 import { uploadFileToSupabase } from "../../ChatControls/uploadFileToSupabase";
 export const Settings = () => {
-  const { user, setUser } = useContext(ChatContext);
+  const { user } = useContext(ChatContext);
   const [view, setView] = useState("home");
   const [selected, setSelected] = React.useState(null);
   
@@ -45,7 +45,7 @@ export const Settings = () => {
 };
 
 
-const ProfileSettings = ({id}) => {
+const ProfileSettings = ({id}:{id:string}) => {
   const [adminName, setAdminName] = useState(null);
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState("");
@@ -101,7 +101,7 @@ const handleAvatarChange = async (event) => {
 };
 
   return <>
-  <form autocomplete="off"  onSubmit={(e) => {
+  <form autoComplete="off"  onSubmit={(e) => {
     e.preventDefault()
     handleSave();
     }}>

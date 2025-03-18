@@ -1,14 +1,12 @@
 import EmojiPicker from "emoji-picker-react";
 import React, { useContext } from "react";
-import { ChatContext } from "../../../ChatContext";
 import { MessageContext } from "../MessageContext";
 import { ReactionPickerProps } from "../../../../types";
 
 export const ReactionPicker: React.FC<ReactionPickerProps> = ({
   reactionsPickerRef,
 }) => {
-  const { userName } = useContext(ChatContext);
-  const { message, addReaction } = useContext(MessageContext);
+  const {  addReaction } = useContext(MessageContext);
 
   return (
     <div
