@@ -1,6 +1,6 @@
 import { boolean, pgTable, serial, text } from "drizzle-orm/pg-core";
 
-export * from "@coyle/chat-db/schema"
+export * from "@coyle/chat-db/schema";
 
 export const getAStoreSignUps = pgTable("get_a_store_signups", {
   id: serial("id").primaryKey(),

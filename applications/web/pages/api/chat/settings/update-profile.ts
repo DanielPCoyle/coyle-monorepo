@@ -9,14 +9,14 @@ const SALT_ROUNDS = 10;
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     if (req.method === "PATCH") {
-      const user  = req.body;
-      
-      if(user.password.length > 0){
+      const user = req.body;
+
+      if (user.password.length > 0) {
         const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
         user.passwordHash = hashedPassword;
       }
 
-      console.log({user})
+      console.log({ user });
       await updateUser(user);
       res.status(200).json({ message: "User updated" });
     }

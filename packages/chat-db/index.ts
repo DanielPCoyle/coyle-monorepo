@@ -19,4 +19,4 @@ export { getUsersOnline } from "./src/chat/getUsersOnline";
 export { updateConversationSocketId } from "./src/chat/updateConversationSocketId";
 export { getConversationBySocketId } from "./src/chat/getConversationBySocketId";
 export { deleteUser } from "./src/chat/deleteUser";
-export {updateUser } from "./src/chat/settings/updateUser";
+export { updateUser } from "./src/chat/settings/updateUser";

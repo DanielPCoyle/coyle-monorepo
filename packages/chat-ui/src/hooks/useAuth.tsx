@@ -28,9 +28,7 @@ export const useAuth = () => {
       setId(data.user.conversationKey);
       setIsLoggedIn(true);
 
-      
-
-      if(data.user.role !== "admin"){
+      if (data.user.role !== "admin") {
         socket.emit("login", {
           userName: data.user.name,
           email: data.user.email,

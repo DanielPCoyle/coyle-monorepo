@@ -11,8 +11,6 @@ import { Thumbnail } from "./Thumbnail";
 import { uploadFileToSupabase } from "./uploadFileToSupabase";
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
-  
-
   const {
     id,
     token,
@@ -71,8 +69,6 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
   const toggleBlockType = (blockType) => {
     setEditorState(RichUtils.toggleBlockType(editorState, blockType));
   };
-
-  
 
   const sendMessage = async () => {
     const contentState = editorState.getCurrentContent();
