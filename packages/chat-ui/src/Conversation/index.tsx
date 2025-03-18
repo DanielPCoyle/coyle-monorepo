@@ -12,9 +12,9 @@ export const Conversation: React.FC = () => {
   if (loading)
     return (
       <div className="loading">
-          <div className="loadingIcon" data-testid="loading-icon">
-            <LoadingIcon />
-          </div>
+        <div className="loadingIcon" data-testid="loading-icon">
+          <LoadingIcon />
+        </div>
       </div>
     );
 

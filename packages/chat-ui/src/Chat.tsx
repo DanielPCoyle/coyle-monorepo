@@ -48,6 +48,7 @@ export const Chat = () => {
   }, [id, token]);
 
   useEffect(() => {
+    console.log("Joining room", id);
     socket.emit("join", { id });
     setMessages([]);
   }, [id, user]);
