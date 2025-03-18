@@ -6,7 +6,12 @@ import { CloseIcon } from "../assets/svg/CloseIcon";
 export const LightBox = ({
   setModalSource, modalSource, modalIndex,
 
-}) => <div className="modal">
+}) => <div className="modalWrapper"
+onClick={(e) => {
+  if ((e.target as HTMLElement).classList.contains("modalWrapper")) {
+    setModalSource(null);
+  }
+}}>
     <div className="modalContent">
       <img
         src={modalSource[modalIndex]}

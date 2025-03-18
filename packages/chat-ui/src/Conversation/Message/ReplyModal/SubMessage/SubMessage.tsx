@@ -8,7 +8,7 @@ import { Reactions } from "../../Reactions/Reactions";
 import { handleRemoveReaction } from "./reactionHandlers/handleRemoveReaction";
 import { handleAddReaction } from "./reactionHandlers/handleAddReaction";
 import { useSocketReactions } from "./reactionHandlers/useSocketReactions";
-
+import { useMessageSeen } from "../../../../hooks/useMessageSeen";
 
 export const SubMessage: React.FC<SubMessageType> = ({ reply, user, socket, email }) => {
   const [urlPreview] = useState<string | null>(null);
@@ -17,6 +17,7 @@ export const SubMessage: React.FC<SubMessageType> = ({ reply, user, socket, emai
   const [showReactionsPicker, setShowReactionsPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(reply.reactions || {});
+  const { seen, messageRef } = useMessageSeen(reply);
 
   useSocketReactions(socket, reply, setReactions);
 
@@ -33,7 +34,7 @@ export const SubMessage: React.FC<SubMessageType> = ({ reply, user, socket, emai
         reactions,
       }}
     >
-      <div data-testid="submessage-container">
+      <div ref={messageRef} data-testid="submessage-container">
         <MessageContent data-testid="message-content" />
         {showReactionsPicker && (
           <div data-testid="reaction-picker">

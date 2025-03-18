@@ -42,7 +42,6 @@ export const Chat = () => {
     };
     
     if (input.length > 0) {
-      console.log("Typing >>>",id,input);
       handleTyping();
     }
   }, [input, id, userName]);
@@ -62,7 +61,6 @@ export const Chat = () => {
   }, [id, token]);
 
   useEffect(() => {
-    console.log("Joining room", id);
     socket.emit("join", { id });
     setMessages([]);
   }, [id, user]);

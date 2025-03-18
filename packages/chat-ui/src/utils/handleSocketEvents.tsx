@@ -12,10 +12,26 @@ export const handleSocketEvents = (
   });
   socket.on("adminsOnline", setAdmins);
   socket.on("chat message", (message) => {
+    console.log("MESSAGE", message);
     setMessages((prev) => {
-      const newMessages = [...prev, message].filter(
-        (msg, index, self) => index === self.findIndex((m) => m.id === msg.id),
-      );
+
+
+
+      const newMessages = [...prev];
+      if(message.parentId){
+        const parentIndex = newMessages.findIndex((m) => m.id === message.parentId);
+        newMessages[parentIndex].replies = newMessages[parentIndex].replies || [];
+        if (!newMessages[parentIndex].replies.some((reply) => reply.id === message.id)) {
+          newMessages[parentIndex].replies.push(message);
+        }
+      } else {
+        if (!newMessages.some((msg) => msg.id === message.id)) {
+          newMessages.push(message);
+        }
+      }
+
+
+
       return newMessages.sort((a, b) => a.id - b.id);
     });
   });

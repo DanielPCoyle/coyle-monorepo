@@ -49,515 +49,597 @@
 }
 
 
+.replyModal h3 {
+  padding: 20px;
+}
+
 .coyleChat {
     display: flex;
-    border: solid 2px red;
     background: #000;
     color:white;
     height:98vh;
     width:100%;
 
-    .sidebar {
-      width: 25%;
-    }
     
-    .chatStack {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
 
-    button{
-      background: transparent;
-      color:white;
-      border:none;
-    }
+}
 
-    .messages{
-      height:70%;
-      background: #ccc;
-      overflow-y: scroll;
 
-      .messageContent {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 8px auto;
-        max-width: 75%;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      }
 
-      .senderAvatar {
-        width: 32px;
-        height: 32px;
-        background: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 40px;
-        border: solid 1px;
-      }
-      
-      .avatar {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-      }
-      
-      .sender {
-        font-size: 14px;
-        color: #555;
-        margin-bottom: 4px;
-      }
-      
-     .message {
-        margin-top:30px;
-        padding: 10px 14px;
-        border-radius: 18px;
-        font-size: 16px;
-        word-wrap: break-word;
-        max-width: 100%;
-        background-color: #007aff;
-        color: white;
-        min-width: 20vw;
-        align-self: flex-start; /* Aligns message to the left */
-      }
-      
-      /* Receiver (gray bubble, aligned left) */
-      .receiver {
-        flex-direction: row;
-      }
-      
-      .receiver .message {
-        background-color: #e5e5ea;
-        color: black;
-        border-radius: 18px 18px 18px 4px;
-      }
-      
-      /* Sender (blue bubble, aligned right) */
-      .sender {
-        flex-direction: row-reverse;
-      }
-      
-      .sender .message {
-        align-self: flex-end;
-      }
+.sidebar {
+  width: 25%;
+}
 
-      .senderInfo {
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        color: #555;
-        margin-top: 6px;
-        margin-top:-35px;
-      }
-      
-      .senderInfo img {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-      }
-      
-      /* Message actions (emoji & reply) */
-      .messageActions {
-        display: flex;
-        gap: 6px;
-        bottom: -20px;
-        right: 10px;
-      }
-      
-      .messageActions button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        padding: 2px;
-        color: #888;
-      }
-      
-      .message img {
-        max-width: 100%;
-        border-radius: 12px;
-        margin: 6px 0;
-      }
+.chatStack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-    }
+button{
+  background: transparent;
+  color:white;
+  border:none;
+}
 
-    .noAdmins {
-      background: #544fd2;
-      text-align: center;
-      padding: 10px;
+.messages{
+  height:70%;
+  background: #ccc;
+  overflow-y: scroll;
+
+
+}
+
+
+.message {
+  margin-top:30px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 16px;
+  word-wrap: break-word;
+  max-width: 100%;
+  background-color: #007aff;
+  color: white;
+  min-width: 20vw;
+  align-self: flex-start; /* Aligns message to the left */
+}
+
+
+.messageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 8px auto;
+  max-width: 75%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.senderAvatar {
+  width: 32px;
+  height: 32px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  border: solid 1px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.sender {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+
+
+  /* Receiver (gray bubble, aligned left) */
+  .receiver {
+    flex-direction: row;
   }
   
-  .inputContainer {
-      background: #2f2f2f;
+  .receiver .message {
+    background-color: #e5e5ea;
+    color: black;
+    border-radius: 18px 18px 18px 4px;
   }
   
- 
-  .DraftEditor-editorContainer {
-    border: solid 1px;
-    border-radius: 5px;
-    min-height: 100px;
-    width:95%;
-    margin: auto;
-    padding:15px;
+  /* Sender (blue bubble, aligned right) */
+  .sender {
+    flex-direction: row-reverse;
+  }
+  
+  .sender .message {
+    align-self: flex-end;
+  }
+
+  .senderInfo {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+    margin-top: 6px;
+    margin-top:-35px;
+  }
+  
+  .senderInfo img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+  }
+  
+  /* Message actions (emoji & reply) */
+  .messageActions {
+    display: flex;
+    gap: 6px;
+    bottom: -20px;
+    right: 10px;
+  }
+  
+  .messageActions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px;
+    color: #888;
+  }
+  
+  .message img {
+    max-width: 100%;
+    border-radius: 12px;
+    height: auto;
+    margin: 6px 0;
+  }
+
+
+.noAdmins {
+  background: #544fd2;
+  text-align: center;
+  padding: 10px;
+}
+
+.inputContainer {
+  background: #2f2f2f;
+}
+
+
+.DraftEditor-editorContainer {
+border: solid 1px;
+border-radius: 5px;
+min-height: 100px;
+width:95%;
+margin: auto;
+padding:15px;
 }
 
 .public-DraftEditorPlaceholder-root{
-  padding:15px;
-  padding-left:35px;
+padding:15px;
+padding-left:35px;
 }
 
-  .buttonContainer{
-    display:flex;
-    width:95%;
-    margin:auto;
+.buttonContainer{
+display:flex;
+width:95%;
+margin:auto;
 
-  }
-  
-  .messageAddOns{
-    display: flex;
-        justify-content: center;
-        align-items: center;
-  }
+}
 
-  button.sendButton {
-    margin-left: auto;
-    padding: 15px;
-    background: #5450d3;
-    margin-top: 10px;
-    margin-bottom:10px;
-    border-radius: 10px;
-  }
+.messageAddOns{
+display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-  .hideFileInput input{
-    display:none;
-  }
+button.sendButton {
+margin-left: auto;
+padding: 15px;
+background: #5450d3;
+margin-top: 10px;
+margin-bottom:10px;
+border-radius: 10px;
+}
 
-  .emojiButton{
-    font-size:2em;
-  }
+.hideFileInput input{
+display:none;
+}
 
-  .formattingBar {
-    width: 98%;
-    margin: auto;
-    padding: 10px;
-    .formatButton{
-      color:white;
-      border:none;
-      padding: 10px;
-      border-radius: 5px;
-      margin-right: 10px;
-    }
+.emojiButton{
+font-size:2em;
+}
 
-    .formatButton:hover{
-      background: #5450d3;
-      cursor: pointer;
-    }
-  }
+.formattingBar {
+width: 98%;
+margin: auto;
+padding: 10px;
+.formatButton{
+  color:white;
+  border:none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
 
-  .sidebar{
-    padding-left: 75px;
-    padding-right: 15px;
-  }
+.formatButton:hover{
+  background: #5450d3;
+  cursor: pointer;
+}
+}
 
-  .pointer{
-    cursor: pointer;
-  }
+.sidebar{
+padding-left: 75px;
+padding-right: 15px;
+}
 
- .responsiveMenuButton{
-  display:none;
+.pointer{
+cursor: pointer;
+}
+
+.responsiveMenuButton{
+display:none;
 }
 
 .menuButton{
-  display:none;
+display:none;
 }
 
 .sidebarToggle{
-  display:none;
+display:none;
 }
 
 @media (max-width: 1200px) {
-  .sidebar.close{
-    display:none;
-  }
-
-  .sidebarToggle{
-    top:95px !important;
-  }
-
-  .menuButton{
-    display:block;
-  }
-  
-  .sidebar.open{
-    display:block;
-    width: 87%;
-    position: absolute;
-    background: black;
-    height:98vh;
-    z-index: 9;
-    padding-left: 70px;
-  }
+.sidebar.close{
+display:none;
 }
 
-.settingsNav {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: start;
-}
-
-.settingsNav button {
-  padding: 15px;
+.sidebarToggle{
+top:95px !important;
 }
 
 .menuButton{
-  position: absolute;
-  top:35px;
-  left:20px;
-  z-index: 10;
+display:block;
+}
+
+.sidebar.open{
+display:block;
+width: 87%;
+position: absolute;
+background: black;
+height:98vh;
+z-index: 9;
+padding-left: 70px;
+}
+}
+
+.settingsNav {
+display: flex;
+flex-direction: column;
+justify-content: start;
+align-items: start;
+}
+
+.settingsNav button {
+padding: 15px;
+}
+
+.menuButton{
+position: absolute;
+top:35px;
+left:20px;
+z-index: 10;
 }
 
 .sidebarToggle {
-  position: absolute;
-  left: 5px;
-  top: 25px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap:20px;
+position: absolute;
+left: 5px;
+top: 25px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap:20px;
 
-  button{
-    padding:10px;
-    border-radius: 10px;
-  }
+button{
+padding:10px;
+border-radius: 10px;
+}
 
-  .active{
-    background: #5450d3;
-  }
+.active{
+background: #5450d3;
+}
 }
 
 .immediateSettings {
-  display: flex;
-  gap: 20px;
-  padding:10px;
-  align-items: center;
+display: flex;
+gap: 20px;
+padding:10px;
+align-items: center;
 }
 
 .immediateSettings {
-  margin-top: 20px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+margin-top: 20px;
+padding: 10px;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 8px;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  padding: 10px ;
-  padding-right:20px;
+display: flex;
+flex-direction: column;
+align-items: start;
+justify-content: start;
+padding: 10px ;
+padding-right:20px;
 }
 
 .goBack{
-  position: relative;
-  top:50px;
+position: relative;
+top:50px;
 }
 
 select,input{
-  width:100%;
-  padding:10px;
-  margin: 0px;
-  border-radius: 10px;
+width:100%;
+padding:10px;
+margin: 0px;
+border-radius: 10px;
 }
 
 .saveButton{
-  padding: 20px;
-  background: #5450d3;
-  border-radius: 10px;
-  margin-top:10px;
-  margin-bottom: 30px;
+padding: 20px;
+background: #5450d3;
+border-radius: 10px;
+margin-top:10px;
+margin-bottom: 30px;
 }
 
 .formGroup label {
-  font-size: 14px;
+font-size: 14px;
 }
 
 .statusDropdown,
 input[type="checkbox"] {
-  cursor: pointer;
+cursor: pointer;
 }
 
 /* Conversation list */
 .conversationList {
-  margin-top: 20px;
-  
+margin-top: 20px;
+
 }
 
 .conversationList h3 {
-  font-size: 16px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding-bottom: 5px;
+font-size: 16px;
+margin-bottom: 10px;
+border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+padding-bottom: 5px;
 }
 
 .conversationListItem {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  margin: 5px 0;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 10px;
+background: rgba(255, 255, 255, 0.1);
+border-radius: 6px;
+margin: 5px 0;
+cursor: pointer;
+transition: background 0.2s ease-in-out;
 }
 
 .conversationListItem:hover {
-  background: rgba(255, 255, 255, 0.2);
+background: rgba(255, 255, 255, 0.2);
 }
 
 /* Active dot indicator */
 .activeDot {
-  width: 10px;
-  height: 10px;
-  background: #00ff00;
-  border-radius: 50%;
+width: 10px;
+height: 10px;
+background: #00ff00;
+border-radius: 50%;
 }
 
 .overflowHidden{
-  overflow:hidden;
+overflow:hidden;
 }
 
 .settingsNav button {
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: auto;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: auto;
 }
 
 .settingsNav {
-  button {padding-top: 10px; padding-bottom:10px; display: flex;justify-content: center;align-items: center;}
+button {padding-top: 10px; padding-bottom:10px; display: flex;justify-content: center;align-items: center;}
 }
 
 .settingsContainer {
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
+height: 90vh;
+display: flex;
+flex-direction: column;
 }
 
 
 .loading{
-  width:100%;
-  height:100%;
-  display:absolute;
-  display:flex;
-  justify-self:center;
-  align-self:center;
+width:100%;
+height:100%;
+display:absolute;
+display:flex;
+justify-self:center;
+align-self:center;
 
-    .loadingIcon {
-      margin: auto;
-      animation: rotate 1s linear infinite;
-    }
+.loadingIcon {
+  margin: auto;
+  animation: rotate 1s linear infinite;
+}
 
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 }
 
 li.adminItem {
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  width: 100%;
+display: flex;
+justify-content: start;
+align-items: center;
+padding-top: 10px;
+padding-bottom: 10px;
+margin-bottom: 10px;
+width: 100%;
 }
 
 .adminActions {
-  margin-left: auto;
+margin-left: auto;
 }
 
 .avatarUpload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 20px;
 }
 
 .avatarPreview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ddd;
-  margin-bottom: 10px;
+width: 100px;
+height: 100px;
+border-radius: 50%;
+object-fit: cover;
+border: 3px solid #ddd;
+margin-bottom: 10px;
 }
 
 .avatarInput {
-  font-size: 14px;
-  cursor: pointer;
-  padding: 5px;
+font-size: 14px;
+cursor: pointer;
+padding: 5px;
 }
 
 
 ul.adminItems {
-  padding: 0;
+padding: 0;
 }
 
 hr{
-  width: 100%;
+width: 100%;
 }
 
 .thumbnails {
-  display: flex;
-  gap: 20px;
-  padding: 10px;
-  position: absolute;
-  top: -117px;
+display: flex;
+gap: 20px;
+padding: 10px;
+position: absolute;
+top: -117px;
 }
 
 .sender {
-  display: flex;
+display: flex;
 }
 
 .senderReactionPicker {
-  display: flex;
-  justify-content: end;
-  width: 72%;
-  margin: auto;
+display: flex;
+justify-content: end;
+width: 72%;
+margin: auto;
 }
 
 .receiverReactionPicker {
-  display: flex;
-  width: 73%;
-  margin: auto;
+display: flex;
+width: 73%;
+margin: auto;
 }
 
 .senderReactions {
-  display: flex;
-  justify-content: end;
-  width: 40%;
-  margin: auto;
+display: flex;
+justify-content: end;
+width: 40%;
+margin: auto;
 }
 
 .receiverReactions {
-  display: flex;
-  width: 70%;
+display: flex;
+width: 70%;
+margin: auto;
+}
+
+.modalWrapper {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left:0;
+  width: 100%;
+  background: #000000bf;
+}
+
+.coyleChat.modal {
+  width: 60%;
+  display: block;
   margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .showReply{
+    display:none;
+  }
 }
 
+button.closeModal {
+  position: absolute;
+  top: -20px;
+  right: -25px;
 }
 
+.replyModal {
+  position: relative;
+  display: flex
+;
+  flex-direction: column;
+}
 
+.replies {
+  overflow-y: auto;
+  height:50vh;
+}
 
+.modalContent{
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width:50%;
+  border-radius: 10px;
+  margin:auto;
+  margin-top:20px;
+  padding-top:20px;
+  padding-bottom: 20px;
+  position:relative;
+
+  .closeButton{
+    position:absolute;
+    top: -5px;
+    right: -10px;
+  }
+
+  img{
+    width: 90%;
+    max-width:500px;
+    margin: auto;
+    height: auto;
+  }
+  
+}
+
+.DraftEditor-editorContainer{
+  border-left:solid 1px !important;
+}

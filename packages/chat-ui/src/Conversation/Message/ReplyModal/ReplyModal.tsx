@@ -15,12 +15,19 @@ export const ReplyModal: React.FC = () => {
     showReplyModal, setShowReplyModal, message, showReactionsPicker, reactionsPickerRef, addReaction
   } = useContext(MessageContext);
 
-  const {user, email, socket} = useContext(ChatContext);
   
-  return <Modal
-    isOpen={showReplyModal}
-    contentLabel="Example Modal"
+  const {user, email, socket} = useContext(ChatContext);
+  if(Boolean(showReplyModal) === false) return null;
+
+  return <div
+    className="modalWrapper"
+    onClick={(e) => {
+      if ((e.target as HTMLElement).classList.contains("modalWrapper")) {
+      setShowReplyModal(false);
+      }
+    }}
   >
+    <div className="coyleChat modal">
     <div className="replyModal animate__animated animate__fadeIn">
       <div>
         <h3>Replying to...</h3>
@@ -62,5 +69,6 @@ export const ReplyModal: React.FC = () => {
         </div>
       </div>
     </div>
-  </Modal>;
+    </div>
+  </div>;
 };
