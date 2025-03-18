@@ -194,11 +194,8 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
               placeholder="Type a message..."
             />
           </div>
-          <button onClick={sendMessage} className="sendButton">
-            <SendSvg />
-          </button>
-        </div>
-        <MessageAddons
+          <div className="buttonContainer">
+          <MessageAddons
           {...{
             handleFileUpload,
             showEmojiPicker,
@@ -208,6 +205,11 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
             typing,
           }}
         />
+          <button onClick={sendMessage} className="sendButton">
+            <SendSvg />
+          </button>
+          </div>
+        </div>
       </div>
     </>
   );

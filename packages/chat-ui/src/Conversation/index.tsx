@@ -22,7 +22,7 @@ export const Conversation: React.FC = () => {
 
   return (
     <>
-      <ThreeJsBackground />
+      {/* <ThreeJsBackground /> */}
       <div ref={contentRef} className="messagesContainer">
         <div>
           {messages

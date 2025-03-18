@@ -17,7 +17,8 @@ export const MessageContent = () => {
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
     >
-      <div>
+      <div className="message">
+      <div className="senderInfo">
         <div
           className="senderAvatar"
         >
@@ -38,7 +39,7 @@ export const MessageContent = () => {
       </div>
       <FilePreview message={message} />
       <div
-        className="message"
+        
         dangerouslySetInnerHTML={{ __html: message.message }}
       />
       <LinkPreview message={message} />
@@ -59,6 +60,7 @@ export const MessageContent = () => {
         >
           <ReplySvg /> {message?.replies?.length > 0 && message.replies.length}
         </button>
+      </div>
       </div>
     </div>
   );

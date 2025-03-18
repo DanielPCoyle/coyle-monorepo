@@ -98,7 +98,7 @@ export const Chat = () => {
           setEmail={setEmail}
         />
       ) : (
-        <div className="animate__animated animate__fadeIn chatFlex">
+        <div className="animate__animated animate__fadeIn coyleChat">
           {user?.role === "admin" && <SideBar />}
           <div className="chatStack">
             <div className="messages">
