@@ -87,7 +87,6 @@ export const LoginForm: React.FC = () => {
       )}
       <div>
         <small
-        
           onClick={() => setShowAdminLogin(!showAdminLogin)}
           data-testid="toggle-login-mode"
         >

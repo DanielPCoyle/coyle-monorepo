@@ -13,13 +13,8 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
   typing,
 }) => {
   return (
-    <div
-     
-      data-testid="message-addons-container"
-    >
-      <label
-        data-testid="file-upload-label"
-      >
+    <div data-testid="message-addons-container">
+      <label data-testid="file-upload-label">
         <input
           type="file"
           onChange={handleFileUpload}
@@ -34,10 +29,7 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
         🙂
       </button>
       {showEmojiPicker && (
-        <div
-          ref={emojiPickerRef}
-          data-testid="emoji-picker"
-        >
+        <div ref={emojiPickerRef} data-testid="emoji-picker">
           <Picker data={data} onEmojiSelect={insertEmoji} />
         </div>
       )}

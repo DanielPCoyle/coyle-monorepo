@@ -10,9 +10,7 @@ export const FormattingBar: React.FC<FormattingBarProps> = ({
   toggleBlockType,
 }) => {
   return (
-    <div
-    
-    >
+    <div>
       <button
         onClick={() => toggleInlineStyle("BOLD")}
         className="formatButton"

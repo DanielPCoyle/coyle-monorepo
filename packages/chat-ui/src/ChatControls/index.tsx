@@ -179,7 +179,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
             ))}
           </div>
         )}
-        <div >
+        <div>
           <FormattingBar {...{ toggleInlineStyle, toggleBlockType }} />
         </div>
         <div>

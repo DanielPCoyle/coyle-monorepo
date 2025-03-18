@@ -48,10 +48,5 @@ export const ThreeJsBackground: React.FC = () => {
     };
   }, []);
 
-  return (
-    <div
-      data-testid="threejs-container"
-      ref={mountRef}
-    />
-  );
+  return <div data-testid="threejs-container" ref={mountRef} />;
 };
