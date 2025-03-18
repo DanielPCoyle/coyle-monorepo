@@ -12,19 +12,17 @@ export const Conversation: React.FC = () => {
   if (loading)
     return (
       <div className="loading">
-        <div>
-          <div className="loadingIcon" data-testid="loading-icon">
-            <LoadingIcon />
-          </div>
+        <div className="loadingIcon" data-testid="loading-icon">
+          <LoadingIcon />
         </div>
       </div>
     );
 
   return (
     <>
-      <ThreeJsBackground />
-      <div ref={contentRef} className="messageContainer">
-        <div style={{ width: "90%", margin: "auto" }}>
+      {/* <ThreeJsBackground /> */}
+      <div ref={contentRef} className="messagesContainer">
+        <div>
           {messages
             .filter((message: MessageType) => !message.parentId)
             .map((message: MessageType, index: number) => (

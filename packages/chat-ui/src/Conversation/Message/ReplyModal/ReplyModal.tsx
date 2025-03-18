@@ -9,20 +9,7 @@ import {MessageContext} from "../MessageContext";
 import { useContext } from "react";
 import { ChatContext } from "../../../ChatContext";
 import { CloseIcon } from "../../../../assets/svg/CloseIcon";
-const customStyles = {
-  overlay: {
-    insert: 1,
-    backgroundColor: "rgba(0,0,0,0.6)",
-  },
-  content: {
-    background: "black",
-    borderRadius: "10px",
-    border: "none",
-    width: "50%",
-    height: "100%",
-    margin: "auto",
-  },
-};
+
 export const ReplyModal: React.FC = () => {
   const {
     showReplyModal, setShowReplyModal, message, showReactionsPicker, reactionsPickerRef, addReaction
@@ -32,11 +19,10 @@ export const ReplyModal: React.FC = () => {
   
   return <Modal
     isOpen={showReplyModal}
-    style={customStyles}
     contentLabel="Example Modal"
   >
     <div className="replyModal animate__animated animate__fadeIn">
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
         <h3>Replying to...</h3>
         <button
           className="closeModal"
@@ -70,7 +56,7 @@ export const ReplyModal: React.FC = () => {
         )}
       </div>
       <hr />
-      <div style={{ overflow: "hidden" }}>
+      <div>
         <div className="animate__animated animate__faster animate__slideInDown">
           <ChatControls replyId={message.id} />
         </div>

@@ -15,7 +15,6 @@ export const FilePreview: React.FC<FilePreviewProps> = ({ message }) => {
             alt="file"
             width={200}
             height={200}
-            style={{ width: 200, borderRadius: 10 }}
             data-testid="file-preview-image"
             onClick={() => {
               setModalSource(message?.files || []);

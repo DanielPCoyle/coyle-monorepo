@@ -43,7 +43,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       <div
         ref={messageRef}
         className="animate__animated animate__zoomIn messageContainer"
-        style={{ alignItems: message.sender === user ? "flex-end" : "flex-start" }}
         key={index}
         data-testid={`message-${index}`}
       >

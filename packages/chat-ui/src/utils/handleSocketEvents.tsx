@@ -20,7 +20,8 @@ export const handleSocketEvents = (
     });
   });
   socket.on("user typing", (data) => {
-    if (data.name !== user?.name) setTyping(data);
+    console.log("TYPING",data);
+    setTyping(data);
   });
   socket.on("user not typing", (data) => {
     if (data.user !== user?.name) setTyping(null);

@@ -7,7 +7,9 @@ export const useAuth = () => {
     setUserName,
     setEmail,
     setIsLoggedIn,
+    setId,
     setNotificationsEnabled,
+    socket,
   } = useContext(ChatContext);
   const [token, setToken] = useState(null);
   const getAndSetUser = async (jwtToken: string) => {
@@ -23,7 +25,15 @@ export const useAuth = () => {
       setUserName(data.user.name);
       setEmail(data.user.email);
       setNotificationsEnabled(data.user.notificationsEnabled);
+      setId(data.user.conversationKey)
       setIsLoggedIn(true);
+  
+      socket.emit("login", {
+        userName: data.user.name,
+        email: data.user.email,
+        id: data.user.conversationKey,
+        isAdmin: false,
+      });
       if (token !== jwtToken) {
         setToken(jwtToken);
       }

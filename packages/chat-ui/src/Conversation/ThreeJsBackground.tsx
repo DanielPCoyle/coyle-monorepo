@@ -48,17 +48,5 @@ export const ThreeJsBackground: React.FC = () => {
     };
   }, []);
 
-  return (
-    <div
-      data-testid="threejs-container"
-      ref={mountRef}
-      style={{
-        position: "absolute",
-        width: "100%",
-        height: "75vh",
-        zIndex: 0,
-        overflow: "hidden",
-      }}
-    />
-  );
+  return <div data-testid="threejs-container" ref={mountRef} />;
 };

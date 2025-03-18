@@ -30,12 +30,27 @@ export const Chat = () => {
   const [files, setFiles] = useState([]);
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
+  const [status, setStatus] = useState("online");
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
+  useEffect(() => {
+    const handleTyping = () => {
+      socket.emit("user typing", {
+        conversationKey: id,
+        userName,
+      });
+    };
+    
+    if (input.length > 0) {
+      console.log("Typing >>>",id,input);
+      handleTyping();
+    }
+  }, [input, id, userName]);
 
   useEffect(() => {
-    setId(localStorage.getItem("id") || Math.random().toString(36).substring(7));
-    setToken(localStorage.getItem("jwt") || null);
+    if(localStorage.getItem("jwt")){
+      setToken(localStorage.getItem("jwt") || null);
+    }
   },[]);
 
   useEffect(() => {
@@ -47,6 +62,7 @@ export const Chat = () => {
   }, [id, token]);
 
   useEffect(() => {
+    console.log("Joining room", id);
     socket.emit("join", { id });
     setMessages([]);
   }, [id, user]);
@@ -84,6 +100,8 @@ export const Chat = () => {
         setUser,
         setUserName,
         setToken,
+        setStatus,
+        status,
         socket,
         typing,
         user,
@@ -98,7 +116,7 @@ export const Chat = () => {
           setEmail={setEmail}
         />
       ) : (
-        <div className="animate__animated animate__fadeIn chatFlex">
+        <div className="animate__animated animate__fadeIn coyleChat">
           {user?.role === "admin" && <SideBar />}
           <div className="chatStack">
             <div className="messages">

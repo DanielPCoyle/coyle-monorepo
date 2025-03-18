@@ -14,9 +14,20 @@ export const ChatAdministators = () => {
     // TODO: Handle Edit Admin, add edit screen
   };
 
-  const handleDelete = (id) => {
-    console.log("Delete admin", id);
+  const handleDelete = async (id) => {
+    const answer =  window.confirm("Are you sure you want to delete this admin?");
+    if(!answer) return;
     setSelected(id);
+    fetch(`/api/chat/settings/delete-admin-user`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+      body: JSON.stringify({ id }),
+    }).then(() => {
+      setAdmins(admins.filter((admin) => admin.id !== id));
+      alert("Admin deleted successfully");
+    });
     // TODO: Handle Delete Admin
   };
 

@@ -32,6 +32,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     admins,
   } = useContext(ChatContext);
 
+
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );
@@ -179,10 +180,10 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
             ))}
           </div>
         )}
-        <div style={{ display: "flex" }}>
+        <div>
           <FormattingBar {...{ toggleInlineStyle, toggleBlockType }} />
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div>
           <div className="editor">
             <Editor
               editorState={editorState}
@@ -194,20 +195,22 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
               placeholder="Type a message..."
             />
           </div>
-          <button onClick={sendMessage} className="sendButton">
-            <SendSvg />
-          </button>
+          <div className="buttonContainer">
+            <MessageAddons
+              {...{
+                handleFileUpload,
+                showEmojiPicker,
+                setShowEmojiPicker,
+                emojiPickerRef,
+                insertEmoji,
+                typing,
+              }}
+            />
+            <button onClick={sendMessage} className="sendButton">
+              <SendSvg />
+            </button>
+          </div>
         </div>
-        <MessageAddons
-          {...{
-            handleFileUpload,
-            showEmojiPicker,
-            setShowEmojiPicker,
-            emojiPickerRef,
-            insertEmoji,
-            typing,
-          }}
-        />
       </div>
     </>
   );

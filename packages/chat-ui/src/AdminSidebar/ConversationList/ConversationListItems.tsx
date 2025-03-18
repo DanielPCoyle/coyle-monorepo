@@ -54,7 +54,6 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        style={{ padding: "10px", color: "gray" }}
       >
         No conversations...
       </motion.div>

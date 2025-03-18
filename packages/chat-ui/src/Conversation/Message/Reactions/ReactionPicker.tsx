@@ -14,9 +14,6 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
     <div
       className="reactionsPicker"
       data-testid="reaction-picker-container"
-      style={{
-        textAlign: userName === message.sender ? "right" : "left",
-      }}
     >
       <div
         className="animate__animated animate__slideInUp"

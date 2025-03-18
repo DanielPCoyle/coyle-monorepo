@@ -8,7 +8,6 @@ import { useAuth } from "../hooks/useAuth";
 export const LoginForm: React.FC = () => {
   const { getAndSetUser } = useAuth();
   const {
-    id,
     userName,
     setUserName,
     email,
@@ -24,6 +23,9 @@ export const LoginForm: React.FC = () => {
     const endpoint = showAdminLogin
       ? "/api/auth/login"
       : "/api/auth/guest-token";
+
+    const id = Math.random().toString(36).substring(2, 15);
+
     const payload = showAdminLogin
       ? { email, password }
       : { conversationKey: id, name: userName, email };
@@ -59,7 +61,6 @@ export const LoginForm: React.FC = () => {
       </p>
       <div className="iconContainer" data-testid="lottie-container">
         <DotLottieReact
-          style={{ width: "auto", height: "auto", transform: "scale(2)" }}
           src="https://lottie.host/1ae6808e-3519-498e-a1bf-f85a9dec2b3b/COxuVY2DPb.lottie"
           loop
           autoplay
@@ -86,7 +87,7 @@ export const LoginForm: React.FC = () => {
           />
         </div>
       )}
-      <div style={{ marginTop: "20px" }}>
+      <div>
         <small
           onClick={() => setShowAdminLogin(!showAdminLogin)}
           data-testid="toggle-login-mode"

@@ -12,6 +12,7 @@ export default async function handler(
   }
 
   const { name, email, conversationKey } = req.body;
+  
 
   if (!email || !name) {
     return res.status(400).json({ error: "Email and name are required" });

@@ -11,8 +11,10 @@ export const useMessageSeen = (message: MessageType) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
+        console.log({entry, userName, message});
         if (entry.isIntersecting && userName !== message.sender && !seen) {
           // Ensure we only emit once
+          console.log("Emitting seen for message", message.id);
           socket.emit("seen", message.id);
           setSeen(true); // Ensure state updates and prevents multiple emits
         }
