@@ -35,6 +35,20 @@ export const Chat = () => {
 
 
   useEffect(() => {
+    if (!id) return;
+    const handleTyping = () => {
+      socket.emit("user typing", {
+        conversationKey: id,
+        userName,
+      });
+    };
+
+    if (input.length > 0) {
+      handleTyping();
+    }
+  }, [input, id, userName]);
+
+  useEffect(() => {
     setId(localStorage.getItem("id") || Math.random().toString(36).substring(7));
     setToken(localStorage.getItem("jwt") || null);
   },[]);
