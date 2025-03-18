@@ -11,23 +11,25 @@ export const SideBar = () => {
   const [showMenu, setShowMenu] = useState(false);
   return (
     <>
-    <button className="menuButton" onClick={() => setShowMenu(!showMenu)}>
-      {showMenu ? <CloseIcon /> : <MenuIcon /> }
-    </button>
-      <div className={`sidebar ${showMenu ? "open" : "close"} animate__animated animate__fadeInLeft`}>
+      <button className="menuButton" onClick={() => setShowMenu(!showMenu)}>
+        {showMenu ? <CloseIcon /> : <MenuIcon />}
+      </button>
+      <div
+        className={`sidebar ${showMenu ? "open" : "close"} animate__animated animate__fadeInLeft`}
+      >
         <div className="sidebarToggle">
-            <button
-              className={`animate__animated animate__slideInUp ${view === "conversations" ? "active" : ""}`}
-              onClick={() => setView("conversations")}
-            >
-              <ChatIcon />
-            </button>
-            <button
-              className={`animate__animated animate__slideInUp ${view === "settings" ? "active" : ""}`}
-              onClick={() => setView("settings")}
-            >
-              <CogSvg />
-            </button>
+          <button
+            className={`animate__animated animate__slideInUp ${view === "conversations" ? "active" : ""}`}
+            onClick={() => setView("conversations")}
+          >
+            <ChatIcon />
+          </button>
+          <button
+            className={`animate__animated animate__slideInUp ${view === "settings" ? "active" : ""}`}
+            onClick={() => setView("settings")}
+          >
+            <CogSvg />
+          </button>
         </div>
         {view === "conversations" ? <ConversationList /> : <Settings />}
       </div>

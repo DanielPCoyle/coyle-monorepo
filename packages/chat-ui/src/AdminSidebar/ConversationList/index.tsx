@@ -68,6 +68,15 @@ export const ConversationList: React.FC = () => {
           toggleDrawer={toggleDrawer}
           conversations={conversations.filter((c) => c?.isActive)}
         />
+
+<h3>Admins Online</h3>
+          <ConversationListItems
+            socket={socket}
+            toggleDrawer={toggleDrawer}
+            conversations={admins}
+          />
+
+
         <div className="historicConversations" data-testid="historic-conversations">
           <h3
             className="pointer"
@@ -93,12 +102,7 @@ export const ConversationList: React.FC = () => {
               </div>
             </div>
           )}
-          <h3>Admins Online</h3>
-          <ConversationListItems
-            socket={socket}
-            toggleDrawer={toggleDrawer}
-            conversations={admins}
-          />
+          
         </div>
       </div>
     </>

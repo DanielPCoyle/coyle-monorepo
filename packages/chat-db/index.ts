@@ -16,3 +16,4 @@ export { updateUserNotificationsEnabled } from "./src/chat/updateUserNotificatio
 export { getUsersOnline } from "./src/chat/getUsersOnline";
 export { updateConversationSocketId } from "./src/chat/updateConversationSocketId";
 export { getConversationBySocketId } from "./src/chat/getConversationBySocketId";
+export { deleteUser } from "./src/chat/deleteUser";
