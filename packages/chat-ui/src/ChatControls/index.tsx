@@ -179,10 +179,10 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
             ))}
           </div>
         )}
-        <div style={{ display: "flex" }}>
+        <div >
           <FormattingBar {...{ toggleInlineStyle, toggleBlockType }} />
         </div>
-        <div style={{ display: "flex", alignItems: "center" }}>
+        <div>
           <div className="editor">
             <Editor
               editorState={editorState}

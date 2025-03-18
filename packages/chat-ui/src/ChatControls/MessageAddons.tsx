@@ -14,34 +14,21 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
 }) => {
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        marginTop: "10px",
-      }}
+     
       data-testid="message-addons-container"
     >
       <label
-        style={{ marginLeft: "10px", cursor: "pointer" }}
         data-testid="file-upload-label"
       >
         <input
           type="file"
           onChange={handleFileUpload}
-          style={{ display: "none" }}
           data-testid="file-upload-input"
         />
         <ImageSvg data-testid="image-icon" />
       </label>
       <button
         onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-        style={{
-          marginLeft: "10px",
-          background: "none",
-          border: "none",
-          fontSize: "30px",
-        }}
         data-testid="emoji-toggle-button"
       >
         🙂
@@ -49,12 +36,6 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
       {showEmojiPicker && (
         <div
           ref={emojiPickerRef}
-          style={{
-            position: "absolute",
-            bottom: "60px",
-            left: "10px",
-            zIndex: 100,
-          }}
           data-testid="emoji-picker"
         >
           <Picker data={data} onEmojiSelect={insertEmoji} />

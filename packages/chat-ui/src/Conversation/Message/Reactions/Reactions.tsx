@@ -12,9 +12,6 @@ export const Reactions: React.FC<ReactionsProps> = ({
   return (
     <div
       className="reactionsContainer animate__animated animate__fadeInUp"
-      style={{
-        justifyContent: isSender ? "flex-end" : "flex-start",
-      }}
     >
       <div className="reactions">
         {Object.keys(reactions).map((key) =>
@@ -26,7 +23,6 @@ export const Reactions: React.FC<ReactionsProps> = ({
                 }
               }}
               key={idx}
-              style={{ cursor: "pointer" }}
             >
               {emoji}
             </span>

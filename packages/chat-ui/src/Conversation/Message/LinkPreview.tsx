@@ -35,7 +35,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
 
   if (loading) {
     return (
-      <div data-testid="loading-indicator" style={{ overflow: "hidden" }}>
+      <div data-testid="loading-indicator" >
         <div className="animate__animated animate__fadeInLeft animate__infinite" data-testid="loading-state">
           <ThreeDotsIcon />
         </div>
@@ -49,7 +49,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
       : new URL(urlPreview.url).searchParams.get("v");
 
     return (
-      <div data-testid="youtube-preview" style={{ marginTop: "10px" }}>
+      <div data-testid="youtube-preview" >
         <iframe
           width="100%"
           height="315"
@@ -70,20 +70,13 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
         href={urlPreview.url}
         target="_blank"
         rel="noreferrer"
-        style={{ color: "blue" }}
         data-testid="url-preview-link"
       >
         <div
           className="urlPreview"
           data-testid="url-preview-container"
-          style={{
-            marginTop: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "10px",
-            padding: "10px",
-          }}
         >
-          <div style={{ fontWeight: "bold" }} data-testid="url-preview-title">
+          <div data-testid="url-preview-title">
             {urlPreview.title}
           </div>
           <div data-testid="url-preview-description">{urlPreview.description}</div>
@@ -91,9 +84,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
             <img
               src={urlPreview.image}
               alt="preview"
-              width={500}
-              height={300}
-              style={{ width: "45%", margin: "auto", borderRadius: "10px" }}
+              className="urlPreviewImage"
               data-testid="url-preview-image"
             />
           )}

@@ -1,0 +1,382 @@
+@import url("https://fonts.googleapis.com/css2?family=New+Amsterdam");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url("./blog.css");
+
+
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.mdc-button__label,
+.btn {
+  font-family: "New Amsterdam", sans-serif !important;
+  font-weight: 400;
+  font-style: normal;
+  margin: inherit;
+}
+
+.navContainer {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Set navigation container to span full width and center within max width */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+nav * {
+  font-family: "New Amsterdam", sans-serif !important;
+}
+
+nav .logo img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: #333;
+  font-size: clamp(20px, 1.7vw, 1.7vw);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: rgba(126, 211, 33, 1);
+}
+
+nav ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #555;
+  padding: 0.5rem 0;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  z-index: 8;
+}
+
+@media (max-width: 768px) {
+  nav ul ul {
+    display: block;
+    position: relative;
+    top: auto;
+    left: auto;
+    background-color: transparent;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    * {
+      color: black !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .communicationBox {
+    display: none;
+  }
+}
+
+nav ul li:hover > ul,
+nav ul li ul:hover {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+nav ul ul li a {
+  color: white;
+  padding: 0.5rem 1.5rem;
+  display: block;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+nav ul ul li a:hover {
+  background-color: #666;
+}
+
+.navUser {
+  position: relative;
+  font-size: 20px;
+  div {
+    margin-left: 5px;
+    margin-top: 2px;
+  }
+}
+
+.dropDown {
+  display: none;
+  position: absolute;
+  top: 100%; /* Adjust to position it under the navUser */
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+  list-style: none;
+  margin: 0;
+  border-radius: 4px;
+  z-index: 10;
+  li {
+    margin-bottom: 10px;
+  }
+}
+
+/* Show dropdown on hover */
+.navUser:hover .dropDown {
+  display: block;
+}
+
+.smallCommunicationBox {
+  display: none;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .smallCommunicationBox {
+    display: block;
+  }
+
+  nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  nav ul.open {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  nav ul li {
+    margin: 0.5rem 0;
+  }
+
+  .navUser {
+    display: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#nprogress .bar {
+  background: #29d;
+  height: 3px;
+}
+
+.blogPostCard:hover {
+  transform: scale(1.01);
+  opacity: 0.9;
+}
+
+.blogPostCard {
+  transition: all 0.3s ease-in-out; /* Smoothly transition the transform property */
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.cartTotal {
+  font-size: 20px;
+}
+
+.navCart {
+  display: flex;
+  transition: all 0.3s ease-in-out; /* Smoothly transition the transform property */
+  div {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    font-family: "New Amsterdam", sans-serif !important;
+    font-size: 1.5em;
+  }
+}
+
+.navCart:hover {
+  transform: scale(1.1);
+}
+
+.navSearch {
+  height: 30px;
+  border-radius: 20px;
+  width: 350px;
+  margin-left: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 3px;
+}
+
+.navSearchContainer {
+  display: flex;
+  margin: auto;
+  position: absolute;
+  right: 10%;
+  z-index: 7;
+}
+
+.navSearchForm {
+  width: 100%;
+  margin-left: auto;
+}
+
+.searchButton {
+  background: none;
+  border: none;
+  transition: all 0.3s ease-in-out; /* Smoothly transition the transform property */
+}
+
+.searchButton:hover {
+  transform: scale(1.1);
+}
+
+.cartBackButton {
+  display: flex;
+  div {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    font-family: "New Amsterdam", sans-serif !important;
+    font-size: 1.5em;
+  }
+}
+
+.searchButton:hover {
+  cursor: pointer;
+}
+
+/* SEARCH */
+.ais-SearchBox {
+  margin-bottom: 1em;
+}
+
+.ais-InstantSearch {
+  max-width: 960px;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.ais-Hits-list .ais-Hits-item {
+  margin-left: 0;
+  width: 100%;
+}
+
+.ais-Hits-item img {
+  margin-right: 1em;
+}
+
+.ais-InstantSearch .ais-Hits-list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+.searchImg {
+  width: 15%;
+  height: auto;
+  object-fit: cover;
+}
+
+.phoneNumber {
+  font-size: 1.5em;
+  color: rgba(126, 211, 33, 1);
+}
+
+.blogItem {
+  width: 43%;
+  margin-bottom: 20px;
+}
+
+.blogItem .image img {
+  width: 100% !important;
+}
+
+.blogList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .blogItem {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+
+.pageContainer {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+}

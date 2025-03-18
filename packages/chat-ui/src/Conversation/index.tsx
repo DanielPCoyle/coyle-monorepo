@@ -23,8 +23,8 @@ export const Conversation: React.FC = () => {
   return (
     <>
       <ThreeJsBackground />
-      <div ref={contentRef} className="messageContainer">
-        <div style={{ width: "90%", margin: "auto" }}>
+      <div ref={contentRef} className="messagesContainer">
+        <div>
           {messages
             .filter((message: MessageType) => !message.parentId)
             .map((message: MessageType, index: number) => (

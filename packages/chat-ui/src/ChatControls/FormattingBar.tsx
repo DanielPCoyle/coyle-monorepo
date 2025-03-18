@@ -11,12 +11,7 @@ export const FormattingBar: React.FC<FormattingBarProps> = ({
 }) => {
   return (
     <div
-      style={{
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        marginTop: "10px",
-      }}
+    
     >
       <button
         onClick={() => toggleInlineStyle("BOLD")}

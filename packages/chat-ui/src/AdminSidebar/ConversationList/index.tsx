@@ -38,17 +38,7 @@ export const ConversationList: React.FC = () => {
       <button
         onClick={toggleDrawer}
         data-testid="menu-button"
-        style={{
-          position: "fixed",
-          top: 10,
-          left: 10,
-          zIndex: 5,
-          backgroundColor: "transparent",
-          border: "none",
-          color: "white",
-          cursor: "pointer",
-          display: window.innerWidth <= 1100 ? "block" : "none",
-        }}
+       
       >
         <span data-testid="menu-icon">
         <MenuIcon  />
@@ -82,17 +72,6 @@ export const ConversationList: React.FC = () => {
         <button
           onClick={toggleDrawer}
           data-testid="close-button"
-          style={{
-            position: "absolute",
-            cursor: "pointer",
-            top: 10,
-            right: 10,
-            zIndex: 5,
-            backgroundColor: "transparent",
-            border: "none",
-            color: "white",
-            display: window.innerWidth <= 1100 ? "block" : "none",
-          }}
         >
         <span data-testid="close-icon">
           <CloseIcon  />
@@ -114,7 +93,8 @@ export const ConversationList: React.FC = () => {
             {conversations.filter((c) => !c?.isActive)?.length} )
           </h3>
           {showHistoric && (
-            <div style={{ overflow: "hidden" }}>
+            <div 
+              >
               <div
                 className="animate__animated animate__slideInDown animate__faster"
                 data-testid="historic-conversation-list"
