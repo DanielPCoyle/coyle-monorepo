@@ -519,6 +519,44 @@ hr{
   width: 100%;
 }
 
+.thumbnails {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  position: absolute;
+  top: -117px;
+}
+
+.sender {
+  display: flex;
+}
+
+.senderReactionPicker {
+  display: flex;
+  justify-content: end;
+  width: 72%;
+  margin: auto;
+}
+
+.receiverReactionPicker {
+  display: flex;
+  width: 73%;
+  margin: auto;
+}
+
+.senderReactions {
+  display: flex;
+  justify-content: end;
+  width: 40%;
+  margin: auto;
+}
+
+.receiverReactions {
+  display: flex;
+  width: 70%;
+  margin: auto;
+}
+
 }
 
 

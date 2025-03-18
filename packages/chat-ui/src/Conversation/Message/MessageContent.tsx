@@ -6,6 +6,7 @@ import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
 import { ReplySvg } from "../../../assets/svg/ReplySvg";
 
+// TODO: fix avatar on messages
 export const MessageContent = () => {
   const { message, setShowReactionsPicker, setShowReplyModal } =
     useContext(MessageContext);

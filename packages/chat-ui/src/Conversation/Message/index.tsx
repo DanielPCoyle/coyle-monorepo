@@ -51,17 +51,17 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         </div>
       </div>
 
+      
       {showReactionsPicker && (
-        <div data-testid={`reaction-picker-${index}`} >
+        <div data-testid={`reaction-picker-${index}`} className={`${message.sender === user?.name ? "senderReactionPicker" : "receiverReactionPicker"}`}>
         <ReactionPicker 
           reactionsPickerRef={reactionsPickerRef} 
-          
         />
         </div>
       )}
 
       {Object.values(reactions).length > 0 && (
-        <div data-testid={`reactions-${index}`}>
+        <div data-testid={`reactions-${index}`} className={`${message.sender === user?.name ? "senderReactions" : "receiverReactions"}`}>
         <Reactions
           isSender={message.sender === user}
           reactions={reactions}

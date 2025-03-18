@@ -26,7 +26,9 @@ export const ProfileSettings = ({ id }: { id: string; }) => {
         setNotificationsEnabled(data.notificationsEnabled);
         setNotificationSound(data.notificationSound);
         setNotificationFrequency(data.notificationFrequency);
-        setAvatarUrl(data.avatarUrl);
+        if(data?.avatarUrl){
+          setAvatarUrl(data.avatarUrl);
+        }
       });
   }, [id]);
 
