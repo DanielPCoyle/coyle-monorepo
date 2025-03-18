@@ -254,7 +254,202 @@
       cursor: pointer;
     }
   }
+
+  .sidebar{
+    padding-left: 75px;
+    padding-right: 15px;
+  }
+
+  .pointer{
+    cursor: pointer;
+  }
+
+ .responsiveMenuButton{
+  display:none;
+}
+
+.menuButton{
+  display:none;
+}
+
+.sidebarToggle{
+  display:none;
+}
+
+@media (max-width: 1200px) {
+  .sidebar.close{
+    display:none;
+  }
+
+  .sidebarToggle{
+    top:95px !important;
+  }
+
+  .menuButton{
+    display:block;
+  }
+  
+  .sidebar.open{
+    display:block;
+    width: 87%;
+    position: absolute;
+    background: black;
+    height:98vh;
+    z-index: 9;
+    padding-left: 70px;
+  }
+}
+
+.settingsNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.settingsNav button {
+  padding: 15px;
+}
+
+.menuButton{
+  position: absolute;
+  top:35px;
+  left:20px;
+  z-index: 10;
+}
+
+.sidebarToggle {
+  position: absolute;
+  left: 5px;
+  top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap:20px;
+
+  button{
+    padding:10px;
+    border-radius: 10px;
+  }
+
+  .active{
+    background: #5450d3;
+  }
+}
+
+.immediateSettings {
+  display: flex;
+  gap: 20px;
+  padding:10px;
+  align-items: center;
+}
+
+.immediateSettings {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding: 10px ;
+  padding-right:20px;
+}
+
+.goBack{
+  position: relative;
+  top:50px;
+}
+
+select,input{
+  width:100%;
+  padding:10px;
+  margin: 0px;
+  border-radius: 10px;
+}
+
+.saveButton{
+  padding: 20px;
+  background: #5450d3;
+  border-radius: 10px;
+  margin-top:10px;
+  margin-bottom: 30px;
+}
+
+.formGroup label {
+  font-size: 14px;
+}
+
+.statusDropdown,
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Conversation list */
+.conversationList {
+  margin-top: 20px;
   
 }
+
+.conversationList h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 5px;
+}
+
+.conversationListItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.conversationListItem:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Active dot indicator */
+.activeDot {
+  width: 10px;
+  height: 10px;
+  background: #00ff00;
+  border-radius: 50%;
+}
+
+.overflowHidden{
+  overflow:hidden;
+}
+
+.settingsNav button {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto;
+}
+
+.settingsNav {
+  button {padding-top: 10px; padding-bottom:10px; display: flex;justify-content: center;align-items: center;}
+}
+
+.settingsContainer {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+}
+
 
 

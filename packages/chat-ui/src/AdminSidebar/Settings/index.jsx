@@ -15,7 +15,6 @@ export const Settings = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [notificationSound, setNotificationSound] = useState("");
   const [notificationFrequency, setNotificationFrequency] = useState("daily");
-  const [status, setStatus] = useState("offline");
   const [view, setView] = useState("home");
 
   const handleSave = () => {
@@ -44,24 +43,13 @@ export const Settings = () => {
         setNotificationSound,
         notificationFrequency,
         setNotificationFrequency,
-        status,
-        setStatus,
         view,
         setView,
         handleSave,
       }}
     >
       <div className="settingsContainer">
-        {view !== "home" && (
-          <div className="settingsNav">
-            <button onClick={() => setView("home")}>
-              <BackArrow />
-              <span>Go Back</span>
-            </button>
-          </div>
-        )}
         {view === "home" && <SettingsHome />}
-
         {view === "settings" && (
           <>
             <h1>Profile</h1>
@@ -110,11 +98,19 @@ export const Settings = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button onClick={handleSave}>Save Settings</button>
+            <button className="saveButton" onClick={handleSave}>Save Settings</button>
           </>
         )}
         {view === "adminUsers" && <ChatAdministators />}
         {view === "addUser" && <AddNewUserScreen />}
+        {view !== "home" && (
+          <div className="settingsNav">
+            <button className="goBack" onClick={() => setView("home")}>
+              <BackArrow />
+              <span>Go Back</span>
+            </button>
+          </div>
+        )}
       </div>
     </SettingsContext.Provider>
   );

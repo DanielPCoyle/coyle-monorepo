@@ -195,19 +195,19 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
             />
           </div>
           <div className="buttonContainer">
-          <MessageAddons
-          {...{
-            handleFileUpload,
-            showEmojiPicker,
-            setShowEmojiPicker,
-            emojiPickerRef,
-            insertEmoji,
-            typing,
-          }}
-        />
-          <button onClick={sendMessage} className="sendButton">
-            <SendSvg />
-          </button>
+            <MessageAddons
+              {...{
+                handleFileUpload,
+                showEmojiPicker,
+                setShowEmojiPicker,
+                emojiPickerRef,
+                insertEmoji,
+                typing,
+              }}
+            />
+            <button onClick={sendMessage} className="sendButton">
+              <SendSvg />
+            </button>
           </div>
         </div>
       </div>

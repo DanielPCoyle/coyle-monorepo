@@ -35,15 +35,7 @@ export const ConversationList: React.FC = () => {
 
   return (
     <>
-      <button
-        onClick={toggleDrawer}
-        data-testid="menu-button"
-       
-      >
-        <span data-testid="menu-icon">
-        <MenuIcon  />
-        </span>
-      </button>
+     <h1>Chats</h1>
       <div className="immediateSettings" data-testid="immediate-settings">
         <div className="formGroup status">
           <label>Status</label>
@@ -69,14 +61,6 @@ export const ConversationList: React.FC = () => {
       </div>
       <hr />
       <div className={`conversationList`} data-testid="conversation-list">
-        <button
-          onClick={toggleDrawer}
-          data-testid="close-button"
-        >
-        <span data-testid="close-icon">
-          <CloseIcon  />
-          </span>
-        </button>
         <h3>Active Conversations</h3>
 
         <ConversationListItems
@@ -86,6 +70,7 @@ export const ConversationList: React.FC = () => {
         />
         <div className="historicConversations" data-testid="historic-conversations">
           <h3
+            className="pointer"
             data-testid="historic-toggle"
             onClick={() => setShowHistoric(!showHistoric)}
           >
@@ -94,6 +79,7 @@ export const ConversationList: React.FC = () => {
           </h3>
           {showHistoric && (
             <div 
+              className="overflowHidden"
               >
               <div
                 className="animate__animated animate__slideInDown animate__faster"

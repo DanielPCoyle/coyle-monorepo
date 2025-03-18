@@ -7,7 +7,7 @@ export const SettingsHome = () => {
   const { setView } = React.useContext(SettingsContext);
   return (
     <>
-      <h1>Admin Settings</h1>
+      <h1>Settings</h1>
 
       <div className="settingsNav">
         <button onClick={() => setView("settings")}>

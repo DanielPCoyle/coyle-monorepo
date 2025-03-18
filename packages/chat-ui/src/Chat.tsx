@@ -30,6 +30,7 @@ export const Chat = () => {
   const [files, setFiles] = useState([]);
   const [modalSource, setModalSource] = useState(null);
   const [modalIndex, setModalIndex] = useState(null);
+  const [status, setStatus] = useState("online");
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
 
@@ -84,6 +85,8 @@ export const Chat = () => {
         setUser,
         setUserName,
         setToken,
+        setStatus,
+        status,
         socket,
         typing,
         user,
