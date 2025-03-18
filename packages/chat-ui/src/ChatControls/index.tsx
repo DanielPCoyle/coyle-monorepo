@@ -32,7 +32,6 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     admins,
   } = useContext(ChatContext);
 
-
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );

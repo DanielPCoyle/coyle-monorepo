@@ -11,7 +11,7 @@ export const useMessageSeen = (message: MessageType) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log({entry, userName, message});
+        console.log({ entry, userName, message });
         if (entry.isIntersecting && userName !== message.sender && !seen) {
           // Ensure we only emit once
           console.log("Emitting seen for message", message.id);

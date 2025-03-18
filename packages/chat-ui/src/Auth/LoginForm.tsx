@@ -7,14 +7,8 @@ import { useAuth } from "../hooks/useAuth";
 
 export const LoginForm: React.FC = () => {
   const { getAndSetUser } = useAuth();
-  const {
-    userName,
-    setUserName,
-    email,
-    setEmail,
-    setToken,
-    setIsLoggedIn,
-  } = useContext(ChatContext);
+  const { userName, setUserName, email, setEmail, setToken, setIsLoggedIn } =
+    useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [password, setPassword] = useState("");
 

@@ -25,9 +25,9 @@ export const useAuth = () => {
       setUserName(data.user.name);
       setEmail(data.user.email);
       setNotificationsEnabled(data.user.notificationsEnabled);
-      setId(data.user.conversationKey)
+      setId(data.user.conversationKey);
       setIsLoggedIn(true);
-  
+
       socket.emit("login", {
         userName: data.user.name,
         email: data.user.email,
