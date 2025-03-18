@@ -1,6 +1,6 @@
 export const userTyping = ({ socket, io, typingTimeout }) =>
   socket.on("user typing", ({ conversationKey, userName }) => {
-    console.log("user typing", userName);
+    console.log("user typing", userName, conversationKey);
     io.to(conversationKey).emit("user typing", { name: userName });
     if (typingTimeout) clearTimeout(typingTimeout);
 

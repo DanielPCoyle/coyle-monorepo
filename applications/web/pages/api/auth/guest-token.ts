@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { addConversation } from "@coyle/chat-db";
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
@@ -24,7 +23,6 @@ export default async function handler(
       expiresIn: "7d",
     });
 
-    await addConversation({ name, email, conversationKey });
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Error creating user:", error.message);

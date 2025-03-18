@@ -7,6 +7,7 @@ export const useAuth = () => {
     setUserName,
     setEmail,
     setIsLoggedIn,
+    setId,
     setNotificationsEnabled,
     socket,
   } = useContext(ChatContext);
@@ -24,6 +25,7 @@ export const useAuth = () => {
       setUserName(data.user.name);
       setEmail(data.user.email);
       setNotificationsEnabled(data.user.notificationsEnabled);
+      setId(data.user.conversationKey)
       setIsLoggedIn(true);
   
       socket.emit("login", {

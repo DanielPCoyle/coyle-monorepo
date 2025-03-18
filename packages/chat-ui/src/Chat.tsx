@@ -33,24 +33,24 @@ export const Chat = () => {
   const [status, setStatus] = useState("online");
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
-
   useEffect(() => {
-    if (!id) return;
     const handleTyping = () => {
       socket.emit("user typing", {
         conversationKey: id,
         userName,
       });
     };
-
+    
     if (input.length > 0) {
+      console.log("Typing >>>",id,input);
       handleTyping();
     }
   }, [input, id, userName]);
 
   useEffect(() => {
-    setId(localStorage.getItem("id") || Math.random().toString(36).substring(7));
-    setToken(localStorage.getItem("jwt") || null);
+    if(localStorage.getItem("jwt")){
+      setToken(localStorage.getItem("jwt") || null);
+    }
   },[]);
 
   useEffect(() => {

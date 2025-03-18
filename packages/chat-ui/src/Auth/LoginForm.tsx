@@ -8,7 +8,6 @@ import { useAuth } from "../hooks/useAuth";
 export const LoginForm: React.FC = () => {
   const { getAndSetUser } = useAuth();
   const {
-    id,
     userName,
     setUserName,
     email,
@@ -24,6 +23,9 @@ export const LoginForm: React.FC = () => {
     const endpoint = showAdminLogin
       ? "/api/auth/login"
       : "/api/auth/guest-token";
+
+    const id = Math.random().toString(36).substring(2, 15);
+
     const payload = showAdminLogin
       ? { email, password }
       : { conversationKey: id, name: userName, email };
