@@ -27,6 +27,7 @@ export const LoginForm: React.FC = () => {
     fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include", 
       body: JSON.stringify(payload),
     })
       .then((res) => res.json())

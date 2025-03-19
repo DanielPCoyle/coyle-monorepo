@@ -16,6 +16,7 @@ export const useAuth = () => {
     try {
       const response = await fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/me", {
         headers: { Authorization: `Bearer ${jwtToken}` },
+        credentials: "include", 
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
