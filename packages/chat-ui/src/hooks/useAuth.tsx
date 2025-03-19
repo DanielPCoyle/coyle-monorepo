@@ -14,7 +14,7 @@ export const useAuth = () => {
   const [token, setToken] = useState(null);
   const getAndSetUser = async (jwtToken: string) => {
     try {
-      const response = await fetch("/api/auth/me", {
+      const response = await fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/me", {
         headers: { Authorization: `Bearer ${jwtToken}` },
       });
       if (!response.ok) {

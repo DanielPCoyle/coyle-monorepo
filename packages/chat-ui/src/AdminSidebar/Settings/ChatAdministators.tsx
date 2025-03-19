@@ -16,7 +16,7 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
     const answer =  window.confirm("Are you sure you want to delete this admin?");
     if(!answer) return;
     setSelected(id);
-    fetch(`/api/chat/settings/delete-admin-user`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/chat/settings/delete-admin-user`, {
       method: "DELETE",
       headers: {
       Authorization: `Bearer ${document.cookie
@@ -34,7 +34,7 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
 
   React.useEffect(() => {
     // Fetch chat administrators
-    fetch("/api/chat/settings/admin-users", {
+    fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/settings/admin-users", {
       headers: {
       Authorization: `Bearer ${document.cookie
         .split("; ")

@@ -9,7 +9,7 @@ export const AddNewUserScreen = () => {
 
   const handleAddNewUser = () => {
     // Logic to add new user
-    fetch("/api/auth/register", {
+    fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/register", {
       method: "POST",
       body: JSON.stringify({
         name: adminName,
