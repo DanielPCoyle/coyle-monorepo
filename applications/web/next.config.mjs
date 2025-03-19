@@ -4,19 +4,26 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@coyle/chat-db"],
-    async headers() {
-      return [
+  async headers() {
+    return [
+      {
+        source: "/api/:path*", // Allow all API endpoints
+        headers: [
           {
-          // matching all API routes
-          source: "/api/:path*",
-          headers: [
-          { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "https://www.philaprints.com, https://shop.philaprints.com, https://philaprints.com" },
-          { key: "Access-Control-Allow-Methods", value: "GET,DELETE,PATCH,POST,PUT,OPTIONS" },
-          { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
-          ]
-          }
-      ]
+            key: "Access-Control-Allow-Origin",
+            value: "https://shop.philaprints.com", // Allow subdomain
+          },
+          {
+            key: "Access-Control-Allow-Methods",
+            value: "GET, POST, OPTIONS, PUT, DELETE",
+          },
+          {
+            key: "Access-Control-Allow-Headers",
+            value: "X-Requested-With, Content-Type, Authorization",
+          },
+        ],
+      },
+    ];
   },
   env: {
     NEXT_PUBLIC_BUILDER_API_KEY: process.env.NEXT_PUBLIC_BUILDER_API_KEY,
