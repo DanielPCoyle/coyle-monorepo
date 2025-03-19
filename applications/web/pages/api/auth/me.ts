@@ -29,12 +29,12 @@ export default async function handler(
 
 
   try {
-    res.setHeader("Set-Cookie", serialize("authToken", token, {
+    res.setHeader("Set-Cookie", serialize("jwt", token, {
       path: "/",            // Available for all paths
       domain: ".philaprints.com", // Makes it accessible to subdomains
       httpOnly: true,       // Prevents JavaScript access (optional)
       secure: true,         // Only send over HTTPS
-      sameSite: "lax"       // Adjust as needed
+      sameSite: "None"       // Adjust as needed
     }));
 
     const decoded = jwt.verify(token, secret) as DecodedToken;

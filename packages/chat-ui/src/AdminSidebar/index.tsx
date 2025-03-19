@@ -42,7 +42,7 @@ export const SideBar = () => {
                   status: "offline",
                   id: user?.id,
                 });
-                document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=philaprints.com;";
+                document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.philaprints.com; Path=/; httpOnly; SameSite=None; Secure;";
                 setToken("");
                 setIsLoggedIn(false);
               }
