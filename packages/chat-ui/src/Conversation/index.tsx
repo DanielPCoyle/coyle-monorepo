@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import { ChatContext } from "../ChatContext";
 import { Message } from "./Message";
-import { LoadingIcon } from "../../assets/svg/LoadingIcon";
+import { LoadingIcon } from "../assets/svg/LoadingIcon";
 import { MessageType } from "../../types";
 
 export const Conversation: React.FC = () => {
@@ -28,7 +28,7 @@ export const Conversation: React.FC = () => {
               <Message
                 key={message.id}
                 index={index}
-                message={message as MessageType}
+                message={message as any}
               />
             ))}
         </div>

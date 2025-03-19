@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { CloseIcon } from "../assets/svg/CloseIcon";
+import { CloseIcon } from "./assets/svg/CloseIcon";
 
 
 export const LightBox = ({

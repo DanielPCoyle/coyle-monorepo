@@ -1,9 +1,9 @@
 import React from "react";
-import AddUserSvg from "../../../assets/svg/AddUserSvg";
+import AddUserSvg from "../../assets/svg/AddUserSvg";
 import SettingsContext from "./SettingsContext";
 import { AdminItem } from "./AdminItem";
 
-export const ChatAdministators = ({setSelected}: {setSelected: (id)=>null}) => {
+export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
   const handleEdit = (id:string) => {

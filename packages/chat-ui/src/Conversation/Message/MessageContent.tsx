@@ -4,7 +4,7 @@ import { FilePreview } from "./FilePreview";
 import { LinkPreview } from "./LinkPreview";
 import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
-import { ReplySvg } from "../../../assets/svg/ReplySvg";
+import { ReplySvg } from "../../assets/svg/ReplySvg";
 
 // TODO: fix avatar on messages
 export const MessageContent = () => {

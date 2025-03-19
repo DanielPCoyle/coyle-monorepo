@@ -4,9 +4,10 @@ import { ChatContext } from "../../ChatContext";
 import { useContext } from "react";
 import { ChatAdministators } from "./ChatAdministators";
 import { AddNewUserScreen } from "./AddNewUserScreen";
-import { SettingsHome } from "./SettingsHome";
-import { BackArrow } from "../../../assets/svg/BackArrow";
+import { BackArrow } from "@coyle/chat-ui/src/assets/svg/BackArrow";
 import { ProfileSettings } from "./ProfileSettings";
+import { SettingsHome } from "./SettingsHome";
+
 export const Settings = () => {
   const { user } = useContext(ChatContext);
   const [view, setView] = useState("home");

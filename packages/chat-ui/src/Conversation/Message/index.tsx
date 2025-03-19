@@ -77,12 +77,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       )}
 
       <div data-testid={`reply-modal-${index}`}>
-            <ReplyModal
-              showReplyModal={showReplyModal}
-              setShowReplyModal={setShowReplyModal}
-              message={message}
-              
-            />
+            <ReplyModal/>
       </div>
     </MessageContext.Provider>
   );

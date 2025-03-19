@@ -10,9 +10,9 @@ import { handleAddReaction } from "./reactionHandlers/handleAddReaction";
 import { useSocketReactions } from "./reactionHandlers/useSocketReactions";
 import { useMessageSeen } from "../../../../hooks/useMessageSeen";
 
-export const SubMessage: React.FC<SubMessageType> = ({ reply, user, socket, email }) => {
+export const SubMessage: React.FC<SubMessageType> = ({reply} : any) => {
   const [urlPreview] = useState<string | null>(null);
-  const { id, userName } = useContext(ChatContext);
+  const { id, userName, user, socket, email  } = useContext(ChatContext);
   const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   const [showReactionsPicker, setShowReactionsPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);

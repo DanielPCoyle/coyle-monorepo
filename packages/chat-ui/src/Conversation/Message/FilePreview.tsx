@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import ChatContext from "../../ChatContext";
-import { FilePreviewProps } from "../../../types";
+import { FilePreviewProps, Message } from "../../../types";
 
-export const FilePreview: React.FC<FilePreviewProps> = ({ message }) => {
+export const FilePreview: React.FC<FilePreviewProps> = ({ message }: {message:Message}) => {
   const { setModalSource, setModalIndex } = useContext(ChatContext);
 
   return (

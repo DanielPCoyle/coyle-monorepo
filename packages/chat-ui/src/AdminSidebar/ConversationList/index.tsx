@@ -3,7 +3,7 @@ import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
 import { a } from "framer-motion/dist/types.d-B50aGbjN";
 
-export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null}) => {
+export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean) => void}) => {
   const {
     conversations,
     socket,

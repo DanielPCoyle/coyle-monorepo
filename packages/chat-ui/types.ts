@@ -16,7 +16,7 @@ interface Conversation {
 export interface ConversationListItemsProps {
   conversations: Conversation[];
   socket: Socket;
-  setShowMenu: () => void;
+  setShowMenu: (showMenu:boolean) => void;
 }
 
 export interface AdminLoginProps {
@@ -44,7 +44,7 @@ export interface MessageAddonsProps {
   setShowEmojiPicker: (show: boolean) => void;
   emojiPickerRef: RefObject<HTMLDivElement>;
   insertEmoji: (emoji: string) => void;
-  typing: { name: string; } | null;
+  typing: any;
 }
 
 export interface ThumbnailProps {
@@ -65,12 +65,9 @@ export interface ReactionsProps {
   removeReactions: (reactions: { emoji: string; }) => void;
 }
 
-export interface SubMessageType { }
+export interface SubMessageType 
 {
   reply: MessageType;
-  user: string;
-  socket: Socket;
-  email: string;
 }
 
 export interface Message {
@@ -111,44 +108,40 @@ export interface MessageType {
 }
 
 export interface ChatContextType {
-  id: string;
-  userName: string;
-  setUser: (user: any) => void;
-  setUserName: (name: string) => void;
-  email: string;
-  setEmail: (email: string) => void;
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setToken: (token: string) => void;
-  setNotificationsEnabled: (enabled: boolean) => void;
-  setId: (id: string) => void;
-  user: any;
-  status: string;
-  conversations: any[];
-  setConversations: (conversations: any[]) => void;
-  socket: any;
-  setSocket: (socket: any) => void;
-  toggleDrawer: () => void;
-  drawerOpen: boolean;
-  setDrawerOpen: (open: boolean) => void;
-  setMessage: (message: string) => void;
-  messages: any[];
   admins: any[];
-  setAdmins: (admins: any[]) => void;
-  setMessages: (messages: any[]) => void;
-  setStatus: (status: string) => void;
-  notificationsEnabled: boolean;
-  token: string;
-  typing: boolean;
-  setTyping: (typing: boolean) => void;
+  conversations: any[];
+  email: string;
   files: any[];
-  setFiles: (files: any[]) => void;
-  setInput: (input: string) => void;
+  id: string;
   input: string;
   loading: boolean;
-  setLoading: (loading: boolean) => void;
-  setModalSource: (source: string[]) => void;
+  messages: any[];
+  notificationsEnabled: boolean;
+  setConversations: (conversations: any[]) => void;
+  setEmail: (email: string) => void;
+  setFiles: (files: any[]) => void;
+  setId: (id: string) => void;
+  setInput: (input: string) => void;
+  setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setMessages: (messages: any[]) => void;
   setModalIndex: (index: number) => void;
+  setModalSource: (source: string[]) => void;
+  setNotificationsEnabled: (enabled: boolean) => void;
+  setUser: (user: any) => void;
+  setUserName: (name: string) => void;
+  setToken: (token: string) => void;
+  setStatus: (status: string) => void;
+  status: string;
+  socket: any;
+  typing: boolean;
+  user: any;
+  userName: string;
   setNotificationBar: (notificationBar: any[]) => void;
+  notificationBar: any[];
+  selectedMessageId: number | null;
+  setSelectedMessageId: (id: number | null) => void;
+  messagesRef: RefObject<HTMLDivElement>;
+
 }
 
 export type { NextApiRequest, NextApiResponse } from "next";

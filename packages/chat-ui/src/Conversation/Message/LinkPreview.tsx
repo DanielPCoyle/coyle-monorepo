@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { ThreeDotsIcon } from "../../../assets/svg/ThreeDotsIcon";
+import { ThreeDotsIcon } from "../../assets/svg/ThreeDotsIcon";
 import { LinkPreviewProps, UrlPreview } from "../../../types";
 
 export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {

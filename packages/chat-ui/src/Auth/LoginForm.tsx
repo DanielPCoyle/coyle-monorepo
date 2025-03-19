@@ -67,7 +67,6 @@ export const LoginForm: React.FC = () => {
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
-            handleSubmit={handleSubmit}
           />
         </div>
       ) : (
@@ -77,7 +76,6 @@ export const LoginForm: React.FC = () => {
             setUserName={setUserName}
             email={email}
             setEmail={setEmail}
-            handleSubmit={handleSubmit}
           />
         </div>
       )}

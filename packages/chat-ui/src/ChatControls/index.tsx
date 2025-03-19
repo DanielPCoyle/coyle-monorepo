@@ -3,18 +3,17 @@ import { Editor, EditorState, Modifier, RichUtils } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 import "draft-js/dist/Draft.css";
 import { useContext, useEffect, useRef, useState } from "react";
-import { SendSvg } from "../../assets/svg/SendSvg";
+import { SendSvg } from "../assets/svg/SendSvg";
 import { ChatContext } from "../ChatContext";
 import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
 import { Thumbnail } from "./Thumbnail";
 import { uploadFileToSupabase } from "./uploadFileToSupabase";
-import { CloseIcon } from "../../assets/svg/CloseIcon";
+import { CloseIcon } from "../assets/svg/CloseIcon";
 
-export const ChatControls = ({ replyId }: { replyId: number }) => {
+export const ChatControls = ({ replyId }: { replyId?: number }) => {
   const {
     id,
-    token,
     socket,
     user,
     userName,
@@ -23,11 +22,9 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     setFiles,
     setInput,
     admins,
-    notificationBar,
-    setNotificationBar,
-    messagesRef,
   } = useContext(ChatContext);
 
+  const token = localStorage.getItem("jwt");
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );

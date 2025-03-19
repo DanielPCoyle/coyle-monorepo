@@ -1,7 +1,7 @@
 import React from "react";
 import SettingsContext from "./SettingsContext";
-import { UserIcon } from "../../../assets/svg/UserIcon";
-import { UsersIcon } from "../../../assets/svg/UsersIcon";
+import { UserIcon } from "../../assets/svg/UserIcon";
+import { UsersIcon } from "../../assets/svg/UsersIcon";
 
 export const SettingsHome = () => {
   const { setView } = React.useContext(SettingsContext);
@@ -24,3 +24,4 @@ export const SettingsHome = () => {
 };
 
 
+export default SettingsHome;

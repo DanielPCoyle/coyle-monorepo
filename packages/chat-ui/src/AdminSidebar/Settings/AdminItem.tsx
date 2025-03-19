@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 
 import PropTypes from "prop-types";
-import { PencilIcon } from "../../../assets/svg/PencilIcon";
-import { TrashCanIcon } from "../../../assets/svg/TrashCanIcon";
+import { PencilIcon } from "../../assets/svg/PencilIcon";
+import { TrashCanIcon } from "../../assets/svg/TrashCanIcon";
 import { ChatContext } from "../../ChatContext";
 export const AdminItem = ({ admin, handleDelete, handleEdit }) => {
   const {user }  = useContext(ChatContext);

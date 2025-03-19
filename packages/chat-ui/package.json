@@ -4,11 +4,12 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "license": "MIT",
+  "entry": "src/index.tsx",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "react-scripts build",
     "start": "rollup -c -w",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -53,10 +54,25 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.0.0",
+    "react-scripts": "^5.0.1",
     "rollup": "^4.35.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.1",
-    "vitest": "^3.0.8"
+    "vitest": "^3.0.8",
+    "webpack-cli": "^6.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

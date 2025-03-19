@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { ConversationList } from "./ConversationList";
 import { Settings } from "./Settings";
-import { CogSvg } from "../../assets/svg/CogSvg";
-import { MenuIcon } from "../../assets/svg/MenuIcon";
-import { CloseIcon } from "../../assets/svg/CloseIcon";
-import { ChatIcon } from "../../assets/svg/ChatIcon";
+import { CogSvg } from "../assets/svg/CogSvg";
+import { MenuIcon } from "../assets/svg/MenuIcon";
+import { CloseIcon } from "../assets/svg/CloseIcon";
+import { ChatIcon } from "../assets/svg/ChatIcon";
 import { ChatContext } from "../ChatContext";
 
 export const SideBar = () => {

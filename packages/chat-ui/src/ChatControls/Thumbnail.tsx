@@ -1,5 +1,5 @@
 import React from "react";
-import { CloseThumbnailIcon } from "../../assets/svg/CloseThumbnailIcon";
+import { CloseThumbnailIcon } from "../assets/svg/CloseThumbnailIcon";
 import { ThumbnailProps } from "../../types";
 
 export const Thumbnail = ({

@@ -10,8 +10,8 @@ import { LightBox } from "./LightBox";
 import { fetchConversations } from "./utils/fetchConversations";
 import { fetchMessages } from "./utils/fetchMessages";
 import { handleSocketEvents } from "./utils/handleSocketEvents";
-import { CloseIcon } from "../assets/svg/CloseIcon";
-import "@coyle/chat-ui/assets/chat.scss";
+import { CloseIcon } from "./assets/svg/CloseIcon";
+import "@coyle/chat-ui/src/assets/chat.scss";
 
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
 const socket = io(socketSite);
@@ -25,7 +25,7 @@ export const Chat = () => {
   const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [id, setId] = useState(null);
-  const [token, setToken] = useState();
+  const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [typing, setTyping] = useState(null);
@@ -53,7 +53,7 @@ export const Chat = () => {
 
   useEffect(() => {
     if(localStorage.getItem("jwt")){
-      setToken(localStorage.getItem("jwt") || null);
+      setToken(localStorage.getItem("jwt"));
     }
   },[]);
 
@@ -74,9 +74,12 @@ export const Chat = () => {
     handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setConversations, setNotificationBar, messagesRef);
   }, [user, id]);
 
-  useEffect(() => {
-    return () => socket.emit("logout", { id: localStorage.getItem("id") });
-  }, [id]);
+
+  // useEffect(() => {
+  //   return () => socket.emit("logout", { id: localStorage.getItem("id") });
+  // }, [id]);
+
+  
 
   
   useEffect(() => {
@@ -139,10 +142,7 @@ export const Chat = () => {
     >
       {!isLoggedIn ? (
         <LoginForm
-          setUserName={setUserName}
-          setIsLoggedIn={setIsLoggedIn}
-          setUser={setUser}
-          setEmail={setEmail}
+         
         />
       ) : (
         <div className="animate__animated animate__fadeIn coyleChat">

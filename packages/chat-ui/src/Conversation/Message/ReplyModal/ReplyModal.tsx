@@ -8,7 +8,7 @@ import { SubMessage } from "./SubMessage/SubMessage";
 import {MessageContext} from "../MessageContext";
 import { useContext } from "react";
 import { ChatContext } from "../../../ChatContext";
-import { CloseIcon } from "../../../../assets/svg/CloseIcon";
+import { CloseIcon } from "../../../assets/svg/CloseIcon";
 
 export const ReplyModal: React.FC = () => {
   const {
@@ -52,11 +52,8 @@ export const ReplyModal: React.FC = () => {
             {message.replies.map((reply: MessageType, index: number) => (
               <div key={index}>
                 <SubMessage
-                  reply={reply}
-                  user={user}
-                  email={email}
-                  addReaction={addReaction}
-                  socket={socket} />
+                  reply={reply as any}
+                   />
               </div>
             ))}
           </div>
