@@ -11,6 +11,7 @@ import { fetchConversations } from "./utils/fetchConversations";
 import { fetchMessages } from "./utils/fetchMessages";
 import { handleSocketEvents } from "./utils/handleSocketEvents";
 import { CloseIcon } from "../assets/svg/CloseIcon";
+import "@coyle/chat-ui/assets/chat.scss";
 
 const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
 const socket = io(socketSite);

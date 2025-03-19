@@ -30,7 +30,11 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
         🙂
       </button>
       {showEmojiPicker && (
-        <div ref={emojiPickerRef} className="emojiPicker" data-testid="emoji-picker">
+        <div
+          ref={emojiPickerRef}
+          className="emojiPicker"
+          data-testid="emoji-picker"
+        >
           <Picker data={data} onEmojiSelect={insertEmoji} />
         </div>
       )}

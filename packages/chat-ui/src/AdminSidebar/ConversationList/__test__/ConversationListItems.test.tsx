@@ -4,7 +4,6 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ConversationListItems } from "../ConversationListItems";
 import { ChatContext } from "../../../ChatContext";
-import { motion } from "framer-motion";
 
 // Mock Socket.io Client
 const mockSocket = {

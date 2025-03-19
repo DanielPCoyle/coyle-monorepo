@@ -8,7 +8,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   socket,
   setShowMenu,
 }) => {
-  const { setId, id, user, status } = React.useContext(ChatContext);
+  const { setId, id, user, status, setNotificationBar } = React.useContext(ChatContext);
 
   return conversations?.length ? (
     <>
@@ -20,6 +20,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
           onClick={() => {
             socket.emit("leave", { id: id });
             setId(convo.conversationKey);
+            setNotificationBar([]);
             setShowMenu(false);
           }}
         >

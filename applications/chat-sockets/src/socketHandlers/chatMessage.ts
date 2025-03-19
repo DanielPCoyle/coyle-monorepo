@@ -9,7 +9,7 @@ export const chatMessage = ({ socket, io }) =>
   socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
     try {
       let conversationId = await getConversationIdByKey(id);
-      if(!conversationId){
+      if (!conversationId) {
         // add conversation
         const addConvo = await addConversation({
           name: sender,
@@ -18,7 +18,7 @@ export const chatMessage = ({ socket, io }) =>
           isAdmin: false,
           isActive: true,
         });
-        if(addConvo){
+        if (addConvo) {
           conversationId = addConvo.id;
         }
       }

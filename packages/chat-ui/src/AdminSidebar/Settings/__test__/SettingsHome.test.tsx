@@ -15,7 +15,7 @@ describe("SettingsHome", () => {
       </SettingsContext.Provider>
     );
 
-    expect(screen.getByText("Admin Settings")).toBeInTheDocument();
+    expect(screen.getByText("Settings")).toBeInTheDocument();
     expect(screen.getByText("Profile")).toBeInTheDocument();
     expect(screen.getByText("Chat Administrators")).toBeInTheDocument();
   });

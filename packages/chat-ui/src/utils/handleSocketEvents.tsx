@@ -7,7 +7,7 @@ export const handleSocketEvents = (
   setTyping,
   setConversations,
   setNotificationBar,
-  messagesRef
+  messagesRef,
 ) => {
   socket.on("conversations", (conversations) => {
     if (user?.role === "admin") setConversations(conversations);
@@ -48,7 +48,7 @@ export const handleSocketEvents = (
       return newMessages.sort((a, b) => a.id - b.id);
     });
 
-    if(!message.parentId ) {
+    if (!message.parentId) {
       setTimeout(() => {
         messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
       }, 100);

@@ -9,7 +9,6 @@ export async function sendEmail({
   subject: string;
   text: string;
 }) {
-  
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

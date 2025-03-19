@@ -30,7 +30,6 @@ export async function addConversation({
       .values({ name, email, conversationKey })
       .returning();
     return newConversation;
-    
   } catch (error) {
     console.error("Error adding conversation", error);
   }

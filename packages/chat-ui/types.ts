@@ -148,6 +148,7 @@ export interface ChatContextType {
   setLoading: (loading: boolean) => void;
   setModalSource: (source: string[]) => void;
   setModalIndex: (index: number) => void;
+  setNotificationBar: (notificationBar: any[]) => void;
 }
 
 export type { NextApiRequest, NextApiResponse } from "next";

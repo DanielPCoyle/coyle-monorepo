@@ -3,7 +3,7 @@ import { handleSocketEvents } from "../handleSocketEvents";
 
 describe("handleSocketEvents", () => {
   let socket;
-  let setMessages, setAdmins, setTyping, setConversations;
+  let setMessages, setAdmins, setTyping, setConversations, setNotificationBar;
   let user, id;
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe("handleSocketEvents", () => {
     setAdmins = vi.fn();
     setTyping = vi.fn();
     setConversations = vi.fn(); // ✅ Add this mock function
-
+    setNotificationBar = vi.fn();
     user = { name: "Alice", role: "admin" };
     id = "123";
   });
@@ -25,7 +25,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should subscribe to all expected socket events", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar );
 
     expect(socket.on).toHaveBeenCalledWith("conversations", expect.any(Function));
     expect(socket.on).toHaveBeenCalledWith("adminsOnline", setAdmins);
@@ -36,7 +36,7 @@ describe("handleSocketEvents", () => {
 
   it("should not update conversations for non-admin users", () => {
     user.role = "user"; // Not an admin
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "conversations")[1];
 
     callback([{ id: 1, name: "Chat 1" }]);
@@ -45,7 +45,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should update admins list when 'adminsOnline' event is received", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "adminsOnline")[1];
 
     callback(["Admin1", "Admin2"]);
@@ -54,7 +54,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should append new messages uniquely and sort them", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "chat message")[1];
 
     const existingMessages = [{ id: 1, text: "Hello" }];
@@ -70,7 +70,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should not add duplicate messages", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "chat message")[1];
 
     const existingMessages = [{ id: 1, text: "Hello" }];
@@ -83,7 +83,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should update typing state when another user types", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "user typing")[1];
 
     callback({ name: "Bob" });
@@ -92,7 +92,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should not update typing state when the same user types", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "user typing")[1];
 
     callback({ name: "Alice" }); // Same user
@@ -101,7 +101,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should clear typing state when another user stops typing", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "user not typing")[1];
 
     callback({ user: "Bob" });
@@ -110,7 +110,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should not clear typing state when the same user stops typing", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
     const callback = socket.on.mock.calls.find((call) => call[0] === "user not typing")[1];
 
     callback({ user: "Alice" }); // Same user
@@ -119,7 +119,7 @@ describe("handleSocketEvents", () => {
   });
 
   it("should unsubscribe from events when cleanup is needed", () => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setNotificationBar);
 
     expect(socket.off).not.toHaveBeenCalled(); // Ensure off isn't called immediately
 

@@ -10,7 +10,7 @@ interface NavItemType {
 
 interface NavItemProps {
   item: NavItemType;
-}
+}  
 
 const NavItem: React.FC<NavItemProps> = ({ item }) => (
   <li>
@@ -62,18 +62,13 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
             <NavItem key={index} item={item} />
           ))}
           <li className="smallCommunicationBox">
-            <Link className="chat" href="/chat" target="_blank">
-              Chat
-            </Link>
+            
             <Link className="phoneNumber" href="tel:215-771-9404">
               215-771-9404
             </Link>
           </li>
         </ul>
         <div className="communicationBox">
-          <Link className="chat" href="/chat" target="_blank">
-            Chat
-          </Link>
           <Link className="phoneNumber" href="tel:215-771-9404">
             215-771-9404
           </Link>
