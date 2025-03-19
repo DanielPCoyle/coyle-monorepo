@@ -1,11 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createAdminUser } from "@coyle/chat-db";
 import { sendWelcomeEmail } from "../../../util/chat/sendWelcomeEmail";
+import { handleCors } from "../../../middlewares/handleCors";
+
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  handleCors(req, res);
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }

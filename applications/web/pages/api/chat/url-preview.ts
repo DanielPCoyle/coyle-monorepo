@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { NextApiRequest, NextApiResponse } from "next";
+import { handleCors } from "../../../middlewares/handleCors";
 
 interface Metadata {
   title: string;
@@ -13,6 +14,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  handleCors(req, res);
   const { url } = req.query;
   if (req.method === "GET") {
     try {

@@ -2,10 +2,12 @@ import { deleteUser } from "@coyle/chat-db";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "../../../../middlewares/auth";
+import { handleCors } from "../../../../middlewares/handleCors";
 
 dotenv.config();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  handleCors(req, res);
   try {
     if (req.method === "DELETE") {
       const { id } = JSON.parse(req.body);
