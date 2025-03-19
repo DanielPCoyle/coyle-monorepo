@@ -51,3 +51,5 @@ lint.log
 
 **/coverage
 **/.rollup.cache
+
+/packages/chat-ui/build
