@@ -42,7 +42,7 @@ export const SideBar = () => {
                   status: "offline",
                   id: user?.id,
                 });
-                localStorage.removeItem("jwt");
+                document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 setToken("");
                 setIsLoggedIn(false);
               }

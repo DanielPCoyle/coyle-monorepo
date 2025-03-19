@@ -744,7 +744,6 @@ button.closeModal {
   position: fixed;
   bottom: 6px;
   right: 140px;
-  width: 600px;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 15px #353535;
@@ -753,6 +752,27 @@ button.closeModal {
     padding-left: 10px;
     padding-right: 10px;
   }
+
+  .formStyle {
+    position:relative;
+    transform: none;
+    top:unset;
+    left:unset;
+    margin:auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    width: 300px;
+    text-align: center;
+    margin: auto;
+    z-index: 1;
+}
+
+.coyleChat{
+  width:600px;
+}
 }
 
 
@@ -765,5 +785,9 @@ button.closeModal {
 }
 
 .closeModal{
+  cursor: pointer;
+}
+
+button{
   cursor: pointer;
 }

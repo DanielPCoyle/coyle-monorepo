@@ -1,7 +1,5 @@
-import React from "react";
 import React, { RefObject } from "react";
 import type { Socket } from "socket.io-client";
-import { Message } from "./types";
 
 interface Conversation {
   id: string;
@@ -71,15 +69,20 @@ export interface SubMessageType
 }
 
 export interface Message {
+  id?: number;
+  conversationKey?: number;
+  sender?: string;
+  message: string;
+  createdAt?: string;
+  seen?: boolean;
+  reactions?: Record<string, string[]>;
+  parentId?: number | null;
   files?: string[];
+  replies?: any[];
 }
 
 export interface FilePreviewProps {
   message: Message;
-}
-
-interface Message {
-  message: string;
 }
 export interface UrlPreview {
   url: string;
@@ -140,22 +143,8 @@ export interface ChatContextType {
   notificationBar: any[];
   selectedMessageId: number | null;
   setSelectedMessageId: (id: number | null) => void;
-  messagesRef: RefObject<HTMLDivElement>;
-
-}
-
-export type { NextApiRequest, NextApiResponse } from "next";
-export interface Message {
-  id: number;
-  conversationKey: number;
-  sender: string;
-  message: string;
-  createdAt: string;
-  seen: boolean;
-  reactions: Record<string, string[]>;
-  parentId: number | null;
-  files: any[];
-  replies: any[];
+// Removed duplicate declaration of Message interface as it is already defined above.
+  messagesRef: React.RefObject<HTMLDivElement>;
 }
 
 export interface DecodedToken {

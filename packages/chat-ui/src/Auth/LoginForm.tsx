@@ -35,7 +35,7 @@ export const LoginForm: React.FC = () => {
           alert(data.error);
         } else {
           const jwt = data.token;
-          localStorage.setItem("jwt", jwt);
+            document.cookie = `jwt=${jwt}; path=/;`;
           setToken(jwt);
           setIsLoggedIn(true);
           getAndSetUser(jwt);

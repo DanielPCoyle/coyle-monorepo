@@ -52,10 +52,14 @@ export const Chat = () => {
   }, [input, id, userName]);
 
   useEffect(() => {
-    if(localStorage.getItem("jwt")){
-      setToken(localStorage.getItem("jwt"));
+    const jwtToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("jwt="))
+      ?.split("=")[1];
+    if (jwtToken) {
+      setToken(jwtToken);
     }
-  },[]);
+  }, []);
 
   useEffect(() => {
     fetchConversations(token, setConversations, user);
@@ -73,13 +77,6 @@ export const Chat = () => {
   useEffect(() => {
     handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setConversations, setNotificationBar, messagesRef);
   }, [user, id]);
-
-
-  // useEffect(() => {
-  //   return () => socket.emit("logout", { id: localStorage.getItem("id") });
-  // }, [id]);
-
-  
 
   
   useEffect(() => {
@@ -136,8 +133,7 @@ export const Chat = () => {
         notificationBar,
         selectedMessageId,
         setSelectedMessageId,
-        messagesRef
-        
+        messagesRef,
       }}
     >
       {!isLoggedIn ? (
