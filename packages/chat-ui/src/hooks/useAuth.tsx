@@ -45,8 +45,12 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("jwt")) {
-      setToken(localStorage.getItem("jwt") || "");
+    const jwtToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("jwt="))
+      ?.split("=")[1];
+    if (jwtToken) {
+      setToken(jwtToken);
     }
   }, []);
 

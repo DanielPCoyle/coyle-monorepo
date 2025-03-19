@@ -24,7 +24,10 @@ export const ChatControls = ({ replyId }: { replyId?: number }) => {
     admins,
   } = useContext(ChatContext);
 
-  const token = localStorage.getItem("jwt");
+  const token = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("jwt="))
+    ?.split("=")[1];
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty(),
   );

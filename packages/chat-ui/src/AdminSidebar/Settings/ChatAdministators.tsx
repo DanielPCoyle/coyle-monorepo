@@ -19,7 +19,10 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
     fetch(`/api/chat/settings/delete-admin-user`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("jwt="))
+        ?.split("=")[1]}`,
       },
       body: JSON.stringify({ id }),
     }).then(() => {
@@ -33,12 +36,15 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
     // Fetch chat administrators
     fetch("/api/chat/settings/admin-users", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("jwt="))
+        ?.split("=")[1]}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        setAdmins(data);
+      setAdmins(data);
       });
   }, [view]);
 
