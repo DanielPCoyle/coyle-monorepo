@@ -15,5 +15,7 @@ echo "Restarting Nginx"
 sudo systemctl restart nginx
 
 # Remove any unused Docker images
-sudo docker image prune -f
+sudo docker system prune -a -f
+sudo docker volume prune -f
+
 echo "Deployment complete"

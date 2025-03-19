@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define directories
-DATABASE_DIR="packages/database"
+DATABASE_DIR="packages/chat-db"
 DEST_DIR="applications/chat-sockets"
 
 # Navigate to the database package directory
