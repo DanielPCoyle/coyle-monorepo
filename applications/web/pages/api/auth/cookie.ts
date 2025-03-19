@@ -14,12 +14,12 @@ export default async function handler(
     }
 
     const parsedCookies = parse(cookies);
-    const authToken = parsedCookies.authToken;
-    if (!authToken) {
-        return res.status(401).json({ message: "authToken cookie missing" });
+    const jwt = parsedCookies.jwt;
+    if (!jwt) {
+        return res.status(401).json({ message: "jwt cookie missing" });
     }
 
-    res.status(200).json({ authToken });
+    res.status(200).json({ jwt });
 }
 
     

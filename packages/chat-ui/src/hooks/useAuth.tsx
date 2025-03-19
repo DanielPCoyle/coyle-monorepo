@@ -46,13 +46,38 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    const jwtToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("jwt="))
-      ?.split("=")[1];
-    if (jwtToken) {
-      setToken(jwtToken);
-    }
+    // const jwtToken = document.cookie
+    //   .split("; ")
+    //   .find((row) => row.startsWith("jwt="))
+    //   ?.split("=")[1];
+    // if (jwtToken) {
+    //   setToken(jwtToken);
+    // }
+
+    fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/cookie", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw new Error("Failed to fetch JWT");
+        }
+      })
+      .then((data) => {
+        const jwtToken = data.jwt;
+        if (jwtToken) {
+          setToken(jwtToken);
+          getAndSetUser(jwtToken);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching token:", err);
+      })
   }, []);
 
   useEffect(() => {
