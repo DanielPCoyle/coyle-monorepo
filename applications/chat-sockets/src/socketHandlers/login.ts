@@ -4,7 +4,8 @@ import {
   getConversationIdByKey,
   updateConversationIsActive,
   updateConversationSocketId,
-} from "@coyle/database";
+  getUsersOnline,
+} from "@coyle/chat-db";
 
 export const login = ({ socket, io }) =>
   socket.on("login", async ({ userName, email, id, isAdmin }) => {
@@ -23,6 +24,10 @@ export const login = ({ socket, io }) =>
         isActive: true,
       });
     }
+
+    const onlineUsers = await getUsersOnline();
+    io.emit("adminsOnline", onlineUsers);
+
     const allConversations = await getConversations();
     io.emit("conversations", allConversations);
   });

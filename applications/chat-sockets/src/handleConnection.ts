@@ -12,7 +12,7 @@ import {
   updateUserStatus,
   getUsersOnline,
   updateUserNotificationsEnabled,
-} from "@coyle/database";
+} from "@coyle/chat-db";
 
 export function handleConnection(socket: Socket, io: Server) {
   let typingTimeout: NodeJS.Timeout;

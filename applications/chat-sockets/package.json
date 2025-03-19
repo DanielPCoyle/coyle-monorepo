@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@coyle/database": "*",
+    "@coyle/chat-db": "*",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "socket.io": "^4.8.1",
@@ -15,7 +15,7 @@
   "scripts": {
     "start": "npx tsx src/index.ts",
     "dev": "nodemon index.ts",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint . --ext .ts --ignore-pattern 'coverage/*'",
     "test": "vitest run",
     "types": "tsc --noEmit",
     "prettier": "prettier --check ."

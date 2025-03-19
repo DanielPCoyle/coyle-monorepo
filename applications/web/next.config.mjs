@@ -3,7 +3,7 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ["@coyle/database"],
+  transpilePackages: ["@coyle/chat-db"],
   env: {
     NEXT_PUBLIC_BUILDER_API_KEY: process.env.NEXT_PUBLIC_BUILDER_API_KEY,
     NEXT_PUBLIC_INKSOFT_STORE: process.env.NEXT_PUBLIC_INKSOFT_STORE,

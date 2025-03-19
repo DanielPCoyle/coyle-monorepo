@@ -1,4 +1,4 @@
-import { getConversations } from "@coyle/database";
+import { getConversations } from "@coyle/chat-db";
 import { authMiddleware } from "../../../middlewares/auth";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";

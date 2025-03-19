@@ -2,12 +2,26 @@ import {
   getConversationIdByKey,
   insertMessage,
   getConversations,
-} from "@coyle/database";
+  addConversation,
+} from "@coyle/chat-db";
 
 export const chatMessage = ({ socket, io }) =>
   socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
     try {
-      const conversationId = await getConversationIdByKey(id);
+      let conversationId = await getConversationIdByKey(id);
+      if (!conversationId) {
+        // add conversation
+        const addConvo = await addConversation({
+          name: sender,
+          email: "",
+          conversationKey: id,
+          isAdmin: false,
+          isActive: true,
+        });
+        if (addConvo) {
+          conversationId = addConvo.id;
+        }
+      }
       const formattedMessage = message.replace(/\n/g, "<br/>");
 
       const insert = {

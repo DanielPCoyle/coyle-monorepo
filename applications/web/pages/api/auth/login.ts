@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getUserByEmail } from "@coyle/database/src/util/chat/getUserByEmail";
+import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Keep this secret and only on the backend
 
@@ -21,8 +21,6 @@ export default async function handler(
 
   try {
     const user = await getUserByEmail(email);
-
-    // Compare the hashed password
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid credentials" });

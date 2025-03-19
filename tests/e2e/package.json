@@ -8,7 +8,7 @@
     "lint:fix": "yarn lint --fix",
     "run-test": "vitest run",
     "run:watch": "vitest",
-    "test": "echo null",
+    "test": "echo \"Run E2E tests separately\"",
     "types": "echo \"TODO (MAYBE): Add yarn types to E2E\"",
     "prettier": "prettier --check ."
   },

@@ -8,8 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "echo \"TODO: REPLACE JEST WITH VITEST\"",
-    "lint": "expo lint",
+    "test": "echo \"TODO: run vitest in mobile application!\"",
+    "lint": "echo \"TODO: run eslint mobile application!\"",
     "types": "echo TODO: FIX TYPESCRIPT IN MOBILE APP",
     "prettier": "prettier ."
   },

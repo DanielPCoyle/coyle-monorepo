@@ -1,0 +1,46 @@
+import React from "react";
+import { BoldSvg } from "../assets/svg/BoldSvg";
+import { ItalicSvg } from "../assets/svg/ItalicSvg";
+import { StrikeThroughSvg } from "../assets/svg/StrikeThroughSvg";
+import { UnorderedListSvg } from "../assets/svg/UnorderedListSvg";
+import { FormattingBarProps } from "../../types";
+
+export const FormattingBar: React.FC<FormattingBarProps> = ({
+  toggleInlineStyle,
+  toggleBlockType,
+}) => {
+  return (
+    <div className="formattingBar">
+      <button
+        onClick={() => toggleInlineStyle("BOLD")}
+        className="formatButton"
+        data-testid="bold-button"
+      >
+        <BoldSvg />
+      </button>
+      <button
+        onClick={() => toggleInlineStyle("ITALIC")}
+        className="formatButton"
+        data-testid="italic-button"
+      >
+        <ItalicSvg />
+      </button>
+      <button
+        onClick={() => toggleInlineStyle("STRIKETHROUGH")}
+        className="formatButton"
+        data-testid="strikethrough-button"
+      >
+        <StrikeThroughSvg />
+      </button>
+      <button
+        onClick={() => toggleBlockType("unordered-list-item")}
+        className="formatButton"
+        data-testid="unorderedlist-button"
+      >
+        <UnorderedListSvg />
+      </button>
+    </div>
+  );
+};
+
+export default FormattingBar;

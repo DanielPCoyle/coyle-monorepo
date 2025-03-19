@@ -23,5 +23,5 @@
     "../../packages/database/src/util/insertGetAStoreSignup.ts",
     "../../packages/database/src/util/chat/getUserByEmail.ts"
   ],
-  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx"]
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "public/dist/*"]
 }
