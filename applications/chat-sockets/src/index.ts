@@ -7,7 +7,7 @@ import cors from "cors";
 
 dotenv.config();
 const corsOptions = {
-  origin: ["https://shop.philaprints.com","https://www.philaprints.com","https://philaprints.com"], // Allow all origins, adjust as needed
+  origin: ["https://shop.philaprints.com", "https://www.philaprints.com", "https://philaprints.com", "https://socket.philaprints.com"], // Added socket.philaprints.com
   methods: ["GET", "POST"],
 };
 
@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["https://shop.philaprints.com","https://www.philaprints.com","https://philaprints.com"], // Allow all origins, adjust as needed
+    origin: ["https://shop.philaprints.com", "https://www.philaprints.com", "https://philaprints.com", "https://socket.philaprints.com"], // Added socket.philaprints.com
     methods: ["GET", "POST"],
   },
 });

@@ -9,9 +9,10 @@ export const useAuth = () => {
     setIsLoggedIn,
     setId,
     setNotificationsEnabled,
+    setToken,
+    token,
     socket,
   } = useContext(ChatContext);
-  const [token, setToken] = useState(null);
   const getAndSetUser = async (jwtToken: string) => {
     try {
       const response = await fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/me", {

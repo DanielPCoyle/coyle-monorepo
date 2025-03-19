@@ -145,6 +145,7 @@ export interface ChatContextType {
   setSelectedMessageId: (id: number | null) => void;
 // Removed duplicate declaration of Message interface as it is already defined above.
   messagesRef: React.RefObject<HTMLDivElement>;
+  token: string;
 }
 
 export interface DecodedToken {
