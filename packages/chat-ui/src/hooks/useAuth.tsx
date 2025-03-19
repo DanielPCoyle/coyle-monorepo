@@ -56,9 +56,10 @@ export const useAuth = () => {
 
   useEffect(() => {
     if (token) {
+      console.log({ token });
       getAndSetUser(token);
     }
-  }, [getAndSetUser, token]);
+  }, [ token]);
 
   return { getAndSetUser };
 };
