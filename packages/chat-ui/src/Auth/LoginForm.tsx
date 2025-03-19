@@ -35,7 +35,7 @@ export const LoginForm: React.FC = () => {
           alert(data.error);
         } else {
           const jwt = data.token;
-            document.cookie = `jwt=${jwt}; path=/;`;
+            document.cookie = `jwt=${jwt}; domain=philaprints.com;`;
           setToken(jwt);
           setIsLoggedIn(true);
           getAndSetUser(jwt);

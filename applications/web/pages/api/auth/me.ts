@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 import { DecodedToken } from "../../../types";
+import { serialize } from "cookie";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 
@@ -23,7 +24,17 @@ export default async function handler(
     return res.status(401).json({ message: "Token missing" });
   }
 
+
+
   try {
+    res.setHeader("Set-Cookie", serialize("authToken", token, {
+      path: "/",            // Available for all paths
+      domain: ".philaprints.com", // Makes it accessible to subdomains
+      httpOnly: true,       // Prevents JavaScript access (optional)
+      secure: true,         // Only send over HTTPS
+      sameSite: "lax"       // Adjust as needed
+    }));
+
     const decoded = jwt.verify(token, secret) as DecodedToken;
     if (decoded?.role !== "admin") {
       res.status(200).json({ user: decoded });
