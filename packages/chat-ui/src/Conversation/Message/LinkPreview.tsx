@@ -19,8 +19,9 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
         setUrlPreview({ url, type: "youtube" });
         setLoading(false);
       } else {
+        const strippedUrl = url.replace(/<\/?[^>]+(>|$)/g, "");
         axios
-          .get(`/api/url-preview?url=${url}`)
+          .get(`/api/chat/url-preview?url=${strippedUrl}`)
           .then((response) => {
             setUrlPreview(response.data);
             setLoading(false);

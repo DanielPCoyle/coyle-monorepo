@@ -31,7 +31,7 @@ export const ChatCaddy = () => {
   return (
     <div className="chatCaddyContainer" ref={chatCaddyRef}>
       
-        <div className={"chatCaddy animate__animated animate__fadeInUp "+ (open ? "show" : "hide")}>
+        <div className={"chatCaddy animate__animated animate__slideInUp "+ (open ? "show" : "hide")}>
           <Chat />
         </div>
       <div className="showChat">
