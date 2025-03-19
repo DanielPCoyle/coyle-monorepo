@@ -6,22 +6,38 @@ export const handleSocketEvents = (
   setAdmins,
   setTyping,
   setConversations,
+  setNotificationBar,
 ) => {
   socket.on("conversations", (conversations) => {
     if (user?.role === "admin") setConversations(conversations);
   });
   socket.on("adminsOnline", setAdmins);
   socket.on("chat message", (message) => {
-    console.log("MESSAGE", message);
     setMessages((prev) => {
-
-
-
       const newMessages = [...prev];
-      if(message.parentId){
-        const parentIndex = newMessages.findIndex((m) => m.id === message.parentId);
-        newMessages[parentIndex].replies = newMessages[parentIndex].replies || [];
-        if (!newMessages[parentIndex].replies.some((reply) => reply.id === message.id)) {
+      if (message.parentId) {
+        setNotificationBar((prev) => {
+          const newNotifications = Array.isArray(prev) ? [...prev] : [];
+          newNotifications.push({
+            message: `${message.sender} replied to your message`,
+            id: message.parentId,
+          });
+
+          return Array.from(new Set(newNotifications.map((n) => n.id))).map((id) =>
+            newNotifications.find((n) => n.id === id),
+          );
+
+        })
+        const parentIndex = newMessages.findIndex(
+          (m) => m.id === message.parentId,
+        );
+        newMessages[parentIndex].replies =
+          newMessages[parentIndex].replies || [];
+        if (
+          !newMessages[parentIndex].replies.some(
+            (reply) => reply.id === message.id,
+          )
+        ) {
           newMessages[parentIndex].replies.push(message);
         }
       } else {
@@ -29,8 +45,6 @@ export const handleSocketEvents = (
           newMessages.push(message);
         }
       }
-
-
 
       return newMessages.sort((a, b) => a.id - b.id);
     });

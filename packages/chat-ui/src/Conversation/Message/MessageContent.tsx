@@ -58,6 +58,7 @@ export const MessageContent = () => {
           className="showReply"
         >
           <ReplySvg /> {message?.replies?.length > 0 && message.replies.length}
+          {message?.replies?.filter((reply)=>!reply.seen).length > 0 && <span className="unreadReplies animate__animated animate__pulse animate__infinite">&nbsp;</span>}
         </button>
       </div>
       </div>

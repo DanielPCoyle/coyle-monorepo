@@ -17,7 +17,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   message,
   index,
 }) => {
-  const { user } = useContext(ChatContext);
+  const { user, selectedMessageId,setSelectedMessageId } = useContext(ChatContext);
   const [showReactionsPicker, setShowReactionsPicker] = useState(false);
   const [showReplyModal, setShowReplyModal] = useState(false);
 
@@ -26,6 +26,13 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
   
   const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   useOutsideClick(reactionsPickerRef, () => setShowReactionsPicker(false));
+
+  React.useEffect(() => {
+    if(selectedMessageId === message.id){
+      setShowReplyModal(true);
+      setSelectedMessageId(null);
+    }
+  },[selectedMessageId]);
 
   return (
     <MessageContext.Provider

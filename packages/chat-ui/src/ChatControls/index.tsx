@@ -9,6 +9,7 @@ import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
 import { Thumbnail } from "./Thumbnail";
 import { uploadFileToSupabase } from "./uploadFileToSupabase";
+import { CloseIcon } from "../../assets/svg/CloseIcon";
 
 export const ChatControls = ({ replyId }: { replyId: number }) => {
   const {
@@ -22,6 +23,8 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     setFiles,
     setInput,
     admins,
+    notificationBar,
+    setNotificationBar,
   } = useContext(ChatContext);
 
   const [editorState, setEditorState] = useState(() =>
@@ -135,6 +138,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
           back to you as soon as possible :)
         </div>
       )}
+
       <div className="inputContainer">
         {files?.length > 0 && (
           <div className="thumbnails">

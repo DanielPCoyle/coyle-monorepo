@@ -4,6 +4,7 @@ import {
   getConversationIdByKey,
   updateConversationIsActive,
   updateConversationSocketId,
+  getUsersOnline,
 } from "@coyle/chat-db";
 
 export const login = ({ socket, io }) =>
@@ -24,5 +25,9 @@ export const login = ({ socket, io }) =>
       });
     }
     const allConversations = await getConversations();
+
+    const onlineUsers = await getUsersOnline();
+    io.emit("adminsOnline", onlineUsers);
+
     io.emit("conversations", allConversations);
   });
