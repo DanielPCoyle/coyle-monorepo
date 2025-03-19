@@ -1,9 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { parse } from "cookie";
 
-
-const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
