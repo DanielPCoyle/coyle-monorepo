@@ -28,7 +28,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
               {convo.isActive && (
                 <div className={`activeDot ${status}`}>&nbsp;</div>
               )}
-              <div>
+              <div> 
                 You ({user.name}) - {status}
               </div>
             </>

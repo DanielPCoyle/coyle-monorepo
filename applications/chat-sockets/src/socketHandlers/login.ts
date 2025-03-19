@@ -24,10 +24,10 @@ export const login = ({ socket, io }) =>
         isActive: true,
       });
     }
-    const allConversations = await getConversations();
-
+    
     const onlineUsers = await getUsersOnline();
     io.emit("adminsOnline", onlineUsers);
-
+    
+    const allConversations = await getConversations();
     io.emit("conversations", allConversations);
   });

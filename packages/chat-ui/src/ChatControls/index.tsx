@@ -25,6 +25,7 @@ export const ChatControls = ({ replyId }: { replyId: number }) => {
     admins,
     notificationBar,
     setNotificationBar,
+    messagesRef,
   } = useContext(ChatContext);
 
   const [editorState, setEditorState] = useState(() =>

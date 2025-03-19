@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
+import { a } from "framer-motion/dist/types.d-B50aGbjN";
 
 export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null}) => {
   const {
@@ -29,47 +30,24 @@ export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null
   return (
     <>
      <h1>Chats</h1>
-      <div className="immediateSettings" data-testid="immediate-settings">
-        <div className="formGroup status">
-          <label>Status</label>
-          <select
-            className="statusDropdown"
-            data-testid="status-dropdown"
-            value={status || user?.status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option value="online">Online</option>
-            <option value="offline">Offline</option>
-          </select>
-        </div>
-        <div className="formGroup notifications">
-          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
-          <input
-            type="checkbox"
-            data-testid="notifications-checkbox"
-            checked={notificationsEnabled}
-            onChange={() => setNotificationsEnabled(!notificationsEnabled)}
-          />
-        </div>
-      </div>
-      <hr />
       <div className={`conversationList`} data-testid="conversation-list">
         <h3>Active Conversations</h3>
 
         <ConversationListItems
           socket={socket}
           setShowMenu={setShowMenu}
-          
           conversations={conversations.filter((c) => c?.isActive)}
         />
 
-<h3>Admins Online</h3>
+          <h3>Admins Online</h3>
           <ConversationListItems
             socket={socket}
             setShowMenu={setShowMenu}
-            conversations={admins}
+            conversations={admins.map((a)=>{
+              a.conversationKey = [a.id,user.id].sort().join("_")
+              return a
+            })}
           />
-
 
         <div className="historicConversations" data-testid="historic-conversations">
           <h3
@@ -78,7 +56,7 @@ export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null
             onClick={() => setShowHistoric(!showHistoric)}
           >
             Inactive Conversations ({" "}
-            {conversations.filter((c) => !c?.isActive)?.length} )
+            {conversations.filter((c) => !c?.isActive && c?.id !== (user?.id +"_"+user?.id))?.length} )
           </h3>
           {showHistoric && (
             <div 
@@ -91,13 +69,44 @@ export const ConversationList: React.FC = ({setShowMenu}: {setShowMenu: ()=>null
                 <ConversationListItems
                   socket={socket}
                   setShowMenu={setShowMenu}
-                  conversations={conversations.filter((c) => !c?.isActive)}
+                  conversations={conversations.filter((c) => !c?.isActive && c?.id !== (user?.id +"_"+user?.id))}
                 />
               </div>
             </div>
           )}
           
         </div>
+
+        <div className="immediateSettings" data-testid="immediate-settings">
+        <div className="formGroup status">
+          <label>Status</label>
+          <select
+            className="statusDropdown"
+            data-testid="status-dropdown"
+            value={status || user?.status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="online">Online</option>
+            <option value="offline">Offline</option>
+          </select>
+        
+        </div>
+        <div className="formGroup notifications">
+          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
+          <input
+            type="checkbox"
+            data-testid="notifications-checkbox"
+            checked={notificationsEnabled}
+            onChange={() => setNotificationsEnabled(!notificationsEnabled)}
+          />
+        </div>
+        
+      </div>
+      {status === "offline" && (
+            <p className="offlineMessage">
+              You Are OFFLINE
+            </p>
+          )}
       </div>
     </>
   );

@@ -235,6 +235,7 @@ margin:auto;
 }
 
 .messageAddOns{
+  position: relative;
 display: flex;
     justify-content: center;
     align-items: center;
@@ -599,7 +600,7 @@ margin: auto;
 
 button.closeModal {
   position: absolute;
-  top: -20px;
+  top: 0;
   right: -25px;
 }
 
@@ -698,4 +699,28 @@ button.closeModal {
 
 .chatStack{
   overflow-x: hidden;
+}
+
+.emojiPicker {
+  position: absolute;
+  bottom: 30px;
+  left: 80px;
+  z-index: 9;
+}
+
+
+.formGroup.status{
+  display: flex;
+  flex-direction: column;
+}
+
+.offlineMessage{
+  background: #d89611;
+  color: rgb(11, 11, 11);
+  padding: 5px;
+  border-radius: 5px;
+  margin: 5px;
+  width: 95%;
+  font-weight: bold;
+  text-align: center;
 }

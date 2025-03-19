@@ -2,6 +2,8 @@ import {
   updateConversationIsActive,
   getConversations,
   getConversationBySocketId,
+  getUsersOnline,
+
 } from "@coyle/chat-db";
 
 export const disconnect = ({ socket, io }) =>
@@ -12,6 +14,9 @@ export const disconnect = ({ socket, io }) =>
         await updateConversationIsActive(conversation.conversationKey, false);
         const allConversations = await getConversations();
         io.emit("conversations", allConversations);
+
+        const onlineUsers = await getUsersOnline();
+        io.emit("adminsOnline", onlineUsers);
       }
     } catch (error) {
       console.error("Error disconnecting", error);

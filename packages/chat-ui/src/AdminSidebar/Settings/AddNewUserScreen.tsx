@@ -27,7 +27,7 @@ export const AddNewUserScreen = () => {
     <div data-testid="add-user-screen">
       <h1 data-testid="title">Add Chat Administrator</h1>
       <div className="formGroup" data-testid="admin-name-group">
-        <label htmlFor="adminName">Admin Name</label>
+        <label htmlFor="adminName">Name</label>
         <input
           id="adminName"
           type="text"
@@ -59,7 +59,7 @@ export const AddNewUserScreen = () => {
           <option value="viewer" data-testid="role-option-viewer">Viewer</option>
         </select>
       </div>
-      <button onClick={handleAddNewUser} data-testid="add-user-button">
+      <button onClick={handleAddNewUser} className="saveButton" data-testid="add-user-button">
         Add Admin
       </button>
     </div>

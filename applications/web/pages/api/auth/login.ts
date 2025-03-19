@@ -21,8 +21,6 @@ export default async function handler(
 
   try {
     const user = await getUserByEmail(email);
-
-    // Compare the hashed password
     const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid credentials" });

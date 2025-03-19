@@ -7,6 +7,7 @@ export const handleSocketEvents = (
   setTyping,
   setConversations,
   setNotificationBar,
+  messagesRef
 ) => {
   socket.on("conversations", (conversations) => {
     if (user?.role === "admin") setConversations(conversations);
@@ -23,11 +24,10 @@ export const handleSocketEvents = (
             id: message.parentId,
           });
 
-          return Array.from(new Set(newNotifications.map((n) => n.id))).map((id) =>
-            newNotifications.find((n) => n.id === id),
+          return Array.from(new Set(newNotifications.map((n) => n.id))).map(
+            (id) => newNotifications.find((n) => n.id === id),
           );
-
-        })
+        });
         const parentIndex = newMessages.findIndex(
           (m) => m.id === message.parentId,
         );
@@ -45,9 +45,14 @@ export const handleSocketEvents = (
           newMessages.push(message);
         }
       }
-
       return newMessages.sort((a, b) => a.id - b.id);
     });
+
+    if(!message.parentId ) {
+      setTimeout(() => {
+        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+      }, 100);
+    }
   });
   socket.on("user typing", (data) => {
     console.log("TYPING", data);

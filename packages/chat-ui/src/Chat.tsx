@@ -35,6 +35,7 @@ export const Chat = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [notificationBar, setNotificationBar] = useState([]);
   const [selectedMessageId, setSelectedMessageId] = useState(null);
+  const messagesRef = React.useRef(null);
 
   useEffect(() => {
     const handleTyping = () => {
@@ -69,7 +70,7 @@ export const Chat = () => {
   }, [id, user]);
 
   useEffect(() => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setConversations, setNotificationBar);
+    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setConversations, setNotificationBar, messagesRef);
   }, [user, id]);
 
   useEffect(() => {
@@ -130,7 +131,9 @@ export const Chat = () => {
         setNotificationBar,
         notificationBar,
         selectedMessageId,
-        setSelectedMessageId
+        setSelectedMessageId,
+        messagesRef
+        
       }}
     >
       {!isLoggedIn ? (
@@ -144,7 +147,7 @@ export const Chat = () => {
         <div className="animate__animated animate__fadeIn coyleChat">
           {user?.role === "admin" && <SideBar />}
           <div className="chatStack">
-            <div className="messages">
+            <div className="messages" ref={messagesRef}>
               <Conversation />
             </div>
             <div className="notificationBarContainer">
@@ -153,17 +156,12 @@ export const Chat = () => {
                 notificationBar.map((notification) => (
                   <div className="notification">
                   <p>{notification.message}</p>
-                  {selectedMessageId}
                   <button onClick={()=>{
                     setSelectedMessageId(notification.id)
                     setNotificationBar((prev) => prev.filter((n) => n.id !== notification.id))
                     }}>
                   <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   </button>
-                  <button onClick={() => setNotificationBar((prev) => prev.filter((n) => n.id !== notification.id))}>
-                    <CloseIcon/>
-                  </button>
-        
                   </div>
                 ))
               )}
