@@ -136,8 +136,7 @@ export const Chat = () => {
         notificationBar,
         selectedMessageId,
         setSelectedMessageId,
-        messagesRef
-        
+        messagesRef,
       }}
     >
       {!isLoggedIn ? (

@@ -25,7 +25,6 @@ export const createAdminUser = async ({
     await db.insert(users).values({
       id: userId,
       email,
-      name,
       passwordHash: hashedPassword,
       isActive: false,
       role: role || "admin",
