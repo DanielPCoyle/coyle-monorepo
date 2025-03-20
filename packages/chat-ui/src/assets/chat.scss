@@ -10,9 +10,10 @@
   --receiver-message-text-color: #000;
   --sender-message-background-color: #007aff;
   --sender-message-text-color: #fff;
-  --input-container-background-color: #2f2f2f;
+  --input-container-background-color: #d9d8d8;
   --notification-bar-background-color: #888;
   --notification-bar-text-color: #fff;
+  --format-button-color: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +32,7 @@
     --input-container-background-color: #1f1f1f;
     --notification-bar-background-color: #555;
     --notification-bar-text-color: #fff;
+    --format-button-color: #ffffff;
   }
 }
 
@@ -90,11 +92,11 @@
 }
 
 .coyleChat {
-    display: flex;
-    background: #000;
-    color:white;
-    height:100vh;
-    width:100%;
+  display: flex;
+  background: var(--messages-background-color);
+  color: var(--form-text-color);
+  height: 100vh;
+  width: 100%;
 }
 
 
@@ -243,6 +245,7 @@ button{
   background: #544fd2;
   text-align: center;
   padding: 10px;
+  color:var(--sender-message-text-color);
 }
 
 .inputContainer {
@@ -300,7 +303,7 @@ width: 98%;
 margin: auto;
 padding: 10px;
 .formatButton{
-  color:white;
+  color:var(--format-button-color);
   border:none;
   padding: 10px;
   border-radius: 5px;
@@ -398,16 +401,6 @@ background: #5450d3;
 
 .immediateSettings {
 display: flex;
-gap: 20px;
-padding:10px;
-align-items: center;
-}
-
-.immediateSettings {
-margin-top: 20px;
-padding: 10px;
-background: rgba(255, 255, 255, 0.1);
-border-radius: 8px;
 }
 
 .formGroup {
@@ -800,4 +793,14 @@ button.closeModal {
 
 button{
   cursor: pointer;
+}
+
+.sidebarHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1{
+    border:none; 
+  }
+  border-bottom:dotted white 3px;
 }
