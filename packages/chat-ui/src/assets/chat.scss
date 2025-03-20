@@ -551,31 +551,8 @@ top: -117px;
 display: flex;
 }
 
-.senderReactionPicker {
-display: flex;
-justify-content: end;
-width: 72%;
-margin: auto;
-}
 
-.receiverReactionPicker {
-display: flex;
-width: 73%;
-margin: auto;
-}
 
-.senderReactions {
-display: flex;
-justify-content: end;
-width: 40%;
-margin: auto;
-}
-
-.receiverReactions {
-display: flex;
-width: 70%;
-margin: auto;
-}
 
 .modalWrapper {
   position: fixed;
@@ -701,12 +678,6 @@ button.closeModal {
   overflow-x: hidden;
 }
 
-.emojiPicker {
-  position: absolute;
-  bottom: 30px;
-  left: 80px;
-  z-index: 9;
-}
 
 
 .formGroup.status{

@@ -14,7 +14,7 @@ export const ReactionPicker: React.FC<ReactionPickerProps> = ({
       data-testid="reaction-picker-container"
     >
       <div
-        className="animate__animated animate__slideInUp"
+        className="animate__animated animate__slideInDown"
         ref={reactionsPickerRef}
         data-testid="emoji-picker-container"
       >

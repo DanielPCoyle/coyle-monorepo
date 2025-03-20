@@ -5,13 +5,24 @@ import { LinkPreview } from "./LinkPreview";
 import { ChatContext } from "../../ChatContext";
 import { MessageContext } from "./MessageContext";
 import { ReplySvg } from "../../assets/svg/ReplySvg";
-
+import { ReactionPicker } from "./Reactions/ReactionPicker";
+import { Reactions } from "./Reactions/Reactions";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 // TODO: fix avatar on messages
 export const MessageContent = () => {
-  const { message, setShowReactionsPicker, setShowReplyModal } =
+  const { message,
+     setShowReactionsPicker,
+     setShowReplyModal,
+     reactions,
+     showReactionsPicker,
+     index,
+     removeReactions,
+      } =
     useContext(MessageContext);
   const { user, userName } = useContext(ChatContext);
-
+  const reactionsPickerRef = React.useRef<HTMLDivElement>(null);
+  useOutsideClick(reactionsPickerRef, () => setShowReactionsPicker(false));
+  
   return (
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
@@ -61,7 +72,24 @@ export const MessageContent = () => {
           {message?.replies?.filter((reply)=>!reply.seen).length > 0 && <span className="unreadReplies animate__animated animate__pulse animate__infinite">&nbsp;</span>}
         </button>
       </div>
+      {showReactionsPicker && (
+        <div data-testid={`reaction-picker-${index}`} >
+        <ReactionPicker 
+          reactionsPickerRef={reactionsPickerRef} 
+        />
+        </div>
+      )}
+   {Object.values(reactions).length > 0 && (
+        <div data-testid={`reactions-${index}`} className={`${message.sender === user?.name ? "senderReactions" : "receiverReactions"}`}>
+        <Reactions
+          isSender={message.sender === user}
+          reactions={reactions}
+          removeReactions={removeReactions}
+        />
+        </div>
+      )}
       </div>
+      
     </div>
   );
 };
