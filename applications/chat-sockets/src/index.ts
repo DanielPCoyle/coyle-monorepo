@@ -7,7 +7,7 @@ import cors from "cors";
 
 dotenv.config();
 const corsOptions = {
-  origin: "*", // Allow all origins, adjust as needed
+  origin: ["https://shop.philaprints.com", "https://www.philaprints.com", "https://philaprints.com", "https://socket.philaprints.com"], // Added socket.philaprints.com
   methods: ["GET", "POST"],
 };
 
@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: [process.env.CLIENT_ORIGIN],
+    origin: ["https://shop.philaprints.com", "https://www.philaprints.com", "https://philaprints.com", "https://socket.philaprints.com"], // Added socket.philaprints.com
     methods: ["GET", "POST"],
   },
 });
@@ -25,7 +25,7 @@ const io = new Server(server, {
 // Express route
 app.get("/", (req: Request, res: Response) => {
   void req;
-  res.send("Socket.io server is running");
+  res.send("Socket.io server is running....");
 });
 
 // Handle WebSocket connections

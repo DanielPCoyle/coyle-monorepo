@@ -7,5 +7,5 @@ export { ChatCaddy, Chat };
 export default ChatCaddy;
 
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
-root.render(<Chat />); // Ensure Chat is used as a JSX element
+const root = ReactDOM.createRoot(document.getElementById("chatCaddyRoot")!);
+root.render(<ChatCaddy />); // Ensure Chat is used as a JSX element

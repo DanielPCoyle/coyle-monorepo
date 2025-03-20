@@ -2,6 +2,7 @@ import { getMessages } from "@coyle/chat-db";
 import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
+import { handleCors } from "../../../middlewares/handleCors";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  handleCors(req, res);
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {

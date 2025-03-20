@@ -13,7 +13,7 @@ import { handleSocketEvents } from "./utils/handleSocketEvents";
 import { CloseIcon } from "./assets/svg/CloseIcon";
 import "@coyle/chat-ui/src/assets/chat.scss";
 
-const socketSite = process.env.NEXT_PUBLIC_SOCKET_SITE;
+const socketSite = process.env.REACT_APP_SOCKET_SITE;
 const socket = io(socketSite);
 
 export const Chat = () => {
@@ -25,7 +25,7 @@ export const Chat = () => {
   const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [id, setId] = useState(null);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [typing, setTyping] = useState(null);
@@ -52,20 +52,11 @@ export const Chat = () => {
   }, [input, id, userName]);
 
   useEffect(() => {
-    const jwtToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("jwt="))
-      ?.split("=")[1];
-    if (jwtToken) {
-      setToken(jwtToken);
-    }
-  }, []);
-
-  useEffect(() => {
     fetchConversations(token, setConversations, user);
   }, [user, token]);
 
   useEffect(() => {
+    if(!token) return;
     fetchMessages(id, token, setMessages, setLoading);
   }, [id, token]);
 
@@ -134,6 +125,7 @@ export const Chat = () => {
         selectedMessageId,
         setSelectedMessageId,
         messagesRef,
+        token
       }}
     >
       {!isLoggedIn ? (

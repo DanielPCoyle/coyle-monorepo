@@ -39,7 +39,7 @@ describe("fetchConversations", () => {
 
     await fetchConversations(token, setConversations, user);
 
-    expect(mockFetch).toHaveBeenCalledWith("/api/chat/conversations", {
+    expect(mockFetch).toHaveBeenCalledWith(process.env.REACT_APP_API_BASE_URL+"/api/chat/conversations", {
       headers: { Authorization: `Bearer ${token}` },
     });
     expect(setConversations).toHaveBeenCalledWith([

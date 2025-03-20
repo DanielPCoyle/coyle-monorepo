@@ -101,7 +101,7 @@ export const ChatControls = ({ replyId }: { replyId?: number }) => {
       socket.emit("chat message", message);
 
       if (!(admins?.length > 0)) {
-        await fetch("/api/chat/send-message-as-email", {
+        await fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/send-message-as-email", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

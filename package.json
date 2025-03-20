@@ -14,9 +14,15 @@
     "sockets:lint": "yarn workspace @coyle/sockets lint",
     "sockets:test": "yarn workspace @coyle/sockets test",
     "sockets:deploy": "./scripts/deploy-sockets.sh",
-    "chat:start": "yarn workspace @coyle/chat start",
-    "chat:lint": "yarn workspace @coyle/chat lint",
-    "chat:test": "yarn workspace @coyle/chat test",
+    "mobile:start": "yarn workspace @coyle/mobile-chat start",
+    "mobile:lint": "yarn workspace @coyle/mobile-chat lint",
+    "mobile:test": "yarn workspace @coyle/mobile-chat test",
+    "chat:test": "yarn workspace @coyle/chat-ui test",
+    "chat:lint": "yarn workspace @coyle/chat-ui lint",
+    "chat:build": "yarn workspace @coyle/chat-ui build",
+    "chat:dev": "yarn workspace @coyle/chat-ui dev",
+    "chat:prettier": "yarn workspace @coyle/chat-ui prettier",
+    "chat:types": "yarn workspace @coyle/chat-ui types",
     "db:create-migration": "yarn workspace @coyle/database create-migration",
     "db:migrate": "yarn workspace @coyle/database migrate",
     "db:lint": "yarn workspace @coyle/database lint",
@@ -27,8 +33,9 @@
     "types": "yarn workspaces run types",
     "prettier": "yarn workspaces run prettier",
     "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
-    "pre-push": "echo 'TODO:: REVERT BACK'",
-    "pack-db" : "./scripts/pack-db.sh"
+    "pre-push": "echo 'TODO:: REVERT BACK TO PRE-PUSH HOOK'",
+    "pack-db" : "./scripts/pack-db.sh",
+    "pack-ui": "./scripts/pack-ui.sh"
   },
   "workspaces": {
     "packages": [

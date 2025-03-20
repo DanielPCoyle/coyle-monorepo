@@ -5,7 +5,6 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
-    "@coyle/chat-db": "*",
     "bcrypt": "^5.1.1",
     "drizzle-orm": "^0.40.0",
     "jsonwebtoken": "^9.0.2",

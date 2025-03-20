@@ -3,11 +3,13 @@ import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
 import { authMiddleware } from "../../../../middlewares/auth";
 import bcrypt from "bcrypt";
+import { handleCors } from "../../../../middlewares/handleCors";
 
 dotenv.config();
 const SALT_ROUNDS = 10;
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
+    handleCors(req, res);
     if (req.method === "PATCH") {
       const user = req.body;
 

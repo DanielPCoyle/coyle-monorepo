@@ -1,5 +1,5 @@
 {
-  "name": "@coyle/chat",
+  "name": "@coyle/mobile-chat",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {

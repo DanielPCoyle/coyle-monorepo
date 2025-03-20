@@ -43,7 +43,7 @@ describe("fetchMessages", () => {
 
     await fetchMessages(id, token, setMessages, setLoading);
 
-    expect(mockFetch).toHaveBeenCalledWith(`/api/chat/messages?conversationKey=${id}`, {
+    expect(mockFetch).toHaveBeenCalledWith(`${process.env.REACT_APP_API_BASE_URL}/api/chat/messages?conversationKey=${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     expect(setMessages).toHaveBeenCalledWith([

@@ -1,3 +1,40 @@
+:root {
+  --form-background-color: #fff;
+  --form-text-color: #000;
+  --button-background-color: #007bff;
+  --button-text-color: #fff;
+  --messages-background-color: #ccc;
+  --message-background-color: #007aff;
+  --message-text-color: #fff;
+  --receiver-message-background-color: #e5e5ea;
+  --receiver-message-text-color: #000;
+  --sender-message-background-color: #007aff;
+  --sender-message-text-color: #fff;
+  --input-container-background-color: #d9d8d8;
+  --notification-bar-background-color: #888;
+  --notification-bar-text-color: #fff;
+  --format-button-color: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --form-background-color: #333;
+    --form-text-color: #fff;
+    --button-background-color: #5450d3;
+    --button-text-color: #fff;
+    --messages-background-color: #444;
+    --message-background-color: #5450d3;
+    --message-text-color: #fff;
+    --receiver-message-background-color: #555;
+    --receiver-message-text-color: #fff;
+    --sender-message-background-color: #5450d3;
+    --sender-message-text-color: #fff;
+    --input-container-background-color: #1f1f1f;
+    --notification-bar-background-color: #555;
+    --notification-bar-text-color: #fff;
+    --format-button-color: #ffffff;
+  }
+}
 
 .formStyle {
   position: absolute;
@@ -8,7 +45,8 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: var(--form-background-color);
+  color: var(--form-text-color);
   width: 300px;
   text-align: center;
   z-index: 1;
@@ -23,8 +61,8 @@
   .buttonStyle {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -54,20 +92,19 @@
 }
 
 .coyleChat {
-    display: flex;
-    background: #000;
-    color:white;
-    height:98vh;
-    width:100%;
-
-    
-
+  display: flex;
+  background: var(--messages-background-color);
+  color: var(--form-text-color);
+  height: 100vh;
+  width: 100%;
 }
 
 
 
 .sidebar {
   width: 25%;
+  height:100vh;
+  overflow-y: auto;
 }
 
 .chatStack {
@@ -84,7 +121,7 @@ button{
 
 .messages{
   height:70%;
-  background: #ccc;
+  background: var(--messages-background-color);
   overflow-y: scroll;
 
 
@@ -98,8 +135,8 @@ button{
   font-size: 16px;
   word-wrap: break-word;
   max-width: 100%;
-  background-color: #007aff;
-  color: white;
+  background-color: var(--message-background-color);
+  color: var(--message-text-color);
   min-width: 20vw;
   align-self: flex-start; /* Aligns message to the left */
 }
@@ -145,8 +182,8 @@ button{
   }
   
   .receiver .message {
-    background-color: #e5e5ea;
-    color: black;
+    background-color: var(--receiver-message-background-color);
+    color: var(--receiver-message-text-color);
     border-radius: 18px 18px 18px 4px;
   }
   
@@ -157,6 +194,8 @@ button{
   
   .sender .message {
     align-self: flex-end;
+    background-color: var(--sender-message-background-color);
+    color: var(--sender-message-text-color);
   }
 
   .senderInfo {
@@ -206,10 +245,11 @@ button{
   background: #544fd2;
   text-align: center;
   padding: 10px;
+  color:var(--sender-message-text-color);
 }
 
 .inputContainer {
-  background: #2f2f2f;
+  background: var(--input-container-background-color);
 }
 
 
@@ -263,7 +303,7 @@ width: 98%;
 margin: auto;
 padding: 10px;
 .formatButton{
-  color:white;
+  color:var(--format-button-color);
   border:none;
   padding: 10px;
   border-radius: 5px;
@@ -361,16 +401,6 @@ background: #5450d3;
 
 .immediateSettings {
 display: flex;
-gap: 20px;
-padding:10px;
-align-items: center;
-}
-
-.immediateSettings {
-margin-top: 20px;
-padding: 10px;
-background: rgba(255, 255, 255, 0.1);
-border-radius: 8px;
 }
 
 .formGroup {
@@ -551,31 +581,8 @@ top: -117px;
 display: flex;
 }
 
-.senderReactionPicker {
-display: flex;
-justify-content: end;
-width: 72%;
-margin: auto;
-}
 
-.receiverReactionPicker {
-display: flex;
-width: 73%;
-margin: auto;
-}
 
-.senderReactions {
-display: flex;
-justify-content: end;
-width: 40%;
-margin: auto;
-}
-
-.receiverReactions {
-display: flex;
-width: 70%;
-margin: auto;
-}
 
 .modalWrapper {
   position: fixed;
@@ -664,12 +671,13 @@ button.closeModal {
 }
 
 .notificationBar {
-  background-color: #888;
+  background-color: var(--notification-bar-background-color);
   display: flex;
   padding:10px;
   font-weight:bold;
   width:300vw;
   align-items: center;
+  color: var(--notification-bar-text-color);
   .notification{
     display: flex;
     border-right:1px white solid;
@@ -701,12 +709,6 @@ button.closeModal {
   overflow-x: hidden;
 }
 
-.emojiPicker {
-  position: absolute;
-  bottom: 30px;
-  left: 80px;
-  z-index: 9;
-}
 
 
 .formGroup.status{
@@ -763,7 +765,8 @@ button.closeModal {
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: var(--form-background-color);
+    color: var(--form-text-color);
     width: 300px;
     text-align: center;
     margin: auto;
@@ -790,4 +793,14 @@ button.closeModal {
 
 button{
   cursor: pointer;
+}
+
+.sidebarHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1{
+    border:none; 
+  }
+  border-bottom:dotted white 3px;
 }

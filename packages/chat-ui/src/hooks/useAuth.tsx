@@ -9,13 +9,15 @@ export const useAuth = () => {
     setIsLoggedIn,
     setId,
     setNotificationsEnabled,
+    setToken,
+    token,
     socket,
   } = useContext(ChatContext);
-  const [token, setToken] = useState(null);
   const getAndSetUser = async (jwtToken: string) => {
     try {
-      const response = await fetch("/api/auth/me", {
+      const response = await fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/me", {
         headers: { Authorization: `Bearer ${jwtToken}` },
+        credentials: "include", 
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -45,20 +47,46 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    const jwtToken = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("jwt="))
-      ?.split("=")[1];
-    if (jwtToken) {
-      setToken(jwtToken);
-    }
+    // const jwtToken = document.cookie
+    //   .split("; ")
+    //   .find((row) => row.startsWith("jwt="))
+    //   ?.split("=")[1];
+    // if (jwtToken) {
+    //   setToken(jwtToken);
+    // }
+
+    fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/cookie", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw new Error("Failed to fetch JWT");
+        }
+      })
+      .then((data) => {
+        const jwtToken = data.jwt;
+        if (jwtToken) {
+          setToken(jwtToken);
+          getAndSetUser(jwtToken);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching token:", err);
+      })
   }, []);
 
   useEffect(() => {
     if (token) {
+      console.log({ token });
       getAndSetUser(token);
     }
-  }, [getAndSetUser, token]);
+  }, [ token]);
 
   return { getAndSetUser };
 };

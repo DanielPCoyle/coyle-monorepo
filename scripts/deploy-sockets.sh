@@ -2,8 +2,7 @@
 yarn pack-db
 
 cp ./applications/chat-sockets/package.json ./applications/chat-sockets/production.package.json
-sed -i '' 's/"@coyle\/database": "\*"/"@coyle\/database": "file:coyle-database-v1.0.0.tgz"/' ./applications/chat-sockets/production.package.json
-
+node ./scripts/rewrite-package.js
 # Remove the existing chat-sockets folder on the server
 ssh -i "philaprints.pem" ubuntu@ec2-44-223-25-160.compute-1.amazonaws.com 'rm -rf /home/ubuntu/chat-sockets'
 # Sync the chat-sockets application to the server

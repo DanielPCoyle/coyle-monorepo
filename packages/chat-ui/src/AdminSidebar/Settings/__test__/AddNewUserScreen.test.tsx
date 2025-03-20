@@ -51,7 +51,7 @@ describe("AddNewUserScreen", () => {
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    expect(fetch).toHaveBeenCalledWith("/api/auth/register", expect.objectContaining({
+    expect(fetch).toHaveBeenCalledWith(process.env.REACT_APP_API_BASE_URL+"/api/auth/register", expect.objectContaining({
       method: "POST",
       body: JSON.stringify({
         name: "",

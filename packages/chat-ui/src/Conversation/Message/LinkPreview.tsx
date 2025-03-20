@@ -21,7 +21,7 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
       } else {
         const strippedUrl = url.replace(/<\/?[^>]+(>|$)/g, "");
         axios
-          .get(`/api/chat/url-preview?url=${strippedUrl}`)
+          .get(`${process.env.REACT_APP_API_BASE_URL}/api/chat/url-preview?url=${strippedUrl}`)
           .then((response) => {
             setUrlPreview(response.data);
             setLoading(false);
