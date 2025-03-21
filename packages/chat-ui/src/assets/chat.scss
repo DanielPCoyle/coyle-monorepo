@@ -570,11 +570,11 @@ width: 100%;
 }
 
 .thumbnails {
-display: flex;
-gap: 20px;
-padding: 10px;
-position: absolute;
-top: -117px;
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  position: absolute;
+  bottom: 270px;
 }
 
 .sender {
@@ -803,4 +803,16 @@ button{
     border:none; 
   }
   border-bottom:dotted white 3px;
+}
+
+label.hideFileInput {
+  color: white;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reactionsPicker{
+  overflow: hidden;
 }

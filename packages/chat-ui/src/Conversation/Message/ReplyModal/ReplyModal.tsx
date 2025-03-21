@@ -42,22 +42,7 @@ export const ReplyModal: React.FC = () => {
       </div>
       <div className="replies">
         <MessageContent />
-        {showReactionsPicker && (
-          <div data-testid="reaction-picker">
-          <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
-          </div>
-        )}
-        {message.replies && (
-          <div>
-            {message.replies.map((reply: MessageType, index: number) => (
-              <div key={index}>
-                <SubMessage
-                  reply={reply as any}
-                   />
-              </div>
-            ))}
-          </div>
-        )}
+       
       </div>
       <hr />
       <div>
