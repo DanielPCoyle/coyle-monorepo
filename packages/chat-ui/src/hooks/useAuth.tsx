@@ -66,10 +66,14 @@ export const useAuth = () => {
         if (res.status === 200) {
           return res.json();
         } else {
-          throw new Error("Failed to fetch JWT");
+          console.error("Failed to fetch JWT");
         }
       })
       .then((data) => {
+        if(data?.jwt === undefined) {
+          console.error("JWT is undefined");
+          return;
+        }
         const jwtToken = data.jwt;
         if (jwtToken) {
           setToken(jwtToken);
