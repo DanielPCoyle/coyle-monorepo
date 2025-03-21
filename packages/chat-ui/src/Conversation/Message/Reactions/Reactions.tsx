@@ -15,7 +15,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
       <div className="reactions">
         {Object.keys(reactions).map((key) =>
           Object.values(reactions[key]).map((emoji: string, idx: number) => (
-            <span
+            <button
               onClick={() => {
                 if (key === email) {
                   removeReactions({ emoji });
@@ -24,7 +24,7 @@ export const Reactions: React.FC<ReactionsProps> = ({
               key={idx}
             >
               {emoji}
-            </span>
+            </button>
           )),
         )}
       </div>

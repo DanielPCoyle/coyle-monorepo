@@ -30,27 +30,19 @@ export const SubMessage: React.FC<SubMessageType> = ({reply} : any) => {
         setShowReactionsPicker,
         setShowReplyModal,
         showReplyModal,
+        showReactionsPicker,
         addReaction: (emoji) => handleAddReaction(emoji, email, reactions, setReactions, socket, id, reply.id, setShowReactionsPicker),
         reactions,
       }}
     >
-      <div ref={messageRef} data-testid="submessage-container">
-        <MessageContent data-testid="message-content" />
-        {showReactionsPicker && (
+      <div ref={messageRef} data-testid="submessage-container" className='subMessage'>
+        <MessageContent  data-testid="message-content" />
+        {/* {showReactionsPicker && (
           <div data-testid="reaction-picker">
             <ReactionPicker reactionsPickerRef={reactionsPickerRef} />
           </div>
-        )}
+        )} */}
 
-        {Boolean(reactions) && Object.values(reactions).length > 0 && (
-          <div data-testid="reactions">
-            <Reactions
-              isSender={reply.sender === userName}
-              reactions={reactions}
-              removeReactions={(emoji) => handleRemoveReaction(emoji, email, reactions, setReactions, socket, reply.id)}
-            />
-          </div>
-        )}
       </div>
     </MessageContext.Provider>
   );
