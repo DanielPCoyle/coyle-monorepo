@@ -31,7 +31,7 @@ export default async function handler(
   try {
     res.setHeader("Set-Cookie", serialize("jwt", token, {
       path: "/",            // Available for all paths
-      domain: ".philaprints.com", // Makes it accessible to subdomains
+      domain: "."+process.env.REACT_APP_COOKIE_DOMAIN, // Makes it accessible to subdomains
       httpOnly: true,       // Prevents JavaScript access (optional)
       secure: true,         // Only send over HTTPS
       sameSite: "None"       // Adjust as needed
