@@ -17,3 +17,5 @@ export const getConversationBySocketId = async (socketId) => {
     return false;
   }
 };
+
+export default getConversationBySocketId;
