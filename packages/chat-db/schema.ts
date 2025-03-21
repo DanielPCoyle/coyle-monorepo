@@ -30,6 +30,7 @@ export const users = pgTable("users", {
   avatarUrl: text("avatar_url"),
 });
 
+export type Message = InferSelectModel<typeof messages>;
 export const messages = pgTable("messages", {
   id: serial("id").primaryKey(),
   conversationId: integer("conversation_id").notNull(),

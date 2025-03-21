@@ -860,3 +860,17 @@ label.hideFileInput {
 .languageGroup:hover .popover{
   display: block;
 }
+
+.translation{
+  color:white !important;
+}
+
+.translationContainer{
+  margin-left:40px;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  text-align: left;
+}

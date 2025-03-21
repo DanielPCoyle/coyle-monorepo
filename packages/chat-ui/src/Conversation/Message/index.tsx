@@ -58,10 +58,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         </div>
       </div>
 
-      
-    
-   
-
       <div data-testid={`reply-modal-${index}`}>
             <ReplyModal/>
       </div>
