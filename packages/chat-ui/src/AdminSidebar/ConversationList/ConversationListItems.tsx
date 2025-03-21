@@ -13,7 +13,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
   return conversations?.length ? (
     <>
       {conversations?.map((convo, i) => (
-        <div
+        <button
           data-testid="conversation-list-items"
           className={`conversationListItem ${id === convo.conversationKey ? "active" : ""}`}
           key={i}
@@ -46,7 +46,7 @@ export const ConversationListItems: React.FC<ConversationListItemsProps> = ({
               </div>
             </>
           )}
-        </div>
+        </button>
       ))}
     </>
   ) : (

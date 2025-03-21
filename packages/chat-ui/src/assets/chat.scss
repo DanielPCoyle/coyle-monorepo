@@ -288,14 +288,23 @@ background: #5450d3;
 margin-top: 10px;
 margin-bottom:10px;
 border-radius: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+gap:10px;
+font-weight: bold;
 }
 
 .hideFileInput input{
 display:none;
+svg{
+  cursor: pointer !important;
+}
 }
 
 .emojiButton{
 font-size:2em;
+cursor: pointer;
 }
 
 .formattingBar {
@@ -815,4 +824,39 @@ label.hideFileInput {
 
 .reactionsPicker{
   overflow: hidden;
+}
+
+.buttonGroup{
+  margin-left:auto;
+  display: flex;
+  gap:25px;
+}
+
+.languageButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.languageGroup{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popover{
+  position: absolute;
+  bottom: 30px;
+  background: gray;
+  left: 0;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 9;
+  display: none;
+}
+
+.languageGroup:hover .popover{
+  display: block;
 }

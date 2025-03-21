@@ -10,6 +10,8 @@ import { fetchConversations } from "./utils/fetchConversations";
 import { fetchMessages } from "./utils/fetchMessages";
 import { handleSocketEvents } from "./utils/handleSocketEvents";
 import "@coyle/chat-ui/src/assets/chat.scss";
+import './utils/i18n'; // 👈 Initialize i18n before anything else
+import { useTranslation } from 'react-i18next';
 
 const socketSite = process.env.REACT_APP_SOCKET_SITE;
 const socket = io(socketSite);
@@ -35,8 +37,31 @@ export const Chat = () => {
   const [notificationBar, setNotificationBar] = useState([]);
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const messagesRef = React.useRef(null);
-  
+  const [language, setLanguage] = useState("English");
+  const { i18n } = useTranslation();
 
+
+  useEffect(() => {
+    let lang = "en";
+    switch (language) {
+      case "English":
+        lang = "en";
+        break;
+      case "Spanish":
+        lang = "es";
+        break;
+      case "French":
+        lang = "fr";
+        break;
+      default:
+        lang = "en";
+    }
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+    document.documentElement.setAttribute("lang", lang);
+    document.documentElement.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+    i18n.changeLanguage();
+  }, [language]);
 
   useEffect(() => {
     const handleTyping = () => {
@@ -125,7 +150,9 @@ export const Chat = () => {
         selectedMessageId,
         setSelectedMessageId,
         messagesRef,
-        token
+        token,
+        setLanguage,
+        language,
       }}
     >
       {!isLoggedIn ? (

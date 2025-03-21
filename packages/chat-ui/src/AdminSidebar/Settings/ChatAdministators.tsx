@@ -2,10 +2,11 @@ import React from "react";
 import AddUserSvg from "../../assets/svg/AddUserSvg";
 import SettingsContext from "./SettingsContext";
 import { AdminItem } from "./AdminItem";
-
+import { useTranslation } from "react-i18next";
 export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
+  const { t } = useTranslation();
   const handleEdit = (id:string) => {
     setSelected(id);
     setView("editUser");
@@ -50,9 +51,9 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
 
   return (
     <div>
-      <h1>Chat Administrators</h1>
+      <h1>{t("chatAdministrators")}</h1>
       <button onClick={() => setView("addUser")}>
-        <AddUserSvg /> <span>Add Admin</span>
+        <AddUserSvg /> <span>{t("addAdministrator")}</span>
       </button>
       <ul className="adminItems">
         {Boolean(admins?.map) &&
