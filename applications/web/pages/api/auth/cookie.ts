@@ -14,7 +14,7 @@ export default async function handler(
   }
     const cookies = req.headers.cookie;
     if (!cookies) {
-        return res.status(401).json({ message: "No cookies found" });
+        return res.status(401).json({ message: "No cookies found", cookieDomain:process.env.REACT_APP_COOKIE_DOMAIN });
     }
 
     const parsedCookies = parse(cookies);
