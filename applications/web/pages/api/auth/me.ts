@@ -42,7 +42,7 @@ export default async function handler(
       res.status(200).json({ user: decoded });
     }
     const user = await getUserByEmail(decoded?.email);
-    res.status(200).json({ user: user });
+    res.status(200).json({ user: user,  cookieDomain: process.env.REACT_APP_COOKIE_DOMAIN, jwt: token });
   } catch (error) {
     res.status(401).json({ message: "Invalid token", error: error.message });
   }
