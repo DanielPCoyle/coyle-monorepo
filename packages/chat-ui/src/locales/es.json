@@ -46,6 +46,8 @@
   "instant": "Instantáneo",
   "daily": "Diario",
   "weekly": "Semanal",
-  "hourly": "Cada hora"
-  
+  "hourly": "Cada hora",
+  "english": "English",
+  "spanish": "Español",
+  "french": "Français"
 }

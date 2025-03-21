@@ -69,6 +69,20 @@
       "when": 1742323390866,
       "tag": "0009_cheerful_morlocks",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1742586023034,
+      "tag": "0010_whole_puppet_master",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1742586214037,
+      "tag": "0011_lean_baron_strucker",
+      "breakpoints": true
     }
   ]
 }

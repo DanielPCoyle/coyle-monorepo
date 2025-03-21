@@ -37,29 +37,16 @@ export const Chat = () => {
   const [notificationBar, setNotificationBar] = useState([]);
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const messagesRef = React.useRef(null);
-  const [language, setLanguage] = useState("English");
+  const [language, setLanguage] = useState("en");
   const { i18n } = useTranslation();
 
 
   useEffect(() => {
-    let lang = "en";
-    switch (language) {
-      case "English":
-        lang = "en";
-        break;
-      case "Spanish":
-        lang = "es";
-        break;
-      case "French":
-        lang = "fr";
-        break;
-      default:
-        lang = "en";
-    }
-    i18n.changeLanguage(lang);
-    localStorage.setItem("language", lang);
-    document.documentElement.setAttribute("lang", lang);
-    document.documentElement.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+   
+    i18n.changeLanguage(language);
+    localStorage.setItem("language", language);
+    document.documentElement.setAttribute("lang", language);
+    document.documentElement.setAttribute("dir", language === "ar" ? "rtl" : "ltr");
     i18n.changeLanguage();
   }, [language]);
 

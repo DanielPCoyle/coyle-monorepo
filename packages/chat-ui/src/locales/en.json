@@ -46,5 +46,8 @@
     "instant": "Instant",
     "daily": "Daily",
     "weekly": "Weekly",
-    "hourly": "Hourly"
+    "hourly": "Hourly",
+    "english": "English",
+    "spanish": "Español",
+    "french": "Français"
 }

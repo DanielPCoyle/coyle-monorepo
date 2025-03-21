@@ -40,6 +40,8 @@ export const messages = pgTable("messages", {
   reactions: jsonb("reactions"), // Add this line
   parentId: integer("parent_id"),
   files: jsonb("files"),
+  language: varchar("language", { length: 255 }),
+  translation: jsonb("translation"),
 });
 
 export type Conversation = InferSelectModel<typeof conversations>;

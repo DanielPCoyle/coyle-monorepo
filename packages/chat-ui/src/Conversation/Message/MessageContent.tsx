@@ -17,12 +17,18 @@ export const MessageContent = () => {
      showReactionsPicker,
      index,
      removeReactions,
-      } =
-    useContext(MessageContext);
-  const { user, userName } = useContext(ChatContext);
+      } = useContext(MessageContext);
+  const { user, userName, language } = useContext(ChatContext);
   const reactionsPickerRef = React.useRef<HTMLDivElement>(null);
   useOutsideClick(reactionsPickerRef, () => setShowReactionsPicker(false));
   
+      React.useEffect(() => {
+        if(Boolean(message?.language) && (message?.language !== language) && !message?.translation){
+          alert("Language changed, please refresh the page to see the changes");
+        }
+      },[message])
+
+
   return (
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
