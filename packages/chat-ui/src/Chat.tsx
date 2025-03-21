@@ -1,4 +1,3 @@
-import "animate.css";
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { ChatContext } from "./ChatContext";
@@ -10,7 +9,6 @@ import { LightBox } from "./LightBox";
 import { fetchConversations } from "./utils/fetchConversations";
 import { fetchMessages } from "./utils/fetchMessages";
 import { handleSocketEvents } from "./utils/handleSocketEvents";
-import { CloseIcon } from "./assets/svg/CloseIcon";
 import "@coyle/chat-ui/src/assets/chat.scss";
 
 const socketSite = process.env.REACT_APP_SOCKET_SITE;
@@ -37,6 +35,8 @@ export const Chat = () => {
   const [notificationBar, setNotificationBar] = useState([]);
   const [selectedMessageId, setSelectedMessageId] = useState(null);
   const messagesRef = React.useRef(null);
+  
+
 
   useEffect(() => {
     const handleTyping = () => {

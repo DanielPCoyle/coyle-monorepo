@@ -29,7 +29,37 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
 
   return (
     <>
+    <div
+      className="sidebarHeader"
+      data-testid="sidebar-header"
+      >
      <h1>Chats</h1>
+     <div className="immediateSettings" data-testid="immediate-settings">
+        <div className="formGroup status">
+          <label>Status</label>
+          <select
+            className="statusDropdown"
+            data-testid="status-dropdown"
+            value={status || user?.status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="online">Online</option>
+            <option value="offline">Offline</option>
+          </select>
+        
+        </div>
+        <div className="formGroup notifications">
+          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
+          <input
+            type="checkbox"
+            data-testid="notifications-checkbox"
+            checked={notificationsEnabled}
+            onChange={() => setNotificationsEnabled(!notificationsEnabled)}
+          />
+        </div>
+        
+      </div>
+    </div>
       <div className={`conversationList`} data-testid="conversation-list">
         <h3>Active Conversations</h3>
 
@@ -77,31 +107,8 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
           
         </div>
 
-        <div className="immediateSettings" data-testid="immediate-settings">
-        <div className="formGroup status">
-          <label>Status</label>
-          <select
-            className="statusDropdown"
-            data-testid="status-dropdown"
-            value={status || user?.status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option value="online">Online</option>
-            <option value="offline">Offline</option>
-          </select>
-        
-        </div>
-        <div className="formGroup notifications">
-          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
-          <input
-            type="checkbox"
-            data-testid="notifications-checkbox"
-            checked={notificationsEnabled}
-            onChange={() => setNotificationsEnabled(!notificationsEnabled)}
-          />
-        </div>
-        
-      </div>
+    
+
       {status === "offline" && (
             <p className="offlineMessage">
               You Are OFFLINE

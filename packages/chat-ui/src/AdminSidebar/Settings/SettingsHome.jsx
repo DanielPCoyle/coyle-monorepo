@@ -18,6 +18,10 @@ export const SettingsHome = () => {
          <UsersIcon />
           <span>Chat Administrators</span>
         </button>
+        <button onClick={() => setView("adminUsers")}>
+            <UsersIcon />
+          <span>Content (CMS)</span>
+        </button>
       </div>
     </>
   );
