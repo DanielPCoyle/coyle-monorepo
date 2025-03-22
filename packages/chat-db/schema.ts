@@ -55,7 +55,7 @@ export const conversations = pgTable("conversations", {
   isActive: boolean("is_active").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   socketId: text("socket_id"),
-  language: varchar("language", { length: 255 }),
+  language: varchar("language", { length: 255 }).default("en"),
 });
 
 export const knowledge = pgTable("knowledge", {

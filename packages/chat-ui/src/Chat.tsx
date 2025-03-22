@@ -48,6 +48,28 @@ export const Chat = () => {
     document.documentElement.setAttribute("lang", language);
     document.documentElement.setAttribute("dir", language === "ar" ? "rtl" : "ltr");
     i18n.changeLanguage();
+
+      fetch(process.env.REACT_APP_API_BASE_URL + "/api/chat/update-conversation-language", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id, language }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Language updated successfully:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating language:", error);
+      })
+
   }, [language]);
 
   useEffect(() => {

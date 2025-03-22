@@ -1,0 +1,1 @@
+ALTER TABLE "conversations" ALTER COLUMN "language" SET DEFAULT 'en';--> statement-breakpoint
