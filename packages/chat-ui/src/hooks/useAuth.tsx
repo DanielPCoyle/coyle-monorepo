@@ -12,6 +12,7 @@ export const useAuth = () => {
     setToken,
     token,
     socket,
+    setLanguage,
   } = useContext(ChatContext);
   const getAndSetUser = async (jwtToken: string) => {
     try {
@@ -29,6 +30,9 @@ export const useAuth = () => {
       setNotificationsEnabled(data.user.notificationsEnabled);
       setId(data.user.conversationKey);
       setIsLoggedIn(true);
+      if(data?.conversation?.language){
+        setLanguage(data?.conversation?.language);
+      }
 
       if (data.user.role !== "admin") {
         socket.emit("login", {
