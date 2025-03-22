@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import Modal from "react-modal";
 import type { Message as MessageType } from "../../../../types";
 import { ChatControls } from "../../../ChatControls";
 import MessageContent from "../MessageContent";

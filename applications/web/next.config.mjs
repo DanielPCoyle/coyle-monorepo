@@ -49,10 +49,11 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(mp3|wav)$/,
-      use: [
+    webpack: (config) => {
+      config.module.rules.push(
+        {
+          test: /\.(mp3|wav)$/,
+          use: [
         {
           loader: "file-loader",
           options: {
@@ -61,9 +62,25 @@ const nextConfig = {
             publicPath: "/_next/static/media/",
           },
         },
-      ],
-    });
-    return config;
+          ],
+        },
+        {
+          test: /\.scss$/,
+          use: [
+        "style-loader",
+        "css-loader",
+        "sass-loader", // Compiles Sass to CSS
+          ],
+        },
+        {
+          test: /\.css$/,
+          use: [
+        "style-loader",
+        "css-loader", // Translates CSS into CommonJS
+          ],
+        }
+      );
+      return config;
   },
 };
 

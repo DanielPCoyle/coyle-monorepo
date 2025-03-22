@@ -1,5 +1,4 @@
 import React, { useState,  useContext, useRef } from "react";
-import Modal from "react-modal";
 import type { Message as MessageType } from "../../../types";
 import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
