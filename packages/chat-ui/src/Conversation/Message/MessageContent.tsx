@@ -38,7 +38,6 @@ export const MessageContent = () => {
               const data = res.json();
               return data;
           }).then((data) => {
-              console.log({data})
               if(data?.text){
                 setTranslation(data);
               }

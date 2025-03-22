@@ -4,7 +4,6 @@ import { eq } from "drizzle-orm";
 
 export const deleteUser = async (id: string) => {
   try {
-    console.log("Deleting user with id: ", id);
     const db = getDB();
     await db.delete(users).where(eq(users.id, id));
   } catch (error) {

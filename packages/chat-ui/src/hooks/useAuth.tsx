@@ -66,12 +66,10 @@ export const useAuth = () => {
         if (res.status === 200) {
           return res.json();
         } else {
-          console.error("Failed to fetch JWT");
         }
       })
       .then((data) => {
         if(data?.jwt === undefined) {
-          console.error("JWT is undefined");
           return;
         }
         const jwtToken = data.jwt;
@@ -87,7 +85,6 @@ export const useAuth = () => {
 
   useEffect(() => {
     if (token) {
-      console.log({ token });
       getAndSetUser(token);
     }
   }, [ token]);

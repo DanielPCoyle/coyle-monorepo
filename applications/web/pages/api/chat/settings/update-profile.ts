@@ -18,7 +18,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         user.passwordHash = hashedPassword;
       }
 
-      console.log({ user });
       await updateUser(user);
       res.status(200).json({ message: "User updated" });
     }
