@@ -8,6 +8,7 @@ import { login } from "./socketHandlers/login";
 import { seen } from "./socketHandlers/seen";
 import { updateMessageAction } from "./socketHandlers/updateMessageAction";
 import { userTyping } from "./socketHandlers/userTyping";
+import { translation } from "./socketHandlers/translation";
 import {
   updateUserStatus,
   getUsersOnline,
@@ -26,6 +27,7 @@ export function handleConnection(socket: Socket, io: Server) {
   userTyping({ socket, io, typingTimeout });
   seen({ socket, io });
   disconnect({ socket, io });
+  translation({ socket, io });
 
   socket.on("updateStatus", async ({ status, id }) => {
     if (!status) return;

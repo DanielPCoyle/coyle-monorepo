@@ -47,13 +47,6 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    // const jwtToken = document.cookie
-    //   .split("; ")
-    //   .find((row) => row.startsWith("jwt="))
-    //   ?.split("=")[1];
-    // if (jwtToken) {
-    //   setToken(jwtToken);
-    // }
 
     fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/cookie", {
       method: "GET",
