@@ -40,7 +40,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     },
   });
   // Return the page content as props
-  console.log("page", JSON.stringify(page, null, 2).includes("fetchPriority"));
   return {
     props: {
       page: page || null,
