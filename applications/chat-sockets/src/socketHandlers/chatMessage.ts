@@ -6,7 +6,7 @@ import {
 } from "@coyle/chat-db";
 
 export const chatMessage = ({ socket, io }) =>
-  socket.on("chat message", async ({ id, message, sender, files, replyId }) => {
+  socket.on("chat message", async ({ id, message, sender, files, replyId, language }) => {
     try {
       let conversationId = await getConversationIdByKey(id);
       if (!conversationId) {
@@ -31,6 +31,7 @@ export const chatMessage = ({ socket, io }) =>
         parentId: replyId,
         files,
         seen: false,
+        language
       };
 
       const data = await insertMessage(insert);
@@ -41,6 +42,7 @@ export const chatMessage = ({ socket, io }) =>
         id: data.id,
         parentId: replyId,
         files,
+        language
       });
 
       const conversations = await getConversations();

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
 import { a } from "framer-motion/dist/types.d-B50aGbjN";
-
+import { useTranslation } from "react-i18next";
 export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean) => void}) => {
   const {
     conversations,
@@ -15,7 +15,7 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
     setNotificationsEnabled,
   } = useContext(ChatContext);
   const [showHistoric, setShowHistoric] = useState(false);
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     socket.emit("updateStatus", { status, id: user?.id });
   }, [status]);
@@ -33,23 +33,23 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
       className="sidebarHeader"
       data-testid="sidebar-header"
       >
-     <h1>Chats</h1>
+     <h1>{t("chat")}</h1>
      <div className="immediateSettings" data-testid="immediate-settings">
         <div className="formGroup status">
-          <label>Status</label>
+          <label>{t("status")}</label>
           <select
             className="statusDropdown"
             data-testid="status-dropdown"
             value={status || user?.status}
             onChange={(e) => setStatus(e.target.value)}
           >
-            <option value="online">Online</option>
-            <option value="offline">Offline</option>
+            <option value="online">{t("onlinr")}</option>
+            <option value="offline">{t("offline")}</option>
           </select>
         
         </div>
         <div className="formGroup notifications">
-          <label>Sound {notificationsEnabled ? "On" : "Off"}</label>
+          <label>{t("sound")} {notificationsEnabled ? t("on") : t("off")}</label>
           <input
             type="checkbox"
             data-testid="notifications-checkbox"
@@ -61,7 +61,7 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
       </div>
     </div>
       <div className={`conversationList`} data-testid="conversation-list">
-        <h3>Active Conversations</h3>
+        <h3>{t("activeConversations")}</h3>
 
         <ConversationListItems
           socket={socket}
@@ -69,7 +69,7 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
           conversations={conversations.filter((c) => c?.isActive)}
         />
 
-          <h3>Admins Online</h3>
+          <h3>{t("adminsOnline")}</h3>
           <ConversationListItems
             socket={socket}
             setShowMenu={setShowMenu}
@@ -85,7 +85,7 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
             data-testid="historic-toggle"
             onClick={() => setShowHistoric(!showHistoric)}
           >
-            Inactive Conversations ({" "}
+            {t("inactiveConversations")} ({" "}
             {conversations.filter((c) => !c?.isActive && c?.id !== (user?.id +"_"+user?.id))?.length} )
           </h3>
           {showHistoric && (
@@ -111,7 +111,7 @@ export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean
 
       {status === "offline" && (
             <p className="offlineMessage">
-              You Are OFFLINE
+              {t("youAreOffline")}
             </p>
           )}
       </div>

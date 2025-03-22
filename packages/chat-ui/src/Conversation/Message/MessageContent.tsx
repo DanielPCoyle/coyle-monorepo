@@ -17,12 +17,40 @@ export const MessageContent = () => {
      showReactionsPicker,
      index,
      removeReactions,
-      } =
-    useContext(MessageContext);
-  const { user, userName } = useContext(ChatContext);
+      } = useContext(MessageContext);
+  const { user, userName, language } = useContext(ChatContext);
   const reactionsPickerRef = React.useRef<HTMLDivElement>(null);
   useOutsideClick(reactionsPickerRef, () => setShowReactionsPicker(false));
+  const [translation, setTranslation] = React.useState<any | null>(message?.translation || null);
   
+      React.useEffect(() => {
+        if(Boolean(message?.language) && (message?.language !== language) && !message?.translation){
+          fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/translate" as string, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              text: message?.message,
+              id: message?.id,
+            })
+          }).then((res) => {
+              const data = res.json();
+              return data;
+          }).then((data) => {
+              console.log({data})
+              if(data?.text){
+                setTranslation(data);
+              }
+          }
+          ).catch((err) => {
+            console.log({err})
+          }
+          );
+        }
+      },[message])
+
+
   return (
     <div
       className={`messageContent ${message.sender === userName ? "sender" : "receiver"}`}
@@ -52,6 +80,13 @@ export const MessageContent = () => {
         
         dangerouslySetInnerHTML={{ __html: message.message }}
       />
+      {Boolean(translation) && <>
+          <div className="translationContainer">
+          <hr/>
+          <div>Translation:</div>
+          <div className="translation" dangerouslySetInnerHTML={{__html:translation.text}}/>
+          </div>
+          </>}
       <LinkPreview message={message} />
       <div className="messageActions">
         <button
@@ -69,7 +104,7 @@ export const MessageContent = () => {
           className="showReply"
         >
           <ReplySvg /> {message?.replies?.length > 0 && message.replies.length}
-          {message?.replies?.filter((reply)=>!reply.seen).length > 0 && <span className="unreadReplies animate__animated animate__pulse animate__infinite">&nbsp;</span>}
+          {message?.replies?.filter((reply)=>!reply.seen).length > 0 && <span className="unreadReplies animate__animated animate__pulse animate__infinite">&nbsp;</span>}          
         </button>
       </div>
       {showReactionsPicker && (

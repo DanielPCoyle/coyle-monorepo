@@ -1,4 +1,4 @@
-import React, { useState,  useContext } from "react";
+import React, { useState,  useContext, useRef } from "react";
 import Modal from "react-modal";
 import type { Message as MessageType } from "../../../types";
 import { ChatContext } from "../../ChatContext";
@@ -20,6 +20,7 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
   const { seen, messageRef } = useMessageSeen(message);
   const { reactions, addReaction, removeReactions } = useMessageReactions(message);
+  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   
 
   React.useEffect(() => {
@@ -52,13 +53,10 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         data-testid={`message-${index}`}
       >
         <div data-testid={`message-content-${index}`}>
-        <MessageContent />
+        
+        <MessageContent  />
         </div>
       </div>
-
-      
-    
-   
 
       <div data-testid={`reply-modal-${index}`}>
             <ReplyModal/>
