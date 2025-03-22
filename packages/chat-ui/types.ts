@@ -146,6 +146,8 @@ export interface ChatContextType {
 // Removed duplicate declaration of Message interface as it is already defined above.
   messagesRef: React.RefObject<HTMLDivElement>;
   token: string;
+  setLanguage: (language: string) => void;
+  language: string;
 }
 
 export interface DecodedToken {
