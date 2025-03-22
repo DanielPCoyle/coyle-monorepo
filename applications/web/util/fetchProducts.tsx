@@ -20,7 +20,7 @@ export const fetchProducts = async ({
 
     const queryString = queryParams.toString();
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/search/search?${queryString}`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/search/search?${queryString}`,
     );
     const data = await response.json();
     setResults(data);
