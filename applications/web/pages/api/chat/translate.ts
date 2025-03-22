@@ -25,7 +25,7 @@ export default async function handler(req,res){
                     {
                         role: "user",
                         content:
-                        "Translate the following text to English: " + text,
+                        "Translate the following text to English: " + text+"\n Output the result in JSON format with the following structure: {\"text\": \"translated text\", \"language\": \"en\"}",
                     },
                 ],
                 max_tokens: 500,

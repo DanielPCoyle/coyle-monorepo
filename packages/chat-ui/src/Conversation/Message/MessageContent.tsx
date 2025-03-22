@@ -80,6 +80,13 @@ export const MessageContent = () => {
         
         dangerouslySetInnerHTML={{ __html: message.message }}
       />
+      {Boolean(translation) && <>
+          <div className="translationContainer">
+          <hr/>
+          <div>Translation:</div>
+          <div className="translation" dangerouslySetInnerHTML={{__html:translation.text}}/>
+          </div>
+          </>}
       <LinkPreview message={message} />
       <div className="messageActions">
         <button
@@ -97,16 +104,7 @@ export const MessageContent = () => {
           className="showReply"
         >
           <ReplySvg /> {message?.replies?.length > 0 && message.replies.length}
-          {message?.replies?.filter((reply)=>!reply.seen).length > 0 && <span className="unreadReplies animate__animated animate__pulse animate__infinite">&nbsp;</span>}
-          {Boolean(translation) && <>
-          <div className="translationContainer">
-          <hr/>
-          <div>Translation:</div>
-          <div className="translation" dangerouslySetInnerHTML={{__html:translation.text}}/>
-          </div>
-          
-          </>}
-
+          {message?.replies?.filter((reply)=>!reply.seen).length > 0 && <span className="unreadReplies animate__animated animate__pulse animate__infinite">&nbsp;</span>}          
         </button>
       </div>
       {showReactionsPicker && (
