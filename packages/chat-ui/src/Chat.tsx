@@ -181,9 +181,9 @@ export const Chat = ({isChatCaddy,setOpen}) => {
             <div className="messages" ref={messagesRef}>
               <Conversation />
             </div>
-            <div className="notificationBarContainer">
+            {Boolean(notificationBar?.length) && ( <div className="notificationBarContainer">
             <div className="notificationBar">
-                  {Boolean(notificationBar?.length) && (
+                  
                 notificationBar.map((notification) => (
                   <div className="notification">
                   <p>{notification.message}</p>
@@ -195,9 +195,9 @@ export const Chat = ({isChatCaddy,setOpen}) => {
                   </button>
                   </div>
                 ))
-              )}
+              }
               </div>
-              </div>
+              </div> ) }
             <div className="chatInputArea">
               <ChatControls />
             </div>
