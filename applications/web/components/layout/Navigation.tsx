@@ -10,6 +10,7 @@ interface NavItemType {
 
 interface NavItemProps {
   item: NavItemType;
+  onClick: () => void;
 }
 
 const NavItem: React.FC<NavItemProps> = ({ item, onClick }) => (
