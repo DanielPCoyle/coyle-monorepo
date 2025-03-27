@@ -882,13 +882,38 @@ label.hideFileInput {
 @media (max-width: 768px) {
   .chatCaddy {
     position: fixed;
-    bottom: 100px;
-    left: 0-2%;
+    top: 5px;
+    left: 0px;
     width: 100%;
     height: auto;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
+
+  .chatCaddy .coyleChat{
+    max-width:475px;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+  .messages{
+    height: 55vh;
+  }
+
+  .chatInputArea {
+    margin-top: auto;
+    padding-bottom:20px;
+  }
+
+  .notificationBarContainer {
+      margin-top: auto;
+  }
+
+  button.closeChatCaddy {
+    position: absolute;
+    right: 40px;
+    top: 20px;
+  }
+  
 
 }

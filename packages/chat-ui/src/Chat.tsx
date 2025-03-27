@@ -12,11 +12,12 @@ import { handleSocketEvents } from "./utils/handleSocketEvents";
 import "@coyle/chat-ui/src/assets/chat.scss";
 import './utils/i18n'; // 👈 Initialize i18n before anything else
 import { useTranslation } from 'react-i18next';
+import { CloseIcon } from "./assets/svg/CloseIcon";
 
 const socketSite = process.env.REACT_APP_SOCKET_SITE;
 const socket = io(socketSite);
 
-export const Chat = () => {
+export const Chat = ({isChatCaddy,setOpen}) => {
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [input, setInput] = useState("");
@@ -170,6 +171,11 @@ export const Chat = () => {
         />
       ) : (
         <div className="animate__animated animate__fadeIn coyleChat">
+          {isChatCaddy && (
+            <button onClick={()=>setOpen(false)} className="closeChatCaddy">
+              <CloseIcon  />
+            </button>
+          )}
           {user?.role === "admin" && <SideBar />}
           <div className="chatStack">
             <div className="messages" ref={messagesRef}>
