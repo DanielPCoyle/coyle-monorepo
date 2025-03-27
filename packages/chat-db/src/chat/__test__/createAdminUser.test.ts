@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import * as dbModule from "@coyle/chat-db/src/db";
-import { createAdminUser } from "./createAdminUser";
+import { createAdminUser } from "../settings/createAdminUser";
 import bcrypt from "bcrypt";
 import * as uuid from "uuid";
 import jwt from "jsonwebtoken";

@@ -1,13 +1,12 @@
 import { describe, it, expect, vi } from "vitest";
-import { updateUserStatus } from "./updateUserStatus";
-import { getDB } from "../..";
+import { updateMessage } from "../updateMessage";
+import { getDB } from "../../..";
 import { eq } from "drizzle-orm";
 
-vi.mock("../..", () => ({
+vi.mock("../../..", () => ({
   getDB: vi.fn(),
-  users: {
+  messages: {
     id: "id",
-    status: "status",
   },
 }));
 
@@ -15,8 +14,8 @@ vi.mock("drizzle-orm", () => ({
   eq: vi.fn((a, b) => ({ a, b })),
 }));
 
-describe("updateUserStatus", () => {
-  it("should update the status of the user", async () => {
+describe("updateMessage", () => {
+  it("should update the message with the given data", async () => {
     const mockWhere = vi.fn().mockResolvedValue(undefined);
     const mockSet = vi.fn().mockReturnValue({ where: mockWhere });
     const mockUpdate = vi.fn().mockReturnValue({ set: mockSet });
@@ -24,20 +23,26 @@ describe("updateUserStatus", () => {
 
     (getDB as any).mockReturnValue(mockDB);
 
-    await updateUserStatus({ id: "user-123", status: "online" });
+    const messageId = "msg-001";
+    const updateData = { content: "Updated text", isRead: true };
+
+    await updateMessage(messageId, updateData);
 
     expect(getDB).toHaveBeenCalled();
     expect(mockUpdate).toHaveBeenCalledWith(expect.anything());
-    expect(mockSet).toHaveBeenCalledWith({ status: "online" });
-    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), "user-123"));
+    expect(mockSet).toHaveBeenCalledWith(updateData);
+    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), messageId));
   });
 
-  it("should handle errors gracefully", async () => {
+  it("should log an error if update fails", async () => {
+    const error = new Error("DB failure");
+
     const mockSet = vi.fn().mockReturnValue({
       where: () => {
-        throw new Error("Update failed");
+        throw error;
       },
     });
+
     const mockUpdate = vi.fn().mockReturnValue({ set: mockSet });
     const mockDB = { update: mockUpdate };
 
@@ -45,9 +50,9 @@ describe("updateUserStatus", () => {
 
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    await updateUserStatus({ id: "fail-user", status: "offline" });
+    await updateMessage("msg-fail", { content: "Crash" });
 
-    expect(consoleSpy).toHaveBeenCalledWith("Error adding conversation", expect.any(Error));
+    expect(consoleSpy).toHaveBeenCalledWith("Error adding conversation", error);
 
     consoleSpy.mockRestore();
   });

@@ -1,13 +1,13 @@
 import { describe, it, expect, vi } from "vitest";
-import { updateConversationSocketId } from "./updateConversationSocketId";
-import { getDB } from "../..";
+import { updateUserStatus } from "../updateUserStatus";
+import { getDB } from "../../..";
 import { eq } from "drizzle-orm";
 
-vi.mock("../..", () => ({
+vi.mock("../../..", () => ({
   getDB: vi.fn(),
-  conversations: {
+  users: {
     id: "id",
-    socketId: "socketId",
+    status: "status",
   },
 }));
 
@@ -15,8 +15,8 @@ vi.mock("drizzle-orm", () => ({
   eq: vi.fn((a, b) => ({ a, b })),
 }));
 
-describe("updateConversationSocketId", () => {
-  it("should update the socketId for the given conversation", async () => {
+describe("updateUserStatus", () => {
+  it("should update the status of the user", async () => {
     const mockWhere = vi.fn().mockResolvedValue(undefined);
     const mockSet = vi.fn().mockReturnValue({ where: mockWhere });
     const mockUpdate = vi.fn().mockReturnValue({ set: mockSet });
@@ -24,26 +24,20 @@ describe("updateConversationSocketId", () => {
 
     (getDB as any).mockReturnValue(mockDB);
 
-    const conversationId = 123;
-    const socketId = "abc123";
-
-    await updateConversationSocketId(conversationId, socketId);
+    await updateUserStatus({ id: "user-123", status: "online" });
 
     expect(getDB).toHaveBeenCalled();
     expect(mockUpdate).toHaveBeenCalledWith(expect.anything());
-    expect(mockSet).toHaveBeenCalledWith({ socketId });
-    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), conversationId));
+    expect(mockSet).toHaveBeenCalledWith({ status: "online" });
+    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), "user-123"));
   });
 
-  it("should log an error if the update fails", async () => {
-    const error = new Error("DB update failed");
-
+  it("should handle errors gracefully", async () => {
     const mockSet = vi.fn().mockReturnValue({
       where: () => {
-        throw error;
+        throw new Error("Update failed");
       },
     });
-
     const mockUpdate = vi.fn().mockReturnValue({ set: mockSet });
     const mockDB = { update: mockUpdate };
 
@@ -51,9 +45,9 @@ describe("updateConversationSocketId", () => {
 
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    await updateConversationSocketId(999, "fail-socket");
+    await updateUserStatus({ id: "fail-user", status: "offline" });
 
-    expect(consoleSpy).toHaveBeenCalledWith("Error adding conversation", error);
+    expect(consoleSpy).toHaveBeenCalledWith("Error adding conversation", expect.any(Error));
 
     consoleSpy.mockRestore();
   });

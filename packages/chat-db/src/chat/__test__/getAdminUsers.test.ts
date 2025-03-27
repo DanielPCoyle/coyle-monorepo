@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { getAdminUsers } from "./getAdminUsers";
+import { getAdminUsers } from "../settings/getAdminUsers";
 import { getDB } from "@coyle/chat-db";
 
 vi.mock("@coyle/chat-db", () => ({

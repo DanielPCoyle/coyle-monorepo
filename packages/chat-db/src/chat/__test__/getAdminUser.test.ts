@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { getAdminUser } from "./getAdminUser";
+import { getAdminUser } from "../settings/getAdminUser";
 import { getDB } from "@coyle/chat-db";
 import { eq } from "drizzle-orm";
 

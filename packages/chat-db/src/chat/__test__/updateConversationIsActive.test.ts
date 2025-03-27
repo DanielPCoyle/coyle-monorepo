@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
-import { updateConversationIsActive } from "./updateConversationIsActive";
-import { getDB } from "../..";
+import { updateConversationIsActive } from "../updateConversationIsActive";
+import { getDB } from "../../..";
 import { eq } from "drizzle-orm";
 
-vi.mock("../..", () => ({
+vi.mock("../../..", () => ({
   getDB: vi.fn(),
   conversations: {
     conversationKey: "conversationKey",
