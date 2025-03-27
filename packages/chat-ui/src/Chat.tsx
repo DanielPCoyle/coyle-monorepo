@@ -180,7 +180,7 @@ export const Chat = ({isChatCaddy,setOpen}) => {
 
        <Auth isLoggedIn={isLoggedIn} init={init} />  
        
-       { isLoggedIn && (
+       { (isLoggedIn && init) && (
         
         <div className="animate__animated animate__fadeIn coyleChat">
           {isChatCaddy && (
