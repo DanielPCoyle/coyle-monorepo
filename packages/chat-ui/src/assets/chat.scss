@@ -885,6 +885,7 @@ label.hideFileInput {
     width: 100%;
     height: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9;
   }
 
   .chatCaddy .editor{
@@ -900,7 +901,7 @@ label.hideFileInput {
 
   .chatInputArea {
     margin-top: auto;
-    padding-bottom:20px;
+    
   }
 
   .notificationBarContainer {
@@ -908,7 +909,9 @@ label.hideFileInput {
   }
 
   
-  
+  .inputContainer{
+    padding-bottom:20px;
+  }
 
 }
 
