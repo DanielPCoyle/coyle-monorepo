@@ -12,13 +12,13 @@ interface NavItemProps {
   item: NavItemType;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ item }) => (
+const NavItem: React.FC<NavItemProps> = ({ item, onClick }) => (
   <li>
-    <Link href={item.url}>{item.title}</Link>
+    <Link onClick={onClick} href={item.url}>{item.title}</Link>
     {item.subLinks && (
       <ul>
         {item.subLinks.map((subItem, index) => (
-          <NavItem key={index} item={subItem} />
+          <NavItem onClick={onClick} key={index} item={subItem} />
         ))}
       </ul>
     )}
@@ -59,7 +59,9 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
           className={`${isMenuOpen ? "open animate__animated animate__slideInLeft animate__faster" : ""}`}
         >
           {navData.map((item, index) => (
-            <NavItem key={index} item={item} />
+            <NavItem onClick={()=>{
+                setIsMenuOpen(false);
+            }} key={index} item={item} />
           ))}
           <li className="smallCommunicationBox">
             <Link className="phoneNumber" href="tel:215-771-9404">
