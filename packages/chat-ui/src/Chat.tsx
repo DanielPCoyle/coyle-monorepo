@@ -184,7 +184,7 @@ export const Chat = ({isChatCaddy,setOpen}) => {
             {Boolean(notificationBar?.length) && ( <div className="notificationBarContainer">
             <div className="notificationBar">
                   
-                notificationBar.map((notification) => (
+                {notificationBar.map((notification) => (
                   <div className="notification">
                   <p>{notification.message}</p>
                   <button onClick={()=>{
