@@ -47,7 +47,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
           ☰
         </button>
         <div className="logo">
-          <Link href="/">
+          <Link onClick={()=>setIsMenuOpen(false)} href="/">
             <Image
               src="https://cdn.inksoft.com/images/publishers/19502/stores/philadelphiascreenprinting/img/header-logo.png?decache=638658398084130000"
               alt="Logo"

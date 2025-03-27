@@ -180,6 +180,16 @@ nav ul ul li a:hover {
 
 /* Responsive styling */
 @media (max-width: 768px) {
+
+  nav{
+    padding:0;
+  }
+
+  .menu-toggle {
+    padding:0;
+    margin-right:10px;
+  }
+
   .menu-toggle {
     display: block;
     color: black;
@@ -204,7 +214,7 @@ nav ul ul li a:hover {
 
   nav ul.open {
     display: flex;
-    margin-top: 20px;
+    margin-top: 12px;
   }
 
   nav ul li {

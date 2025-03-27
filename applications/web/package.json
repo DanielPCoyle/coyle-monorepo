@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.cjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --fix --ignore-pattern 'public/dist/*'",
@@ -73,6 +73,7 @@
     "eslint-config-next": "15.0.2",
     "eslint-plugin-react": "^7.37.4",
     "globals": "^16.0.0",
+    "ip": "^2.0.1",
     "postcss": "^8",
     "prettier": "^3.5.3",
     "sass": "^1.86.0",

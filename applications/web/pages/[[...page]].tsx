@@ -101,8 +101,8 @@ export default function Page({
         content={page || undefined}
       />
 
-      <ChatCaddy />
       <Footer />
+      <ChatCaddy />
     </>
   );
 }
