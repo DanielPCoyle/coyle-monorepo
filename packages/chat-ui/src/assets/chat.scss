@@ -755,7 +755,6 @@ button.closeModal {
   bottom: 6px;
   right: 140px;
   overflow: hidden;
-  box-shadow: 0 10px 15px #353535;
 
   .editor {
     padding-left: 10px;
@@ -921,4 +920,10 @@ button.closeChatCaddy {
   right: 10px;
   top: 10px;
   z-index: 9;
+}
+
+
+.isTyping{
+  padding-left:20px;
+  padding-top:5px;
 }

@@ -11,7 +11,6 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
   setShowEmojiPicker,
   emojiPickerRef,
   insertEmoji,
-  typing,
 }) => {
   const { t } = useTranslation();
   return (
@@ -57,14 +56,7 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
           <Picker data={data} onEmojiSelect={insertEmoji} />
         </div>
       )}
-      <div
-        className="isTyping"
-        data-testid="typing-indicator"
-        role="status"
-        aria-live="polite"
-      >
-        {typing ? <>{typing?.name} is typing...</> : <>&nbsp;</>}
-      </div>
+    
     </div>
   );
 };

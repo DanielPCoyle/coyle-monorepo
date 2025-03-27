@@ -164,10 +164,19 @@ export const ChatControls = ({ replyId }: { replyId?: number }) => {
             ))}
           </div>
         )}
+          <div
+        className="isTyping"
+        data-testid="typing-indicator"
+        role="status"
+        aria-live="polite"
+      >
+        {typing ? <>{typing?.name} is typing...</> : <>&nbsp;</>}
+      </div>
         <div>
           <FormattingBar {...{ toggleInlineStyle, toggleBlockType }} />
         </div>
         <div>
+      
           <div className="editor">
             <Editor
               editorState={editorState}

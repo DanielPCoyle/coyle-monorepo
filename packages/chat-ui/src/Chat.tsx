@@ -13,6 +13,8 @@ import "@coyle/chat-ui/src/assets/chat.scss";
 import './utils/i18n'; // 👈 Initialize i18n before anything else
 import { useTranslation } from 'react-i18next';
 import { CloseIcon } from "./assets/svg/CloseIcon";
+import { LoadingIcon } from "./assets/svg/LoadingIcon";
+import { useAuth } from "./hooks/useAuth";
 
 const socketSite = process.env.REACT_APP_SOCKET_SITE;
 const socket = io(socketSite);
@@ -40,7 +42,7 @@ export const Chat = ({isChatCaddy,setOpen}) => {
   const messagesRef = React.useRef(null);
   const [language, setLanguage] = useState("en");
   const { i18n } = useTranslation();
-
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
    
@@ -163,13 +165,23 @@ export const Chat = ({isChatCaddy,setOpen}) => {
         token,
         setLanguage,
         language,
+        setInit,
       }}
     >
-      {!isLoggedIn ? (
-        <LoginForm
-         
-        />
-      ) : (
+
+      { 
+      !init && (
+        <div className="loading">
+          <div className="loadingIcon">
+          <LoadingIcon />
+          </div>
+        </div>
+      ) }
+
+       <Auth isLoggedIn={isLoggedIn} init={init} />  
+       
+       { isLoggedIn && (
+        
         <div className="animate__animated animate__fadeIn coyleChat">
           {isChatCaddy && (
             <button onClick={()=>setOpen(false)} className="closeChatCaddy">
@@ -210,3 +222,12 @@ export const Chat = ({isChatCaddy,setOpen}) => {
 };
 
 export default Chat;
+
+
+
+const Auth = ({isLoggedIn, init}) => {
+  const { getAndSetUser } = useAuth();
+  return !isLoggedIn && init ? (
+        <LoginForm  getAndSetUser={getAndSetUser} />
+    ) : null
+}

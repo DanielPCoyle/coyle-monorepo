@@ -3,10 +3,8 @@ import React, { FormEvent, useContext, useState } from "react";
 import { ChatContext } from "../ChatContext";
 import { AdminLogin } from "./AdminLogin";
 import { GuestLogin } from "./GuestLogin";
-import { useAuth } from "../hooks/useAuth";
 
-export const LoginForm: React.FC = () => {
-  const { getAndSetUser } = useAuth();
+export const LoginForm: React.FC = ({getAndSetUser}) => {
   const { userName, setUserName, email, setEmail, setToken, setIsLoggedIn } =
     useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);

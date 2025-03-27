@@ -13,6 +13,7 @@ export const useAuth = () => {
     token,
     socket,
     setLanguage,
+    setInit
   } = useContext(ChatContext);
   const getAndSetUser = async (jwtToken: string) => {
     try {
@@ -44,8 +45,11 @@ export const useAuth = () => {
       }
       if (token !== jwtToken) {
         setToken(jwtToken);
+        setIsLoggedIn(true);
+        setInit(true);
       }
     } catch (error) {
+      setInit(true);
       console.error("Failed to fetch user data:", error);
     }
   };
@@ -67,6 +71,7 @@ export const useAuth = () => {
       })
       .then((data) => {
         if(data?.jwt === undefined) {
+          setInit(true);
           return;
         }
         const jwtToken = data.jwt;
@@ -76,6 +81,7 @@ export const useAuth = () => {
         }
       })
       .catch((err) => {
+        setInit(true);
         console.error("Error fetching token:", err);
       })
   }, []);
