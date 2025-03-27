@@ -884,15 +884,19 @@ label.hideFileInput {
     position: fixed;
     top: 5px;
     left: 0px;
-    width: 100%;
+    width: 95%;
     height: auto;
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
+  .chatCaddy .editor{
+    max-width:310px;
+  }
+
   .chatCaddy .coyleChat{
-    max-width:405px;
+    max-width:100%;
     overflow: hidden;
     border-radius: 20px;
   }
