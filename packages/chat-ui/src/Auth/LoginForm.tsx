@@ -4,7 +4,11 @@ import { ChatContext } from "../ChatContext";
 import { AdminLogin } from "./AdminLogin";
 import { GuestLogin } from "./GuestLogin";
 
-export const LoginForm: React.FC = ({getAndSetUser}) => {
+interface LoginFormProps {
+  getAndSetUser: (jwtToken: string) => Promise<void>;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({ getAndSetUser }) => {
   const { userName, setUserName, email, setEmail, setToken, setIsLoggedIn } =
     useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
