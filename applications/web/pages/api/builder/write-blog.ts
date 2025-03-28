@@ -112,7 +112,7 @@ async function generateBlogContent(): Promise<BlogPost[]> {
     return posts;
   } catch (error) {
     console.error("Error generating blog content:", error);
-    return [];
+    throw error;
   }
 }
 

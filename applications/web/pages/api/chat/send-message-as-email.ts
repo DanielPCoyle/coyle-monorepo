@@ -17,18 +17,20 @@ export default async function handler(
   const activeAdmins = admins.filter((admin) => admin.isActive);
 
   try {
-    activeAdmins.forEach(async (admin) => {
-      await sendEmail({
-        to: admin.email,
-        subject:
-          "New message from chat from " +
-          message.sender +
-          " (" +
-          message.email +
-          ")",
-        text: `You have a new message from ${message.sender}:\n\n${message.message}\n\nfrom ${message.email}`,
-      });
-    });
+    await Promise.all(
+      activeAdmins.map((admin) =>
+        sendEmail({
+          to: admin.email,
+          subject:
+            "New message from chat from " +
+            message.sender +
+            " (" +
+            message.email +
+            ")",
+          text: `You have a new message from ${message.sender}:\n\n${message.message}\n\nfrom ${message.email}`,
+        })
+      )
+    );
 
     res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {

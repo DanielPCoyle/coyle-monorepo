@@ -52,16 +52,17 @@ export async function fetchCategoryPageContent(
   const categoryId = categoryData.data.inkSoftId;
 
   // Fetch product data from external API
-  let productData: Product[] = []; // Default empty array for product data
   const fetchUrl = `https://cdn.inksoft.com/${process.env.NEXT_PUBLIC_INKSOFT_STORE}/Api2/GetProductBaseList?Format=JSON&Index=0&MaxResults=24&SortFilters=%5B%7B%22Property%22%3A%22Name%22%2C%22Direction%22%3A%22Ascending%22%7D%5D&ProductCategoryIds=%5B${categoryId}%5D&IncludePrices=true&IncludeAllStyles=true&IncludeSizes=false&StoreVersion=638659111691800000&IncludeQuantityPacks=true`;
-
-  const response: ProductApiResponse = await fetch(fetchUrl).then((res) =>
-    res.json(),
-  );
-
+  let productData: Product[] = []; // Default empty array
+try {
+  const response: ProductApiResponse = await fetch(fetchUrl).then((res) => res.json());
   if (response && response.Data) {
-    productData = response.Data; // Assign only the Data property
+    productData = response.Data;
   }
+} catch (err) {
+  console.error("Failed to fetch product data:", err);
+  // productData stays as []
+}
 
   return {
     contentType: "product",
@@ -80,3 +81,5 @@ export async function fetchCategoryPageContent(
     categoryData: categoryData || null,
   };
 }
+
+export default fetchCategoryPageContent;
