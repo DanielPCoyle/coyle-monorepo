@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { fetchPostContent } from "./fetchPostContent"; // Adjust path
 import builder from "@builder.io/react";
-import { calculateReadingTime } from "./calculateReadingTime";
+import {calculateReadingTime} from "./calculateReadingTime"; // named import for mock
 
 vi.mock("@builder.io/react", () => ({
   default: {
@@ -9,11 +9,9 @@ vi.mock("@builder.io/react", () => ({
   },
 }));
 
-vi.mock("../calculateReadingTime", () => {
-    return {
-      calculateReadingTime: vi.fn(), // correct way to mock a named export
-    };
-  });
+vi.mock("../calculateReadingTime", () => ({
+  calculateReadingTime: vi.fn(),
+}));
 
 describe.skip("fetchPostContent", () => {
   const fetchMock = vi.fn();
@@ -24,13 +22,13 @@ describe.skip("fetchPostContent", () => {
 
     process.env.NEXT_PUBLIC_BUILDER_API_KEY = "test-api-key";
 
-    // Mock builder symbol
+    // Builder page mock
     (builder.get as any).mockReturnValue({
       toPromise: vi.fn().mockResolvedValue({ data: { title: "Symbol Page" } }),
     });
   });
 
-  it("should return post content with calculated reading time", async () => {
+  it("should return blog data with reading time and page content", async () => {
     const mockBlog = {
       data: {
         slug: "/my-blog-post",
@@ -39,10 +37,7 @@ describe.skip("fetchPostContent", () => {
     };
 
     fetchMock.mockResolvedValueOnce({
-      json: () =>
-        Promise.resolve({
-          results: [mockBlog],
-        }),
+      json: () => Promise.resolve({ results: [mockBlog] }),
     });
 
     (calculateReadingTime as any).mockReturnValue("3 min read");
@@ -53,7 +48,9 @@ describe.skip("fetchPostContent", () => {
       expect.stringContaining("query.data.slug=/my-blog-post")
     );
 
-    expect(calculateReadingTime).toHaveBeenCalledWith(mockBlog.data.body);
+    expect(calculateReadingTime).toHaveBeenCalledWith(
+      mockBlog.data.body
+    );
 
     expect(result).toEqual({
       contentType: "post",
@@ -66,39 +63,33 @@ describe.skip("fetchPostContent", () => {
     });
   });
 
-  it("should work with nested post paths", async () => {
+  it("should extract nested path correctly", async () => {
     const mockBlog = {
       data: {
         slug: "/blog/special-post",
-        body: "Some long content...",
+        body: "This is deep",
       },
     };
 
     fetchMock.mockResolvedValueOnce({
-      json: () =>
-        Promise.resolve({
-          results: [mockBlog],
-        }),
+      json: () => Promise.resolve({ results: [mockBlog] }),
     });
 
-    (calculateReadingTime as any).mockReturnValue("10 min read");
+    (calculateReadingTime as any).mockReturnValue("1 min read");
 
     const result = await fetchPostContent("/post/blog/special-post");
 
     expect(fetchMock).toHaveBeenCalledWith(
       expect.stringContaining("query.data.slug=/blog/special-post")
     );
-
-    expect(result.blogData.readingTime).toBe("10 min read");
+    expect(result.blogData.readingTime).toBe("1 min read");
   });
 
-  it("should fail gracefully if no blog is found", async () => {
+  it("should throw or fail gracefully if no blog post is found", async () => {
     fetchMock.mockResolvedValueOnce({
       json: () => Promise.resolve({ results: [] }),
     });
 
-    await expect(fetchPostContent("/post/unknown")).resolves.toMatchObject({
-      blogData: undefined,
-    });
+    await expect(fetchPostContent("/post/missing")).rejects.toThrow();
   });
 });
