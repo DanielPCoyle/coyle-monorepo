@@ -60,7 +60,7 @@ describe("createAdminUser", () => {
     expect(jwt.sign).toHaveBeenCalledWith(
       { userId: "uuid-123", email, name },
       expect.any(String),
-      { expiresIn: "7d" }
+      { expiresIn: "7d" },
     );
     expect(token).toBe("mock-token");
   });
@@ -74,9 +74,6 @@ describe("createAdminUser", () => {
     const result = await createAdminUser({ email, password, name, role });
 
     expect(result).toBeNull();
-    expect(consoleSpy).toHaveBeenCalledWith(
-      "Error creating user:",
-      "DB Error"
-    );
+    expect(consoleSpy).toHaveBeenCalledWith("Error creating user:", "DB Error");
   });
 });

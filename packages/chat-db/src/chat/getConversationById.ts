@@ -10,7 +10,7 @@ export const getConversationById = async (id) => {
       .from(convos)
       .where(eq(convos.id, id));
     if (!conversation[0]) return false;
-    
+
     return conversation[0];
   } catch (error) {
     console.log("Error getting conversation id by key", error);

@@ -47,7 +47,10 @@ describe("updateUserStatus", () => {
 
     await updateUserStatus({ id: "fail-user", status: "offline" });
 
-    expect(consoleSpy).toHaveBeenCalledWith("Error adding conversation", expect.any(Error));
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Error adding conversation",
+      expect.any(Error),
+    );
 
     consoleSpy.mockRestore();
   });

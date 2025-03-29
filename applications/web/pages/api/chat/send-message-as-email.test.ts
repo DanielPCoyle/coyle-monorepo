@@ -74,7 +74,9 @@ describe("POST /api/send-message-email", () => {
     });
 
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ message: "Email sent successfully" });
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Email sent successfully",
+    });
   });
 
   it("should return 500 if sending emails fails", async () => {

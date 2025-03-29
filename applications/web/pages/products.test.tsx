@@ -5,15 +5,15 @@ import Page, { getServerSideProps } from "./products"; // adjust if needed
 
 // Mocks
 vi.mock("@builder.io/react", async (importOriginal) => {
-    const actual = await importOriginal();
-    return {
-      ...actual, // keeps original exports like `builder`
-      BuilderComponent: (props: any) => (
-        <div data-testid="builder-component" data-props={JSON.stringify(props)} />
-      ),
-      useIsPreviewing: vi.fn(() => false), // override this
-    };
-  });
+  const actual = await importOriginal();
+  return {
+    ...actual, // keeps original exports like `builder`
+    BuilderComponent: (props: any) => (
+      <div data-testid="builder-component" data-props={JSON.stringify(props)} />
+    ),
+    useIsPreviewing: vi.fn(() => false), // override this
+  };
+});
 
 vi.mock("../components/layout/Navigation", () => ({
   default: () => <nav>MockNav</nav>,
@@ -28,7 +28,6 @@ vi.mock("../util/fetchProducts", () => ({
 }));
 
 const useIsPreviewingMock = vi.fn(() => false);
-
 
 const mockPage = {
   id: "test-page-id",
@@ -51,7 +50,9 @@ describe("Builder Page", () => {
 
   it.skip("shows 404 page when no content and not previewing", () => {
     // override the mock to return false for previewing
-    vi.mocked(require("@builder.io/react").useIsPreviewing).mockReturnValueOnce(false);
+    vi.mocked(require("@builder.io/react").useIsPreviewing).mockReturnValueOnce(
+      false,
+    );
 
     render(<Page page={null} />);
     expect(screen.getByText("404")).toBeInTheDocument();

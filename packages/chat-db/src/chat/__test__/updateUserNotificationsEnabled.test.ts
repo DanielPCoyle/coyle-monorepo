@@ -39,7 +39,11 @@ describe("updateUserNotificationsEnabled", () => {
 
   it("should handle errors gracefully", async () => {
     const error = new Error("DB failed");
-    const mockSet = vi.fn().mockReturnValue({ where: () => { throw error } });
+    const mockSet = vi.fn().mockReturnValue({
+      where: () => {
+        throw error;
+      },
+    });
     const mockUpdate = vi.fn().mockReturnValue({ set: mockSet });
     const mockDB = { update: mockUpdate };
 
@@ -47,7 +51,10 @@ describe("updateUserNotificationsEnabled", () => {
 
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
-    await updateUserNotificationsEnabled({ id: "error-user", notificationsEnabled: false });
+    await updateUserNotificationsEnabled({
+      id: "error-user",
+      notificationsEnabled: false,
+    });
 
     expect(consoleSpy).toHaveBeenCalledWith("Error adding conversation", error);
 

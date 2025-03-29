@@ -32,7 +32,9 @@ describe("updateConversationSocketId", () => {
     expect(getDB).toHaveBeenCalled();
     expect(mockUpdate).toHaveBeenCalledWith(expect.anything());
     expect(mockSet).toHaveBeenCalledWith({ socketId });
-    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), conversationId));
+    expect(mockWhere).toHaveBeenCalledWith(
+      eq(expect.anything(), conversationId),
+    );
   });
 
   it("should log an error if the update fails", async () => {

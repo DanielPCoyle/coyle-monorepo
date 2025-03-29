@@ -46,6 +46,8 @@ describe("getUsersOnline", () => {
 
     (getDB as vi.Mock).mockReturnValue(mockDB);
 
-    await expect(getUsersOnline()).rejects.toThrow("Error getting users online");
+    await expect(getUsersOnline()).rejects.toThrow(
+      "Error getting users online",
+    );
   });
 });

@@ -1,14 +1,14 @@
 // translation.test.ts
-import { describe, it, expect, vi } from 'vitest';
-import { translation } from '../translation'; // adjust the path if needed
+import { describe, it, expect, vi } from "vitest";
+import { translation } from "../translation"; // adjust the path if needed
 
-describe('translation', () => {
+describe("translation", () => {
   it('should listen for "translation" and emit to the correct room', () => {
     const mockEmit = vi.fn();
     const mockTo = vi.fn(() => ({ emit: mockEmit }));
     const mockSocket = {
       on: vi.fn(),
-      to: mockTo
+      to: mockTo,
     };
     const mockIo = {}; // not used in this function, but passed in
 
@@ -17,20 +17,20 @@ describe('translation', () => {
     // Extract the callback passed to socket.on
     expect(mockSocket.on).toHaveBeenCalledWith(
       "translation",
-      expect.any(Function)
+      expect.any(Function),
     );
 
     const callback = mockSocket.on.mock.calls[0][1];
 
     const payload = {
-      conversationKey: 'room123',
-      id: 'user456',
-      data: { message: 'Hello' },
+      conversationKey: "room123",
+      id: "user456",
+      data: { message: "Hello" },
     };
 
     callback(payload);
 
-    expect(mockTo).toHaveBeenCalledWith('room123');
-    expect(mockEmit).toHaveBeenCalledWith('translation', payload);
+    expect(mockTo).toHaveBeenCalledWith("room123");
+    expect(mockEmit).toHaveBeenCalledWith("translation", payload);
   });
 });

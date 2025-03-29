@@ -7,7 +7,7 @@ export const handleCors = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "X-Requested-With, Content-Type, Authorization"
+    "X-Requested-With, Content-Type, Authorization",
   );
 
   if (req.method === "OPTIONS") {

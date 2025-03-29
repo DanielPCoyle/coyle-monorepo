@@ -53,7 +53,7 @@ describe("fetchProducts", () => {
 
     // ✅ Filters without empty values
     expect(fetch).toHaveBeenCalledWith(
-      "https://example.com/api/search/search?category=shirts&page=2"
+      "https://example.com/api/search/search?category=shirts&page=2",
     );
 
     expect(setLoading).toHaveBeenCalledWith(true);

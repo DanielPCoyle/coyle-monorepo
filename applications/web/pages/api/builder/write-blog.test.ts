@@ -54,9 +54,7 @@ describe("API - /api/blog", () => {
       if (url.includes("chat/completions") && fetchCount === 1) {
         return {
           json: async () => ({
-            choices: [
-              { message: { content: mockTitles } },
-            ],
+            choices: [{ message: { content: mockTitles } }],
           }),
           ok: true,
         } as any;

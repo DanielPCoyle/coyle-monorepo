@@ -1,9 +1,14 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor, cleanup } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  cleanup,
+} from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import Page, { getServerSideProps } from "./blog"; // Adjust path
 import { a } from "vitest/dist/chunks/suite.d.FvehnV49";
-
 
 // Mock next/image
 vi.mock("next/image", () => ({
@@ -17,16 +22,16 @@ vi.mock("next/link", () => ({
 
 // Mock child components
 vi.mock("../components/layout/Footer", () => ({
-    default: () => <footer>MockFooter</footer>,
-  }));
-  
-  vi.mock("../components/layout/Navigation", () => ({
-    default: () => <nav>MockNav</nav>,
-  }));
-  
-  vi.mock("@coyle/chat-ui/src/ChatCaddy", () => ({
-    ChatCaddy: () => <div>MockChat</div>,
-  }));
+  default: () => <footer>MockFooter</footer>,
+}));
+
+vi.mock("../components/layout/Navigation", () => ({
+  default: () => <nav>MockNav</nav>,
+}));
+
+vi.mock("@coyle/chat-ui/src/ChatCaddy", () => ({
+  ChatCaddy: () => <div>MockChat</div>,
+}));
 global.fetch = vi.fn();
 
 const mockPosts = [
@@ -42,10 +47,9 @@ const mockPosts = [
 ];
 
 afterEach(() => {
-    cleanup();
-    vi.clearAllMocks();
-    }
-);
+  cleanup();
+  vi.clearAllMocks();
+});
 
 describe("Page Component", () => {
   beforeEach(() => {
@@ -53,13 +57,17 @@ describe("Page Component", () => {
   });
 
   it("renders initial blog posts", () => {
-    render(<Page initialPosts={mockPosts} initialPage={1} hasMorePosts={true} />);
+    render(
+      <Page initialPosts={mockPosts} initialPage={1} hasMorePosts={true} />,
+    );
     expect(screen.getByText("PhilaPrints' Latest Posts")).toBeInTheDocument();
     expect(screen.getByText("Test Post")).toBeInTheDocument();
   });
 
   it("disables 'Newer' button on first page", () => {
-    render(<Page initialPosts={mockPosts} initialPage={1} hasMorePosts={true} />);
+    render(
+      <Page initialPosts={mockPosts} initialPage={1} hasMorePosts={true} />,
+    );
     expect(screen.getByText("Newer")).toBeDisabled();
   });
 
@@ -68,7 +76,9 @@ describe("Page Component", () => {
       json: async () => ({ results: mockPosts }),
     });
 
-    render(<Page initialPosts={mockPosts} initialPage={1} hasMorePosts={true} />);
+    render(
+      <Page initialPosts={mockPosts} initialPage={1} hasMorePosts={true} />,
+    );
 
     fireEvent.click(screen.getByText("Older"));
 
@@ -83,7 +93,9 @@ describe("Page Component", () => {
       json: async () => ({ results: mockPosts }),
     });
 
-    render(<Page initialPosts={mockPosts} initialPage={2} hasMorePosts={true} />);
+    render(
+      <Page initialPosts={mockPosts} initialPage={2} hasMorePosts={true} />,
+    );
     fireEvent.click(screen.getByText("Newer"));
 
     await waitFor(() => {
@@ -101,11 +113,11 @@ describe("getServerSideProps", () => {
     const context = { query: { page: "1" } };
     const result = await getServerSideProps(context as any);
     expect(result).toEqual({
-        props: {
-          initialPosts: mockPosts,
-          initialPage: 1,
-          hasMorePosts: false, // correct based on mockPosts.length !== limit
-        },
-      });
+      props: {
+        initialPosts: mockPosts,
+        initialPage: 1,
+        hasMorePosts: false, // correct based on mockPosts.length !== limit
+      },
+    });
   });
 });

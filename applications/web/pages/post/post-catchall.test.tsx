@@ -7,28 +7,30 @@ import fs from "fs";
 
 // 👇 hoisted mock block — must be first
 vi.mock("@builder.io/react", async () => {
-    const builderMocks = {
-        mockUseIsPreviewing: vi.fn(),
-        mockGet: vi.fn(),
-        mockGetAll: vi.fn(),
-      };
+  const builderMocks = {
+    mockUseIsPreviewing: vi.fn(),
+    mockGet: vi.fn(),
+    mockGetAll: vi.fn(),
+  };
 
-    const actual = await vi.importActual<typeof import("@builder.io/react")>("@builder.io/react");
-  
-    return {
-      ...actual,
-      useIsPreviewing: builderMocks.mockUseIsPreviewing,
-      BuilderComponent: ({ content }: any) => (
-        <div data-testid="builder">{content?.data?.title}</div>
-      ),
-      builder: {
-        init: vi.fn(),
-        get: builderMocks.mockGet,
-        getAll: builderMocks.mockGetAll,
-      },
-    };
-  });
-  
+  const actual =
+    await vi.importActual<typeof import("@builder.io/react")>(
+      "@builder.io/react",
+    );
+
+  return {
+    ...actual,
+    useIsPreviewing: builderMocks.mockUseIsPreviewing,
+    BuilderComponent: ({ content }: any) => (
+      <div data-testid="builder">{content?.data?.title}</div>
+    ),
+    builder: {
+      init: vi.fn(),
+      get: builderMocks.mockGet,
+      getAll: builderMocks.mockGetAll,
+    },
+  };
+});
 
 vi.mock("../../components/layout/Navigation", () => ({
   default: () => <nav>MockNav</nav>,
@@ -68,10 +70,14 @@ describe("[...page].tsx", () => {
 
   it("getStaticProps returns page + blogData", async () => {
     mockGet
-      .mockReturnValueOnce({ toPromise: () => Promise.resolve({ data: { title: "Static Title" } }) }) // page
+      .mockReturnValueOnce({
+        toPromise: () => Promise.resolve({ data: { title: "Static Title" } }),
+      }) // page
       .mockReturnValueOnce({}); // blog
 
-    const result = await getStaticProps({ params: { page: ["custom", "slug"] } } as any);
+    const result = await getStaticProps({
+      params: { page: ["custom", "slug"] },
+    } as any);
 
     expect(result).toEqual({
       props: {

@@ -13,7 +13,8 @@ vi.mock("../../../middlewares/handleCors", () => ({
 }));
 
 vi.mock("jsonwebtoken", async () => {
-  const actual: typeof import("jsonwebtoken") = await vi.importActual("jsonwebtoken");
+  const actual: typeof import("jsonwebtoken") =
+    await vi.importActual("jsonwebtoken");
   return {
     ...actual,
     default: {

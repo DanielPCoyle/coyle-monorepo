@@ -48,7 +48,9 @@ describe("updateConversationByKey", () => {
     };
 
     (getDB as vi.Mock).mockReturnValue(mockDB);
-    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
 
     const key = "testKey";
     const data = { conversationName: "Updated Conversation" };
@@ -57,7 +59,7 @@ describe("updateConversationByKey", () => {
 
     expect(consoleErrorSpy).toHaveBeenCalledWith(
       "Error updating conversation",
-      expect.any(Error)
+      expect.any(Error),
     );
 
     consoleErrorSpy.mockRestore();

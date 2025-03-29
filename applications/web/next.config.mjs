@@ -10,8 +10,10 @@ const nextConfig = {
     NEXT_PUBLIC_ALGOLIA_CLIENT_KEY: process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY,
     NEXT_PUBLIC_ALGOLIA_CLIENT_ID: process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
     NEXT_PUBLIC_OPEN_AI_KEY: process.env.NEXT_PUBLIC_OPEN_AI_KEY,
-    NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY: process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY,
-    NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY: process.env.NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY,
+    NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY:
+      process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY,
+    NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY:
+      process.env.NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY,
     NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET,
     NEXT_PUBLIC_EMAIL: process.env.NEXT_PUBLIC_EMAIL,
     NEXT_PUBLIC_EMAIL_APP_PASSWORD: process.env.NEXT_PUBLIC_EMAIL_APP_PASSWORD,
@@ -50,7 +52,7 @@ const nextConfig = {
     ];
   },
   sassOptions: {
-    silenceDeprecations: ['legacy-js-api'],
+    silenceDeprecations: ["legacy-js-api"],
   },
   webpack: (config) => {
     config.module.rules.push(
@@ -81,7 +83,7 @@ const nextConfig = {
           "style-loader",
           "css-loader", // Translates CSS into CommonJS
         ],
-      }
+      },
     );
     return config;
   },

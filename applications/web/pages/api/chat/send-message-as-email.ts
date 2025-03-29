@@ -28,8 +28,8 @@ export default async function handler(
             message.email +
             ")",
           text: `You have a new message from ${message.sender}:\n\n${message.message}\n\nfrom ${message.email}`,
-        })
-      )
+        }),
+      ),
     );
 
     res.status(200).json({ message: "Email sent successfully" });

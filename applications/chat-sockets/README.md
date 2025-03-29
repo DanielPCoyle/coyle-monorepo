@@ -14,18 +14,20 @@ Chat Sockets is a Node.js application that provides real-time communication capa
 ## Installation
 
 1. Clone the repository:
-    ```bash
-    git clone <repository-url>
-    cd chat-sockets
-    ```
+
+   ```bash
+   git clone <repository-url>
+   cd chat-sockets
+   ```
 
 2. Install dependencies:
-    ```bash
-    yarn install
-    ```
+
+   ```bash
+   yarn install
+   ```
 
 3. Set up environment variables:
-    Create a `.env` file in the root directory and add the required environment variables.
+   Create a `.env` file in the root directory and add the required environment variables.
 
 ## Scripts
 

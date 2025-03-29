@@ -16,7 +16,9 @@ vi.mock("drizzle-orm", () => ({
 
 describe("getConversationById", () => {
   it("should return the conversation if found", async () => {
-    const mockWhere = vi.fn().mockResolvedValue([{ id: "123", message: "Hello" }]);
+    const mockWhere = vi
+      .fn()
+      .mockResolvedValue([{ id: "123", message: "Hello" }]);
     const mockFrom = vi.fn().mockReturnValue({ where: mockWhere });
     const mockSelect = vi.fn().mockReturnValue({ from: mockFrom });
     const mockDB = { select: mockSelect };

@@ -15,7 +15,9 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ item, onClick }) => (
   <li>
-    <Link onClick={onClick} href={item.url}>{item.title}</Link>
+    <Link onClick={onClick} href={item.url}>
+      {item.title}
+    </Link>
     {item.subLinks && (
       <ul>
         {item.subLinks.map((subItem, index) => (
@@ -47,7 +49,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
           ☰
         </button>
         <div className="logo">
-          <Link onClick={()=>setIsMenuOpen(false)} href="/">
+          <Link onClick={() => setIsMenuOpen(false)} href="/">
             <Image
               src="https://cdn.inksoft.com/images/publishers/19502/stores/philadelphiascreenprinting/img/header-logo.png?decache=638658398084130000"
               alt="Logo"
@@ -60,9 +62,13 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
           className={`${isMenuOpen ? "open animate__animated animate__slideInLeft animate__faster" : ""}`}
         >
           {navData.map((item, index) => (
-            <NavItem onClick={()=>{
+            <NavItem
+              onClick={() => {
                 setIsMenuOpen(false);
-            }} key={index} item={item} />
+              }}
+              key={index}
+              item={item}
+            />
           ))}
           <li className="smallCommunicationBox">
             <Link className="phoneNumber" href="tel:215-771-9404">
@@ -96,7 +102,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
             }}
           >
             <iframe
-            data-testid={'cart-frame'}
+              data-testid={"cart-frame"}
               src={
                 showCart
                   ? "https://shop.philaprints.com/philadelphiascreenprinting/shop/home?cartOnly=true"
