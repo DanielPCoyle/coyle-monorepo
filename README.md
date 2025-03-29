@@ -2,6 +2,33 @@
 
 A full-stack chat application ecosystem managed with Yarn Workspaces. This monorepo powers a real-time chat platform, mobile experience, CMS-backed marketing site, and reusable internal packages.
 
+## 📋 Table of Contents
+
+- [🧱 Monorepo Structure](#-monorepo-structure)
+  - [Applications](#applications)
+  - [Packages](#packages)
+- [📦 Getting Started](#-getting-started)
+  - [Install Dependencies](#1-install-dependencies)
+  - [Setup Environment Variables](#2-setup-environment-variables)
+- [🚀 Scripts](#-scripts)
+  - [Web (Next.js)](#web-nextjs)
+  - [Mobile (React Native)](#mobile-react-native)
+  - [Chat Sockets (Express + Socketio)](#chat-sockets-express--socketio)
+  - [Chat UI](#chat-ui)
+  - [Database](#database)
+  - [E2E Testing](#e2e-testing)
+  - [Utilities](#utilities)
+  - [Packing Utilities](#packing-utilities)
+- [📁 Scripts Directory](#-scripts-directory)
+- [📚 Technologies Used](#-technologies-used)
+- [🛠 Contributions](#-contributions)
+- [📄 License](#-license)
+- [📝 Registering an Application or Package](#-registering-an-application-or-package)
+- [🛠 Active Git Hooks](#-active-git-hooks)
+  - [Pre-Push Hook](#pre-push-hook)
+- [🛠 Database Migrations](#-database-migrations)
+- [Code Coverage](#code-coverage)
+
 ## 🧱 Monorepo Structure
 
 This is a **Yarn Workspaces** monorepo.
@@ -215,3 +242,35 @@ To add a new application or package to the monorepo, follow these steps:
    - Commit the new directory and any changes to the monorepo configuration.
 
 ---
+
+## 🛠 Active Git Hooks
+
+### Pre-Push Hook
+
+The monorepo includes a pre-push Git hook that ensures code quality before pushing changes to the repository. This hook runs the following commands across all workspaces:
+
+- `yarn prettier --write` – Formats the codebase using Prettier.
+- `yarn lint` – Lints the codebase to catch and fix issues.
+
+This hook is automatically triggered when you attempt to push changes to the remote repository.
+
+---
+
+## 🛠 Database Migrations
+
+To manage database migrations in this monorepo, follow these steps:
+
+1. **Update the Schema**:
+   - Ensure all package schemas are imported into the main `packages/database/schema.ts` file.
+
+2. **Generate Migration Files**:
+   - Run the following command to create migration files:
+     ```bash
+     yarn db:create-migration
+     ```
+
+3. **Execute the Migration**:
+   - Apply the migration to the database by running:
+     ```bash
+     yarn db:migrate
+     ```

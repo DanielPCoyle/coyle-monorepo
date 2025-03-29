@@ -33,7 +33,7 @@
     "types": "yarn workspaces run types",
     "prettier": "yarn workspaces run prettier",
     "reinstall": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && yarn install",
-    "pre-push": "echo 'TODO:: REVERT BACK TO PRE-PUSH HOOK'",
+    "pre-push": "yarn prettier --write && yarn lint",
     "pack-db" : "./scripts/pack-db.sh",
     "pack-ui": "./scripts/pack-ui.sh"
   },
