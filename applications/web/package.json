@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint . --fix --ignore-pattern 'public/dist/*'",
     "test": "vitest run",
+    "test:watch": "vitest",
     "types": "tsc --noEmit",
     "prettier": "prettier --check ."
   },

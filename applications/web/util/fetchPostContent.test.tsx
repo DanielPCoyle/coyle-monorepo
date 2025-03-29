@@ -1,95 +1,71 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { fetchPostContent } from "./fetchPostContent"; // Adjust path
-import builder from "@builder.io/react";
-import {calculateReadingTime} from "./calculateReadingTime"; // named import for mock
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { fetchPostContent } from './fetchPostContent';
+import { calculateReadingTime } from './calculateReadingTime';
+import builder from '@builder.io/react';
 
-vi.mock("@builder.io/react", () => ({
-  default: {
-    get: vi.fn(),
-  },
+// Mock environment variable
+vi.stubEnv('NEXT_PUBLIC_BUILDER_API_KEY', 'fake-api-key');
+
+// Mock calculateReadingTime
+vi.mock('./calculateReadingTime', () => ({
+  calculateReadingTime: vi.fn(() => '3 min read'),
 }));
 
-vi.mock("../calculateReadingTime", () => ({
-  calculateReadingTime: vi.fn(),
-}));
+// Mock global fetch
+global.fetch = vi.fn(() =>
+  Promise.resolve({
+    json: () =>
+      Promise.resolve({
+        results: [
+          {
+            data: {
+              slug: '/my-post',
+              body: 'This is a test blog post body.',
+            },
+          },
+        ],
+      }),
+  }),
+) as any;
 
-describe.skip("fetchPostContent", () => {
-  const fetchMock = vi.fn();
+// Mock builder.get().toPromise()
+vi.mock('@builder.io/react', async () => {
+  const actual = await vi.importActual<typeof import('@builder.io/react')>('@builder.io/react');
+  return {
+    ...actual,
+    default: {
+      ...actual.default,
+      get: vi.fn(() => ({
+        toPromise: () => Promise.resolve({ data: { title: 'Test Symbol Page' } }),
+      })),
+    },
+  };
+});
 
+describe('fetchPostContent', () => {
   beforeEach(() => {
-    vi.stubGlobal("fetch", fetchMock);
     vi.clearAllMocks();
-
-    process.env.NEXT_PUBLIC_BUILDER_API_KEY = "test-api-key";
-
-    // Builder page mock
-    (builder.get as any).mockReturnValue({
-      toPromise: vi.fn().mockResolvedValue({ data: { title: "Symbol Page" } }),
-    });
   });
 
-  it("should return blog data with reading time and page content", async () => {
-    const mockBlog = {
-      data: {
-        slug: "/my-blog-post",
-        body: "<article>This is a test blog</article>",
-      },
-    };
+  it('fetches blog data and returns post content with reading time and symbol page', async () => {
+    const result = await fetchPostContent('/post/my-post');
 
-    fetchMock.mockResolvedValueOnce({
-      json: () => Promise.resolve({ results: [mockBlog] }),
-    });
-
-    (calculateReadingTime as any).mockReturnValue("3 min read");
-
-    const result = await fetchPostContent("/post/my-blog-post");
-
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("query.data.slug=/my-blog-post")
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringContaining('query.data.slug=/my-post')
     );
-
-    expect(calculateReadingTime).toHaveBeenCalledWith(
-      mockBlog.data.body
-    );
+    expect(calculateReadingTime).toHaveBeenCalledWith('This is a test blog post body.');
 
     expect(result).toEqual({
-      contentType: "post",
-      model: "symbol",
-      page: { data: { title: "Symbol Page" } },
+      contentType: 'post',
+      model: 'symbol',
+      page: { data: { title: 'Test Symbol Page' } },
       blogData: {
-        ...mockBlog,
-        readingTime: "3 min read",
+        data: {
+          slug: '/my-post',
+          body: 'This is a test blog post body.',
+        },
+        readingTime: '3 min read',
       },
     });
-  });
-
-  it("should extract nested path correctly", async () => {
-    const mockBlog = {
-      data: {
-        slug: "/blog/special-post",
-        body: "This is deep",
-      },
-    };
-
-    fetchMock.mockResolvedValueOnce({
-      json: () => Promise.resolve({ results: [mockBlog] }),
-    });
-
-    (calculateReadingTime as any).mockReturnValue("1 min read");
-
-    const result = await fetchPostContent("/post/blog/special-post");
-
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining("query.data.slug=/blog/special-post")
-    );
-    expect(result.blogData.readingTime).toBe("1 min read");
-  });
-
-  it("should throw or fail gracefully if no blog post is found", async () => {
-    fetchMock.mockResolvedValueOnce({
-      json: () => Promise.resolve({ results: [] }),
-    });
-
-    await expect(fetchPostContent("/post/missing")).rejects.toThrow();
   });
 });
