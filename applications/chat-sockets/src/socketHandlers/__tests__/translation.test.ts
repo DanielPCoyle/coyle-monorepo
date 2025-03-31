@@ -12,11 +12,9 @@ describe("translation", () => {
     };
     const mockIo = {}; // not used in this function, but passed in
 
-    
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     translation({ socket: mockSocket as any, io: mockIo });
 
-    
     expect(mockSocket.on).toHaveBeenCalledWith(
       "translation",
       expect.any(Function),

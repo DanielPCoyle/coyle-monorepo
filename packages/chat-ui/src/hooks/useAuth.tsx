@@ -68,7 +68,7 @@ export const useAuth = () => {
       .then((res) => {
         if (res.status === 200) {
           return res.json();
-        } 
+        }
       })
       .then((data) => {
         if (data?.jwt === undefined) {

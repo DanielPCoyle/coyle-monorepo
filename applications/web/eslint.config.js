@@ -33,7 +33,7 @@ export default [
       ".next",
       "**/*.test.*",
       "public/build",
-      "scripts"
+      "scripts",
     ],
   },
 ];

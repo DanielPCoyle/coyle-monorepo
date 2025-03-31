@@ -23122,15 +23122,13 @@
                     d = n.getBlockTree(f).getIn([u, "leaves", l]),
                     h = d.start,
                     p = d.end,
-                    g = n
-                      .getSelection()
-                      .merge({
-                        anchorKey: f,
-                        focusKey: f,
-                        anchorOffset: h,
-                        focusOffset: p,
-                        isBackward: !1,
-                      }),
+                    g = n.getSelection().merge({
+                      anchorKey: f,
+                      focusKey: f,
+                      anchorOffset: h,
+                      focusOffset: p,
+                      isBackward: !1,
+                    }),
                     m = c(i, g),
                     v = i.getBlockForKey(f).getInlineStyleAt(h);
                   (i = r.replaceText(i, g, e, v, m)),
@@ -69703,9 +69701,7 @@
         const t = gb(e) ? e.get() : e;
         return (
           (n = t),
-          n && "object" === typeof n && n.mix && n.toValue
-            ? t.toValue()
-            : t
+          n && "object" === typeof n && n.mix && n.toValue ? t.toValue() : t
         );
         var n;
       }

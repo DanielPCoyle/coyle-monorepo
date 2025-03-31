@@ -15,9 +15,7 @@ export default [
     },
   },
   {
-    ignores: ["**/__tests__/*",
-      "**/**/*.test.*",
-    ], // Ignores test files
+    ignores: ["**/__tests__/*", "**/**/*.test.*"], // Ignores test files
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
