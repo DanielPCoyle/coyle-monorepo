@@ -2,6 +2,14 @@
 
 A full-stack chat application ecosystem managed with Yarn Workspaces. This monorepo powers a real-time chat platform, mobile experience, CMS-backed marketing site, and reusable internal packages.
 
+---
+
+**⚠️ Beta Notice**
+
+This project is currently in **beta**. Features and APIs are subject to change as development progresses. Use with caution in production environments.
+
+---
+
 ## 📋 Table of Contents
 
 - [🧱 Monorepo Structure](#-monorepo-structure)
