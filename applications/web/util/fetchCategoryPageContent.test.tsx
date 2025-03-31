@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { fetchCategoryPageContent } from "./fetchCategoryPageContent"; 
+import { fetchCategoryPageContent } from "./fetchCategoryPageContent";
 import builder from "@builder.io/react";
 
 // Mock builder.io
@@ -43,7 +43,7 @@ describe("fetchCategoryPageContent", () => {
     global.fetch = vi.fn(() =>
       Promise.resolve({
         json: () => Promise.resolve(mockProductResponse),
-      })
+      }),
     ) as any;
 
     process.env.NEXT_PUBLIC_INKSOFT_STORE = "demo-store";
@@ -60,7 +60,9 @@ describe("fetchCategoryPageContent", () => {
       },
     });
 
-    expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining("ProductCategoryIds=%5B1234%5D"));
+    expect(global.fetch).toHaveBeenCalledWith(
+      expect.stringContaining("ProductCategoryIds=%5B1234%5D"),
+    );
     expect(result.productData).toHaveLength(2);
     expect(result.productData[0].name).toBe("T-shirt");
 
@@ -71,7 +73,7 @@ describe("fetchCategoryPageContent", () => {
 
   it("should return empty productData if fetch fails", async () => {
     (global.fetch as any).mockImplementationOnce(() =>
-      Promise.reject(new Error("Fetch failed"))
+      Promise.reject(new Error("Fetch failed")),
     );
 
     const result = await fetchCategoryPageContent("hats");

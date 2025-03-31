@@ -3,7 +3,7 @@ import { conversations } from "../../schema";
 import type { Conversation } from "../../schema";
 import { eq } from "drizzle-orm";
 
-export async function updateConversationByKey(key,data): Promise<void> {
+export async function updateConversationByKey(key, data): Promise<void> {
   try {
     const db = getDB();
     await db

@@ -3,7 +3,8 @@ import { sendWelcomeEmail } from "./sendWelcomeEmail"; // Adjust path
 import nodemailer from "nodemailer";
 
 vi.mock("nodemailer", async () => {
-  const actual: typeof import("nodemailer") = await vi.importActual("nodemailer");
+  const actual: typeof import("nodemailer") =
+    await vi.importActual("nodemailer");
   return {
     ...actual,
     default: {
@@ -59,7 +60,10 @@ describe("sendWelcomeEmail", () => {
 
     await sendWelcomeEmail("Bob", "bob@example.com", "securepass");
 
-    expect(consoleSpy).toHaveBeenCalledWith("Error sending email:", "SMTP failure");
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "Error sending email:",
+      "SMTP failure",
+    );
 
     consoleSpy.mockRestore();
   });

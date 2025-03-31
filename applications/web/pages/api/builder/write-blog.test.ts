@@ -1,122 +1,145 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import handler from "./write-blog"; // Adjust the path to your API file
-import type { NextApiRequest, NextApiResponse } from "next";
+import handler from "./write-blog"; // Adjust if needed
+import { NextApiRequest, NextApiResponse } from "next";
 
-// Mock global fetch
-const fetchMock = vi.fn();
+vi.mock("node-fetch", async () => {
+  const actual: any = await vi.importActual("node-fetch");
+  return {
+    ...actual,
+    default: vi.fn(),
+  };
+});
 
-vi.stubGlobal("fetch", fetchMock);
+const mockFetch = vi.mocked(await import("node-fetch")).default;
 
-describe("POST /api/write-blog", () => {
-  let req: Partial<NextApiRequest>;
-  let res: Partial<NextApiResponse>;
+const mockTitles = `["Custom Tees for Events", "Philly Screen Printing Trends", "Local Merch Magic"]`;
+const mockBlogContent = {
+  content: "<article>Test HTML</article>",
+  seoTitleTag: "SEO Title",
+  seoDescription: "SEO Desc",
+  tagLine: "Tagline",
+  tags: ["screen printing", "philly"],
+};
+const mockImageURL = "https://image.url";
+const mockUploadedURL = "https://builder.io/image.jpg";
 
+function createMockReqRes(method = "POST") {
+  const req = {
+    method,
+  } as unknown as NextApiRequest;
+
+  let jsonResult: any;
+  const res = {
+    status: vi.fn(() => res),
+    json: vi.fn((data) => {
+      jsonResult = data;
+      return res;
+    }),
+    setHeader: vi.fn(),
+    end: vi.fn(),
+  } as unknown as NextApiResponse;
+
+  return { req, res, jsonResult: () => jsonResult };
+}
+
+describe("API - /api/blog", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    let fetchCount = 0;
 
-    req = {
-      method: "POST",
-    };
+    mockFetch.mockImplementation(async (url: any, options: any) => {
+      fetchCount++;
 
-    res = {
-      status: vi.fn(() => res),
-      json: vi.fn(),
-      setHeader: vi.fn(),
-      end: vi.fn(),
-    };
+      // 1st fetch: get blog titles
+      if (url.includes("chat/completions") && fetchCount === 1) {
+        return {
+          json: async () => ({
+            choices: [{ message: { content: mockTitles } }],
+          }),
+          ok: true,
+        } as any;
+      }
 
-    process.env.NEXT_PUBLIC_OPEN_AI_KEY = "fake-openai-key";
-    process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY = "fake-builder-key";
+      // 2nd, 3rd, 4th fetch: generate blog content
+      if (url.includes("chat/completions")) {
+        return {
+          json: async () => ({
+            choices: [
+              { message: { content: JSON.stringify(mockBlogContent) } },
+            ],
+          }),
+          ok: true,
+        } as any;
+      }
+
+      // Featured image generation
+      if (url.includes("/images/generations")) {
+        return {
+          json: async () => ({
+            data: [{ url: mockImageURL }],
+          }),
+          ok: true,
+        } as any;
+      }
+
+      // Upload image
+      if (url === mockImageURL) {
+        return {
+          buffer: async () => Buffer.from("image-bytes"),
+        } as any;
+      }
+
+      if (url.includes("/upload")) {
+        return {
+          json: async () => ({ url: mockUploadedURL }),
+          ok: true,
+        } as any;
+      }
+
+      // Builder blog save
+      if (url.includes("/write/blog")) {
+        return {
+          json: async () => ({ id: "builder-blog-id" }),
+          ok: true,
+        } as any;
+      }
+
+      throw new Error("Unexpected fetch call");
+    });
   });
 
-  it.skip("should return 201 with generated blog posts", async () => {
-    // 1. Mock OpenAI response for blog titles
-    fetchMock.mockResolvedValueOnce({
-      json: () =>
-        Promise.resolve({
-          choices: [
-            {
-              message: {
-                content: JSON.stringify([
-                  "Best Custom T-Shirts in Philly",
-                  "Why Screen Printing Rocks",
-                  "Top 5 Uses for Custom Hoodies",
-                ]),
-              },
-            },
-          ],
-        }),
-      ok: true,
-    });
+  it("returns 201 and blog posts on success", async () => {
+    const { req, res, jsonResult } = createMockReqRes();
 
-    // 2. Mock OpenAI response for blog content (for each title)
-    const blogContentMock = {
-      content: "<article>Blog HTML here</article>",
-      seoTitleTag: "SEO Title",
-      seoDescription: "SEO Description",
-      tagLine: "Awesome tagline",
-      tags: ["screen printing", "custom shirts"],
-    };
+    await handler(req, res);
 
-    fetchMock.mockResolvedValue({
-      json: () =>
-        Promise.resolve({
-          choices: [
-            {
-              message: {
-                content: JSON.stringify(blogContentMock),
-              },
-            },
-          ],
-        }),
-      ok: true,
-    });
-
-    // 3. Mock image generation (DALL·E)
-    fetchMock.mockResolvedValueOnce({
-      json: () =>
-        Promise.resolve({
-          data: [{ url: "https://image-url.com/fake.png" }],
-        }),
-      ok: true,
-    });
-
-    // 4. Mock image upload to Builder
-    fetchMock.mockResolvedValueOnce({
-      buffer: () => Promise.resolve(Buffer.from("fake-image")),
-    });
-
-    fetchMock.mockResolvedValueOnce({
-      json: () => Promise.resolve({ url: "https://cdn.builder.io/image.png" }),
-      ok: true,
-    });
-
-    // 5. Mock blog post save to Builder
-    fetchMock.mockResolvedValueOnce({
-      json: () => Promise.resolve({ id: "saved-id" }),
-      ok: true,
-    });
-
-    await handler(req as any, res as any);
-
-    expect(fetchMock).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith(expect.any(Array));
+    expect(res.json).toHaveBeenCalled();
+    const result = jsonResult();
+
+    expect(result).toHaveLength(3);
+    expect(result[0].title).toBe("Custom Tees for Events");
+    expect(result[0].content.content).toContain("<article>");
   });
 
-  it("should return 405 if method is not POST", async () => {
-    req.method = "GET";
+  it("returns 405 for non-POST", async () => {
+    const { req, res } = createMockReqRes("GET");
 
-    await handler(req as any, res as any);
+    await handler(req, res);
 
+    expect(res.setHeader).toHaveBeenCalledWith("Allow", ["POST"]);
     expect(res.status).toHaveBeenCalledWith(405);
     expect(res.end).toHaveBeenCalledWith("Method GET Not Allowed");
   });
 
-  it("should return 500 if OpenAI fails", async () => {
-    fetchMock.mockRejectedValueOnce(new Error("OpenAI API failure"));
+  it("returns 500 on fetch failure", async () => {
+    mockFetch.mockImplementationOnce(() => {
+      throw new Error("OpenAI API failure");
+    });
 
-    await handler(req as any, res as any);
+    const { req, res } = createMockReqRes();
+
+    await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith({

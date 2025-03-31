@@ -7,7 +7,7 @@ import { CloseIcon } from "../assets/svg/CloseIcon";
 import { ChatIcon } from "../assets/svg/ChatIcon";
 import { ChatContext } from "../ChatContext";
 import { LogoutIcon } from "./LogoutIcon";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const SideBar = () => {
   const [view, setView] = useState("conversations");

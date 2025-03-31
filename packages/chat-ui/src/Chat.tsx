@@ -19,7 +19,13 @@ import { useAuth } from "./hooks/useAuth";
 const socketSite = process.env.REACT_APP_SOCKET_SITE;
 const socket = io(socketSite);
 
-export const Chat = ({isChatCaddy,setOpen}) => {
+
+interface ChatProps {
+  isChatCaddy: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [input, setInput] = useState("");
@@ -196,14 +202,14 @@ export const Chat = ({isChatCaddy,setOpen}) => {
             {Boolean(notificationBar?.length) && ( <div className="notificationBarContainer">
             <div className="notificationBar">
                   
-                {notificationBar.map((notification) => (
-                  <div className="notification">
+                {notificationBar.map((notification, i) => (
+                  <div key={"notification_"+i} className="notification">
                   <p>{notification.message}</p>
                   <button onClick={()=>{
                     setSelectedMessageId(notification.id)
                     setNotificationBar((prev) => prev.filter((n) => n.id !== notification.id))
                     }}>
-                  <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   </button>
                   </div>
                 ))
@@ -225,7 +231,11 @@ export default Chat;
 
 
 
-const Auth = ({isLoggedIn, init}) => {
+interface AuthProps {
+  isLoggedIn: boolean;
+  init: boolean;
+}
+const Auth = ({isLoggedIn, init}: AuthProps) => {
   const { getAndSetUser } = useAuth();
   return !isLoggedIn && init ? (
         <LoginForm  getAndSetUser={getAndSetUser} />

@@ -40,7 +40,7 @@ const Page: React.FC<PageProps> = ({
   const handleNextPage = async () => {
     const nextPage = page + 1;
     const offset = (nextPage - 1) * limit;
-    const apiUrl = `https://cdn.builder.io/api/v3/content/blog?apiKey=4836aef3221441d0b11452a63e08992e&offset=${offset}&limit=${limit}`;
+    const apiUrl = `https://cdn.builder.io/api/v3/content/blog?apiKey=${process.env.NEXT_PUBLIC_BUILDER_API_KEY}&offset=${offset}&limit=${limit}`;
     const res = await fetch(apiUrl);
     const data = await res.json();
     setPosts(data.results);
@@ -53,7 +53,7 @@ const Page: React.FC<PageProps> = ({
     if (page > 1) {
       const prevPage = page - 1;
       const offset = (prevPage - 1) * limit;
-      const apiUrl = `https://cdn.builder.io/api/v3/content/blog?apiKey=4836aef3221441d0b11452a63e08992e&offset=${offset}&limit=${limit}`;
+      const apiUrl = `https://cdn.builder.io/api/v3/content/blog?apiKey=${process.env.NEXT_PUBLIC_BUILDER_API_KEY}&offset=${offset}&limit=${limit}`;
       const res = await fetch(apiUrl);
       const data = await res.json();
       setPosts(data.results);
@@ -115,7 +115,7 @@ const Page: React.FC<PageProps> = ({
 export async function getServerSideProps(context: any) {
   const page = parseInt(context.query.page as string, 10) || 1;
   const offset = (page - 1) * limit;
-  const apiUrl = `https://cdn.builder.io/api/v3/content/blog?apiKey=4836aef3221441d0b11452a63e08992e&offset=${offset}&limit=${limit}`;
+  const apiUrl = `https://cdn.builder.io/api/v3/content/blog?apiKey=${process.env.NEXT_PUBLIC_BUILDER_API_KEY}&offset=${offset}&limit=${limit}`;
 
   const res = await fetch(apiUrl);
   const data = await res.json();

@@ -23,7 +23,11 @@ describe("updateUser", () => {
 
     (getDB as any).mockReturnValue(mockDB);
 
-    const user = { id: "user-1", name: "Updated Name", notificationsEnabled: true };
+    const user = {
+      id: "user-1",
+      name: "Updated Name",
+      notificationsEnabled: true,
+    };
 
     const result = await updateUser(user);
 
@@ -48,9 +52,15 @@ describe("updateUser", () => {
 
     const consoleSpy = vi.spyOn(console, "log").mockImplementation(() => {});
 
-    const user = { id: "error-user", name: "Crash Test", notificationsEnabled: false };
+    const user = {
+      id: "error-user",
+      name: "Crash Test",
+      notificationsEnabled: false,
+    };
 
-    await expect(updateUser(user)).rejects.toThrow("User not found with id: error-user");
+    await expect(updateUser(user)).rejects.toThrow(
+      "User not found with id: error-user",
+    );
 
     expect(consoleSpy).toHaveBeenCalledWith(error);
 

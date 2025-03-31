@@ -39,6 +39,8 @@ describe("deleteUser", () => {
 
     const userId = "456";
 
-    await expect(deleteUser(userId)).rejects.toThrow("User not found with id: " + userId);
+    await expect(deleteUser(userId)).rejects.toThrow(
+      "User not found with id: " + userId,
+    );
   });
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import {fetchGeneralPageContent} from "./fetchGeneralPageContent"; // Adjust path
+import { fetchGeneralPageContent } from "./fetchGeneralPageContent"; // Adjust path
 import builder from "@builder.io/react";
 
 vi.mock("@builder.io/react", () => ({
@@ -9,7 +9,6 @@ vi.mock("@builder.io/react", () => ({
 }));
 
 describe("fetchGeneralPageContent", () => {
-  const builderGetMock = vi.fn();
   const toPromiseMock = vi.fn();
 
   const mockPage = {
@@ -75,9 +74,16 @@ describe("fetchGeneralPageContent", () => {
       json: () => Promise.resolve({ results: blogPosts }),
     });
 
-    const result = await fetchGeneralPageContent("/blog/philly/3", "philly", 0, 10);
+    const result = await fetchGeneralPageContent(
+      "/blog/philly/3",
+      "philly",
+      0,
+      10,
+    );
 
-    expect(fetch).toHaveBeenCalledWith(expect.stringContaining("&query.data.title.$regex=philly"));
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining("&query.data.title.$regex=philly"),
+    );
     expect(result.blogData).toEqual(blogPosts);
     expect(result.pagination.search).toBe("philly");
   });

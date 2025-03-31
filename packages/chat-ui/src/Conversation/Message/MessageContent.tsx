@@ -21,11 +21,12 @@ export const MessageContent = () => {
   const { user, userName, language, socket , id } = useContext(ChatContext);
   const reactionsPickerRef = React.useRef<HTMLDivElement>(null);
   useOutsideClick(reactionsPickerRef, () => setShowReactionsPicker(false));
-  const [translation, setTranslation] = React.useState<any | null>(message?.translation || null);
+  const [translation, setTranslation] = React.useState(message?.translation || null);
   const [loading, setLoading] = React.useState(false);
   
       React.useEffect(() => {
-        socket.on("translation", (data: any) => {
+        socket.on("translation", (data: { id: string; data: { text: string } | null }) => {
+          
           if(data?.id === message.id && data?.data){
             setTranslation(data.data);
           }
@@ -55,7 +56,7 @@ export const MessageContent = () => {
                 setLoading(false);
               }
           }
-          ).catch((err) => {
+          ).catch((err: unknown) => {
             console.log({err})
             setLoading(false);
           }

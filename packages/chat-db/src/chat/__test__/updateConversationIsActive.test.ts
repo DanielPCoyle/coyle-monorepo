@@ -32,7 +32,9 @@ describe("updateConversationIsActive", () => {
     expect(getDB).toHaveBeenCalled();
     expect(mockUpdate).toHaveBeenCalledWith(expect.anything());
     expect(mockSet).toHaveBeenCalledWith({ isActive: status });
-    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), conversationKey));
+    expect(mockWhere).toHaveBeenCalledWith(
+      eq(expect.anything(), conversationKey),
+    );
   });
 
   it("should log an error if the update fails", async () => {

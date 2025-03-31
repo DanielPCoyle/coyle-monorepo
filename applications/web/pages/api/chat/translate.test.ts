@@ -57,7 +57,7 @@ describe("POST /api/translate", () => {
         headers: expect.objectContaining({
           Authorization: "Bearer test-openai-key",
         }),
-      })
+      }),
     );
 
     expect(updateMessage).toHaveBeenCalledWith("msg-123", {
@@ -83,7 +83,7 @@ describe("POST /api/translate", () => {
 
     expect(consoleSpy).toHaveBeenCalledWith(
       "Error generating blog content:",
-      expect.any(Error)
+      expect.any(Error),
     );
 
     expect(updateMessage).not.toHaveBeenCalled();

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ChatContext from "../ChatContext";
 
 export const useAuth = () => {
@@ -13,14 +13,17 @@ export const useAuth = () => {
     token,
     socket,
     setLanguage,
-    setInit
+    setInit,
   } = useContext(ChatContext);
   const getAndSetUser = async (jwtToken: string) => {
     try {
-      const response = await fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/me", {
-        headers: { Authorization: `Bearer ${jwtToken}` },
-        credentials: "include", 
-      });
+      const response = await fetch(
+        process.env.REACT_APP_API_BASE_URL + "/api/auth/me",
+        {
+          headers: { Authorization: `Bearer ${jwtToken}` },
+          credentials: "include",
+        },
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -31,7 +34,7 @@ export const useAuth = () => {
       setNotificationsEnabled(data.user.notificationsEnabled);
       setId(data.user.conversationKey);
       setIsLoggedIn(true);
-      if(data?.conversation?.language){
+      if (data?.conversation?.language) {
         setLanguage(data?.conversation?.language);
       }
 
@@ -55,8 +58,7 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-
-    fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/cookie", {
+    fetch(process.env.REACT_APP_API_BASE_URL + "/api/auth/cookie", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -66,11 +68,10 @@ export const useAuth = () => {
       .then((res) => {
         if (res.status === 200) {
           return res.json();
-        } else {
         }
       })
       .then((data) => {
-        if(data?.jwt === undefined) {
+        if (data?.jwt === undefined) {
           setInit(true);
           return;
         }
@@ -83,14 +84,14 @@ export const useAuth = () => {
       .catch((err) => {
         setInit(true);
         console.error("Error fetching token:", err);
-      })
+      });
   }, []);
 
   useEffect(() => {
     if (token) {
       getAndSetUser(token);
     }
-  }, [ token]);
+  }, [token]);
 
   return { getAndSetUser };
 };

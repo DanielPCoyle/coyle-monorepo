@@ -11,16 +11,15 @@ vi.mock("@coyle/chat-db", () => ({
 }));
 
 vi.mock("bcrypt", async () => {
-    const actual: typeof import("bcrypt") = await vi.importActual("bcrypt");
-    return {
+  const actual: typeof import("bcrypt") = await vi.importActual("bcrypt");
+  return {
+    ...actual,
+    default: {
       ...actual,
-      default: {
-        ...actual,
-        hash: vi.fn(), // mock hash
-      },
-    };
-  });
-  
+      hash: vi.fn(), // mock hash
+    },
+  };
+});
 
 vi.mock("../../../../middlewares/handleCors", () => ({
   handleCors: vi.fn(),

@@ -16,7 +16,9 @@ vi.mock("drizzle-orm", () => ({
 
 describe("getUserByEmail", () => {
   it("should return the user if found", async () => {
-    const mockLimit = vi.fn().mockResolvedValue([{ email: "test@example.com", name: "Test User" }]);
+    const mockLimit = vi
+      .fn()
+      .mockResolvedValue([{ email: "test@example.com", name: "Test User" }]);
     const mockWhere = vi.fn().mockReturnValue({ limit: mockLimit });
     const mockFrom = vi.fn().mockReturnValue({ where: mockWhere });
     const mockSelect = vi.fn().mockReturnValue({ from: mockFrom });
@@ -29,7 +31,9 @@ describe("getUserByEmail", () => {
     expect(getDB).toHaveBeenCalled();
     expect(mockSelect).toHaveBeenCalled();
     expect(mockFrom).toHaveBeenCalled();
-    expect(mockWhere).toHaveBeenCalledWith(eq(expect.anything(), "test@example.com"));
+    expect(mockWhere).toHaveBeenCalledWith(
+      eq(expect.anything(), "test@example.com"),
+    );
     expect(mockLimit).toHaveBeenCalledWith(1);
     expect(result).toEqual({ email: "test@example.com", name: "Test User" });
   });
@@ -56,6 +60,8 @@ describe("getUserByEmail", () => {
     const mockDB = { select: mockSelect };
     (getDB as vi.Mock).mockReturnValue(mockDB);
 
-    await expect(getUserByEmail("fail@example.com")).rejects.toThrow("User not found with email: fail@example.com");
+    await expect(getUserByEmail("fail@example.com")).rejects.toThrow(
+      "User not found with email: fail@example.com",
+    );
   });
 });

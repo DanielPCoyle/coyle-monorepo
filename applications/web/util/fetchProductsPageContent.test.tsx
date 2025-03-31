@@ -13,7 +13,9 @@ describe("fetchProductsPageContent", () => {
     vi.clearAllMocks();
 
     (builder.get as any).mockReturnValue({
-      toPromise: vi.fn().mockResolvedValue({ data: { title: "Mock Product Page" } }),
+      toPromise: vi
+        .fn()
+        .mockResolvedValue({ data: { title: "Mock Product Page" } }),
     });
   });
 
@@ -41,6 +43,8 @@ describe("fetchProductsPageContent", () => {
   it("should handle empty slug properly", async () => {
     const result = await fetchProductsPageContent("");
 
-    expect(result.seo.url).toBe("https://philadelphiascreenprinting.com/products/");
+    expect(result.seo.url).toBe(
+      "https://philadelphiascreenprinting.com/products/",
+    );
   });
 });

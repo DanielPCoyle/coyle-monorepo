@@ -17,7 +17,8 @@ vi.mock("../../../middlewares/handleCors", () => ({
   handleCors: vi.fn(),
 }));
 vi.mock("jsonwebtoken", async () => {
-  const actual: typeof import("jsonwebtoken") = await vi.importActual("jsonwebtoken");
+  const actual: typeof import("jsonwebtoken") =
+    await vi.importActual("jsonwebtoken");
   return {
     ...actual,
     default: {
@@ -57,13 +58,16 @@ describe("GET /api/auth/whoami", () => {
       email: "admin@example.com",
     });
 
-    (getUserByEmail as any).mockResolvedValue({ id: "admin-id", email: "admin@example.com" });
+    (getUserByEmail as any).mockResolvedValue({
+      id: "admin-id",
+      email: "admin@example.com",
+    });
 
     await handler(req, res);
 
     expect(res.setHeader).toHaveBeenCalledWith(
       "Set-Cookie",
-      expect.stringContaining("jwt=mock.jwt.token")
+      expect.stringContaining("jwt=mock.jwt.token"),
     );
 
     expect(res.status).toHaveBeenCalledWith(200);
@@ -82,7 +86,10 @@ describe("GET /api/auth/whoami", () => {
     });
 
     (getConversationIdByKey as any).mockResolvedValue("convo-1");
-    (getConversationById as any).mockResolvedValue({ id: "convo-1", name: "Test Chat" });
+    (getConversationById as any).mockResolvedValue({
+      id: "convo-1",
+      name: "Test Chat",
+    });
 
     await handler(req, res);
 
@@ -103,7 +110,9 @@ describe("GET /api/auth/whoami", () => {
     await handler(req, res);
 
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.json).toHaveBeenCalledWith({ message: "Authorization header missing" });
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Authorization header missing",
+    });
   });
 
   it("should return 401 if token is missing", async () => {
