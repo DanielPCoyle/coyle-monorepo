@@ -1,7 +1,5 @@
 import React, { useState,  useContext } from "react";
-import type { Message as MessageType } from "../../../types";
 import { ChatContext } from "../../ChatContext";
-import { MessageContent } from "./MessageContent";
 import { MessageContext } from "./MessageContext";
 
 import { ReplyModal } from "./ReplyModal/ReplyModal";

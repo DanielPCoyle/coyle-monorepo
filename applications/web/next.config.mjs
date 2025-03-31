@@ -57,36 +57,36 @@ const nextConfig = {
   webpack: (config) => {
     config.module.rules.push(
       {
-      test: /\.test\.[^/]+$|\.spec\.[^/]+$/,
-      loader: 'ignore-loader',
+        test: /\.test\.[^/]+$|\.spec\.[^/]+$/,
+        loader: "ignore-loader",
       },
       {
-      test: /\.(mp3|wav)$/,
-      use: [
-        {
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-          outputPath: "static/media/",
-          publicPath: "/_next/static/media/",
-        },
-        },
-      ],
+        test: /\.(mp3|wav)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "static/media/",
+              publicPath: "/_next/static/media/",
+            },
+          },
+        ],
       },
       {
-      test: /\.scss$/,
-      use: [
-        "style-loader",
-        "css-loader",
-        "sass-loader", // Compiles Sass to CSS
-      ],
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader", // Compiles Sass to CSS
+        ],
       },
       {
-      test: /\.css$/,
-      use: [
-        "style-loader",
-        "css-loader", // Translates CSS into CommonJS
-      ],
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          "css-loader", // Translates CSS into CommonJS
+        ],
       },
     );
     return config;
