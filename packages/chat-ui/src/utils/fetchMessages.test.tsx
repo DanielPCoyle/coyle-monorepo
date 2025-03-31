@@ -31,24 +31,26 @@ describe("fetchMessages", () => {
       `${process.env.REACT_APP_API_BASE_URL}/api/chat/messages?conversationKey=123&offset=0&limit=10`,
       {
         headers: { Authorization: "Bearer token" },
-      }
+      },
     );
     const setMessagesArg = mockSetMessages.mock.calls[0][0];
-const result = setMessagesArg([]);
-expect(result).toEqual([
-  { id: 1 },
-  { id: 2 }
-]);
+    const result = setMessagesArg([]);
+    expect(result).toEqual([{ id: 1 }, { id: 2 }]);
     expect(mockSetLoading).toHaveBeenCalledWith(false);
   });
 
   it("handles fetch error correctly", async () => {
-    const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const consoleErrorSpy = vi
+      .spyOn(console, "error")
+      .mockImplementation(() => {});
     mockFetch.mockRejectedValueOnce(new Error("Network error"));
 
     await fetchMessages("123", "token", mockSetMessages, mockSetLoading);
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith("Fetch error:", new Error("Network error"));
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Fetch error:",
+      new Error("Network error"),
+    );
     expect(mockSetLoading).toHaveBeenCalledWith(true);
     expect(mockSetLoading).toHaveBeenCalledWith(false);
 
