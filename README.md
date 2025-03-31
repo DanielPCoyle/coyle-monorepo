@@ -52,7 +52,9 @@ This is a **Yarn Workspaces** monorepo.
 - **[`@coyle/chat-ui`](packages/chat-ui/README.md)** – A standalone React SPA for the chat UI, shared across platforms.
 - **[`@coyle/chat-db`](packages/chat-db/README.md)** – Shared chat-related database logic and schema.
 - **[`@coyle/database`](packages/database/README.md)** – Combined database tools, migrations, and config for all apps.
-- **[`@coyle/e2e-tests`](packages/e2e-tests/README.md)** – End-to-end test suite.
+
+### E2E Tests
+- **[`@coyle/e2e-tests`](/tests/e2e/README.md)** – End-to-end test suite.
 
 ---
 
