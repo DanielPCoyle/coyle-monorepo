@@ -15,7 +15,7 @@ The application integrates **Builder.io** for dynamic content management, allowi
 - **Inksoft**: Provides product data and integrates a design studio for custom product creation.
 - **Algolia**: Handles search calls and indexing of products for search.
 - **nodemailer**: Handles emails (connected via gmail)
-- **OpenAI**: Handles automated writing of blog post  
+- **OpenAI**: Handles automated writing of blog post
 
 ## Installation
 
