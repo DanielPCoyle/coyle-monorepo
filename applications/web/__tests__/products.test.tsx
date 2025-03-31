@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, it, vi, expect, beforeEach } from "vitest";
-import Page, { getServerSideProps } from "./products"; // adjust if needed
+import Page, { getServerSideProps } from "../pages/products"; // adjust if needed
 
 // Mocks
 vi.mock("@builder.io/react", async (importOriginal) => {

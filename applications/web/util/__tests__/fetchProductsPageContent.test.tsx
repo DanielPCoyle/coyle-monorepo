@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import fetchProductsPageContent from "./fetchProductsPageContent"; // adjust path
+import fetchProductsPageContent from "../fetchProductsPageContent"; // adjust path
 import builder from "@builder.io/react";
 
 vi.mock("@builder.io/react", () => ({

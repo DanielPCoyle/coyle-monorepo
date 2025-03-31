@@ -188,7 +188,7 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
        
        { (isLoggedIn && init) && (
         
-        <div className="animate__animated animate__fadeIn coyleChat">
+        <div  className="animate__animated animate__fadeIn coyleChat">
           {isChatCaddy && (
             <button onClick={()=>setOpen(false)} className="closeChatCaddy">
               <CloseIcon  />

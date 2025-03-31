@@ -8,13 +8,14 @@ import { useSocketReactions } from "./reactionHandlers/useSocketReactions";
 import { useMessageSeen } from "../../../../hooks/useMessageSeen";
 
 
-export const SubMessage: React.FC<SubMessageType> = ({ reply }: { reply: SubMessageType }) => {
+export const SubMessage: React.FC<SubMessageType> = ({ reply }) => {
   const [urlPreview] = useState<string | null>(null);
   const { id, user, socket, email  } = useContext(ChatContext);
   const [showReactionsPicker, setShowReactionsPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(reply.reactions || {});
-  const { messageRef } = useMessageSeen(reply);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { messageRef } = useMessageSeen(reply as any);
 
   useSocketReactions(socket, reply, setReactions);
 

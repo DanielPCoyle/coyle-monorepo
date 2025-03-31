@@ -57,6 +57,10 @@ const nextConfig = {
   webpack: (config) => {
     config.module.rules.push(
       {
+        test: /\.test\.[^/]+$|\.spec\.[^/]+$/,
+        loader: "ignore-loader",
+      },
+      {
         test: /\.(mp3|wav)$/,
         use: [
           {

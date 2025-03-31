@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { fetchCategoryPageContent } from "./fetchCategoryPageContent";
+import { fetchCategoryPageContent } from "../fetchCategoryPageContent";
 import builder from "@builder.io/react";
 
 // Mock builder.io

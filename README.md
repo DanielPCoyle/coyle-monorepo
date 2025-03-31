@@ -2,6 +2,15 @@
 
 A full-stack chat application ecosystem managed with Yarn Workspaces. This monorepo powers a real-time chat platform, mobile experience, CMS-backed marketing site, and reusable internal packages.
 
+---
+
+**⚠️ Beta Notice**
+
+This project is currently in **beta**. Features and APIs are subject to change as development progresses. Use with caution in production environments.
+
+---
+
+
 ## 📋 Table of Contents
 
 - [🧱 Monorepo Structure](#-monorepo-structure)
@@ -12,11 +21,11 @@ A full-stack chat application ecosystem managed with Yarn Workspaces. This monor
   - [Setup Environment Variables](#2-setup-environment-variables)
 - [🚀 Scripts](#-scripts)
   - [Web (Next.js)](#web-nextjs)
-  - [Mobile (React Native)](#mobile-react-native)
+  - [Mobile (React Native)](#mobile-react-native) <---- *To Be Developed. 
   - [Chat Sockets (Express + Socketio)](#chat-sockets-express--socketio)
-  - [Chat UI](#chat-ui)
-  - [Database](#database)
-  - [E2E Testing](#e2e-testing)
+  - [Chat UI (React) ](#chat-ui)
+  - [Database (drizzle-orm / postgres)](#database)
+  - [E2E Testing (vitest / puppeteer )](#e2e-testing)
   - [Utilities](#utilities)
   - [Packing Utilities](#packing-utilities)
 - [📁 Scripts Directory](#-scripts-directory)
@@ -35,23 +44,25 @@ This is a **Yarn Workspaces** monorepo.
 
 ### Applications
 
-- **`@coyle/mobile-chat`** – React Native chat application.
-- **`@coyle/web`** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
-- **`@coyle/sockets`** – Express.js server handling real-time communication via Socket.io.
+- **[`@coyle/mobile`](applications/mobile/README.md)** – React Native chat application.
+- **[`@coyle/web`](applications/web/README.md)** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
+- **[`@coyle/sockets`](applications/sockets/README.md)** – Express.js server handling real-time communication via Socket.io.
 
 ### Packages
 
-- **`@coyle/chat-ui`** – A standalone React SPA for the chat UI, shared across platforms.
-- **`@coyle/chat-db`** – Shared chat-related database logic and schema.
-- **`@coyle/database`** – Combined database tools, migrations, and config for all apps.
-- **`@coyle/e2e-tests`** – End-to-end test suite.
+- **[`@coyle/chat-ui`](packages/chat-ui/README.md)** – A standalone React SPA for the chat UI, shared across platforms.
+- **[`@coyle/chat-db`](packages/chat-db/README.md)** – Shared chat-related database logic and schema.
+- **[`@coyle/database`](packages/database/README.md)** – Combined database tools, migrations, and config for all apps.
+
+### E2E Tests
+- **[`@coyle/e2e-tests`](/tests/e2e/README.md)** – End-to-end test suite.
 
 ---
 
 ## 📦 Getting Started
 
 ### 1. Install Dependencies
-
+In the root directory of the monorepo run:
 ```bash
 yarn install
 ```
@@ -68,7 +79,7 @@ NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY=
 # Store
 NEXT_PUBLIC_INKSOFT_STORE=
 
-# Algolia
+# Algolia (search)
 NEXT_PUBLIC_ALGOLIA_CLIENT_ID=
 NEXT_PUBLIC_ALGOLIA_CLIENT_KEY=
 
@@ -80,24 +91,26 @@ NEXT_PUBLIC_JWT_SECRET=
 NEXT_PUBLIC_EMAIL=
 NEXT_PUBLIC_EMAIL_APP_PASSWORD=
 
-# Database
+# Database (postgres)
 DB_HOST=
 DB_PORT=
 DB_USERNAME=
 DB_NAME=
 DB_PASSWORD=
 
-# API URLs
-REACT_APP_API_BASE_URL=
+# API URLs 
+REACT_APP_API_BASE_URL= #usually the current site
 REACT_APP_SOCKET_SITE=
 
-# Supabase
+# Supabase (used for file buckets)
 REACT_APP_SUPABASE_URL=
 REACT_APP_SUPABASE_ANON_KEY=
 REACT_APP_COOKIE_DOMAIN=
 ```
-
 ---
+
+
+
 
 ## 🚀 Scripts
 
@@ -142,7 +155,7 @@ REACT_APP_COOKIE_DOMAIN=
 - `yarn types` – Run type checks across packages
 - `yarn prettier` – Run Prettier across workspaces
 - `yarn reinstall` – Clean all node_modules and reinstall dependencies
-- `yarn pre-push` – Placeholder for git pre-push hook
+- `yarn pre-push` – runs the git pre-push hook.
 
 ### Packing Utilities
 - `yarn pack-db` – Package `@coyle/chat-db`
