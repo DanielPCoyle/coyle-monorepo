@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { fetchGeneralPageContent } from "./fetchGeneralPageContent"; // Adjust path
+import { fetchGeneralPageContent } from "../fetchGeneralPageContent"; // Adjust path
 import builder from "@builder.io/react";
 
 vi.mock("@builder.io/react", () => ({

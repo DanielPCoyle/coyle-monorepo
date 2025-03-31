@@ -43,7 +43,7 @@ This is a **Yarn Workspaces** monorepo.
 
 ### Applications
 
-- **[`@coyle/mobile-chat`](applications/mobile/README.md)** – React Native chat application.
+- **[`@coyle/mobile`](applications/mobile/README.md)** – React Native chat application.
 - **[`@coyle/web`](applications/web/README.md)** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
 - **[`@coyle/sockets`](applications/sockets/README.md)** – Express.js server handling real-time communication via Socket.io.
 

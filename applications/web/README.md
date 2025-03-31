@@ -1,6 +1,8 @@
-# Philadelphia Screen Printing E-commerce Platform
+# Coyle Mono Repo Web
 
-This project is an e-commerce website developed using **Builder.io**, **Next.js**, and **Inksoft**. The goal of this project is to provide a highly customizable, SEO-friendly platform for managing product listings, categories, and blog posts through **Builder.io**, an API-driven content management system. Inksoft integration allows for real-time product data and design customization options, enhancing the user experience for screen printing services.
+> **Warning**: This web application is intended as a starting point and may not fully meet your specific requirements. It is highly recommended to review and modify the codebase to suit your needs before deploying it to production.
+
+This project is an e-commerce website developed for philaprints.com using **Builder.io**, **Next.js**, and **Inksoft**. The goal of this project is to provide a highly customizable, SEO-friendly platform for managing product listings, categories, and blog posts through **Builder.io**, an API-driven content management system. Inksoft integration allows for real-time product data and design customization options, enhancing the user experience for screen printing services.
 
 ## Overview
 
@@ -11,58 +13,62 @@ The application integrates **Builder.io** for dynamic content management, allowi
 - **Builder.io**: Used for content management, such as blog posts, categories, and product pages.
 - **Next.js**: Handles server-side rendering and static generation for optimized performance and SEO.
 - **Inksoft**: Provides product data and integrates a design studio for custom product creation.
+- **Algolia**: Handles search calls and indexing of products for search.
+- **nodemailer**: Handles emails (connected via gmail)
+- **OpenAI**: Handles automated writing of blog post  
 
 ## Installation
 
-1. Clone the repository:
+1. Install dependencies using Yarn:
 
    ```bash
-   git clone https://github.com/DanielPCoyle/philaprints.git
+   yarn install
    ```
 
-2. Install dependencies:
-
-   ```bash
-   cd philadelphia-screen-printing
-   npm install
-   ```
-
-3. Create a `.env.local` file at the root and add your **Builder.io** API key:
+2. Create a `.env` file at the root and add your **Builder.io** API key:
 
    ```env
    NEXT_PUBLIC_BUILDER_API_KEY=your_builder_io_api_key
    ```
 
-4. Run the development server:
+3. Run the development server:
 
    ```bash
-   npm run dev
+   yarn dev
    ```
 
    Open [http://localhost:3000](http://localhost:3000) to view the application in your browser.
 
 ## Directory Structure
 
-The project structure is organized as follows:
-
 ```
 .
 ├── components
-│   ├── Navigation.tsx         # Main navigation component with recursive menu support
-│   ├── SEOHeader.tsx          # SEO header component for meta tags and structured data
-│   ├── InksoftEmbed.tsx       # Embeds the Inksoft design studio
+│   ├── layout
+│   │   ├── Footer.tsx
+│   │   ├── Navigation.tsx
+│   │   └── __tests__
 ├── data
-│   └── friendly_urls.ts       # Maps slugs to product IDs
+│   ├── navData.json
+│   ├── slugIds.json
+├── middlewares
+│   ├── auth.ts
+│   ├── handleCors.ts
 ├── pages
-│   ├── [...page].tsx          # Dynamic page route for all pages managed via Builder.io
-│   ├── _app.tsx               # Application wrapper
-│   ├── index.tsx              # Home page
-├── util
-│   ├── fetchCategoryPageContent.ts  # Fetches data for category pages
-│   ├── fetchGeneralPageContent.ts   # Fetches general page content, including blogs
-│   ├── fetchPostContent.ts          # Fetches data for individual blog posts
-│   ├── fetchProductContent.ts       # Fetches product data based on slug
-│   ├── calculateReadingTime.ts      # Utility for calculating blog reading time
+│   ├── api
+│   │   └── post
+│   ├── _app.tsx
+│   ├── _document.tsx
+│   ├── [...page].tsx
+│   ├── blog.tsx
+│   ├── chat.tsx
+│   ├── edit-symbol.tsx
+│   ├── products.tsx
+├── public
+├── styles
+│   ├── blog.css
+│   ├── FilePreview.css
+│   ├── globals.scss
 ```
 
 ## API Integrations
@@ -129,10 +135,3 @@ This allows products to be dynamically generated based on URL slugs, with data d
 - **Environment Variables**: The Builder.io API key should be stored securely in `.env.local`.
 - **TypeScript**: The project is fully typed with TypeScript, ensuring type safety and better development experience.
 - **Error Handling**: API fetches use try-catch blocks to log errors without disrupting the user experience.
-
-## Todo
-
-- Login on parent frame
-- Additional SEO / syntax
-- Analytics on parent frame
-- Alogila Search

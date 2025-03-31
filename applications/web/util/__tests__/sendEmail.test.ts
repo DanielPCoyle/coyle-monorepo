@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { sendEmail } from "./sendEmail"; // adjust path if needed
+import { sendEmail } from "../sendEmail"; // adjust path if needed
 import nodemailer from "nodemailer";
 
 vi.mock("nodemailer", async () => {

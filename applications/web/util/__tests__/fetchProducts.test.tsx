@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { fetchProducts } from "./fetchProducts"; // Adjust path
+import { fetchProducts } from "../fetchProducts"; // Adjust path
 
 describe("fetchProducts", () => {
   const fetchMock = vi.fn();
