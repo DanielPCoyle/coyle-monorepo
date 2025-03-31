@@ -7,7 +7,7 @@ import {
   cleanup,
 } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import Page, { getServerSideProps } from "./blog"; // Adjust path
+import Page, { getServerSideProps } from "../pages/blog"; // Adjust path
 import { a } from "vitest/dist/chunks/suite.d.FvehnV49";
 
 // Mock next/image

@@ -64,7 +64,8 @@ export const ReplyModal: React.FC = () => {
               <div>
                 {message.replies.map((reply: MessageType, index: number) => (
                   <div key={index}>
-                    <SubMessage reply={reply as MessageType} />
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    <SubMessage reply={reply as any} />
                   </div>
                 ))}
               </div>
