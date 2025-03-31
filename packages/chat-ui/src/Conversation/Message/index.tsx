@@ -1,5 +1,6 @@
 import React, { useState,  useContext } from "react";
 import { ChatContext } from "../../ChatContext";
+import { MessageContent } from "./MessageContent";
 import { MessageContext } from "./MessageContext";
 
 import { ReplyModal } from "./ReplyModal/ReplyModal";
