@@ -5,7 +5,7 @@ import {
   getConversations,
   getConversationIdByKey,
   updateConversationIsActive,
-  getUsersOnline
+  getUsersOnline,
 } from "@coyle/chat-db";
 
 vi.mock("@coyle/chat-db", () => ({
