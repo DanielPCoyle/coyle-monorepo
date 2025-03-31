@@ -24,6 +24,16 @@ export default [
     },
   },
   {
-    ignores: ["node_modules", "dist", "build", "out", "coverage", ".next"],
+    ignores: [
+      "node_modules",
+      "dist",
+      "build",
+      "out",
+      "coverage",
+      ".next",
+      "**/*.test.*",
+      "public/build",
+      "scripts"
+    ],
   },
 ];

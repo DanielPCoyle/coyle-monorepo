@@ -26,7 +26,9 @@ vi.mock("@coyle/chat-db", async () => ({
 }));
 
 describe("handleConnection", () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockSocket: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockIo: any;
 
   beforeEach(() => {
@@ -60,6 +62,7 @@ describe("handleConnection", () => {
       if (event === "updateStatus") statusFn.mockImplementation(handler);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (getUsersOnline as any).mockResolvedValue(["user1", "user2"]);
 
     handleConnection(mockSocket, mockIo);

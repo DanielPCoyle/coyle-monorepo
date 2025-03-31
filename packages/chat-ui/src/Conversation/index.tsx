@@ -28,7 +28,7 @@ export const Conversation: React.FC = () => {
               <Message
                 key={message.id}
                 index={index}
-                message={message as any}
+                message={message}
               />
             ))}
         </div>

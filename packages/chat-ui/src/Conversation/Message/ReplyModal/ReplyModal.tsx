@@ -2,11 +2,9 @@ import React, { useEffect, useRef } from "react";
 import type { Message as MessageType } from "../../../../types";
 import { ChatControls } from "../../../ChatControls";
 import MessageContent from "../MessageContent";
-import { ReactionPicker } from "../Reactions/ReactionPicker";
 import { SubMessage } from "./SubMessage/SubMessage";
 import { MessageContext } from "../MessageContext";
 import { useContext } from "react";
-import { ChatContext } from "../../../ChatContext";
 import { CloseIcon } from "../../../assets/svg/CloseIcon";
 import { useTranslation } from "react-i18next";
 
@@ -66,7 +64,7 @@ export const ReplyModal: React.FC = () => {
               <div>
                 {message.replies.map((reply: MessageType, index: number) => (
                   <div key={index}>
-                    <SubMessage reply={reply as any} />
+                    <SubMessage reply={reply as MessageType} />
                   </div>
                 ))}
               </div>

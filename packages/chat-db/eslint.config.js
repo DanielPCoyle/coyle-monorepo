@@ -6,7 +6,6 @@ import tseslint from "typescript-eslint";
 export default [
   {
     files: ["**/*.{js,mjs,cjs,ts}"],
-    ignores: ["**/__tests__/*"], // Ignores test files
   },
   { languageOptions: { globals: globals.browser } },
   {
@@ -14,6 +13,11 @@ export default [
       "react/react-in-jsx-scope": "off",
       "@typescript-eslint/no-explicit-any": "off",
     },
+  },
+  {
+    ignores: ["**/__tests__/*",
+      "**/**/*.test.*",
+    ], // Ignores test files
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,

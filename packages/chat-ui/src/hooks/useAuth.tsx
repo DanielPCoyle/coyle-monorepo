@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ChatContext from "../ChatContext";
 
 export const useAuth = () => {
@@ -68,8 +68,7 @@ export const useAuth = () => {
       .then((res) => {
         if (res.status === 200) {
           return res.json();
-        } else {
-        }
+        } 
       })
       .then((data) => {
         if (data?.jwt === undefined) {

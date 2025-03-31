@@ -1,4 +1,4 @@
-import React, { useState,  useContext, useRef } from "react";
+import React, { useState,  useContext } from "react";
 import type { Message as MessageType } from "../../../types";
 import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
@@ -19,7 +19,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
   const { seen, messageRef } = useMessageSeen(message);
   const { reactions, addReaction, removeReactions } = useMessageReactions(message);
-  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   
 
   React.useEffect(() => {

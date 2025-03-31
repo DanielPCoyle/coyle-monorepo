@@ -23491,7 +23491,7 @@
           a = n(4567);
         e.exports = function (e, t) {
           var n = t.currentTarget.ownerDocument;
-          if (!Boolean(e.props.preserveSelectionOnBlur) && a(n) === n.body) {
+          if (!e.props.preserveSelectionOnBlur && a(n) === n.body) {
             var o = n.defaultView.getSelection(),
               s = e.editor;
             1 === o.rangeCount &&
@@ -31982,7 +31982,7 @@
                   i || (i = Oo.locale.value),
                   Bo)
                 )
-                  Bo.categories = Bo.categories.filter((e) => !!!e.name);
+                  Bo.categories = Bo.categories.filter((e) => !e.name);
                 else {
                   (Bo =
                     ("function" === typeof e.data ? await e.data() : e.data) ||
@@ -53297,7 +53297,7 @@
               });
             }, []),
             i.useEffect(() => {
-              !Boolean(null === n || void 0 === n ? void 0 : n.language) ||
+              !(null === n || void 0 === n ? void 0 : n.language) ||
                 (null === n || void 0 === n ? void 0 : n.language) === c ||
                 (null !== n && void 0 !== n && n.translation) ||
                 (k(!0),
@@ -67272,7 +67272,7 @@
             Boolean(t),
             `'${e}' is not an animatable color. Use the equivalent color code instead.`,
           ),
-          !Boolean(t))
+          !t)
         )
           return !1;
         let i = t.parse(e);
@@ -69703,7 +69703,7 @@
         const t = gb(e) ? e.get() : e;
         return (
           (n = t),
-          Boolean(n && "object" === typeof n && n.mix && n.toValue)
+          n && "object" === typeof n && n.mix && n.toValue
             ? t.toValue()
             : t
         );
@@ -70435,7 +70435,7 @@
                       SM(o.x, s.x, f.x),
                       SM(o.y, s.y, f.y))
                     : this.targetDelta
-                      ? (Boolean(this.resumingFrom)
+                      ? (this.resumingFrom
                           ? (this.target = this.applyTransform(
                               this.layout.layoutBox,
                             ))

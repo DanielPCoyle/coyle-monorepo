@@ -9,7 +9,6 @@ vi.mock("@builder.io/react", () => ({
 }));
 
 describe("fetchGeneralPageContent", () => {
-  const builderGetMock = vi.fn();
   const toPromiseMock = vi.fn();
 
   const mockPage = {

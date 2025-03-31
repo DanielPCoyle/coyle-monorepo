@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { fetchPostContent } from "./fetchPostContent";
 import { calculateReadingTime } from "./calculateReadingTime";
-import builder from "@builder.io/react";
 
 // Mock environment variable
 vi.stubEnv("NEXT_PUBLIC_BUILDER_API_KEY", "fake-api-key");

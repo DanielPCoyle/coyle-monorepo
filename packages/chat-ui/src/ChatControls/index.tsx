@@ -9,7 +9,6 @@ import { FormattingBar } from "./FormattingBar";
 import { MessageAddons } from "./MessageAddons";
 import { Thumbnail } from "./Thumbnail";
 import { uploadFileToSupabase } from "./uploadFileToSupabase";
-import { CloseIcon } from "../assets/svg/CloseIcon";
 import { useTranslation } from "react-i18next";
 
 export const ChatControls = ({ replyId }: { replyId?: number }) => {
@@ -26,7 +25,7 @@ export const ChatControls = ({ replyId }: { replyId?: number }) => {
     setLanguage,
     language,
   } = useContext(ChatContext);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const languages = {
     en: t("english"),
@@ -225,7 +224,7 @@ export const ChatControls = ({ replyId }: { replyId?: number }) => {
                   <svg
                     stroke="currentColor"
                     fill="currentColor"
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 24 24"
                     height="30px"
                     width="30px"

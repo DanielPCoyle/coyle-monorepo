@@ -5,7 +5,6 @@ import {
   getConversations,
   getConversationIdByKey,
   updateConversationIsActive,
-  getUsersOnline,
 } from "@coyle/chat-db";
 
 vi.mock("@coyle/chat-db", () => ({
@@ -14,7 +13,6 @@ vi.mock("@coyle/chat-db", () => ({
   getConversationIdByKey: vi.fn(),
   updateConversationIsActive: vi.fn(),
   updateConversationSocketId: vi.fn(),
-  getUsersOnline: vi.fn(),
 }));
 
 describe("login function", () => {
