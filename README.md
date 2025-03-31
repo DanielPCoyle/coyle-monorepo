@@ -14,9 +14,9 @@ A full-stack chat application ecosystem managed with Yarn Workspaces. This monor
   - [Web (Next.js)](#web-nextjs)
   - [Mobile (React Native)](#mobile-react-native)
   - [Chat Sockets (Express + Socketio)](#chat-sockets-express--socketio)
-  - [Chat UI](#chat-ui)
-  - [Database](#database)
-  - [E2E Testing](#e2e-testing)
+  - [Chat UI (React) ](#chat-ui)
+  - [Database (drizzle-orm / postgres)](#database)
+  - [E2E Testing (vitest / puppeteer )](#e2e-testing)
   - [Utilities](#utilities)
   - [Packing Utilities](#packing-utilities)
 - [📁 Scripts Directory](#-scripts-directory)
@@ -35,23 +35,23 @@ This is a **Yarn Workspaces** monorepo.
 
 ### Applications
 
-- **`@coyle/mobile-chat`** – React Native chat application.
-- **`@coyle/web`** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
-- **`@coyle/sockets`** – Express.js server handling real-time communication via Socket.io.
+- **[`@coyle/mobile-chat`](applications/mobile-chat/README.md)** – React Native chat application.
+- **[`@coyle/web`](applications/web/README.md)** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
+- **[`@coyle/sockets`](applications/sockets/README.md)** – Express.js server handling real-time communication via Socket.io.
 
 ### Packages
 
-- **`@coyle/chat-ui`** – A standalone React SPA for the chat UI, shared across platforms.
-- **`@coyle/chat-db`** – Shared chat-related database logic and schema.
-- **`@coyle/database`** – Combined database tools, migrations, and config for all apps.
-- **`@coyle/e2e-tests`** – End-to-end test suite.
+- **[`@coyle/chat-ui`](packages/chat-ui/README.md)** – A standalone React SPA for the chat UI, shared across platforms.
+- **[`@coyle/chat-db`](packages/chat-db/README.md)** – Shared chat-related database logic and schema.
+- **[`@coyle/database`](packages/database/README.md)** – Combined database tools, migrations, and config for all apps.
+- **[`@coyle/e2e-tests`](packages/e2e-tests/README.md)** – End-to-end test suite.
 
 ---
 
 ## 📦 Getting Started
 
 ### 1. Install Dependencies
-
+In the root directory of the monorepo run:
 ```bash
 yarn install
 ```
@@ -96,8 +96,10 @@ REACT_APP_SUPABASE_URL=
 REACT_APP_SUPABASE_ANON_KEY=
 REACT_APP_COOKIE_DOMAIN=
 ```
-
 ---
+
+
+
 
 ## 🚀 Scripts
 
