@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { NextApiRequest, NextApiResponse } from "next";
-import { authMiddleware } from "./auth";
+import { authMiddleware } from "../middlewares/auth";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 

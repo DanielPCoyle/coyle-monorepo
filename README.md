@@ -10,6 +10,7 @@ This project is currently in **beta**. Features and APIs are subject to change a
 
 ---
 
+
 ## 📋 Table of Contents
 
 - [🧱 Monorepo Structure](#-monorepo-structure)
@@ -20,7 +21,7 @@ This project is currently in **beta**. Features and APIs are subject to change a
   - [Setup Environment Variables](#2-setup-environment-variables)
 - [🚀 Scripts](#-scripts)
   - [Web (Next.js)](#web-nextjs)
-  - [Mobile (React Native)](#mobile-react-native)
+  - [Mobile (React Native)](#mobile-react-native) <---- *To Be Developed. 
   - [Chat Sockets (Express + Socketio)](#chat-sockets-express--socketio)
   - [Chat UI (React) ](#chat-ui)
   - [Database (drizzle-orm / postgres)](#database)
@@ -78,7 +79,7 @@ NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY=
 # Store
 NEXT_PUBLIC_INKSOFT_STORE=
 
-# Algolia
+# Algolia (search)
 NEXT_PUBLIC_ALGOLIA_CLIENT_ID=
 NEXT_PUBLIC_ALGOLIA_CLIENT_KEY=
 
@@ -90,18 +91,18 @@ NEXT_PUBLIC_JWT_SECRET=
 NEXT_PUBLIC_EMAIL=
 NEXT_PUBLIC_EMAIL_APP_PASSWORD=
 
-# Database
+# Database (postgres)
 DB_HOST=
 DB_PORT=
 DB_USERNAME=
 DB_NAME=
 DB_PASSWORD=
 
-# API URLs
-REACT_APP_API_BASE_URL=
+# API URLs 
+REACT_APP_API_BASE_URL= #usually the current site
 REACT_APP_SOCKET_SITE=
 
-# Supabase
+# Supabase (used for file buckets)
 REACT_APP_SUPABASE_URL=
 REACT_APP_SUPABASE_ANON_KEY=
 REACT_APP_COOKIE_DOMAIN=
@@ -154,7 +155,7 @@ REACT_APP_COOKIE_DOMAIN=
 - `yarn types` – Run type checks across packages
 - `yarn prettier` – Run Prettier across workspaces
 - `yarn reinstall` – Clean all node_modules and reinstall dependencies
-- `yarn pre-push` – Placeholder for git pre-push hook
+- `yarn pre-push` – runs the git pre-push hook.
 
 ### Packing Utilities
 - `yarn pack-db` – Package `@coyle/chat-db`
