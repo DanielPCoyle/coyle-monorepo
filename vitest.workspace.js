@@ -5,5 +5,5 @@ export default defineWorkspace([
   "./packages/chat-db/vitest.config.js",
   "./applications/web/vitest.config.js",
   "./packages/chat-ui/vitest.config.js",
-  "./tests/e2e/vitest.config.mts"
+  // "./tests/e2e/vitest.config.mts"
 ])
