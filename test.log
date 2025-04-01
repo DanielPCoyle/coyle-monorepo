@@ -1,0 +1,338 @@
+yarn run v1.22.22
+$ yarn workspaces run test
+
+> @coyle/mobile
+$ echo "TODO: run vitest in mobile application!"
+TODO: run vitest in mobile application!
+
+> @coyle/sockets
+$ vitest run
+
+ RUN  v3.0.9 /Users/dancoyle/philaprints/applications/sockets
+
+ ✓ src/socketHandlers/__tests__/login.test.ts (2 tests) 8ms
+ ✓ src/socketHandlers/__tests__/addReaction.test.ts (2 tests) 12ms
+ ✓ src/socketHandlers/__tests__/seen.test.ts (2 tests) 10ms
+ ✓ src/handleConnection.test.ts (4 tests) 11ms
+ ✓ src/socketHandlers/__tests__/disconnect.test.ts (3 tests) 17ms
+ ✓ src/socketHandlers/__tests__/updateMessageAction.test.ts (1 test) 9ms
+ ✓ src/socketHandlers/__tests__/translation.test.ts (1 test) 9ms
+ ✓ src/socketHandlers/__tests__/userTyping.test.ts (3 tests) 15ms
+ ✓ src/socketHandlers/__tests__/join.test.ts (1 test) 11ms
+ ✓ src/socketHandlers/__tests__/leave.test.ts (1 test) 9ms
+ ✓ __tests__/baseline.test.ts (1 test) 3ms
+ ✓ src/socketHandlers/__tests__/chatMessage.test.ts (2 tests) 6ms
+stdout | src/__tests__/index.test.ts
+Server running on http://localhost:3005
+
+ ✓ src/__tests__/index.test.ts (5 tests) 40ms
+
+ Test Files  13 passed (13)
+      Tests  28 passed (28)
+   Start at  18:48:13
+   Duration  1.93s (transform 636ms, setup 0ms, collect 3.44s, tests 160ms, environment 3ms, prepare 2.49s)
+
+
+> @coyle/web
+$ vitest run
+
+ RUN  v3.0.9 /Users/dancoyle/philaprints/applications/web
+
+ ✓ pages/api/builder/write-blog.test.ts (3 tests) 23ms
+ ✓ pages/api/auth/me.test.ts (6 tests) 16ms
+stdout | pages/api/chat/messages.test.ts > GET /api/messages handler > should return 500 if jwt.verify throws
+ERROR Error: invalid token
+    at Object.<anonymous> [90m(/Users/dancoyle/philaprints/applications/web/[39mpages/api/chat/messages.test.ts:99:13[90m)[39m
+    at Object.mockCall (file:///Users/dancoyle/philaprints/node_modules/[4mvitest[24m/node_modules/[4m@vitest[24m/spy/dist/index.js:61:17)
+    at Object.spy [as verify] (file:///Users/dancoyle/philaprints/node_modules/[4mtinyspy[24m/dist/index.js:45:80)
+    at Module.handler [90m(/Users/dancoyle/philaprints/applications/web/[39mpages/api/chat/messages.ts:22:25[90m)[39m
+    at [90m/Users/dancoyle/philaprints/applications/web/[39mpages/api/chat/messages.test.ts:102:11
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+
+stdout | pages/api/chat/messages.test.ts > GET /api/messages handler > should return 500 if getMessages fails
+ERROR Error: DB failure
+    at [90m/Users/dancoyle/philaprints/applications/web/[39mpages/api/chat/messages.test.ts:111:44
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+    at runTest (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1202:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1356:15)
+    at runSuite (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1356:15)
+
+ ✓ pages/api/chat/messages.test.ts (6 tests) 33ms
+ ↓ __tests__/post-catchall.test.tsx (5 tests | 5 skipped)
+ ✓ __tests__/blog.test.tsx (5 tests) 143ms
+ ✓ pages/api/philprints/__tests__/get-a-store-signup.test.ts (3 tests) 10ms
+ ✓ __tests__/api/chat/__tests__/conversations.test.ts (3 tests) 11ms
+ ✓ util/__tests__/fetchGeneralPageContent.test.tsx (4 tests) 25ms
+stdout | pages/api/chat/settings/update-profile.test.ts > PATCH /api/updateUser > should return 500 on error
+Error: bcrypt failed
+    at [90m/Users/dancoyle/philaprints/applications/web/[39mpages/api/chat/settings/update-profile.test.ts:98:44
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+    at runTest (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1202:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1356:15)
+    at runSuite (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1356:15)
+
+ ✓ pages/api/chat/settings/update-profile.test.ts (4 tests) 21ms
+ ✓ pages/api/chat/send-message-as-email.test.ts (3 tests) 21ms
+ ✓ __tests__/products.test.tsx (4 tests | 1 skipped) 46ms
+ ✓ pages/api/chat/translate.test.ts (3 tests) 13ms
+ ✓ __tests__/auth.test.ts (4 tests) 33ms
+ ✓ __tests__/api/auth/__tests__/register.test.ts (4 tests) 19ms
+ ✓ pages/api/auth/guest-token.test.ts (4 tests) 12ms
+ ✓ util/__tests__/fetchProducts.test.tsx (2 tests) 25ms
+ ✓ pages/api/chat/update-conversation-language.test.ts (4 tests) 10ms
+ ✓ util/__tests__/fetchCategoryPageContent.test.tsx (2 tests) 24ms
+ ✓ components/layout/__tests__/Navigation.test.tsx (4 tests) 334ms
+ ✓ util/chat/sendWelcomeEmail.test.ts (2 tests) 7ms
+ ✓ components/layout/__tests__/Footer.test.tsx (4 tests) 170ms
+ ✓ util/__tests__/sendEmail.test.ts (2 tests) 9ms
+ ↓ util/__tests__/fetchPostContent.test.tsx (1 test | 1 skipped)
+stdout | pages/api/chat/settings/delete-admin-user.test.ts > DELETE /api/deleteUser > should handle errors and return 500
+Error: DB Error
+    at [90m/Users/dancoyle/philaprints/applications/web/[39mpages/api/chat/settings/delete-admin-user.test.ts:60:43
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+    at runTest (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1202:17)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[39m
+    at runSuite (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1356:15)
+    at runSuite (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:1356:15)
+
+ ✓ pages/api/chat/settings/delete-admin-user.test.ts (3 tests) 18ms
+ ✓ __tests__/api/chat/settings/admin-users.test.ts (2 tests) 9ms
+ ✓ pages/api/chat/settings/get-user.test.ts (2 tests) 9ms
+ ✓ pages/api/auth/cookie.test.ts (4 tests) 11ms
+ ✓ util/__tests__/fetchProductsPageContent.test.tsx (2 tests) 8ms
+ ✓ pages/api/heartbeat.test.ts (2 tests) 11ms
+ ✓ util/__tests__/calculateReadingTime.test.tsx (4 tests) 11ms
+ ✓ __tests__/api/chat/__tests__/url-preview.test.ts (1 test) 15ms
+ ✓ __tests__/baseline.test.ts (1 test) 4ms
+ ✓ __tests__/api/auth/__tests__/login.test.ts (2 tests) 4ms
+ ✓ __tests__/chat.test.tsx (1 test) 2ms
+
+ Test Files  32 passed | 2 skipped (34)
+      Tests  99 passed | 7 skipped (106)
+   Start at  18:48:16
+   Duration  11.12s (transform 1.81s, setup 5.61s, collect 10.08s, tests 1.11s, environment 33.37s, prepare 7.12s)
+
+
+> @coyle/chat-db
+$ vitest run
+
+ RUN  v3.0.9 /Users/dancoyle/philaprints/packages/chat-db
+
+ ✓ src/chat/__test__/createAdminUser.test.ts (2 tests) 10ms
+stdout | src/chat/__test__/getConversationBySocketId.test.ts > getConversationBySocketId > should return false if an error occurs
+Error getting conversation id by key Error: Database error
+    at Object.<anonymous> [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getConversationBySocketId.test.ts:52:13[90m)[39m
+    at Object.mockCall (file:///Users/dancoyle/philaprints/node_modules/[4mvitest[24m/node_modules/[4m@vitest[24m/spy/dist/index.js:61:17)
+    at Object.spy [as select] (file:///Users/dancoyle/philaprints/node_modules/[4mtinyspy[24m/dist/index.js:45:80)
+    at Module.getConversationBySocketId [as default] [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/getConversationBySocketId.ts:10:8[90m)[39m
+    at [90m/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getConversationBySocketId.test.ts:58:26
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+
+ ✓ src/chat/__test__/getConversationBySocketId.test.ts (3 tests) 16ms
+stdout | src/chat/__test__/getUserByEmail.test.ts > getUserByEmail > should throw an error if DB call fails
+Error: DB failure
+    at Object.<anonymous> [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getUserByEmail.test.ts:57:13[90m)[39m
+    at Object.mockCall (file:///Users/dancoyle/philaprints/node_modules/[4mvitest[24m/node_modules/[4m@vitest[24m/spy/dist/index.js:61:17)
+    at Object.spy [as select] (file:///Users/dancoyle/philaprints/node_modules/[4mtinyspy[24m/dist/index.js:45:80)
+    at Module.getUserByEmail [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/getUserByEmail.ts:9:8[90m)[39m
+    at [90m/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getUserByEmail.test.ts:63:18
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+
+stdout | src/chat/__test__/getConversationById.test.ts > getConversationById > should return false if an error occurs
+Error getting conversation id by key Error: DB error
+    at Object.<anonymous> [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getConversationById.test.ts:52:13[90m)[39m
+    at Object.mockCall (file:///Users/dancoyle/philaprints/node_modules/[4mvitest[24m/node_modules/[4m@vitest[24m/spy/dist/index.js:61:17)
+    at Object.spy [as select] (file:///Users/dancoyle/philaprints/node_modules/[4mtinyspy[24m/dist/index.js:45:80)
+    at Module.getConversationById [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/getConversationById.ts:9:8[90m)[39m
+    at [90m/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getConversationById.test.ts:58:26
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+
+ ✓ src/chat/__test__/getUserByEmail.test.ts (3 tests) 19ms
+ ✓ src/chat/__test__/getConversationById.test.ts (3 tests) 16ms
+stdout | src/__tests__/db.test.ts > Database Utility Functions > explainAnalyze > should execute EXPLAIN ANALYZE on the given query
+Seq Scan on users  (cost=0.00..1.00 rows=1 width=1)
+
+ ✓ src/__tests__/db.test.ts (4 tests) 10ms
+ ✓ src/chat/__test__/getConversationIdByKey.test.ts (3 tests) 13ms
+ ✓ src/chat/__test__/getConversations.test.ts (3 tests) 13ms
+ ✓ src/chat/__test__/updateUserNotificationsEnabled.test.ts (2 tests) 10ms
+ ✓ src/chat/__test__/updateConversationIsActive.test.ts (2 tests) 10ms
+ ✓ src/chat/__test__/updateConversationSocketId.test.ts (2 tests) 9ms
+ ✓ src/chat/__test__/updateUser.test.ts (2 tests) 11ms
+ ✓ src/chat/__test__/getMessages.test.ts (3 tests) 14ms
+ ✓ src/chat/__test__/updateMessage.test.ts (2 tests) 9ms
+ ✓ src/chat/__test__/updateConversationByKey.test.ts (2 tests) 14ms
+ ✓ src/chat/__test__/updateUserStatus.test.ts (2 tests) 12ms
+stdout | src/chat/__test__/getUsersOnline.test.ts > getUsersOnline > should throw an error if DB fails
+Error: DB down
+    at Object.<anonymous> [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getUsersOnline.test.ts:43:13[90m)[39m
+    at Object.mockCall (file:///Users/dancoyle/philaprints/node_modules/[4mvitest[24m/node_modules/[4m@vitest[24m/spy/dist/index.js:61:17)
+    at Object.spy [as select] (file:///Users/dancoyle/philaprints/node_modules/[4mtinyspy[24m/dist/index.js:45:80)
+    at Module.getUsersOnline [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/getUsersOnline.ts:9:8[90m)[39m
+    at [90m/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/getUsersOnline.test.ts:49:18
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+
+ ✓ src/chat/__test__/getUsersOnline.test.ts (2 tests) 18ms
+ ✓ src/chat/__test__/getAdminUser.test.ts (2 tests) 13ms
+ ✓ src/chat/__test__/setMessageSeen.test.ts (2 tests) 15ms
+ ✓ src/chat/__test__/addConversation.test.ts (2 tests) 17ms
+stdout | src/chat/__test__/deleteUser.test.ts > deleteUser > should throw an error if deletion fails
+Error: DB error
+    at Object.<anonymous> [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/deleteUser.test.ts:34:13[90m)[39m
+    at Object.mockCall (file:///Users/dancoyle/philaprints/node_modules/[4mvitest[24m/node_modules/[4m@vitest[24m/spy/dist/index.js:61:17)
+    at Object.spy [as delete] (file:///Users/dancoyle/philaprints/node_modules/[4mtinyspy[24m/dist/index.js:45:80)
+    at Module.deleteUser [as default] [90m(/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/deleteUser.ts:8:14[90m)[39m
+    at [90m/Users/dancoyle/philaprints/packages/chat-db/[39msrc/chat/__test__/deleteUser.test.ts:42:18
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:182:14
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:573:28
+    at file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:64:24
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/dancoyle/philaprints/node_modules/[4m@vitest[24m/runner/dist/index.js:41:12)
+
+ ✓ src/chat/__test__/deleteUser.test.ts (2 tests) 28ms
+ ✓ src/chat/__test__/getAdminUsers.test.ts (2 tests) 8ms
+ ✓ src/chat/__test__/insertMessage.test.ts (1 test) 5ms
+ ✓ src/chat/__test__/addReactionToMessage.test.ts (1 test) 5ms
+
+ Test Files  23 passed (23)
+      Tests  52 passed (52)
+   Start at  18:48:28
+   Duration  5.24s (transform 629ms, setup 0ms, collect 20.89s, tests 293ms, environment 7ms, prepare 4.38s)
+
+
+> @coyle/chat-ui
+$ vitest run
+
+ RUN  v3.0.9 /Users/dancoyle/philaprints/packages/chat-ui
+
+ ✓ src/Conversation/Message/ReplyModal/SubMessage/reactionHandlers/__test__/handleRemoveReaction.test.tsx (4 tests) 21ms
+stdout | src/hooks/__test__/useMessageSeen.test.tsx > useMessageSeen > should mark message as seen when it enters viewport
+Emitting seen for message message-123
+
+ ✓ src/hooks/__test__/useMessageSeen.test.tsx (4 tests) 49ms
+ ✓ src/hooks/__test__/useMessageReactions.test.tsx (5 tests) 54ms
+ ✓ src/ChatControls/__test__/FormattingBar.test.tsx (4 tests) 165ms
+ ✓ src/Conversation/Message/__test__/LinkPreview.test.tsx (6 tests) 203ms
+ ✓ src/Auth/__test__/LoginForm.test.tsx (4 tests) 431ms
+   ✓ LoginForm > renders the login form correctly 305ms
+ ✓ src/AdminSidebar/Settings/__test__/AddNewUserScreen.test.tsx (3 tests) 642ms
+   ✓ AddNewUserScreen > calls the API and updates the view on submit 531ms
+ ✓ src/utils/fetchMessages.test.tsx (3 tests) 10ms
+ ✓ src/utils/__test__/fetchConversations.test.tsx (4 tests) 12ms
+ ❯ src/__test__/ChatCaddy.test.tsx (4 tests | 3 failed) 248ms
+   × ChatCaddy > does not display the chat window initially 70ms
+     → [2mexpect([22m[31melement[39m[2m).not.toBeInTheDocument()[22m
+
+[31mexpected document not to contain element, found <div
+  data-testid="chat-window"
+>
+  Chat Component
+</div> instead[39m
+   ✓ ChatCaddy > shows the chat window when the button is clicked
+   × ChatCaddy > hides the chat window when the button is clicked again 36ms
+     → [2mexpect([22m[31melement[39m[2m).not.toBeInTheDocument()[22m
+
+[31mexpected document not to contain element, found <div
+  data-testid="chat-window"
+>
+  Chat Component
+</div> instead[39m
+   × ChatCaddy > displays ChatIcon when chat is closed and CloseIcon when chat is open 20ms
+     → Unable to find an element by: [data-testid="chat-icon"]
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"chatCaddyContainer"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"chatCaddy animate__animated animate__slideInUp hide"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mdata-testid[39m=[32m"chat-window"[39m
+        [36m>[39m
+          [0mChat Component[0m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"showChat"[39m
+      [36m>[39m
+        [36m<button>[39m
+          [36m<svg[39m
+            [33mfill[39m=[32m"currentColor"[39m
+            [33mheight[39m=[32m"35px"[39m
+            [33mstroke[39m=[32m"currentColor"[39m
+            [33mstroke-width[39m=[32m"0"[39m
+            [33mviewBox[39m=[32m"0 0 16 16"[39m
+            [33mwidth[39m=[32m"35px"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"[39m
+            [36m/>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M8 3.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ✓ src/Conversation/Message/ReplyModal/SubMessage/reactionHandlers/__test__/handleAddReaction.test.tsx (2 tests) 8ms
+ ✓ src/Conversation/Message/__test__/FilePreview.test.tsx (4 tests) 106ms
+ ✓ src/AdminSidebar/Settings/AdminItem.test.tsx (4 tests) 96ms
+ ✓ src/ChatControls/__test__/Thumbnail.test.tsx (3 tests) 194ms
+ ✓ src/hooks/__test__/useOutsideClick.test.tsx (3 tests) 62ms
+ ✓ src/Conversation/__test__/ThreeJsBackground.test.tsx (3 tests) 73ms
+ ✓ src/Auth/__test__/GuestLogin.test.tsx (3 tests) 182ms
+ ✓ src/Auth/__test__/AdminLogin.test.tsx (3 tests) 202ms
+ ✓ src/Conversation/Message/ReplyModal/SubMessage/reactionHandlers/__test__/index.test.tsx (3 tests) 6ms
+ ✓ src/Conversation/Message/ReplyModal/SubMessage/reactionHandlers/__test__/useSocketReactions.test.tsx (2 tests) 67ms
+ ✓ src/__test__/LightBox.test.tsx (2 tests) 92ms
+ ↓ src/__test__/index.test.tsx (0 test)
+ ↓ src/Conversation/Message/__test__/index.test.tsx (0 test)
+
+ Test Files  1 failed | 20 passed | 2 skipped (23)
+      Tests  3 failed | 70 passed (73)
+   Start at  18:48:35
+   Duration  7.06s (transform 798ms, setup 0ms, collect 8.16s, tests 2.93s, environment 23.18s, prepare 4.79s)
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+info Visit https://yarnpkg.com/en/docs/cli/workspaces for documentation about this command.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
