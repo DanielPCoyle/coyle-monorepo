@@ -1,8 +1,7 @@
 import { updateConversationByKey } from "@coyle/chat-db";
-
 export async function updateConversationLanguage(req, res) {
   try {
-    if (req.method === "PATCH") {
+    if (req.method === "POST") {
       try {
         const { id, language } = req.body;
         await updateConversationByKey(id, { language });
@@ -16,7 +15,7 @@ export async function updateConversationLanguage(req, res) {
           .json({ message: "Error updating conversation language" });
       }
     } else {
-      res.setHeader("Allow", ["PATCH"]);
+      res.setHeader("Allow", ["POST"]);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
   } catch (error) {

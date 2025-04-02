@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { ThreeDotsIcon } from "../../assets/svg/ThreeDotsIcon";
 import { LinkPreviewProps, UrlPreview } from "../../../types";
+import {ChatContext} from "../../ChatContext";
 
 export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
   const hasLink = message?.message?.includes("http");
   const [loading, setLoading] = useState<boolean>(hasLink);
   const [urlPreview, setUrlPreview] = useState<UrlPreview | null>(null);
+  const {id,token} = useContext(ChatContext);
 
   useEffect(() => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -21,7 +23,12 @@ export const LinkPreview: React.FC<LinkPreviewProps> = ({ message }) => {
       } else {
         const strippedUrl = url.replace(/<\/?[^>]+(>|$)/g, "");
         axios
-          .get(`${process.env.REACT_APP_API_BASE_URL}/api/chat/url-preview?url=${strippedUrl}`)
+          .get(`${process.env.REACT_APP_API_BASE_URL}/api/chat/url-preview?url=${strippedUrl}&conversationKey=${id}`,{
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
           .then((response) => {
             setUrlPreview(response.data);
             setLoading(false);

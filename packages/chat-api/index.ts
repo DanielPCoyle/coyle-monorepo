@@ -4,3 +4,7 @@ export { updateConversationLanguage } from "./handlers/updateConversationLanguag
 export { urlPreviewHandler } from "./handlers/urlPreviewHandler";
 export { translateHeader } from "./handlers/translateHeader";
 export { sendMessageAsEmailHandler } from "./handlers/sendMessageAsEmailHandler";
+export { adminUsersHandler } from "./handlers/settings/adminUsersHandler";
+export { deleteAdminUsersHandler } from "./handlers/settings/deleteAdminUserHandler";
+export { updateProfileHandler } from "./handlers/settings/updateProfileHandler";
+export { getUserHandler } from "./handlers/settings/getUserHandler";

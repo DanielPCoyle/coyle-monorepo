@@ -20,7 +20,7 @@ export const ProfileSettings = ({ id }: { id: string; }) => {
 
   React.useEffect(() => {
     if (!id) return;
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/chat/settings/get-user?id=${id}`, {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/api/chat/get-user?id=${id}`, {
       "headers": {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
@@ -39,7 +39,7 @@ export const ProfileSettings = ({ id }: { id: string; }) => {
   }, [id]);
 
   const handleSave = async () => {
-    await fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/settings/update-profile", {
+    await fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/update-profile", {
       "method": "PATCH",
       "headers": {
         "Content-Type": "application/json",

@@ -72969,7 +72969,7 @@
               window.confirm("Are you sure you want to delete this admin?") &&
                 (t(e),
                 fetch(
-                  "https://www.philaprints.com/api/chat/settings/delete-admin-user",
+                  "https://www.philaprints.com/api/chat/delete-admin-user",
                   {
                     method: "DELETE",
                     headers: {
@@ -72986,7 +72986,7 @@
             i.useEffect(() => {
               var e;
               fetch(
-                "https://www.philaprints.com/api/chat/settings/admin-users",
+                "https://www.philaprints.com/api/chat/admin-users",
                 {
                   headers: {
                     Authorization: `Bearer ${null === (e = document.cookie.split("; ").find((e) => e.startsWith("jwt="))) || void 0 === e ? void 0 : e.split("=")[1]}`,
@@ -73155,7 +73155,7 @@
           i.useEffect(() => {
             n &&
               fetch(
-                `https://www.philaprints.com/api/chat/settings/get-user?id=${n}`,
+                `https://www.philaprints.com/api/chat/get-user?id=${n}`,
                 {
                   headers: {
                     "Content-Type": "application/json",
@@ -73180,7 +73180,7 @@
                 e.preventDefault(),
                   (async () => {
                     await fetch(
-                      "https://www.philaprints.com/api/chat/settings/update-profile",
+                      "https://www.philaprints.com/api/chat/update-profile",
                       {
                         method: "PATCH",
                         headers: {
