@@ -1,5 +1,5 @@
 import * as handlers from "@coyle/chat-api";
-import {chatHandler } from "@coyle/chat-api";
+import { chatHandler } from "@coyle/chat-api";
 export const routes = [
   {
     method: "GET",
@@ -12,7 +12,7 @@ export const routes = [
     auth: "guest",
     route: "messages",
     handler: handlers.messageHandler,
-  }, // TODO: extract guestAuthMiddleware from this handler
+  }, 
   {
     method: "POST",
     auth: "guest",
@@ -57,5 +57,4 @@ export const routes = [
   },
 ];
 
-
-export default (req,res)=>chatHandler(req,res,routes)
+export default (req, res) => chatHandler(req, res, routes);

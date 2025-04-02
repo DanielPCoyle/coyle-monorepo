@@ -25,7 +25,10 @@
     "../../packages/chat-api/handlers/conversationHandler.ts",
     "../../packages/chat-api/handlers/messageHandler.ts",
     "../../packages/chat-api/utils/sendEmail.ts",
-    "../../packages/chat-api/utils/handleCors.ts"
-, "../../packages/chat-api/utils/guestAuthMiddleware.tsx", "../../packages/chat-api/handlers/chatHandlers.tsx", "../../packages/chat-api/utils/auth.ts"  ],
+    "../../packages/chat-api/utils/handleCors.ts",
+    "../../packages/chat-api/utils/guestAuthMiddleware.tsx",
+    "../../packages/chat-api/handlers/chatHandlers.tsx",
+    "../../packages/chat-api/utils/auth.ts"
+  ],
   "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "public/dist/*"]
 }

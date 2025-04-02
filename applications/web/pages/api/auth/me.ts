@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
-import { DecodedToken } from "../../../types";
 import { serialize } from "cookie";
 import { handleCors } from "@coyle/chat-api/utils/handleCors";
 import { getConversationById, getConversationIdByKey } from "@coyle/chat-db";
@@ -39,7 +38,7 @@ export default async function handler(
       }),
     );
 
-    const decoded = jwt.verify(token, secret) as DecodedToken;
+    const decoded = jwt.verify(token, secret) as any;
     if (decoded?.role !== "admin") {
       const conversationID = await getConversationIdByKey(
         decoded.conversationKey,

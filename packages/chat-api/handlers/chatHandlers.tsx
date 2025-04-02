@@ -1,8 +1,8 @@
 import { guestAuthMiddleware } from "@coyle/chat-api";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
 import { adminAuthMiddleware } from "../utils/auth";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
-export function chatHandler(req, res, routes) {
+export async function chatHandler(req, res, routes) {
     try {
         handleCors(req, res);
         const { route } = req.query;
@@ -11,11 +11,14 @@ export function chatHandler(req, res, routes) {
             (r) => r.route === route && r.method === method
         );
         if (routeHandler) {
-            if (routeHandler.auth === "admin") {
-                return adminAuthMiddleware(routeHandler.handler(req, res));
-            }
-            if (routeHandler.auth === "guest") {
-                return guestAuthMiddleware(req, res, routeHandler.handler(req, res));
+            const handler = routeHandler.handler;
+            if(routeHandler.auth === "guest") {
+                guestAuthMiddleware(handler)(req, res);
+            } 
+            else if (routeHandler.auth === "admin") {
+                adminAuthMiddleware(handler)(req, res);
+            } else if(typeof routeHandler.auth === "function") {
+                routeHandler.auth(handler)(req, res);
             }
         } else {
             return res.status(404).json({ error: "Not Found" });
