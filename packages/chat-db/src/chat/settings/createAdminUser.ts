@@ -20,7 +20,7 @@ export const createAdminUser = async ({
 }) => {
   try {
     // eslint-disable-next-line
-    const db:any = getDB();
+    const db: any = getDB();
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     const userId = v4();
     await db.insert(users).values({
