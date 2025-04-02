@@ -30,9 +30,7 @@ export const sendWelcomeEmail = async (
     };
 
     // Send mail with defined transport object
-    const info = await transporter.sendMail(mailOptions);
-
-    console.log("Message sent: %s", info.messageId);
+    await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error("Error sending email:", error.message);
   }

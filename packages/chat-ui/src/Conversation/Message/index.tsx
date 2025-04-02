@@ -1,6 +1,4 @@
-import React, { useState,  useContext, useRef } from "react";
-import Modal from "react-modal";
-import type { Message as MessageType } from "../../../types";
+import React, { useState,  useContext } from "react";
 import { ChatContext } from "../../ChatContext";
 import { MessageContent } from "./MessageContent";
 import { MessageContext } from "./MessageContext";
@@ -10,9 +8,14 @@ import { useMessageReactions } from "../../hooks/useMessageReactions";
 import { useMessageSeen } from "../../hooks/useMessageSeen";
 
 
-export const Message: React.FC<{ message: MessageType; index: number }> = ({
+interface MessageProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  message: any;
+  key: string;
+}
+export const Message: React.FC<MessageProps> = ({
   message,
-  index,
+  key,
 }) => {
   const { user, selectedMessageId,setSelectedMessageId } = useContext(ChatContext);
   const [showReactionsPicker, setShowReactionsPicker] = useState(false);
@@ -20,7 +23,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
 
   const { seen, messageRef } = useMessageSeen(message);
   const { reactions, addReaction, removeReactions } = useMessageReactions(message);
-  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
   
 
   React.useEffect(() => {
@@ -40,7 +42,6 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
         showReplyModal,
         removeReactions,
         showReactionsPicker,
-        index,
         addReaction,
         reactions,
         seen,
@@ -49,16 +50,16 @@ export const Message: React.FC<{ message: MessageType; index: number }> = ({
       <div
         ref={messageRef}
         className="animate__animated animate__zoomIn messageContainer"
-        key={index}
-        data-testid={`message-${index}`}
+        key={key}
+        data-testid={`message-${key}`}
       >
-        <div data-testid={`message-content-${index}`}>
+        <div data-testid={`message-content-${key}`}>
         
         <MessageContent  />
         </div>
       </div>
 
-      <div data-testid={`reply-modal-${index}`}>
+      <div data-testid={`reply-modal-${key}`}>
             <ReplyModal/>
       </div>
     </MessageContext.Provider>

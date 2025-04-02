@@ -1,23 +1,21 @@
-import React, { useState, useRef, useContext } from "react";
-import type { SubMessageType } from "../../../../../types";
+import React, { useState, useContext } from "react";
+import type { SubMessageType, } from "../../../../../types";
 import ChatContext from "../../../../ChatContext";
 import MessageContent from "../../MessageContent";
 import MessageContext from "../../MessageContext";
-import { ReactionPicker } from "../../Reactions/ReactionPicker";
-import { Reactions } from "../../Reactions/Reactions";
-import { handleRemoveReaction } from "./reactionHandlers/handleRemoveReaction";
 import { handleAddReaction } from "./reactionHandlers/handleAddReaction";
 import { useSocketReactions } from "./reactionHandlers/useSocketReactions";
 import { useMessageSeen } from "../../../../hooks/useMessageSeen";
 
-export const SubMessage: React.FC<SubMessageType> = ({reply} : any) => {
+
+export const SubMessage: React.FC<SubMessageType> = ({ reply }) => {
   const [urlPreview] = useState<string | null>(null);
-  const { id, userName, user, socket, email  } = useContext(ChatContext);
-  const reactionsPickerRef = useRef<HTMLDivElement | null>(null);
+  const { id, user, socket, email  } = useContext(ChatContext);
   const [showReactionsPicker, setShowReactionsPicker] = useState<boolean>(false);
   const [showReplyModal, setShowReplyModal] = useState<boolean>(false);
   const [reactions, setReactions] = useState<{ [key: string]: string[] }>(reply.reactions || {});
-  const { seen, messageRef } = useMessageSeen(reply);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { messageRef } = useMessageSeen(reply as any);
 
   useSocketReactions(socket, reply, setReactions);
 

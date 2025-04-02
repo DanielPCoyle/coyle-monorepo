@@ -18,13 +18,25 @@ export const MessageContent = () => {
      index,
      removeReactions,
       } = useContext(MessageContext);
-  const { user, userName, language } = useContext(ChatContext);
+  const { user, userName, language, socket , id } = useContext(ChatContext);
   const reactionsPickerRef = React.useRef<HTMLDivElement>(null);
   useOutsideClick(reactionsPickerRef, () => setShowReactionsPicker(false));
-  const [translation, setTranslation] = React.useState<any | null>(message?.translation || null);
+  const [translation, setTranslation] = React.useState(message?.translation || null);
+  const [loading, setLoading] = React.useState(false);
   
       React.useEffect(() => {
+        socket.on("translation", (data: { id: string; data: { text: string } | null }) => {
+          
+          if(data?.id === message.id && data?.data){
+            setTranslation(data.data);
+          }
+        }
+        );
+      }, []);
+
+      React.useEffect(() => {
         if(Boolean(message?.language) && (message?.language !== language) && !message?.translation){
+          setLoading(true);
           fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/translate" as string, {
             method: "POST",
             headers: {
@@ -38,13 +50,15 @@ export const MessageContent = () => {
               const data = res.json();
               return data;
           }).then((data) => {
-              console.log({data})
               if(data?.text){
                 setTranslation(data);
+                socket.emit("translation", {conversationKey:id, id:message.id,data} );
+                setLoading(false);
               }
           }
-          ).catch((err) => {
+          ).catch((err: unknown) => {
             console.log({err})
+            setLoading(false);
           }
           );
         }
@@ -80,6 +94,7 @@ export const MessageContent = () => {
         
         dangerouslySetInnerHTML={{ __html: message.message }}
       />
+      {loading && <div className="loading">Loading translation...</div>}
       {Boolean(translation) && <>
           <div className="translationContainer">
           <hr/>

@@ -136,7 +136,9 @@ export interface ChatContextType {
   setStatus: (status: string) => void;
   status: string;
   socket: any;
-  typing: boolean;
+  typing: {
+    name: string;
+  };
   user: any;
   userName: string;
   setNotificationBar: (notificationBar: any[]) => void;
@@ -146,6 +148,9 @@ export interface ChatContextType {
 // Removed duplicate declaration of Message interface as it is already defined above.
   messagesRef: React.RefObject<HTMLDivElement>;
   token: string;
+  setLanguage: (language: string) => void;
+  language: string;
+  setInit: (init: boolean) => void;
 }
 
 export interface DecodedToken {

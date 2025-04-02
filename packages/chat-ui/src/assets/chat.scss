@@ -739,13 +739,12 @@ button.closeModal {
 
 .chatCaddyContainer {
   position: fixed;
-  bottom: 30px;
-  right: 50px;
+  bottom: 20px;
+  right: 20px;
   background: #7fd321;
   width: 50px;
   height: 50px;
   padding: 15px;
-  border-radius: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -755,9 +754,7 @@ button.closeModal {
   position: fixed;
   bottom: 6px;
   right: 140px;
-  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 15px #353535;
 
   .editor {
     padding-left: 10px;
@@ -873,4 +870,60 @@ label.hideFileInput {
   align-items: start;
   gap: 10px;
   text-align: left;
+}
+
+.chatCaddy .adminLoginButton{
+  display:none;
+}
+
+@media (max-width: 768px) {
+  .chatCaddy {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9;
+  }
+
+  .chatCaddy .editor{
+    max-width:85%;
+  }
+
+  .chatCaddy .coyleChat{
+    max-width:100%;
+    height:87vh;
+  }
+  .messages{
+    height: 100%;
+  }
+
+  .chatInputArea {
+    margin-top: auto;
+    
+  }
+
+  .notificationBarContainer {
+      margin-top: auto;
+  }
+
+  
+  .inputContainer{
+    padding-bottom:20px;
+  }
+
+}
+
+button.closeChatCaddy {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 9;
+}
+
+
+.isTyping{
+  padding-left:20px;
+  padding-top:5px;
 }

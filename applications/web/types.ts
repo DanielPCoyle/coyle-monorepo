@@ -17,4 +17,5 @@ export interface DecodedToken {
   iat: number;
   exp: number;
   role: string;
+  conversationKey: string;
 }

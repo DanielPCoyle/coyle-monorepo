@@ -29,10 +29,9 @@ export const ChatCaddy = () => {
   }, [open]);
 
   return (
-    <div className="chatCaddyContainer" ref={chatCaddyRef}>
-      
+    <div  className="chatCaddyContainer" ref={chatCaddyRef}>
         <div className={"chatCaddy animate__animated animate__slideInUp "+ (open ? "show" : "hide")}>
-          <Chat />
+          <Chat isChatCaddy={true} setOpen={setOpen} />
         </div>
       <div className="showChat">
         <button onClick={() => setOpen(!open)}>

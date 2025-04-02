@@ -5,7 +5,6 @@ import { eq } from "drizzle-orm";
 export const updateUser = async (user: User) => {
   try {
     const db = getDB();
-    console.log({ user });
     const results = await db
       .update(users)
       .set(user)

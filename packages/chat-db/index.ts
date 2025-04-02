@@ -20,4 +20,6 @@ export { updateConversationSocketId } from "./src/chat/updateConversationSocketI
 export { getConversationBySocketId } from "./src/chat/getConversationBySocketId";
 export { deleteUser } from "./src/chat/deleteUser";
 export { updateUser } from "./src/chat/settings/updateUser";
-export {updateMessage} from "./src/chat/updateMessage";
+export { updateMessage } from "./src/chat/updateMessage";
+export { updateConversationByKey } from "./src/chat/updateConversationByKey";
+export { getConversationById } from "./src/chat/getConversationById";

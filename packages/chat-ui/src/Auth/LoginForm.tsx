@@ -3,10 +3,12 @@ import React, { FormEvent, useContext, useState } from "react";
 import { ChatContext } from "../ChatContext";
 import { AdminLogin } from "./AdminLogin";
 import { GuestLogin } from "./GuestLogin";
-import { useAuth } from "../hooks/useAuth";
 
-export const LoginForm: React.FC = () => {
-  const { getAndSetUser } = useAuth();
+interface LoginFormProps {
+  getAndSetUser: (jwtToken: string) => Promise<void>;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({ getAndSetUser }) => {
   const { userName, setUserName, email, setEmail, setToken, setIsLoggedIn } =
     useContext(ChatContext);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
@@ -15,8 +17,8 @@ export const LoginForm: React.FC = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const endpoint = showAdminLogin
-      ? process.env.REACT_APP_API_BASE_URL+"/api/auth/login"
-      : process.env.REACT_APP_API_BASE_URL+"/api/auth/guest-token";
+      ? process.env.REACT_APP_API_BASE_URL + "/api/auth/login"
+      : process.env.REACT_APP_API_BASE_URL + "/api/auth/guest-token";
 
     const id = Math.random().toString(36).substring(2, 15);
 
@@ -27,7 +29,7 @@ export const LoginForm: React.FC = () => {
     fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      credentials: "include", 
+      credentials: "include",
       body: JSON.stringify(payload),
     })
       .then((res) => res.json())
@@ -36,8 +38,8 @@ export const LoginForm: React.FC = () => {
           alert(data.error);
         } else {
           const jwt = data.token;
-            document.cookie = `jwt=${jwt}; Domain=.${process.env.REACT_APP_COOKIE_DOMAIN}; Path=/; SameSite=None; Secure; HttpOnly;`;
-            
+          document.cookie = `jwt=${jwt}; Domain=.${process.env.REACT_APP_COOKIE_DOMAIN}; Path=/; SameSite=None; Secure; HttpOnly;`;
+
           setToken(jwt);
           setIsLoggedIn(true);
           getAndSetUser(jwt);
@@ -81,7 +83,7 @@ export const LoginForm: React.FC = () => {
           />
         </div>
       )}
-      <div>
+      <div className="adminLoginButton">
         <small
           onClick={() => setShowAdminLogin(!showAdminLogin)}
           data-testid="toggle-login-mode"

@@ -4,7 +4,7 @@ import { ItalicSvg } from "../assets/svg/ItalicSvg";
 import { StrikeThroughSvg } from "../assets/svg/StrikeThroughSvg";
 import { UnorderedListSvg } from "../assets/svg/UnorderedListSvg";
 import { FormattingBarProps } from "../../types";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const FormattingBar: React.FC<FormattingBarProps> = ({
   toggleInlineStyle,
@@ -12,38 +12,42 @@ export const FormattingBar: React.FC<FormattingBarProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="formattingBar" role="toolbar" aria-label={t("formattingOptions")}>
+    <div
+      className="formattingBar"
+      role="toolbar"
+      aria-label={t("formattingOptions")}
+    >
       <button
-      onClick={() => toggleInlineStyle("BOLD")}
-      className="formatButton"
-      data-testid="bold-button"
-      aria-label={t("bold")}
+        onClick={() => toggleInlineStyle("BOLD")}
+        className="formatButton"
+        data-testid="bold-button"
+        aria-label={t("bold")}
       >
-      <BoldSvg />
+        <BoldSvg />
       </button>
       <button
-      onClick={() => toggleInlineStyle("ITALIC")}
-      className="formatButton"
-      data-testid="italic-button"
-      aria-label={t("italic")}
+        onClick={() => toggleInlineStyle("ITALIC")}
+        className="formatButton"
+        data-testid="italic-button"
+        aria-label={t("italic")}
       >
-      <ItalicSvg />
+        <ItalicSvg />
       </button>
       <button
-      onClick={() => toggleInlineStyle("STRIKETHROUGH")}
-      className="formatButton"
-      data-testid="strikethrough-button"
-      aria-label={t("strikethrough")}
+        onClick={() => toggleInlineStyle("STRIKETHROUGH")}
+        className="formatButton"
+        data-testid="strikethrough-button"
+        aria-label={t("strikethrough")}
       >
-      <StrikeThroughSvg />
+        <StrikeThroughSvg />
       </button>
       <button
-      onClick={() => toggleBlockType("unordered-list-item")}
-      className="formatButton"
-      data-testid="unorderedlist-button"
-      aria-label={t("unorderedList")}
+        onClick={() => toggleBlockType("unordered-list-item")}
+        className="formatButton"
+        data-testid="unorderedlist-button"
+        aria-label={t("unorderedList")}
       >
-      <UnorderedListSvg />
+        <UnorderedListSvg />
       </button>
     </div>
   );

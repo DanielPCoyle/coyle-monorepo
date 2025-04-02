@@ -3,7 +3,7 @@ import Picker from "@emoji-mart/react";
 import React from "react";
 import { ImageSvg } from "../assets/svg/ImageSvg";
 import { MessageAddonsProps } from "../../types";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 export const MessageAddons: React.FC<MessageAddonsProps> = ({
   handleFileUpload,
@@ -11,7 +11,6 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
   setShowEmojiPicker,
   emojiPickerRef,
   insertEmoji,
-  typing,
 }) => {
   const { t } = useTranslation();
   return (
@@ -33,8 +32,8 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
           aria-hidden="true"
           tabIndex={-1}
         />
-       
-          <ImageSvg data-testid="image-icon" />
+
+        <ImageSvg data-testid="image-icon" />
       </label>
       <button
         onClick={() => setShowEmojiPicker(!showEmojiPicker)}
@@ -57,14 +56,6 @@ export const MessageAddons: React.FC<MessageAddonsProps> = ({
           <Picker data={data} onEmojiSelect={insertEmoji} />
         </div>
       )}
-      <div
-        className="isTyping"
-        data-testid="typing-indicator"
-        role="status"
-        aria-live="polite"
-      >
-        {typing ? <>{typing?.name} is typing...</> : <>&nbsp;</>}
-      </div>
     </div>
   );
 };

@@ -1,0 +1,1 @@
+ALTER TABLE "conversations" ADD COLUMN "language" varchar(255);

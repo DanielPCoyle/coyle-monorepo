@@ -3,7 +3,6 @@ import { createAdminUser } from "@coyle/chat-db";
 import { sendWelcomeEmail } from "../../../util/chat/sendWelcomeEmail";
 import { handleCors } from "../../../middlewares/handleCors";
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,

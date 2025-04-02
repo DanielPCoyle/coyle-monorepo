@@ -12,11 +12,20 @@ import { handleSocketEvents } from "./utils/handleSocketEvents";
 import "@coyle/chat-ui/src/assets/chat.scss";
 import './utils/i18n'; // 👈 Initialize i18n before anything else
 import { useTranslation } from 'react-i18next';
+import { CloseIcon } from "./assets/svg/CloseIcon";
+import { LoadingIcon } from "./assets/svg/LoadingIcon";
+import { useAuth } from "./hooks/useAuth";
 
 const socketSite = process.env.REACT_APP_SOCKET_SITE;
 const socket = io(socketSite);
 
-export const Chat = () => {
+
+interface ChatProps {
+  isChatCaddy: boolean;
+  setOpen: (open: boolean) => void;
+}
+
+export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
   const [messages, setMessages] = useState([]);
   const [conversations, setConversations] = useState([]);
   const [input, setInput] = useState("");
@@ -39,7 +48,7 @@ export const Chat = () => {
   const messagesRef = React.useRef(null);
   const [language, setLanguage] = useState("en");
   const { i18n } = useTranslation();
-
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
    
@@ -48,6 +57,28 @@ export const Chat = () => {
     document.documentElement.setAttribute("lang", language);
     document.documentElement.setAttribute("dir", language === "ar" ? "rtl" : "ltr");
     i18n.changeLanguage();
+
+      fetch(process.env.REACT_APP_API_BASE_URL + "/api/chat/update-conversation-language", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ id, language }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Language updated successfully:", data);
+        })
+        .catch((error) => {
+          console.error("Error updating language:", error);
+      })
+
   }, [language]);
 
   useEffect(() => {
@@ -140,36 +171,51 @@ export const Chat = () => {
         token,
         setLanguage,
         language,
+        setInit,
       }}
     >
-      {!isLoggedIn ? (
-        <LoginForm
-         
-        />
-      ) : (
-        <div className="animate__animated animate__fadeIn coyleChat">
+
+      { 
+      !init && (
+        <div className="loading">
+          <div className="loadingIcon">
+          <LoadingIcon />
+          </div>
+        </div>
+      ) }
+
+       <Auth isLoggedIn={isLoggedIn} init={init} />  
+       
+       { (isLoggedIn && init) && (
+        
+        <div  className="animate__animated animate__fadeIn coyleChat">
+          {isChatCaddy && (
+            <button onClick={()=>setOpen(false)} className="closeChatCaddy">
+              <CloseIcon  />
+            </button>
+          )}
           {user?.role === "admin" && <SideBar />}
           <div className="chatStack">
             <div className="messages" ref={messagesRef}>
               <Conversation />
             </div>
-            <div className="notificationBarContainer">
+            {Boolean(notificationBar?.length) && ( <div className="notificationBarContainer">
             <div className="notificationBar">
-                  {Boolean(notificationBar?.length) && (
-                notificationBar.map((notification) => (
-                  <div className="notification">
+                  
+                {notificationBar.map((notification, i) => (
+                  <div key={"notification_"+i} className="notification">
                   <p>{notification.message}</p>
                   <button onClick={()=>{
                     setSelectedMessageId(notification.id)
                     setNotificationBar((prev) => prev.filter((n) => n.id !== notification.id))
                     }}>
-                  <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="40px" width="40px" xmlns="http://www.w3.org/2000/svg"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>
                   </button>
                   </div>
                 ))
-              )}
+              }
               </div>
-              </div>
+              </div> ) }
             <div className="chatInputArea">
               <ChatControls />
             </div>
@@ -182,3 +228,16 @@ export const Chat = () => {
 };
 
 export default Chat;
+
+
+
+interface AuthProps {
+  isLoggedIn: boolean;
+  init: boolean;
+}
+const Auth = ({isLoggedIn, init}: AuthProps) => {
+  const { getAndSetUser } = useAuth();
+  return !isLoggedIn && init ? (
+        <LoginForm  getAndSetUser={getAndSetUser} />
+    ) : null
+}

@@ -8,7 +8,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-
   handleCors(req, res);
 
   if (req.method !== "POST") {
@@ -32,5 +31,3 @@ export default async function handler(
     return res.status(500).json({ error: error.message });
   }
 }
-
-

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ChatContext } from "../../ChatContext";
 import { ConversationListItems } from "./ConversationListItems";
-import { a } from "framer-motion/dist/types.d-B50aGbjN";
 import { useTranslation } from "react-i18next";
 export const ConversationList = ({setShowMenu}: {setShowMenu: (showMenu: boolean) => void}) => {
   const {

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import ChatContext from "../ChatContext";
 
 export const useAuth = () => {
@@ -12,13 +12,18 @@ export const useAuth = () => {
     setToken,
     token,
     socket,
+    setLanguage,
+    setInit,
   } = useContext(ChatContext);
   const getAndSetUser = async (jwtToken: string) => {
     try {
-      const response = await fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/me", {
-        headers: { Authorization: `Bearer ${jwtToken}` },
-        credentials: "include", 
-      });
+      const response = await fetch(
+        process.env.REACT_APP_API_BASE_URL + "/api/auth/me",
+        {
+          headers: { Authorization: `Bearer ${jwtToken}` },
+          credentials: "include",
+        },
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -29,6 +34,9 @@ export const useAuth = () => {
       setNotificationsEnabled(data.user.notificationsEnabled);
       setId(data.user.conversationKey);
       setIsLoggedIn(true);
+      if (data?.conversation?.language) {
+        setLanguage(data?.conversation?.language);
+      }
 
       if (data.user.role !== "admin") {
         socket.emit("login", {
@@ -40,22 +48,17 @@ export const useAuth = () => {
       }
       if (token !== jwtToken) {
         setToken(jwtToken);
+        setIsLoggedIn(true);
+        setInit(true);
       }
     } catch (error) {
+      setInit(true);
       console.error("Failed to fetch user data:", error);
     }
   };
 
   useEffect(() => {
-    // const jwtToken = document.cookie
-    //   .split("; ")
-    //   .find((row) => row.startsWith("jwt="))
-    //   ?.split("=")[1];
-    // if (jwtToken) {
-    //   setToken(jwtToken);
-    // }
-
-    fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/cookie", {
+    fetch(process.env.REACT_APP_API_BASE_URL + "/api/auth/cookie", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -65,13 +68,11 @@ export const useAuth = () => {
       .then((res) => {
         if (res.status === 200) {
           return res.json();
-        } else {
-          console.error("Failed to fetch JWT");
         }
       })
       .then((data) => {
-        if(data?.jwt === undefined) {
-          console.error("JWT is undefined");
+        if (data?.jwt === undefined) {
+          setInit(true);
           return;
         }
         const jwtToken = data.jwt;
@@ -81,16 +82,16 @@ export const useAuth = () => {
         }
       })
       .catch((err) => {
+        setInit(true);
         console.error("Error fetching token:", err);
-      })
+      });
   }, []);
 
   useEffect(() => {
     if (token) {
-      console.log({ token });
       getAndSetUser(token);
     }
-  }, [ token]);
+  }, [token]);
 
   return { getAndSetUser };
 };

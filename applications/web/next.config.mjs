@@ -10,8 +10,10 @@ const nextConfig = {
     NEXT_PUBLIC_ALGOLIA_CLIENT_KEY: process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY,
     NEXT_PUBLIC_ALGOLIA_CLIENT_ID: process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID,
     NEXT_PUBLIC_OPEN_AI_KEY: process.env.NEXT_PUBLIC_OPEN_AI_KEY,
-    NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY:process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY,
-    NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY:process.env.NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY,
+    NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY:
+      process.env.NEXT_PUBLIC_BUILDER_IO_PRIVATE_KEY,
+    NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY:
+      process.env.NEXT_PUBLIC_BUILDER_IO_PUBLIC_KEY,
     NEXT_PUBLIC_JWT_SECRET: process.env.NEXT_PUBLIC_JWT_SECRET,
     NEXT_PUBLIC_EMAIL: process.env.NEXT_PUBLIC_EMAIL,
     NEXT_PUBLIC_EMAIL_APP_PASSWORD: process.env.NEXT_PUBLIC_EMAIL_APP_PASSWORD,
@@ -49,20 +51,44 @@ const nextConfig = {
       },
     ];
   },
+  sassOptions: {
+    silenceDeprecations: ["legacy-js-api"],
+  },
   webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(mp3|wav)$/,
-      use: [
-        {
-          loader: "file-loader",
-          options: {
-            name: "[name].[ext]",
-            outputPath: "static/media/",
-            publicPath: "/_next/static/media/",
+    config.module.rules.push(
+      {
+        test: /\.test\.[^/]+$|\.spec\.[^/]+$/,
+        loader: "ignore-loader",
+      },
+      {
+        test: /\.(mp3|wav)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[ext]",
+              outputPath: "static/media/",
+              publicPath: "/_next/static/media/",
+            },
           },
-        },
-      ],
-    });
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader", // Compiles Sass to CSS
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          "css-loader", // Translates CSS into CommonJS
+        ],
+      },
+    );
     return config;
   },
 };
