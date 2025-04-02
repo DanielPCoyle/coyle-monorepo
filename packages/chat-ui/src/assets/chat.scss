@@ -401,6 +401,27 @@ background: #5450d3;
 
 .immediateSettings {
 display: flex;
+width: 100%;
+
+.formGroup.status{
+  width:80%;
+  padding: 5px 0;
+}
+
+.notifications{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  *{
+    cursor: pointer;
+  }
+}
+
+.notificationsCheckbox{
+  display:none;
+}
 }
 
 .formGroup {
@@ -412,10 +433,7 @@ padding: 10px ;
 padding-right:20px;
 }
 
-.goBack{
-position: relative;
-top:50px;
-}
+
 
 select,input{
 width:100%;
@@ -463,6 +481,10 @@ ul.adminItems{
   padding-right:10px;
 }
 
+.conversationListItem.active{
+background: #5450d3;
+}
+
 .conversationListItem, .adminItem {
 display: flex;
 align-items: center;
@@ -473,7 +495,7 @@ border-radius: 6px;
 margin: 5px 0;
 cursor: pointer;
 transition: background 0.2s ease-in-out;
-width:100%;
+width:93%;
 }
 
 
@@ -567,6 +589,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin-bottom: 20px;
+margin-top: 5px;
 }
 
 .avatarPreview {
@@ -761,6 +784,7 @@ button.closeModal {
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
 }
 
 .chatCaddy {
@@ -966,4 +990,11 @@ button.closeChatCaddy {
 .settingsButton:hover{
   background: #5450d3;
   cursor: pointer;
+}
+
+
+.conversationListItem img{
+  width:30px;
+  height:30px;
+  border-radius: 50%;
 }
