@@ -5,7 +5,7 @@ export default defineWorkspace([
   "./packages/chat-db/vitest.config.js",
   "./applications/web/vitest.config.js",
   "./packages/chat-ui/vitest.config.js",
-  // "./tests/e2e/vitest.config.mts"
+  "./packages/chat-api/vitest.config.js",
 ], {
   coverage: {
     exclude: ['**/coverage/**']
