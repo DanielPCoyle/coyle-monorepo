@@ -8,3 +8,5 @@ export { adminUsersHandler } from "./handlers/settings/adminUsersHandler";
 export { deleteAdminUsersHandler } from "./handlers/settings/deleteAdminUserHandler";
 export { updateProfileHandler } from "./handlers/settings/updateProfileHandler";
 export { getUserHandler } from "./handlers/settings/getUserHandler";
+export {guestAuthMiddleware} from "./utils/guestAuthMiddleware";
+export {chatHandler} from "./handlers/chatHandlers";

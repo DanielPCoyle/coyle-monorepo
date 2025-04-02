@@ -72985,14 +72985,11 @@
           return (
             i.useEffect(() => {
               var e;
-              fetch(
-                "https://www.philaprints.com/api/chat/admin-users",
-                {
-                  headers: {
-                    Authorization: `Bearer ${null === (e = document.cookie.split("; ").find((e) => e.startsWith("jwt="))) || void 0 === e ? void 0 : e.split("=")[1]}`,
-                  },
+              fetch("https://www.philaprints.com/api/chat/admin-users", {
+                headers: {
+                  Authorization: `Bearer ${null === (e = document.cookie.split("; ").find((e) => e.startsWith("jwt="))) || void 0 === e ? void 0 : e.split("=")[1]}`,
                 },
-              )
+              })
                 .then((e) => e.json())
                 .then((e) => {
                   r(e);
@@ -73154,15 +73151,12 @@
                 : t.split("=")[1];
           i.useEffect(() => {
             n &&
-              fetch(
-                `https://www.philaprints.com/api/chat/get-user?id=${n}`,
-                {
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${k}`,
-                  },
+              fetch(`https://www.philaprints.com/api/chat/get-user?id=${n}`, {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${k}`,
                 },
-              )
+              })
                 .then((e) => e.json())
                 .then((e) => {
                   a(e.name),

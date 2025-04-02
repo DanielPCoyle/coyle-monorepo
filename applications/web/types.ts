@@ -12,10 +12,3 @@ export interface Message {
   replies: any[];
 }
 
-export interface DecodedToken {
-  email: string;
-  iat: number;
-  exp: number;
-  role: string;
-  conversationKey: string;
-}

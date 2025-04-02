@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { deleteUser } from "@coyle/chat-db";
-import { authMiddleware } from "../../../../middlewares/auth";
+import { authMiddleware } from "@coyle/chat-api/utils/auth";
 import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 // Import the raw handler (before middleware wraps it)

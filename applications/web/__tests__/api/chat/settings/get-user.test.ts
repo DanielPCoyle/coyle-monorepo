@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { getAdminUser } from "@coyle/chat-db";
 import { handleCors } from "@coyle/chat-api/utils/handleCors";
-import { authMiddleware } from "../../../../middlewares/auth";
+import { authMiddleware } from "@coyle/chat-api/utils/auth";
 
 import rawHandler from "../../../../pages/api/chat/settings/get-user"; // Adjust the path
 
