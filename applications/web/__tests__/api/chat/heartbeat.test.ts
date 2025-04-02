@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import handler from "./heartbeat"; // Adjust path to your file
+import handler from "../../../pages/api/heartbeat"; // Adjust path to your file
 import type { NextApiRequest, NextApiResponse } from "next";
 
 describe("GET /api/status", () => {

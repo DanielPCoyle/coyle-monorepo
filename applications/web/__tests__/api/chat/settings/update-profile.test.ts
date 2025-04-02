@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { handleCors } from "../../../../middlewares/handleCors";
 import { authMiddleware } from "../../../../middlewares/auth";
 
-import rawHandler from "./update-profile"; // Adjust the path if needed
+import rawHandler from "../../../../pages/api/chat/settings/update-profile"; // Adjust the path if needed
 
 vi.mock("@coyle/chat-db", () => ({
   updateUser: vi.fn(),

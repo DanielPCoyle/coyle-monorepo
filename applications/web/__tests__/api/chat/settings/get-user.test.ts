@@ -3,7 +3,7 @@ import { getAdminUser } from "@coyle/chat-db";
 import { handleCors } from "../../../../middlewares/handleCors";
 import { authMiddleware } from "../../../../middlewares/auth";
 
-import rawHandler from "./get-user"; // Adjust the path
+import rawHandler from "../../../../pages/api/chat/settings/get-user"; // Adjust the path
 
 vi.mock("@coyle/chat-db", () => ({
   getAdminUser: vi.fn(),

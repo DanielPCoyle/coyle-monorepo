@@ -4,7 +4,7 @@ import { authMiddleware } from "../../../../middlewares/auth";
 import { handleCors } from "../../../../middlewares/handleCors";
 
 // Import the raw handler (before middleware wraps it)
-import rawHandler from "./delete-admin-user"; // Adjust path as needed
+import rawHandler from "../../../../pages/api/chat/settings/delete-admin-user"; // Adjust path as needed
 
 vi.mock("@coyle/chat-db", () => ({
   deleteUser: vi.fn(),

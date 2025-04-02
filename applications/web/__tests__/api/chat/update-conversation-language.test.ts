@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import handler from "./update-conversation-language"; // Adjust path if needed
+import handler from "../../../pages/api/chat/update-conversation-language"; // Adjust path if needed
 import { updateConversationByKey } from "@coyle/chat-db";
 
 vi.mock("@coyle/chat-db", () => ({

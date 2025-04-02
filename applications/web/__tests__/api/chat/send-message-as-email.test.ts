@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import handler from "./send-message-as-email"; // Adjust path to your file
+import handler from "../../../pages/api/chat/send-message-as-email"; // Adjust path to your file
 import { getAdminUsers } from "@coyle/chat-db";
 import { sendEmail } from "../../../util/sendEmail";
 import { handleCors } from "../../../middlewares/handleCors";
