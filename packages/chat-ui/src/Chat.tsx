@@ -49,6 +49,7 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
   const [language, setLanguage] = useState("en");
   const { i18n } = useTranslation();
   const [init, setInit] = useState(false);
+  const [isBot, setIsBot] = useState(true);
 
   useEffect(() => {
    if(!token || !id) return;
@@ -109,8 +110,43 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
   }, [id, user]);
 
   useEffect(() => {
-    handleSocketEvents(socket, user, id, setMessages, setAdmins, setTyping, setConversations, setNotificationBar, messagesRef);
+    if(id && user){
+      handleSocketEvents({socket, user, id, setMessages, setAdmins, setTyping, setConversations, setNotificationBar, messagesRef, isBot});
+    }
   }, [user, id]);
+
+
+  useEffect(()=>{
+    const lastMessage = messages[messages.length - 1];
+    if (!lastMessage || !isBot) return;
+    if(isBot && lastMessage.sender !== "bot"){
+      setTyping({
+        name:"Shirt Bot",
+      })
+      fetch(`/api/chat/bot?conversationKey=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user?.token}`,
+        }
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            setMessages((prev) => {
+              const newMessages = [...prev];
+              newMessages.push({
+                message:data.text,
+                sender:"bot",
+              })
+              setTyping(null);
+              return newMessages;
+            });
+          }
+      })
+    }
+
+  },[messages, isBot])
 
   
   useEffect(() => {
@@ -172,6 +208,8 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
         setLanguage,
         language,
         setInit,
+        isBot, 
+        setIsBot
       }}
     >
 
