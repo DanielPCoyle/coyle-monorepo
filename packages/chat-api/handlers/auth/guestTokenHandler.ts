@@ -1,14 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
-export default async function handler(
+export  function guestTokenHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  handleCors(req, res);
 
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });

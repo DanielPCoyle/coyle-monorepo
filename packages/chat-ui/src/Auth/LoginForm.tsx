@@ -17,8 +17,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ getAndSetUser }) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const endpoint = showAdminLogin
-      ? process.env.REACT_APP_API_BASE_URL + "/api/auth/login"
-      : process.env.REACT_APP_API_BASE_URL + "/api/auth/guest-token";
+      ? process.env.REACT_APP_API_BASE_URL + "/api/chat/login"
+      : process.env.REACT_APP_API_BASE_URL + "/api/chat/guest-token";
 
     const id = Math.random().toString(36).substring(2, 15);
 

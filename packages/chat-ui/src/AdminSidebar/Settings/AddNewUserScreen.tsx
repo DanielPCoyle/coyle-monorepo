@@ -1,16 +1,21 @@
 import React from "react";
 import SettingsContext from "./SettingsContext";
-
+import { ChatContext } from "../../ChatContext";
 export const AddNewUserScreen = () => {
   const [adminName, setAdminName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [role, setRole] = React.useState("admin");
   const { setView } = React.useContext(SettingsContext);
+  const { token } = React.useContext(ChatContext);
 
   const handleAddNewUser = () => {
     // Logic to add new user
-    fetch(process.env.REACT_APP_API_BASE_URL+"/api/auth/register", {
+    fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/register", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: adminName,
         email,

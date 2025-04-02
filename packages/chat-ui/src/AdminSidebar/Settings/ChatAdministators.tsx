@@ -1,11 +1,13 @@
 import React from "react";
 import AddUserSvg from "../../assets/svg/AddUserSvg";
 import SettingsContext from "./SettingsContext";
+import {ChatContext} from "../../ChatContext";
 import { AdminItem } from "./AdminItem";
 import { useTranslation } from "react-i18next";
 export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
   const [admins, setAdmins] = React.useState([]);
   const { setView, view } = React.useContext(SettingsContext);
+  const { token } = React.useContext(ChatContext);
   const { t } = useTranslation();
   const handleEdit = (id:string) => {
     setSelected(id);
@@ -20,27 +22,20 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
     fetch(`${process.env.REACT_APP_API_BASE_URL}/api/chat/delete-admin-user`, {
       method: "DELETE",
       headers: {
-      Authorization: `Bearer ${document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("jwt="))
-        ?.split("=")[1]}`,
+      Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ id }),
     }).then(() => {
       setAdmins(admins.filter((admin) => admin.id !== id));
       alert("Admin deleted successfully");
     });
-    // TODO: Handle Delete Admin
   };
 
   React.useEffect(() => {
-    // Fetch chat administrators
+    if(!token) return;
     fetch(process.env.REACT_APP_API_BASE_URL+"/api/chat/admin-users", {
       headers: {
-      Authorization: `Bearer ${document.cookie
-        .split("; ")
-        .find((row) => row.startsWith("jwt="))
-        ?.split("=")[1]}`,
+      Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
@@ -52,7 +47,7 @@ export const ChatAdministators = ({setSelected}: {setSelected: (id)=>void}) => {
   return (
     <div>
       <h1>{t("chatAdministrators")}</h1>
-      <button onClick={() => setView("addUser")}>
+      <button className="settingsButton" onClick={() => setView("addUser")}>
         <AddUserSvg /> <span>{t("addAdministrator")}</span>
       </button>
       <ul className="adminItems">

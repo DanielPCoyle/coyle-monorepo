@@ -11,15 +11,15 @@ export const SettingsHome = () => {
       <h1>{t("settings")}</h1>
 
       <div className="settingsNav">
-        <button onClick={() => setView("settings")}>
+        <button className="settingsButton" onClick={() => setView("settings")}>
           <UserIcon />{" "}
           <span>{t("profile")}</span>
         </button>
-        <button onClick={() => setView("adminUsers")}>
+        <button className="settingsButton" onClick={() => setView("adminUsers")}>
          <UsersIcon />
           <span>{t("chatAdministrators")}</span>
         </button>
-        <button onClick={() => setView("adminUsers")}>
+        <button className="settingsButton" onClick={() => setView("adminUsers")}>
             <UsersIcon />
           <span>{t("content")}</span>
         </button>

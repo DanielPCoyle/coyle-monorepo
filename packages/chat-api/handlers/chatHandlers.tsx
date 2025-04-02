@@ -19,6 +19,8 @@ export async function chatHandler(req, res, routes) {
                 adminAuthMiddleware(handler)(req, res);
             } else if(typeof routeHandler.auth === "function") {
                 routeHandler.auth(handler)(req, res);
+            } else{
+                handler(req, res);
             }
         } else {
             return res.status(404).json({ error: "Not Found" });

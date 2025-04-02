@@ -217,8 +217,6 @@ button{
   .messageActions {
     display: flex;
     gap: 6px;
-    bottom: -20px;
-    right: 10px;
   }
   
   .messageActions button {
@@ -370,16 +368,8 @@ padding-left: 70px;
 }
 }
 
-.settingsNav {
-display: flex;
-flex-direction: column;
-justify-content: start;
-align-items: start;
-}
 
-.settingsNav button {
-padding: 15px;
-}
+
 
 .menuButton{
 position: absolute;
@@ -397,6 +387,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 gap:20px;
+height:100%;
 
 button{
 padding:10px;
@@ -463,7 +454,16 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 padding-bottom: 5px;
 }
 
-.conversationListItem {
+ul.adminItems{
+  padding:0;
+  
+}
+
+.adminItem{
+  padding-right:10px;
+}
+
+.conversationListItem, .adminItem {
 display: flex;
 align-items: center;
 gap: 10px;
@@ -474,6 +474,33 @@ margin: 5px 0;
 cursor: pointer;
 transition: background 0.2s ease-in-out;
 width:100%;
+}
+
+
+
+
+
+.adminDetails{
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  flex-wrap: wrap;
+  max-width: 180px;
+  *{
+    line-break: anywhere;
+  }
+  small{
+    font-size: 12px;
+    color: #a7a7a7;
+  }
+}
+
+
+.adminItem .adminAvatar{
+  width:30px;
+  height:30px;
+  border-radius: 50%;
+
 }
 
 .conversationListItem:hover {
@@ -492,13 +519,7 @@ border-radius: 50%;
 overflow:hidden;
 }
 
-.settingsNav button {
-padding: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-margin-top: auto;
-}
+
 
 .settingsNav {
 button {padding-top: 10px; padding-bottom:10px; display: flex;justify-content: center;align-items: center;}
@@ -534,17 +555,10 @@ align-self:center;
 }
 }
 
-li.adminItem {
-display: flex;
-justify-content: start;
-align-items: center;
-padding-top: 10px;
-padding-bottom: 10px;
-margin-bottom: 10px;
-width: 100%;
-}
+
 
 .adminActions {
+display: flex;
 margin-left: auto;
 }
 
@@ -571,9 +585,7 @@ padding: 5px;
 }
 
 
-ul.adminItems {
-padding: 0;
-}
+
 
 hr{
 width: 100%;
@@ -927,4 +939,31 @@ button.closeChatCaddy {
 .isTyping{
   padding-left:20px;
   padding-top:5px;
+}
+
+
+.topSidebar{
+  display: flex;
+  flex-direction: column;
+  gap:30px;
+}
+
+.logout{
+  margin-top:auto;
+  margin-bottom:50px;
+}
+
+.settingsButton{
+  display:flex;
+  gap: 10px;
+  padding:15px;
+  background-color: #000;
+  margin-top:5px;
+  width:100%;
+
+}
+
+.settingsButton:hover{
+  background: #5450d3;
+  cursor: pointer;
 }

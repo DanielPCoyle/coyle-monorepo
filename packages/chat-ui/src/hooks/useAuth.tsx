@@ -18,7 +18,7 @@ export const useAuth = () => {
   const getAndSetUser = async (jwtToken: string) => {
     try {
       const response = await fetch(
-        process.env.REACT_APP_API_BASE_URL + "/api/auth/me",
+        process.env.REACT_APP_API_BASE_URL + "/api/chat/me",
         {
           headers: { Authorization: `Bearer ${jwtToken}` },
           credentials: "include",
@@ -58,7 +58,7 @@ export const useAuth = () => {
   };
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_API_BASE_URL + "/api/auth/cookie", {
+    fetch(process.env.REACT_APP_API_BASE_URL + "/api/chat/cookie", {
       method: "GET",
       credentials: "include",
       headers: {

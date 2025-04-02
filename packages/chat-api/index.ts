@@ -10,3 +10,8 @@ export { updateProfileHandler } from "./handlers/settings/updateProfileHandler";
 export { getUserHandler } from "./handlers/settings/getUserHandler";
 export {guestAuthMiddleware} from "./utils/guestAuthMiddleware";
 export {chatHandler} from "./handlers/chatHandlers";
+export { cookieHandler } from "./handlers/auth/cookieHandler";
+export { registerHandler } from "./handlers/auth/registerHandler";
+export { loginHandler } from "./handlers/auth/loginHandler";
+export { meHandler } from "./handlers/auth/meHandler";
+export { guestTokenHandler } from "./handlers/auth/guestTokenHandler";

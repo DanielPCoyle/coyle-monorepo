@@ -2,16 +2,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 import { serialize } from "cookie";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
 import { getConversationById, getConversationIdByKey } from "@coyle/chat-db";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 
-export default async function handler(
+export  async function meHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  handleCors(req, res);
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" });
   }

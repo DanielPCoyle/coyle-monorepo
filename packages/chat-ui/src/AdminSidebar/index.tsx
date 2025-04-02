@@ -31,6 +31,7 @@ export const SideBar = () => {
         aria-label={t("sidebar")}
       >
         <div className="sidebarToggle">
+          <div className="topSidebar">
           <button
             className={`animate__animated animate__slideInUp ${view === "conversations" ? "active" : ""}`}
             onClick={() => setView("conversations")}
@@ -47,6 +48,7 @@ export const SideBar = () => {
           >
             <CogSvg />
           </button>
+          </div>
 
           <button
             className={`animate__animated animate__slideInUp logout`}

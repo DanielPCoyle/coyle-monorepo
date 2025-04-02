@@ -12,7 +12,7 @@ export const routes = [
     auth: "guest",
     route: "messages",
     handler: handlers.messageHandler,
-  }, 
+  },
   {
     method: "POST",
     auth: "guest",
@@ -55,6 +55,37 @@ export const routes = [
     route: "update-profile",
     handler: handlers.updateProfileHandler,
   },
+  {
+    method:"GET",
+    auth: null,
+    route: "cookie",
+    handler: handlers.cookieHandler,
+  },
+  {
+    method: "POST",
+    auth: "admin",
+    route: "register",
+    handler: handlers.registerHandler,
+  },
+  {
+    method: "POST",
+    auth: null,
+    route: "login",
+    handler: handlers.loginHandler,
+  },
+  {
+    method: "GET",
+    auth: null,
+    route: "me",
+    handler: handlers.meHandler,
+  },
+  {
+    method: "GET",
+    auth: null,
+    route: "guest-token",
+    handler: handlers.guestTokenHandler,
+  },
+
 ];
 
 export default (req, res) => chatHandler(req, res, routes);

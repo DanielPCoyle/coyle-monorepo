@@ -2,15 +2,13 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Keep this secret and only on the backend
 
-export default async function handler(
+export  async function loginHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  handleCors(req, res);
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
