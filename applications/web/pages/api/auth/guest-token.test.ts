@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import handler from "./guest-token"; // adjust path
 import jwt from "jsonwebtoken";
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 vi.mock("../../../middlewares/handleCors", () => ({
   handleCors: vi.fn(),

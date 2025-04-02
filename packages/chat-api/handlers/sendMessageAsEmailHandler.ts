@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getAdminUsers } from "@coyle/chat-db";
-import { sendEmail } from "../../../util/sendEmail";
-import { handleCors } from "../../../middlewares/handleCors";
+import { sendEmail } from "../utils/sendEmail";
+import { handleCors } from "../utils/handleCors";
 
-export default async function handler(
+export async function sendMessageAsEmailHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
@@ -38,3 +38,6 @@ export default async function handler(
     res.status(500).json({ message: "Error sending email" });
   }
 }
+
+
+export default sendMessageAsEmailHandler;

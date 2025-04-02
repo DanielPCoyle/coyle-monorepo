@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import handler from "./cookie"; // Adjust path
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 vi.mock("../../../middlewares/handleCors", () => ({
   handleCors: vi.fn(),

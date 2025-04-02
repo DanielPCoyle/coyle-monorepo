@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createAdminUser } from "@coyle/chat-db";
 import { sendWelcomeEmail } from "../../../util/chat/sendWelcomeEmail";
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 export default async function handler(
   req: NextApiRequest,

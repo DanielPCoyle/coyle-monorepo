@@ -3,7 +3,7 @@ import handler from "./me"; // adjust path
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 import { getConversationById, getConversationIdByKey } from "@coyle/chat-db";
 import jwt from "jsonwebtoken";
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 // ✅ Mock dependencies
 vi.mock("@coyle/chat-db/src/chat/getUserByEmail", () => ({

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { updateUser } from "@coyle/chat-db";
 import bcrypt from "bcrypt";
-import { handleCors } from "../../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 import { authMiddleware } from "../../../../middlewares/auth";
 
 import rawHandler from "../../../../pages/api/chat/settings/update-profile"; // Adjust the path if needed

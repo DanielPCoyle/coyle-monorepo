@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 import { NextApiRequest, NextApiResponse } from "next";
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "../utils/handleCors";
 
 interface Metadata {
   title: string;
@@ -10,7 +10,7 @@ interface Metadata {
   url: string;
 }
 
-export default async function handler(
+export  async function urlPreviewHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
@@ -44,3 +44,5 @@ export default async function handler(
     res.status(405).json({ error: "Method not allowed" });
   }
 }
+
+export default urlPreviewHandler;

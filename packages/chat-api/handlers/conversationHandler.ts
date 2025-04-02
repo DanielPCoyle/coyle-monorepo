@@ -1,7 +1,7 @@
 import { getConversations } from "@coyle/chat-db";
 import { NextApiResponse } from "next";
 import { NextApiRequest } from "next/types";
-import { handleCors } from "../../../applications/web/middlewares/handleCors";
+import { handleCors } from "../utils/handleCors";
 
 export async function conversationHandler(req: NextApiRequest, res: NextApiResponse) {
   try {

@@ -11,7 +11,7 @@ declare module "next" {
   }
 }
 
-export function authMiddleware(handler) {
+export function adminAuthMiddleware(handler) {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     const authHeader = req.headers.authorization;
 

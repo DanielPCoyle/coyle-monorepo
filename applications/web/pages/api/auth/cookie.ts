@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { parse } from "cookie";
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 export default async function handler(
   req: NextApiRequest,

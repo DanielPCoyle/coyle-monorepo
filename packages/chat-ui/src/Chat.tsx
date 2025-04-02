@@ -51,7 +51,7 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
-   
+   if(!token) return;
     i18n.changeLanguage(language);
     localStorage.setItem("language", language);
     document.documentElement.setAttribute("lang", language);
@@ -59,7 +59,7 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
     i18n.changeLanguage();
 
       fetch(process.env.REACT_APP_API_BASE_URL + "/api/chat/update-conversation-language", {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -79,7 +79,7 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
           console.error("Error updating language:", error);
       })
 
-  }, [language]);
+  }, [language,token]);
 
   useEffect(() => {
     const handleTyping = () => {

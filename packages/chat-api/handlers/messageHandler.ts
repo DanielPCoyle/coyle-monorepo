@@ -2,8 +2,8 @@ import { getMessages } from "@coyle/chat-db";
 import jwt from "jsonwebtoken";
 import { NextApiResponse } from "next";
 import { NextApiRequest } from "next/types";
-import { handleCors } from "../../../applications/web/middlewares/handleCors";
-import { SECRET_KEY } from "../../../applications/web/pages/api/chat/messages";
+import { handleCors } from "../utils/handleCors";
+
 
 
 
@@ -14,6 +14,7 @@ export async function messageHandler(
   // TODO: make guest middleware authentication
   handleCors(req, res);
   try {
+    const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({ error: "Unauthorized" });

@@ -1,6 +1,6 @@
 import { updateMessage } from "@coyle/chat-db";
 
-export default async function handler(req, res) {
+export async function translateHeader(req, res) {
   if (req.method === "POST") {
     try {
       const { text, id } = req.body;
@@ -57,3 +57,6 @@ export default async function handler(req, res) {
     }
   }
 }
+
+
+export default translateHeader;

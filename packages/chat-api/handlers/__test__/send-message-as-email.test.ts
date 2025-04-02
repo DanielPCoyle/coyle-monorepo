@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import handler from "../../../pages/api/chat/send-message-as-email"; // Adjust path to your file
 import { getAdminUsers } from "@coyle/chat-db";
-import { sendEmail } from "../../../util/sendEmail";
-import { handleCors } from "../../../middlewares/handleCors";
+import { sendEmail } from "@coyle/chat-api/utils/sendEmail";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 
 vi.mock("@coyle/chat-db", () => ({
   getAdminUsers: vi.fn(),

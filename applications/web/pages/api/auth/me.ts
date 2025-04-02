@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 import { DecodedToken } from "../../../types";
 import { serialize } from "cookie";
-import { handleCors } from "../../../middlewares/handleCors";
+import { handleCors } from "@coyle/chat-api/utils/handleCors";
 import { getConversationById, getConversationIdByKey } from "@coyle/chat-db";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
