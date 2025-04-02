@@ -7,7 +7,14 @@ export default defineConfig({
     // setupFiles: './test/setup.js',
     coverage: {
       reporter: ["text", "json", "html"],
-      exclude: ["node_modules/", "test/", "vitest.config.*", "eslint.config.*"],
+      exclude: [
+        "node_modules/",
+        "test/",
+        "vitest.config.*",
+        "eslint.config.*",
+        "coverage/*",
+        "dist",
+      ],
     },
   },
 });
