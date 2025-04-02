@@ -97,6 +97,13 @@
       "when": 1742661975320,
       "tag": "0013_stiff_power_man",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1743628381551,
+      "tag": "0014_gorgeous_warhawk",
+      "breakpoints": true
     }
   ]
 }
