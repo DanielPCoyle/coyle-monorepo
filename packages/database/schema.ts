@@ -35,10 +35,7 @@ export const products = pgTable('products', {
   sides: text('sides'),
   color: varchar('color', { length: 100 }),
   productType: varchar('product_type', { length: 100 }),
-  // salePrice: float('sale_price'),
-  // unitPrice: float('unit_price'),
-  // currentPrice: float('current_price'),
-  // unitCost: float('unit_cost'),
+
   manufacturerBrandImageUrl: varchar('manufacturer_brand_image_url', { length: 255 }),
   longDescription: text('long_description'),
   sizeUnit: varchar('size_unit', { length: 50 }),
@@ -47,6 +44,6 @@ export const products = pgTable('products', {
   manufacturerSku: varchar('manufacturer_sku', { length: 100 }),
   manufacturer: varchar('manufacturer', { length: 100 }),
   embedding: vector("embedding", {
-    dimensions:3
+    dimensions:1536
   })
 });
