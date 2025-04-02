@@ -56,7 +56,7 @@ export const routes = [
     handler: handlers.updateProfileHandler,
   },
   {
-    method:"GET",
+    method: "GET",
     auth: null,
     route: "cookie",
     handler: handlers.cookieHandler,
@@ -85,7 +85,6 @@ export const routes = [
     route: "guest-token",
     handler: handlers.guestTokenHandler,
   },
-
 ];
 
 export default (req, res) => chatHandler(req, res, routes);

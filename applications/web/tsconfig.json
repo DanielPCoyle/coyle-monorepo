@@ -28,7 +28,9 @@
     "../../packages/chat-api/utils/handleCors.ts",
     "../../packages/chat-api/utils/guestAuthMiddleware.tsx",
     "../../packages/chat-api/handlers/chatHandlers.tsx",
-    "../../packages/chat-api/utils/auth.ts"
-, "../../packages/chat-api/utils/sendWelcomeEmail.test.ts", "../../packages/chat-api/utils/sendWelcomeEmail.ts"  ],
+    "../../packages/chat-api/utils/auth.ts",
+    "../../packages/chat-api/utils/sendWelcomeEmail.test.ts",
+    "../../packages/chat-api/utils/sendWelcomeEmail.ts"
+  ],
   "exclude": ["node_modules", "**/*.test.ts", "**/*.test.tsx", "public/dist/*"]
 }

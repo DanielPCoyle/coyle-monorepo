@@ -9,7 +9,7 @@ interface Metadata {
   url: string;
 }
 
-export  async function urlPreviewHandler(
+export async function urlPreviewHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {

@@ -3,7 +3,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 
 const SALT_ROUNDS = 10;
-export async function updateProfileHandler(req: NextApiRequest, res: NextApiResponse) {
+export async function updateProfileHandler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   try {
     if (req.method === "PATCH") {
       const user = req.body;

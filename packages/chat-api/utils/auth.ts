@@ -14,6 +14,7 @@ const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // R
 
 declare module "next" {
   interface NextApiRequest {
+    // eslint-disable-next-line
     user?: any;
   }
 }

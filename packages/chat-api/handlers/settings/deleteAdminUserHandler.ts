@@ -1,8 +1,10 @@
 import { deleteUser } from "@coyle/chat-db";
 import { NextApiRequest, NextApiResponse } from "next";
 
-
-export async function deleteAdminUsersHandler(req: NextApiRequest, res: NextApiResponse) {
+export async function deleteAdminUsersHandler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   try {
     if (req.method === "DELETE") {
       const { id } = JSON.parse(req.body);

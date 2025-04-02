@@ -6,10 +6,7 @@ import { getConversationById, getConversationIdByKey } from "@coyle/chat-db";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 
-export  async function meHandler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export async function meHandler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "GET") {
     return res.status(405).json({ message: "Method not allowed" });
   }
@@ -36,6 +33,7 @@ export  async function meHandler(
       }),
     );
 
+    // eslint-disable-next-line
     const decoded = jwt.verify(token, secret) as any;
     if (decoded?.role !== "admin") {
       const conversationID = await getConversationIdByKey(

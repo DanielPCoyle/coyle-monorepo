@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { createAdminUser } from "@coyle/chat-db";
 import { sendWelcomeEmail } from "../../utils/sendWelcomeEmail";
 
-export  async function registerHandler(
+export async function registerHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {

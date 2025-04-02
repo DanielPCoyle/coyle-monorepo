@@ -37,5 +37,4 @@ export async function sendMessageAsEmailHandler(
   }
 }
 
-
 export default sendMessageAsEmailHandler;

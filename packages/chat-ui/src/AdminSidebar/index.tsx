@@ -32,22 +32,22 @@ export const SideBar = () => {
       >
         <div className="sidebarToggle">
           <div className="topSidebar">
-          <button
-            className={`animate__animated animate__slideInUp ${view === "conversations" ? "active" : ""}`}
-            onClick={() => setView("conversations")}
-            aria-pressed={view === "conversations"}
-            aria-label={t("viewConversations")}
-          >
-            <ChatIcon />
-          </button>
-          <button
-            className={`animate__animated animate__slideInUp ${view === "settings" ? "active" : ""}`}
-            onClick={() => setView("settings")}
-            aria-pressed={view === "settings"}
-            aria-label={t("viewSettings")}
-          >
-            <CogSvg />
-          </button>
+            <button
+              className={`animate__animated animate__slideInUp ${view === "conversations" ? "active" : ""}`}
+              onClick={() => setView("conversations")}
+              aria-pressed={view === "conversations"}
+              aria-label={t("viewConversations")}
+            >
+              <ChatIcon />
+            </button>
+            <button
+              className={`animate__animated animate__slideInUp ${view === "settings" ? "active" : ""}`}
+              onClick={() => setView("settings")}
+              aria-pressed={view === "settings"}
+              aria-label={t("viewSettings")}
+            >
+              <CogSvg />
+            </button>
           </div>
 
           <button

@@ -3,11 +3,7 @@ import jwt from "jsonwebtoken";
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Replace with a secure key
 
-export  function guestTokenHandler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-
+export function guestTokenHandler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }

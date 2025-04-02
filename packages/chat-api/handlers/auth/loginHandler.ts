@@ -5,10 +5,7 @@ import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
 
 const JWT_SECRET = process.env.NEXT_PUBLIC_JWT_SECRET || "your-secret-key"; // Keep this secret and only on the backend
 
-export  async function loginHandler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
+export async function loginHandler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }

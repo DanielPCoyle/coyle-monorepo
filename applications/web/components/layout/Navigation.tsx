@@ -101,7 +101,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
               height: 80,
             }}
           >
-            {/* <iframe
+            <iframe
               data-testid={"cart-frame"}
               src={
                 showCart
@@ -111,7 +111,7 @@ const Navigation: React.FC<NavigationProps> = ({ navData }) => {
               style={{
                 width: 1400,
               }}
-            /> */}
+            />
           </div>
         </div>
       </nav>

@@ -1,7 +1,10 @@
 import { getAdminUser } from "@coyle/chat-db";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export async function getUserHandler(req: NextApiRequest, res: NextApiResponse) {
+export async function getUserHandler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method === "GET") {
     const id = req.query.id as string;
     const users = await getAdminUser(id);

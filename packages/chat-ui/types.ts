@@ -10,6 +10,7 @@ interface Conversation {
   conversationKey: string;
   isActive: boolean;
   name: string;
+  avatarUrl?: string;
 }
 export interface ConversationListItemsProps {
   conversations: Conversation[];

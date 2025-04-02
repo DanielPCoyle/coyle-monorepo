@@ -5,7 +5,10 @@ dotenv.config();
 
 export const handleCors = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Origin", process.env.NEXT_CORS_ORIGIN || "*");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    process.env.NEXT_CORS_ORIGIN || "*",
+  );
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
   res.setHeader(
     "Access-Control-Allow-Headers",

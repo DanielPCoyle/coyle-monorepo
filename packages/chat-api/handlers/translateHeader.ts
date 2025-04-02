@@ -58,5 +58,4 @@ export async function translateHeader(req, res) {
   }
 }
 
-
 export default translateHeader;
