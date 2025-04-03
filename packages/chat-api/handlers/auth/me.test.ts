@@ -1,7 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import handler from "./me"; // adjust path
 import { getUserByEmail } from "@simpler-development/chat-db/src/chat/getUserByEmail";
-import { getConversationById, getConversationIdByKey } from "@simpler-development/chat-db";
+import {
+  getConversationById,
+  getConversationIdByKey,
+} from "@simpler-development/chat-db";
 import jwt from "jsonwebtoken";
 import { handleCors } from "@simpler-development/chat-api/utils/handleCors";
 

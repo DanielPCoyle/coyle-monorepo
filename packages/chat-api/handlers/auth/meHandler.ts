@@ -2,7 +2,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { getUserByEmail } from "@simpler-development/chat-db/src/chat/getUserByEmail";
 import { serialize } from "cookie";
-import { getConversationById, getConversationIdByKey } from "@simpler-development/chat-db";
+import {
+  getConversationById,
+  getConversationIdByKey,
+} from "@simpler-development/chat-db";
 
 const secret = process.env.NEXT_PUBLIC_JWT_SECRET;
 
