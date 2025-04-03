@@ -15,3 +15,4 @@ export { registerHandler } from "./handlers/auth/registerHandler";
 export { loginHandler } from "./handlers/auth/loginHandler";
 export { meHandler } from "./handlers/auth/meHandler";
 export { guestTokenHandler } from "./handlers/auth/guestTokenHandler";
+export { botHandler } from "./handlers/botHandler";

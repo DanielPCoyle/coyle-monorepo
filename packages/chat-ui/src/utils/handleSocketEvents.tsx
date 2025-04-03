@@ -1,5 +1,5 @@
 export const handleSocketEvents = (
-  socket,
+  {socket,
   user,
   id,
   setMessages,
@@ -8,12 +8,15 @@ export const handleSocketEvents = (
   setConversations,
   setNotificationBar,
   messagesRef,
+  isBot
+  }
 ) => {
   socket.on("conversations", (conversations) => {
     if (user?.role === "admin") setConversations(conversations);
   });
   socket.on("adminsOnline", setAdmins);
   socket.on("chat message", (message) => {
+    console.log({message})
     setMessages((prev) => {
       const newMessages = [...prev];
       if (message.parentId) {
@@ -45,19 +48,18 @@ export const handleSocketEvents = (
           newMessages.push(message);
         }
       }
+      
       return newMessages.sort((a, b) => a.id - b.id);
     });
 
-    if (!message.parentId) {
-      setTimeout(() => {
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-      }, 100);
-    }
   });
+
   socket.on("user typing", (data) => {
     setTyping(data);
   });
+
   socket.on("user not typing", (data) => {
     if (data.user !== user?.name) setTyping(null);
   });
+
 };
