@@ -20,6 +20,7 @@
     "@coyle/chat-db": "*",
     "@coyle/chat-ui": "*",
     "@coyle/database": "*",
+    "@coyle/mobile": "*",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
