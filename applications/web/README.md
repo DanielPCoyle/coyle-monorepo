@@ -1,5 +1,7 @@
 # Coyle Mono Repo Web
 
+Last updated: 4/3/2025
+
 > **Warning**: This web application is intended as a starting point and may not fully meet your specific requirements. It is highly recommended to review and modify the codebase to suit your needs before deploying it to production.
 
 This project is an e-commerce website developed for philaprints.com using **Builder.io**, **Next.js**, and **Inksoft**. The goal of this project is to provide a highly customizable, SEO-friendly platform for managing product listings, categories, and blog posts through **Builder.io**, an API-driven content management system. Inksoft integration allows for real-time product data and design customization options, enhancing the user experience for screen printing services.
