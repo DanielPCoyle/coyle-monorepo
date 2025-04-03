@@ -1,14 +1,11 @@
 export const handleSocketEvents = ({
   socket,
   user,
-  id,
   setMessages,
   setAdmins,
   setTyping,
   setConversations,
   setNotificationBar,
-  messagesRef,
-  isBot,
 }) => {
   socket.on("conversations", (conversations) => {
     if (user?.role === "admin") setConversations(conversations);

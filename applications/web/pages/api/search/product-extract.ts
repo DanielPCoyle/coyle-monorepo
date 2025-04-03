@@ -6,8 +6,8 @@ import {
   sides,
   suppliers,
   brands,
-} from "@coyle/database/schema";
-import { getDB, eq } from "@coyle/database";
+} from "@simpler-development/database/schema";
+import { getDB, eq } from "@simpler-development/database";
 import dotenv from "dotenv";
 dotenv.config();
 

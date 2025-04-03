@@ -1,4 +1,4 @@
-import { TShirtDesigner } from "@coyle/mobile/app/TShirtDesigner";
+import { TShirtDesigner } from "@simpler-development/mobile/app/TShirtDesigner";
 export const Editor = () => {
   return (
     <>

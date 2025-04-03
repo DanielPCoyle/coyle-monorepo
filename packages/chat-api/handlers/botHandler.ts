@@ -1,15 +1,16 @@
-import { updateMessage } from "@coyle/chat-db";
 import {
   getMessages,
   insertMessage,
   getConversationIdByKey,
-} from "@coyle/chat-db";
+} from "@simpler-development/chat-db";
 
 export async function botHandler(req, res) {
   if (req.method === "GET") {
     try {
       const { conversationKey } = req.query;
+      // eslint-disable-next-line
       let messages: any = await getMessages(conversationKey);
+      // eslint-disable-next-line
       messages = messages.map((message: any) => {
         return {
           message: message.message,

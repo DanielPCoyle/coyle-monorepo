@@ -5,7 +5,6 @@ import {
   text,
   varchar,
   integer,
-  vector,
 } from "drizzle-orm/pg-core";
 import { real } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
@@ -37,11 +36,6 @@ export const brands = pgTable("brands", {
   seoKeywords: text("seo_keywords"),
   imageUrl: text("image_url"),
 });
-
-// Update statements for PostgreSQL
-const updateBrandName = (title, value) => {
-  return `UPDATE brands SET name = '${title}' WHERE inksoft_id = ${value};`;
-};
 
 // Suppliers Table
 export const suppliers = pgTable("suppliers", {

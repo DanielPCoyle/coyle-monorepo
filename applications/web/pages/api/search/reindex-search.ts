@@ -1,90 +1,12 @@
-import { searchClient } from "@algolia/client-search";
-import algoliasearch from "algoliasearch";
-import fs from "fs";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getDB } from "@coyle/chat-db";
-import { sql } from "drizzle-orm";
-import { products as productsModel } from "@coyle/database/schema";
-import OpenAI from "openai";
+
 import dotenv from "dotenv";
+
 dotenv.config();
-
-interface Product {
-  CanEmbroider: boolean;
-  CanScreenPrint: boolean;
-  CanDigitalPrint: boolean;
-  CanPrint: boolean;
-  Active: boolean;
-  ManufacturerId: number;
-  ID: number;
-  Slug: string;
-  Keywords: string[];
-  DecoratedProductSides: any[];
-  Categories: string[];
-  Styles: Style[];
-  ProductType: string;
-  SalePrice: number;
-  UnitPrice: number;
-  CurrentPrice: number;
-  UnitCost: number;
-  ManufacturerBrandImageUrl: string;
-  LongDescription: string;
-  SizeUnit: string;
-  Name: string;
-  Sku: string;
-  Supplier: string;
-  ManufacturerSku: string;
-  Manufacturer: string;
-}
-
-interface Style {
-  ImageFilePath_Front: string;
-  Name: string;
-  Sides: any;
-  Color: string;
-  ID: number;
-}
-
-const aClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY!,
-);
-const client = searchClient(
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_ID!,
-  process.env.NEXT_PUBLIC_ALGOLIA_CLIENT_KEY!,
-);
-
-async function generateEmbedding(product) {
-  const openai = new OpenAI({ apiKey: process.env.NEXT_PUBLIC_OPEN_AI_KEY });
-
-  try {
-    const inputText = [
-      product.title,
-      product.keywords,
-      product.longDescription,
-      product.manufacturer,
-      product.sku,
-      product.productType,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    const response = await openai.embeddings.create({
-      model: "text-embedding-ada-002",
-      input: inputText,
-    });
-    return response.data[0].embedding;
-  } catch (error) {
-    console.error("Error generating embedding:", error);
-    return null;
-  }
-}
 
 const processRecords = async (): Promise<
   { count: number; tooBig: number } | undefined
 > => {
-  const db = getDB();
-
   try {
     const [categoryRequest, datasetRequest] = await Promise.all([
       fetch(
