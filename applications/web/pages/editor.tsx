@@ -1,11 +1,10 @@
-import {TShirtDesigner} from "@coyle/mobile/app/TShirtDesigner";
+import { TShirtDesigner } from "@coyle/mobile/app/TShirtDesigner";
 export const Editor = () => {
-    return (
-        <>
-           <TShirtDesigner />
-        </>
-    );
-}
-
+  return (
+    <>
+      <TShirtDesigner />
+    </>
+  );
+};
 
 export default Editor;

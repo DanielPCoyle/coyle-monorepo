@@ -85,12 +85,12 @@ export const routes = [
     route: "guest-token",
     handler: handlers.guestTokenHandler,
   },
-   {
-      method: "GET",
-      auth: null,
-      route: "bot",
-      handler: handlers.botHandler,
-    },
+  {
+    method: "GET",
+    auth: null,
+    route: "bot",
+    handler: handlers.botHandler,
+  },
 ];
 
 export default (req, res) => chatHandler(req, res, routes);

@@ -1,18 +1,22 @@
 import { updateMessage } from "@coyle/chat-db";
-import { getMessages,insertMessage, getConversationIdByKey } from "@coyle/chat-db";
+import {
+  getMessages,
+  insertMessage,
+  getConversationIdByKey,
+} from "@coyle/chat-db";
 
 export async function botHandler(req, res) {
   if (req.method === "GET") {
     try {
       const { conversationKey } = req.query;
-      let messages:any = await getMessages(conversationKey);
-      messages = messages.map((message:any) => {
+      let messages: any = await getMessages(conversationKey);
+      messages = messages.map((message: any) => {
         return {
           message: message.message,
           id: message.id,
           sender: message.sender,
-        }
-      })
+        };
+      });
       const apiKey = process.env.NEXT_PUBLIC_OPEN_AI_KEY;
 
       const promptsResponse = await fetch(
@@ -45,7 +49,7 @@ export async function botHandler(req, res) {
       );
 
       const promptsData = await promptsResponse.json();
-      console.log({promptsData})
+      console.log({ promptsData });
 
       const translatedText = promptsData.choices[0].message.content;
       const response = {
@@ -55,12 +59,11 @@ export async function botHandler(req, res) {
 
       const conversationId = await getConversationIdByKey(conversationKey);
       await insertMessage({
-        message:JSON.parse(translatedText).text,
+        message: JSON.parse(translatedText).text,
         conversationId,
-        sender:"bot",
-        seen:false,
-      })
-
+        sender: "bot",
+        seen: false,
+      });
 
       res.status(200).json(response);
     } catch (error) {
