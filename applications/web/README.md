@@ -4,7 +4,6 @@ Last updated: 4/3/2025
 
 > **Warning**: This web application is intended as a starting point and may not fully meet your specific requirements. It is highly recommended to review and modify the codebase to suit your needs before deploying it to production.
 
-
 ## Overview
 
 The application integrates **Builder.io** for dynamic content management, allowing non-technical users to control page content, SEO, and custom design components. **Next.js** powers the front-end with server-side rendering for better performance and SEO. **Inksoft** serves as the back-end API, providing product data, pricing, and inventory management.
