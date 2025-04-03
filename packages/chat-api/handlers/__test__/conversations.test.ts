@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createMocks } from "node-mocks-http";
-import handler from "@coyle/web/pages/api/chat/conversations";
-import { getConversations } from "@coyle/chat-db";
+import handler from "@simpler-development/web/pages/api/chat/conversations";
+import { getConversations } from "@simpler-development/chat-db";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
-vi.mock("@coyle/chat-db");
-vi.mock("@coyle/chat-db/src/chat/getUserByEmail");
+import { getUserByEmail } from "@simpler-development/chat-db/src/chat/getUserByEmail";
+vi.mock("@simpler-development/chat-db");
+vi.mock("@simpler-development/chat-db/src/chat/getUserByEmail");
 vi.mock("jsonwebtoken");
 
 // Mock authentication middleware behavior

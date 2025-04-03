@@ -29,7 +29,7 @@ vi.mock("../components/layout/Navigation", () => ({
   default: () => <nav>MockNav</nav>,
 }));
 
-vi.mock("@coyle/chat-ui/src/ChatCaddy", () => ({
+vi.mock("@simpler-development/chat-ui/src/ChatCaddy", () => ({
   ChatCaddy: () => <div>MockChat</div>,
 }));
 global.fetch = vi.fn();

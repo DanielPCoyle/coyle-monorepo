@@ -1,11 +1,11 @@
 {
-  "name": "@coyle/sockets",
+  "name": "@simpler-development/sockets",
   "version": "1.0.0",
   "main": "index.ts",
   "license": "MIT",
   "type": "module",
   "dependencies": {
-    "@coyle/chat-db": "*",
+    "@simpler-development/chat-db": "*",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "socket.io": "^4.8.1",

@@ -1,4 +1,4 @@
-import { getAdminUser } from "@coyle/chat-db";
+import { getAdminUser } from "@simpler-development/chat-db";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export async function getUserHandler(

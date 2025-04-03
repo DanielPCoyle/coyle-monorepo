@@ -256,7 +256,7 @@
 .replyModal h3 {
   padding: 20px;
 }
-.coyleChat {
+.simpler-developmentChat {
   background: #ccc;
   background: var(--messages-background-color);
   color: #000;
@@ -681,14 +681,14 @@ hr {
   width: 100%;
   z-index: 9;
 }
-.coyleChat.modal {
+.simpler-developmentChat.modal {
   display: block;
   margin: auto;
   padding-left: 10px;
   padding-right: 10px;
   width: 60%;
 }
-.coyleChat.modal .showReply {
+.simpler-developmentChat.modal .showReply {
   display: none;
 }
 button.closeModal {
@@ -833,13 +833,13 @@ button.closeModal {
   width: 300px;
   z-index: 1;
 }
-.chatCaddy .coyleChat {
+.chatCaddy .simpler-developmentChat {
   width: 600px;
 }
 .hide {
   display: none;
 }
-.chatCaddy .coyleChat.modal {
+.chatCaddy .simpler-developmentChat.modal {
   width: 90%;
 }
 .closeModal,
@@ -921,7 +921,7 @@ label.hideFileInput {
   .chatCaddy .editor {
     max-width: 85%;
   }
-  .chatCaddy .coyleChat {
+  .chatCaddy .simpler-developmentChat {
     height: 87vh;
     max-width: 100%;
   }

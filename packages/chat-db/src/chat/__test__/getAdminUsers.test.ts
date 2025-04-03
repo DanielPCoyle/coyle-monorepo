@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { getAdminUsers } from "../settings/getAdminUsers";
-import { getDB } from "@coyle/chat-db";
+import { getDB } from "@simpler-development/chat-db";
 
-vi.mock("@coyle/chat-db", () => ({
+vi.mock("@simpler-development/chat-db", () => ({
   getDB: vi.fn(),
   users: {},
 }));

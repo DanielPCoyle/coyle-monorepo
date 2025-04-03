@@ -1,4 +1,4 @@
-import { updateConversationByKey } from "@coyle/chat-db";
+import { updateConversationByKey } from "@simpler-development/chat-db";
 export async function updateConversationLanguage(req, res) {
   try {
     if (req.method === "POST") {

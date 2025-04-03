@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { getConversations } from "../getConversations"; // Adjust the path if necessary
-import { getDB } from "@coyle/chat-db";
-import { conversations, messages } from "@coyle/chat-db/schema";
+import { getDB } from "@simpler-development/chat-db";
+import { conversations, messages } from "@simpler-development/chat-db/schema";
 import { eq, count, and } from "drizzle-orm";
 
-vi.mock("@coyle/chat-db");
+vi.mock("@simpler-development/chat-db");
 
 describe("getConversations", () => {
   let mockDB: unknown;

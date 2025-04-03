@@ -11,7 +11,7 @@
 !.yarn/versions
 
 **/node_modules
-**/.next
+**/.next/*
 **/.env
 
 */.pnp
@@ -47,9 +47,12 @@ yarn-error.log*
 next-env.d.ts
 
 __tests__/integration-tests/node_modules/*
-lint.log
+*.log
 
 **/coverage
 **/.rollup.cache
 
 /packages/chat-ui/build
+
+# Add the .next directory to the ignore list for VS Code search
+.next

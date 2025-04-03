@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import updateConversationByKey from "../updateConversationByKey";
-import { getDB } from "@coyle/chat-db";
+import { getDB } from "@simpler-development/chat-db";
 
 import { eq } from "drizzle-orm";
 

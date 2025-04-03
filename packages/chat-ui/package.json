@@ -1,5 +1,5 @@
 {
-  "name": "@coyle/chat-ui",
+  "name": "@simpler-development/chat-ui",
   "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

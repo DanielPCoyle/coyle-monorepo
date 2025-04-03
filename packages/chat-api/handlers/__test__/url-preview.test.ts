@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import axios from "axios";
 import { createMocks } from "node-mocks-http";
-import handler from "@coyle/web/pages/api/chat/url-preview"; // Update this path to your actual handler
+import handler from "@simpler-development/web/pages/api/chat/url-preview"; // Update this path to your actual handler
 
 vi.mock("axios");
 

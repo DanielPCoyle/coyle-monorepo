@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
+import { getUserByEmail } from "@simpler-development/chat-db/src/chat/getUserByEmail";
 
 export interface DecodedToken {
   email: string;

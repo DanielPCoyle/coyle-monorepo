@@ -3,7 +3,7 @@ import {
   insertMessage,
   getConversations,
   addConversation,
-} from "@coyle/chat-db";
+} from "@simpler-development/chat-db";
 
 export const chatMessage = ({ socket, io }) =>
   socket.on(

@@ -1,4 +1,4 @@
-import { getPool } from "@coyle/database";
+import { getPool } from "@simpler-development/database";
 import { createDatabases, runMigrations } from "./utils/database";
 import { startPostgresContainer } from "./utils/docker";
 import { spawn } from "child_process";
@@ -29,7 +29,7 @@ export async function setup() {
   console.log("Starting Next.js server...");
   nextProcess = spawn(
     "yarn",
-    ["workspace", "@coyle/web", "start", "-p", "3000"],
+    ["workspace", "@simpler-development/web", "start", "-p", "3000"],
     { stdio: "inherit", shell: true, detached: true },
   );
 

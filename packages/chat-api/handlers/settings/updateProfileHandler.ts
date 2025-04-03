@@ -1,4 +1,4 @@
-import { updateUser } from "@coyle/chat-db";
+import { updateUser } from "@simpler-development/chat-db";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 

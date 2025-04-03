@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import handler from "../../../pages/api/chat/messages"; // adjust the path
-import { getMessages } from "@coyle/chat-db";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
+import { getMessages } from "@simpler-development/chat-db";
+import { handleCors } from "@simpler-development/chat-api/utils/handleCors";
 import jwt from "jsonwebtoken";
 
-vi.mock("@coyle/chat-db", () => ({
+vi.mock("@simpler-development/chat-db", () => ({
   getMessages: vi.fn(),
 }));
 

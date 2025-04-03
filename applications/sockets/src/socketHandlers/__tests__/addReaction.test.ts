@@ -1,8 +1,8 @@
-import { addReactionToMessage } from "@coyle/chat-db";
+import { addReactionToMessage } from "@simpler-development/chat-db";
 import { describe, expect, it, vi } from "vitest";
 import { addReaction } from "../addReaction";
 
-vi.mock("@coyle/chat-db", () => ({
+vi.mock("@simpler-development/chat-db", () => ({
   addReactionToMessage: vi.fn(),
 }));
 

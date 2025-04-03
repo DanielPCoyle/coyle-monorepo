@@ -18,7 +18,7 @@ export async function createDatabases(connectionString: string) {
 export async function runMigrations() {
   return new Promise((resolve, reject) => {
     exec(
-      "yarn workspace @coyle/database migrate",
+      "yarn workspace @simpler-development/database migrate",
       { env: process.env },
       (error, output) => {
         if (error) {

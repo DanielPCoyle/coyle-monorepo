@@ -23582,7 +23582,7 @@
     (n.o = (e, t) => Object.prototype.hasOwnProperty.call(e, t)),
     (() => {
       var e = {},
-        t = "@coyle/chat-ui:";
+        t = "@simpler-development/chat-ui:";
       n.l = (i, r, a, o) => {
         if (e[i]) e[i].push(r);
         else {
@@ -23682,8 +23682,8 @@
           for (t && t(i); u < o.length; u++)
             (a = o[u]), n.o(e, a) && e[a] && e[a][0](), (e[a] = 0);
         },
-        i = (self.webpackChunk_coyle_chat_ui =
-          self.webpackChunk_coyle_chat_ui || []);
+        i = (self.webpackChunk_simpler-development_chat_ui =
+          self.webpackChunk_simpler-development_chat_ui || []);
       i.forEach(t.bind(null, 0)), (i.push = t.bind(null, i.push.bind(i)));
     })(),
     (() => {
@@ -53569,7 +53569,7 @@
                   "aria-labelledby": "reply-modal-title",
                   "aria-describedby": "reply-modal-description",
                   children: (0, wa.jsx)("div", {
-                    className: "coyleChat modal",
+                    className: "simpler-developmentChat modal",
                     children: (0, wa.jsxs)("div", {
                       className: "replyModal animate__animated animate__fadeIn",
                       tabIndex: -1,
@@ -76556,7 +76556,7 @@
                 (0, wa.jsx)(Sj, { isLoggedIn: m, init: Q }),
                 m &&
                   (0, wa.jsxs)("div", {
-                    className: "animate__animated animate__fadeIn coyleChat",
+                    className: "animate__animated animate__fadeIn simpler-developmentChat",
                     children: [
                       t &&
                         (0, wa.jsx)("button", {

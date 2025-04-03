@@ -2,5 +2,15 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "github-actions.workflows.pinned.workflows": [
     ".github/workflows/on-pr.yml"
-  ]
+  ],
+  "files.exclude": {
+    "**/.git": true,
+    "**/.github": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/.next": true,
+    "**/.vscode-test": true
+  },
 }

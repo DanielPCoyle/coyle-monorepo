@@ -1,12 +1,12 @@
 {
-  "name": "@coyle/database",
+  "name": "@simpler-development/database",
   "version": "1.0.0",
   "main": "index.ts",
   "type": "module",
   "license": "MIT",
   "dependencies": {
-    "@coyle/database": "*",
-    "@coyle/chat-db": "*",
+    "@simpler-development/database": "*",
+    "@simpler-development/chat-db": "*",
     "bcrypt": "^5.1.1",
     "drizzle-orm": "^0.40.0",
     "jsonwebtoken": "^9.0.2",

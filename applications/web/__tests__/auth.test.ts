@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
 import { NextApiRequest, NextApiResponse } from "next";
-import { authMiddleware } from "@coyle/chat-api/utils/auth";
+import { authMiddleware } from "@simpler-development/chat-api/utils/auth";
 import jwt from "jsonwebtoken";
-import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
+import { getUserByEmail } from "@simpler-development/chat-db/src/chat/getUserByEmail";
 
 vi.mock("jsonwebtoken");
-vi.mock("@coyle/chat-db/src/chat/getUserByEmail");
+vi.mock("@simpler-development/chat-db/src/chat/getUserByEmail");
 
 describe("authMiddleware", () => {
   const handler = vi.fn((req, res) =>

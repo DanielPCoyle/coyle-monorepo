@@ -1,6 +1,6 @@
-import { guestAuthMiddleware } from "@coyle/chat-api";
+import { guestAuthMiddleware } from "@simpler-development/chat-api";
 import { adminAuthMiddleware } from "../utils/auth";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
+import { handleCors } from "@simpler-development/chat-api/utils/handleCors";
 
 export async function chatHandler(req, res, routes) {
   try {

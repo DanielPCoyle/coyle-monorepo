@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { sendEmail } from "@coyle/chat-api/utils/sendEmail"; // adjust path if needed
+import { sendEmail } from "@simpler-development/chat-api/utils/sendEmail"; // adjust path if needed
 import nodemailer from "nodemailer";
 
 vi.mock("nodemailer", async () => {

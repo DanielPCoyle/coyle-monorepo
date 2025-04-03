@@ -1,11 +1,11 @@
 # Chat Sockets
 
-Chat Sockets is a Node.js application that provides real-time communication capabilities using WebSockets. It is built with Express and Socket.IO, and integrates with the @coyle/chat-db package for database interactions.
+Chat Sockets is a Node.js application that provides real-time communication capabilities using WebSockets. It is built with Express and Socket.IO, and integrates with the @simpler-development/chat-db package for database interactions.
 
 ## Features
 
 - Real-time communication using WebSockets
-- Integration with @coyle/chat-db for database operations
+- Integration with @simpler-development/chat-db for database operations
 - Environment variable management with dotenv
 - TypeScript support
 - Linting and formatting with ESLint and Prettier
@@ -40,7 +40,7 @@ Chat Sockets is a Node.js application that provides real-time communication capa
 
 ## Dependencies
 
-- `@coyle/chat-db`: Database integration
+- `@simpler-development/chat-db`: Database integration
 - `dotenv`: Environment variable management
 - `express`: Web server framework
 - `socket.io`: WebSocket library

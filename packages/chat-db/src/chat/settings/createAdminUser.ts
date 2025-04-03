@@ -1,5 +1,5 @@
-import { users } from "@coyle/chat-db/schema";
-import { getDB } from "@coyle/chat-db/src/db";
+import { users } from "@simpler-development/chat-db/schema";
+import { getDB } from "@simpler-development/chat-db/src/db";
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import jwt from "jsonwebtoken";

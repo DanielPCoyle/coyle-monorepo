@@ -1,5 +1,5 @@
 {
-  "name": "@coyle/mobile",
+  "name": "@simpler-development/mobile",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {

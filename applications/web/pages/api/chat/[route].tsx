@@ -1,5 +1,5 @@
-import * as handlers from "@coyle/chat-api";
-import { chatHandler } from "@coyle/chat-api";
+import * as handlers from "@simpler-development/chat-api";
+import { chatHandler } from "@simpler-development/chat-api";
 export const routes = [
   {
     method: "GET",

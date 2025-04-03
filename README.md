@@ -1,4 +1,4 @@
-# Coyle Monorepo
+# simpler-development Monorepo
 
 A full-stack chat application ecosystem managed with Yarn Workspaces. This monorepo powers a real-time chat platform, mobile experience, CMS-backed marketing site, and reusable internal packages.
 
@@ -44,18 +44,18 @@ This is a **Yarn Workspaces** monorepo.
 
 ### Applications
 
-- **[`@coyle/mobile`](applications/mobile/README.md)** – React Native chat application.
-- **[`@coyle/web`](applications/web/README.md)** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
-- **[`@coyle/sockets`](applications/sockets/README.md)** – Express.js server handling real-time communication via Socket.io.
+- **[`@simpler-development/mobile`](applications/mobile/README.md)** – React Native chat application.
+- **[`@simpler-development/web`](applications/web/README.md)** – Next.js CMS-integrated website using Builder.io and Algolia. Also includes embedded chat.
+- **[`@simpler-development/sockets`](applications/sockets/README.md)** – Express.js server handling real-time communication via Socket.io.
 
 ### Packages
 
-- **[`@coyle/chat-ui`](packages/chat-ui/README.md)** – A standalone React SPA for the chat UI, shared across platforms.
-- **[`@coyle/chat-db`](packages/chat-db/README.md)** – Shared chat-related database logic and schema.
-- **[`@coyle/database`](packages/database/README.md)** – Combined database tools, migrations, and config for all apps.
+- **[`@simpler-development/chat-ui`](packages/chat-ui/README.md)** – A standalone React SPA for the chat UI, shared across platforms.
+- **[`@simpler-development/chat-db`](packages/chat-db/README.md)** – Shared chat-related database logic and schema.
+- **[`@simpler-development/database`](packages/database/README.md)** – Combined database tools, migrations, and config for all apps.
 
 ### E2E Tests
-- **[`@coyle/e2e-tests`](/tests/e2e/README.md)** – End-to-end test suite.
+- **[`@simpler-development/e2e-tests`](/tests/e2e/README.md)** – End-to-end test suite.
 
 ---
 
@@ -158,8 +158,8 @@ REACT_APP_COOKIE_DOMAIN=
 - `yarn pre-push` – runs the git pre-push hook.
 
 ### Packing Utilities
-- `yarn pack-db` – Package `@coyle/chat-db`
-- `yarn pack-ui` – Package `@coyle/chat-ui`
+- `yarn pack-db` – Package `@simpler-development/chat-db`
+- `yarn pack-ui` – Package `@simpler-development/chat-ui`
 
 ---
 
@@ -205,7 +205,7 @@ To view the coverage reports, open the respective `index.html` files in your bro
 
 ## 👤 Author
 
-Built and maintained by **Daniel P Coyle** – Full-stack engineer passionate about chat, AI, and scalable architecture.
+Built and maintained by **Daniel P simpler-development** – Full-stack engineer passionate about chat, AI, and scalable architecture.
 
 ---
 
@@ -231,11 +231,11 @@ To add a new application or package to the monorepo, follow these steps:
 
 2. **Initialize the Project**:
    - Inside the new directory, run `yarn init` to initialize a new package.
-   - Ensure the `package.json` includes the `name` and `version` fields. Use the naming convention `@coyle/<name>`.
+   - Ensure the `package.json` includes the `name` and `version` fields. Use the naming convention `@simpler-development/<name>`.
 
 3. **Add Dependencies**:
    - Add any required dependencies using `yarn add <dependency>`.
-   - If the package depends on other internal packages, add them as dependencies using their workspace names (e.g., `@coyle/chat-db`).
+   - If the package depends on other internal packages, add them as dependencies using their workspace names (e.g., `@simpler-development/chat-db`).
 
 4. **Update `package.json`**:
    - Ensure the `main` and `types` fields point to the correct entry points.

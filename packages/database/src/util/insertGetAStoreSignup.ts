@@ -1,5 +1,5 @@
-import { getDB } from "@coyle/database";
-import { getAStoreSignUps } from "@coyle/database/schema";
+import { getDB } from "@simpler-development/database";
+import { getAStoreSignUps } from "@simpler-development/database/schema";
 
 export const insertGetAStoreSignup = async (insert) => {
   try {

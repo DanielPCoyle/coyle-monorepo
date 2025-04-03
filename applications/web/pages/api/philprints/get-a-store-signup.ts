@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { insertGetAStoreSignup } from "@coyle/database/src/util/insertGetAStoreSignup";
+import { insertGetAStoreSignup } from "@simpler-development/database/src/util/insertGetAStoreSignup";
 
 interface SignupRequestBody {
   organizationName: string;

@@ -7,7 +7,7 @@ import Footer from "../components/layout/Footer";
 import Navigation from "../components/layout/Navigation";
 import navData from "../data/navData.json";
 import Image from "next/image";
-import { ChatCaddy } from "@coyle/chat-ui/src/ChatCaddy";
+import { ChatCaddy } from "@simpler-development/chat-ui/src/ChatCaddy";
 
 interface Post {
   data: {

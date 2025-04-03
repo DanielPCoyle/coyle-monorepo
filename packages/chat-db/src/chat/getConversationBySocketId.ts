@@ -1,6 +1,6 @@
-import { getDB } from "@coyle/chat-db";
-import { conversations as convos } from "@coyle/chat-db/schema";
-import { AdminDb } from "@coyle/chat-db/src/db";
+import { getDB } from "@simpler-development/chat-db";
+import { conversations as convos } from "@simpler-development/chat-db/schema";
+import { AdminDb } from "@simpler-development/chat-db/src/db";
 import { eq } from "drizzle-orm";
 
 export const getConversationBySocketId = async (socketId) => {

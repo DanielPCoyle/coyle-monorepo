@@ -1,9 +1,9 @@
-import handler from "@coyle/web/pages/api/auth/login"; // Adjust the import path as needed
+import handler from "@simpler-development/web/pages/api/auth/login"; // Adjust the import path as needed
 import { createMocks } from "node-mocks-http";
 import { describe, expect, it, vi } from "vitest";
 vi.mock("bcrypt");
 vi.mock("jsonwebtoken");
-vi.mock("@coyle/chat-db/db");
+vi.mock("@simpler-development/chat-db/db");
 
 describe("/api/auth/login", () => {
   it("should return 405 if method is not POST", async () => {

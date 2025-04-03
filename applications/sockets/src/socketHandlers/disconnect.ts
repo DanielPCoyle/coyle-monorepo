@@ -3,7 +3,7 @@ import {
   getConversations,
   getConversationBySocketId,
   getUsersOnline,
-} from "@coyle/chat-db";
+} from "@simpler-development/chat-db";
 
 export const disconnect = ({ socket, io }) =>
   socket.on("disconnect", async () => {

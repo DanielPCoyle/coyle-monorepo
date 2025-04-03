@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createAdminUser } from "@coyle/chat-db";
+import { createAdminUser } from "@simpler-development/chat-db";
 import { sendWelcomeEmail } from "../../utils/sendWelcomeEmail";
 
 export async function registerHandler(

@@ -9,7 +9,7 @@ import { LightBox } from "./LightBox";
 import { fetchConversations } from "./utils/fetchConversations";
 import { fetchMessages } from "./utils/fetchMessages";
 import { handleSocketEvents } from "./utils/handleSocketEvents";
-import "@coyle/chat-ui/src/assets/chat.scss";
+import "@simpler-development/chat-ui/src/assets/chat.scss";
 import './utils/i18n'; // 👈 Initialize i18n before anything else
 import { useTranslation } from 'react-i18next';
 import { CloseIcon } from "./assets/svg/CloseIcon";
@@ -188,7 +188,7 @@ export const Chat = ({isChatCaddy,setOpen} : ChatProps) => {
        
        { (isLoggedIn && init) && (
         
-        <div  className="animate__animated animate__fadeIn coyleChat">
+        <div  className="animate__animated animate__fadeIn simpler-developmentChat">
           {isChatCaddy && (
             <button onClick={()=>setOpen(false)} className="closeChatCaddy">
               <CloseIcon  />

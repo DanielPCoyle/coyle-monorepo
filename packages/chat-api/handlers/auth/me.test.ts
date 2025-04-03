@@ -1,15 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import handler from "./me"; // adjust path
-import { getUserByEmail } from "@coyle/chat-db/src/chat/getUserByEmail";
-import { getConversationById, getConversationIdByKey } from "@coyle/chat-db";
+import { getUserByEmail } from "@simpler-development/chat-db/src/chat/getUserByEmail";
+import { getConversationById, getConversationIdByKey } from "@simpler-development/chat-db";
 import jwt from "jsonwebtoken";
-import { handleCors } from "@coyle/chat-api/utils/handleCors";
+import { handleCors } from "@simpler-development/chat-api/utils/handleCors";
 
 // ✅ Mock dependencies
-vi.mock("@coyle/chat-db/src/chat/getUserByEmail", () => ({
+vi.mock("@simpler-development/chat-db/src/chat/getUserByEmail", () => ({
   getUserByEmail: vi.fn(),
 }));
-vi.mock("@coyle/chat-db", () => ({
+vi.mock("@simpler-development/chat-db", () => ({
   getConversationIdByKey: vi.fn(),
   getConversationById: vi.fn(),
 }));

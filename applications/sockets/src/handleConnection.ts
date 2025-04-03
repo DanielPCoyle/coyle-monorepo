@@ -13,7 +13,7 @@ import {
   updateUserStatus,
   getUsersOnline,
   updateUserNotificationsEnabled,
-} from "@coyle/chat-db";
+} from "@simpler-development/chat-db";
 
 export function handleConnection(socket: Socket, io: Server) {
   let typingTimeout: NodeJS.Timeout;

@@ -15,8 +15,8 @@ fs.readFile(packageJsonPath, 'utf8', (err, data) => {
         const packageJson = JSON.parse(data);
 
         // Update the dependency
-        if (packageJson.dependencies && packageJson.dependencies['@coyle/chat-db']) {
-            packageJson.dependencies['@coyle/chat-db'] = 'file:coyle-chat-db-v1.0.0.tgz';
+        if (packageJson.dependencies && packageJson.dependencies['@simpler-development/chat-db']) {
+            packageJson.dependencies['@simpler-development/chat-db'] = 'file:simpler-development-chat-db-v1.0.0.tgz';
         }
 
         // Write the updated JSON back to the file

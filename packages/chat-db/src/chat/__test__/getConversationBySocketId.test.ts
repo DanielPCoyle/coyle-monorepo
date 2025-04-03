@@ -1,9 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { getConversationBySocketId } from "../getConversationBySocketId";
-import { getDB } from "@coyle/chat-db";
+import { getDB } from "@simpler-development/chat-db";
 import { eq } from "drizzle-orm";
 
-vi.mock("@coyle/chat-db", () => ({
+vi.mock("@simpler-development/chat-db", () => ({
   getDB: vi.fn(),
   conversations: {
     socketId: "socketId", // mocked schema field

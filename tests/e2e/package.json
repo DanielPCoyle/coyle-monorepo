@@ -1,5 +1,5 @@
 {
-  "name": "@coyle/e2e-tests",
+  "name": "@simpler-development/e2e-tests",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -13,8 +13,8 @@
     "prettier": "prettier --check ."
   },
   "dependencies": {
-    "@coyle/database": "*",
-    "@coyle/web": "*",
+    "@simpler-development/database": "*",
+    "@simpler-development/web": "*",
     "@testcontainers/postgresql": "^10.14.0",
     "@types/debug": "^4.1.8",
     "axios": "^1.7.7",

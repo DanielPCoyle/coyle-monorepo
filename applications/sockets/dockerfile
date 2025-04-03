@@ -8,7 +8,7 @@ WORKDIR /app
 COPY tsconfig.json ./
 COPY production.package.json ./package.json
 
-COPY coyle-chat-db-v1.0.0.tgz ./
+COPY simpler-development-chat-db-v1.0.0.tgz ./
 COPY .env.production /app/.env
 RUN rm -rf node_modules
 # Install dependencies, including the local tarball package

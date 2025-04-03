@@ -1,5 +1,5 @@
-import { addReactionToMessage, getDB } from "@coyle/chat-db";
-import { messages } from "@coyle/chat-db/schema";
+import { addReactionToMessage, getDB } from "@simpler-development/chat-db";
+import { messages } from "@simpler-development/chat-db/schema";
 import { eq } from "drizzle-orm";
 import { describe, expect, it, vi } from "vitest";
 

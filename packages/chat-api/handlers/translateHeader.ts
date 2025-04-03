@@ -1,4 +1,4 @@
-import { updateMessage } from "@coyle/chat-db";
+import { updateMessage } from "@simpler-development/chat-db";
 
 export async function translateHeader(req, res) {
   if (req.method === "POST") {

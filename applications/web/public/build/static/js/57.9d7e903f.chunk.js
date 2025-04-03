@@ -1,5 +1,5 @@
 "use strict";
-(self.webpackChunk_coyle_chat_ui = self.webpackChunk_coyle_chat_ui || []).push([
+(self.webpackChunk_simpler-development_chat_ui = self.webpackChunk_simpler-development_chat_ui || []).push([
   [57],
   {
     7057: (e) => {

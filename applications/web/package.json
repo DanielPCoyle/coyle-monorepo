@@ -1,5 +1,5 @@
 {
-  "name": "@coyle/web",
+  "name": "@simpler-development/web",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -16,10 +16,10 @@
   "dependencies": {
     "@algolia/client-search": "^5.12.0",
     "@builder.io/react": "^5.0.11",
-    "@coyle/chat-api": "*",
-    "@coyle/chat-db": "*",
-    "@coyle/chat-ui": "*",
-    "@coyle/database": "*",
+    "@simpler-development/chat-api": "*",
+    "@simpler-development/chat-db": "*",
+    "@simpler-development/chat-ui": "*",
+    "@simpler-development/database": "*",
     "@emoji-mart/data": "^1.2.1",
     "@emoji-mart/react": "^1.1.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",

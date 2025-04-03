@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import * as dbModule from "@coyle/chat-db/src/db";
+import * as dbModule from "@simpler-development/chat-db/src/db";
 import { createAdminUser } from "../settings/createAdminUser";
 import bcrypt from "bcrypt";
 import * as uuid from "uuid";
@@ -23,7 +23,7 @@ vi.mock("uuid", () => ({
   v4: vi.fn(),
 }));
 
-vi.mock("@coyle/chat-db/src/db", () => ({
+vi.mock("@simpler-development/chat-db/src/db", () => ({
   getDB: vi.fn(),
 }));
 

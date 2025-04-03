@@ -40,7 +40,7 @@ export const ReplyModal: React.FC = () => {
       aria-labelledby="reply-modal-title"
       aria-describedby="reply-modal-description"
     >
-      <div className="coyleChat modal">
+      <div className="simpler-developmentChat modal">
         <div
           className="replyModal animate__animated animate__fadeIn"
           tabIndex={-1}

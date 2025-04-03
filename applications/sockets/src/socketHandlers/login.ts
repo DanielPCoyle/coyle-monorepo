@@ -5,7 +5,7 @@ import {
   updateConversationIsActive,
   updateConversationSocketId,
   getUsersOnline,
-} from "@coyle/chat-db";
+} from "@simpler-development/chat-db";
 
 export const login = ({ socket, io }) =>
   socket.on("login", async ({ userName, email, id, isAdmin }) => {

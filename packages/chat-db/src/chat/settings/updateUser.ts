@@ -1,6 +1,6 @@
-import { getDB } from "@coyle/chat-db";
-import { users } from "@coyle/chat-db/schema";
-import type { User } from "@coyle/chat-db/schema";
+import { getDB } from "@simpler-development/chat-db";
+import { users } from "@simpler-development/chat-db/schema";
+import type { User } from "@simpler-development/chat-db/schema";
 import { eq } from "drizzle-orm";
 export const updateUser = async (user: User) => {
   try {

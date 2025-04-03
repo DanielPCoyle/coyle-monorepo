@@ -1,4 +1,4 @@
-import { deleteUser } from "@coyle/chat-db";
+import { deleteUser } from "@simpler-development/chat-db";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export async function deleteAdminUsersHandler(

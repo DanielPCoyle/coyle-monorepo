@@ -1,5 +1,5 @@
-import { getDB } from "@coyle/chat-db";
-import { messages } from "@coyle/chat-db/schema";
+import { getDB } from "@simpler-development/chat-db";
+import { messages } from "@simpler-development/chat-db/schema";
 import { eq } from "drizzle-orm";
 
 export const setMessageSeen = async (messageId: number) => {

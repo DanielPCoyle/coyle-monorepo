@@ -1,5 +1,5 @@
-import { setMessageSeen } from "@coyle/chat-db";
-import { getConversations } from "@coyle/chat-db";
+import { setMessageSeen } from "@simpler-development/chat-db";
+import { getConversations } from "@simpler-development/chat-db";
 
 export const seen = ({ socket, io }) =>
   socket.on("seen", async (messageId: number) => {

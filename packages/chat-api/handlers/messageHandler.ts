@@ -1,4 +1,4 @@
-import { getMessages } from "@coyle/chat-db";
+import { getMessages } from "@simpler-development/chat-db";
 import { NextApiResponse } from "next";
 import { NextApiRequest } from "next/types";
 

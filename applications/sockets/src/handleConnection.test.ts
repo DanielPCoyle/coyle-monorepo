@@ -4,7 +4,7 @@ import {
   updateUserStatus,
   getUsersOnline,
   updateUserNotificationsEnabled,
-} from "@coyle/chat-db";
+} from "@simpler-development/chat-db";
 
 vi.mock("./socketHandlers/addReaction", () => ({ addReaction: vi.fn() }));
 vi.mock("./socketHandlers/chatMessage", () => ({ chatMessage: vi.fn() }));
@@ -19,7 +19,7 @@ vi.mock("./socketHandlers/updateMessageAction", () => ({
 vi.mock("./socketHandlers/userTyping", () => ({ userTyping: vi.fn() }));
 vi.mock("./socketHandlers/translation", () => ({ translation: vi.fn() }));
 
-vi.mock("@coyle/chat-db", async () => ({
+vi.mock("@simpler-development/chat-db", async () => ({
   updateUserStatus: vi.fn(),
   getUsersOnline: vi.fn(),
   updateUserNotificationsEnabled: vi.fn(),

@@ -1,5 +1,5 @@
-import { getDB, insertMessage } from "@coyle/chat-db";
-import { messages } from "@coyle/chat-db/schema";
+import { getDB, insertMessage } from "@simpler-development/chat-db";
+import { messages } from "@simpler-development/chat-db/schema";
 import { describe, expect, it, vi } from "vitest";
 
 vi.mock("../../db", () => ({
