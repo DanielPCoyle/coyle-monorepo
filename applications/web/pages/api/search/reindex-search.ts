@@ -6,6 +6,8 @@ import { getDB } from "@coyle/chat-db";
 import { sql } from 'drizzle-orm' 
 import { products as productsModel } from "@coyle/database/schema";
 import OpenAI from "openai";
+import dotenv from "dotenv";
+dotenv.config();
 
 interface Product {
   CanEmbroider: boolean;
@@ -89,6 +91,7 @@ const processRecords = async (): Promise<{ count: number; tooBig: number } | und
     const [categories, products] = await Promise.all([categoryRequest.json(), datasetRequest.json()]);
 
     let extractedProducts = products.Data.map((product) => ({
+      inksoftId: product.ID,
       canEmbroider: product.CanEmbroider,
       canScreenPrint: product.CanScreenPrint,
       canDigitalPrint: product.CanDigitalPrint,
@@ -130,39 +133,13 @@ const processRecords = async (): Promise<{ count: number; tooBig: number } | und
         return false;
       }
     });
-
-    await db.execute(sql`TRUNCATE TABLE products RESTART IDENTITY`)
-
     
-    for (const product of extractedProducts) {
-      const embedding = await generateEmbedding(product);
-      console.log({ product:typeof product?.canEmbroider });
-      await db.insert(productsModel).values({
-        canEmbroider: product.canEmbroider,
-        canScreenPrint: product.canScreenPrint,
-        canDigitalPrint: product.canDigitalPrint,
-        canPrint: product.canPrint,
-        active: product.active,
-        manufacturerId: product.manufacturerId,
-        slug: product.slug,
-        keywords: product.keywords,
-        decoratedProductSides: product.decoratedProductSides,
-        categories: product.categories,
-        styles: product.styles,
-        imageFilePathFront: product.imageFilePathFront,
-        title: product.title,
-        color: product.color,
-        productType: product.productType,
-        manufacturerBrandImageUrl: product.manufacturerBrandImageUrl,
-        longDescription: product.longDescription,
-        sizeUnit: product.sizeUnit,
-        sku: product.sku,
-        supplier: product.supplier,
-        manufacturerSku: product.manufacturerSku,
-        manufacturer: product.manufacturer,
-        embedding: embedding,
-      }).returning().execute();
-    }
+    await Promise.all(
+      extractedProducts.map(async (product) => {
+      // const embedding = await generateEmbedding(product);
+      await fetch(process.env.REACT_APP_API_BASE_URL+"/api/search/product-extract?id=" + product.inksoftId);
+      })
+    );
 
     console.log('Products and embeddings have been updated.');
     return { count: extractedProducts.length, tooBig };
